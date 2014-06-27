@@ -8,8 +8,8 @@
         android:id="@+id/newsItemImageView"
         android:layout_width="120dip"
         android:layout_height="120dip"
-        android:src="@drawable/ic_launcher"
-        android:scaleType="center" />
+        android:padding="5dp"
+        android:scaleType="fitXY" />
 
     <TextView
         android:id="@+id/newsItemTvTitle"
