@@ -224,6 +224,7 @@ public void uploadInform(){
 						
 						img1.setType(attachmentType);
 						
+						imgs.add(img1);
 					}
 					
 					//举报的对象（新增的对象不要给id赋值）

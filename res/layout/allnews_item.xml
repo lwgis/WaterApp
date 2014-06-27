@@ -8,7 +8,8 @@
         android:id="@+id/newsItemImageView"
         android:layout_width="120dip"
         android:layout_height="120dip"
-        android:src="@drawable/ic_launcher" />
+        android:src="@drawable/ic_launcher"
+        android:scaleType="center" />
 
     <TextView
         android:id="@+id/newsItemTvTitle"
@@ -16,7 +17,8 @@
         android:layout_height="wrap_content"
         android:textSize="25sp"
         android:layout_toRightOf="@id/newsItemImageView"
-       	android:textColor="#222222"/>
+       	android:textColor="#222222"
+       	android:paddingTop="10dp"/>
     <TextView
         android:id="@+id/newsItemTvDate"
         android:layout_width="fill_parent"
@@ -24,5 +26,6 @@
         android:textSize="15sp"
         android:layout_toRightOf="@id/newsItemImageView"
         android:layout_alignParentBottom="true"
-       	android:textColor="#444444"/>
+       	android:textColor="#444444"
+       	android:paddingBottom="15dp"/>
 </RelativeLayout>
