@@ -5,7 +5,7 @@
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
     <string name="NewTileImgAddr">http://159.226.110.64:8001/WaterAdmin/file/img/</string>
-    <string name="allNewsLabelTitle">水环境新闻</string>
+    <string name="allNewsLabelTitle">治水新闻</string>
     <string name="reportTitle">举报</string>
 
 </resources>

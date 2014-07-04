@@ -15,10 +15,7 @@ private Button btnBack;
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
-        requestWindowFeature(Window.FEATURE_CUSTOM_TITLE);
 		super.setContentView(R.layout.activity_news_detail);
-		 getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE,      
-			        R.layout.title_news_detail); 
 		btnBack=(Button)findViewById(R.id.btnNewsBack);
 		btnBack.setOnClickListener(new OnClickListener() {
 			

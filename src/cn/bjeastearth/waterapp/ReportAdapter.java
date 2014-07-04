@@ -53,8 +53,7 @@ public class ReportAdapter extends BaseAdapter {
 		if (position<mlistimImages.size()) {
 				// 定义图片视图
 			img.setImageFilePath(mlistimImages.get(position)); 	// 给ImageView设置资源
-			img.setScaleType(ImageView.ScaleType.CENTER);
-			
+			img.setScaleType(ImageView.ScaleType.FIT_XY);
 		}
 		else {
 //			LayoutParams lParams=new LayoutParams(DpTransform.px2dip(mContext, 80), DpTransform.px2dip(mContext, 80));

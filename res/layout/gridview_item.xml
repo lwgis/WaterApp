@@ -5,7 +5,7 @@
     <cn.bjeastearth.waterapp.GridImageView 
         android:id="@+id/gridViewItem"
         android:layout_width="match_parent"
-        android:layout_height="80dp"
-        android:paddingRight="3dp"/>
+        android:layout_height="78dp"
+        android:padding="1dp"/>
 
 </RelativeLayout>

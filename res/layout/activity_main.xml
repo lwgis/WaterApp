@@ -1,184 +1,228 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView  xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#ffffff"
+    android:orientation="vertical"
+    tools:context=".AllNewsActivity" >
+
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-<FrameLayout 
+        android:layout_height="50dp"
+        android:background="@drawable/title_bg" >
+
+        <Button
+            android:id="@+id/btnLogin"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:layout_alignParentLeft="true"
+            android:background="@drawable/ic_login" />
+
+        <Button
+            android:id="@+id/btnMeassage"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:layout_alignParentRight="true"
+            android:background="@drawable/ic_message" />
+
+        <TextView
+            android:id="@+id/mainTilteTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:gravity="center"
+            android:paddingTop="3dp"
+            android:shadowColor="#222222"
+            android:shadowDy="-1"
+            android:shadowRadius="6"
+            android:text="@string/app_name"
+            android:textColor="#FFFFFF"
+            android:textSize="25sp" />
+    </RelativeLayout>
+
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="565dp">
+        android:layout_height="wrap_content" >
 
-    <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="565dp"
-        android:contentDescription="@string/app_name"
-        android:scaleType="center"
-        android:src="@drawable/main_bg" >
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="565dp" >
 
-    </ImageView>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="565dp"
+                android:orientation="vertical" >
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="565dp"
-        android:orientation="vertical" >
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="120dp"
+                    android:orientation="horizontal" >
 
-    <LinearLayout
-        android:layout_width="match_parent"
-    	android:layout_height="120dp"
-    	android:orientation="horizontal">
-		<Button
-	    	android:id="@+id/btnAllNews"
-	    	android:layout_height="match_parent"
-	   		android:layout_width="0dp"
-	    	android:layout_weight="1"
-	    	android:background="@drawable/btn_allnews"
-	    	android:layout_marginLeft="5dp"
-	    	android:layout_marginRight="5dp"
-	    	android:layout_marginTop="5dp"
-	    	android:textSize="22sp"
-	    	android:text="治水新闻"
-	    	android:textStyle="bold"
-	    	android:textColor="#0d3a6b"
-	    	android:paddingTop="72dp"/>
-		<Button 
-	    	android:id="@+id/btnHotProject"
-	    	android:layout_width="0dp"
-	    	android:layout_height="match_parent"
-			android:layout_weight="1"
-	    	android:background="@drawable/btn_hotproject"
-	    	android:layout_marginLeft="5dp"
-			android:layout_marginRight="5dp"
-	    	android:layout_marginTop="5dp"
-			android:textSize="22sp"
-	    	android:text="重大项目"
-	    	android:textStyle="bold"
-	    	android:textColor="#0d3a6b"
-	    	android:paddingTop="72dp"
-	    	/>
-	</LinearLayout>
-	<FrameLayout 
-	    android:layout_width="match_parent"
-	    android:layout_height="match_parent">
-		<Button 
-	    android:layout_width="match_parent"
-	    android:layout_height="400dp"
-	    android:background="@drawable/img_group_zws"
-	    android:textSize="25sp"
-		android:text="治理污水"
-		android:textStyle="bold"
-		android:textColor="#0d3a6b"
-		android:paddingBottom="365dp">
-		</Button>
+                    <Button
+                        android:id="@+id/btnAllNews"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginRight="5dp"
+                        android:layout_marginTop="5dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/bs_allnews"
+                        android:paddingTop="72dp"
+                        android:text="治水新闻"
+                        android:textColor="#0d3a6b"
+                        android:textSize="22sp"
+                        android:textStyle="bold" />
 
-		<LinearLayout
-		    android:layout_width="match_parent"
-		    android:layout_height="match_parent"
-		    android:layout_marginTop="30dp"
-		    android:orientation="vertical" >
+                    <Button
+                        android:id="@+id/btnHotProject"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginRight="5dp"
+                        android:layout_marginTop="5dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/bs_hotprofiles"
+                        android:paddingTop="72dp"
+                        android:text="重大项目"
+                        android:textColor="#0d3a6b"
+                        android:textSize="22sp"
+                        android:textStyle="bold" />
+                </LinearLayout>
 
-		<LinearLayout
-		    android:layout_width="match_parent"
-		    android:layout_height="120dp"
-		    android:orientation="horizontal" >
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" >
 
-		<Button
-		    android:id="@+id/btnProfiles"
-		    android:layout_width="0dp"
-		    android:layout_height="match_parent"
-		    android:layout_marginLeft="5dp"
-		    android:layout_marginRight="5dp"
-		    android:layout_marginTop="5dp"
-		    android:layout_weight="1"
-		    android:background="@drawable/btn_profiles"
-		    android:paddingTop="72dp"
-		    android:text="总体概况"
-		    android:textColor="#0d3a6b"
-		    android:textSize="22sp"
-		    android:textStyle="bold" />
+                    <Button
+                        android:layout_width="match_parent"
+                        android:layout_height="400dp"
+                        android:background="@drawable/img_group_zws"
+                        android:paddingBottom="365dp"
+                        android:text="治理污水"
+                        android:textColor="#0d3a6b"
+                        android:textSize="25sp"
+                        android:textStyle="bold" >
+                    </Button>
 
-			<Button
-			    android:id="@+id/btnSanhe"
-			    android:layout_width="0dp"
-			    android:layout_height="match_parent"
-			    android:layout_marginLeft="5dp"
-			    android:layout_marginRight="5dp"
-			    android:layout_marginTop="5dp"
-			    android:layout_weight="1"
-			    android:background="@drawable/btn_sanhe"
-			    android:paddingTop="72dp"
-			    android:text="三河综合治理"
-			    android:textColor="#0d3a6b"
-			    android:textSize="22sp"
-			    android:textStyle="bold" />
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="30dp"
+                        android:orientation="vertical" >
 
-		</LinearLayout>
-		<LinearLayout
-        android:layout_width="match_parent"
-    	android:layout_height="120dp"
-    	android:orientation="horizontal">
-		<Button 
-		    android:id="@+id/btnWry"
-	    	android:layout_width="0dp"
-	    	android:layout_height="match_parent"
-			android:layout_weight="1"
-	    	android:background="@drawable/btn_wry"
-	    	android:layout_marginLeft="5dp"
-			android:layout_marginRight="5dp"
-	    	android:layout_marginTop="5dp"
-			android:textSize="22sp"
-	    	android:text="污染源"
-	    	android:textStyle="bold"
-	    	android:textColor="#0d3a6b"
-	    	android:paddingTop="72dp"/>
-			<Button 
-		    android:id="@+id/btnWsclc"
-	    	android:layout_width="0dp"
-	    	android:layout_height="match_parent"
-			android:layout_weight="1"
-	    	android:background="@drawable/btn_wsclc"
-	    	android:layout_marginLeft="5dp"
-			android:layout_marginRight="5dp"
-	    	android:layout_marginTop="5dp"
-			android:textSize="22sp"
-	    	android:text="污水处理厂"
-	    	android:textStyle="bold"
-	    	android:textColor="#0d3a6b"
-	    	android:paddingTop="72dp"/>
-		</LinearLayout>
-		<LinearLayout
-        android:layout_width="match_parent"
-    	android:layout_height="120dp"
-    	android:orientation="horizontal">
-		<Button 
-		    android:id="@+id/btnWsgw"
-	    	android:layout_width="0dp"
-	    	android:layout_height="match_parent"
-			android:layout_weight="1"
-	    	android:background="@drawable/btn_wsgw"
-	    	android:layout_marginLeft="5dp"
-			android:layout_marginRight="5dp"
-	    	android:layout_marginTop="5dp"
-			android:textSize="22sp"
-	    	android:text="污水管网"
-	    	android:textStyle="bold"
-	    	android:textColor="#0d3a6b"
-	    	android:paddingTop="72dp"/>
-			<Button 
-		    android:id="@+id/btnHb"
-	    	android:layout_width="0dp"
-	    	android:layout_height="match_parent"
-			android:layout_weight="1"
-	    	android:background="@drawable/btn_report"
-	    	android:layout_marginLeft="5dp"
-			android:layout_marginRight="5dp"
-	    	android:layout_marginTop="5dp"
-			android:textSize="22sp"
-	    	android:text="举报"
-	    	android:textStyle="bold"
-	    	android:textColor="#0d3a6b"
-	    	android:paddingTop="72dp"/>
-		</LinearLayout>
-		</LinearLayout>
-	</FrameLayout>
-	</LinearLayout>
-</FrameLayout>
-</ScrollView>
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="120dp"
+                            android:orientation="horizontal" >
 
+                            <Button
+                                android:id="@+id/btnProfiles"
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_marginLeft="5dp"
+                                android:layout_marginRight="5dp"
+                                android:layout_marginTop="5dp"
+                                android:layout_weight="1"
+                                android:background="@drawable/btn_profiles"
+                                android:paddingTop="72dp"
+                                android:text="总体概况"
+                                android:textColor="#0d3a6b"
+                                android:textSize="22sp"
+                                android:textStyle="bold" />
+
+                            <Button
+                                android:id="@+id/btnSanhe"
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_marginLeft="5dp"
+                                android:layout_marginRight="5dp"
+                                android:layout_marginTop="5dp"
+                                android:layout_weight="1"
+                                android:background="@drawable/btn_sanhe"
+                                android:paddingTop="72dp"
+                                android:text="三河综合治理"
+                                android:textColor="#0d3a6b"
+                                android:textSize="22sp"
+                                android:textStyle="bold" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="120dp"
+                            android:orientation="horizontal" >
+
+                            <Button
+                                android:id="@+id/btnWry"
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_marginLeft="5dp"
+                                android:layout_marginRight="5dp"
+                                android:layout_marginTop="5dp"
+                                android:layout_weight="1"
+                                android:background="@drawable/btn_wry"
+                                android:paddingTop="72dp"
+                                android:text="污染源"
+                                android:textColor="#0d3a6b"
+                                android:textSize="22sp"
+                                android:textStyle="bold" />
+
+                            <Button
+                                android:id="@+id/btnWsclc"
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_marginLeft="5dp"
+                                android:layout_marginRight="5dp"
+                                android:layout_marginTop="5dp"
+                                android:layout_weight="1"
+                                android:background="@drawable/btn_wsclc"
+                                android:paddingTop="72dp"
+                                android:text="污水处理厂"
+                                android:textColor="#0d3a6b"
+                                android:textSize="22sp"
+                                android:textStyle="bold" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="120dp"
+                            android:orientation="horizontal" >
+
+                            <Button
+                                android:id="@+id/btnWsgw"
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_marginLeft="5dp"
+                                android:layout_marginRight="5dp"
+                                android:layout_marginTop="5dp"
+                                android:layout_weight="1"
+                                android:background="@drawable/btn_wsgw"
+                                android:paddingTop="72dp"
+                                android:text="污水管网"
+                                android:textColor="#0d3a6b"
+                                android:textSize="22sp"
+                                android:textStyle="bold" />
+
+                            <Button
+                                android:id="@+id/btnReport"
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_marginLeft="5dp"
+                                android:layout_marginRight="5dp"
+                                android:layout_marginTop="5dp"
+                                android:layout_weight="1"
+                                android:background="@drawable/bs_report"
+                                android:paddingTop="72dp"
+                                android:text="举报"
+                                android:textColor="#0d3a6b"
+                                android:textSize="22sp"
+                                android:textStyle="bold" />
+                        </LinearLayout>
+                    </LinearLayout>
+                </FrameLayout>
+            </LinearLayout>
+        </FrameLayout>
+    </ScrollView>
+
+</LinearLayout>

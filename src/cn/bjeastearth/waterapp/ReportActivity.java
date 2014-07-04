@@ -84,10 +84,7 @@ public class ReportActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
-        requestWindowFeature(Window.FEATURE_CUSTOM_TITLE);
 		super.setContentView(R.layout.activity_report);
-		 getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE,      
-			        R.layout.title_report); 
 		 this.reportBack=(Button)findViewById(R.id.btnReportBack);
 		 this.reportBack.setFocusable(true);
 		 this.reportBack.setFocusableInTouchMode(true);
@@ -159,8 +156,8 @@ public class ReportActivity extends Activity {
 				this.reportAdapter=new ReportAdapter(this, allImageStrings); 
 				this.reportGridView.setAdapter(this.reportAdapter);
 				LayoutParams lParams=this.reportGridView.getLayoutParams();
-				int height=(this.allImageStrings.size()/4+1)*320;
-				lParams.height=DpTransform.px2dip(this,DpTransform.px2dip(this, height));
+				int height=(this.allImageStrings.size()/4+1);
+				lParams.height=DpTransform.dip2px(this, 80*height);
 				this.reportGridView.setLayoutParams(lParams);
 				cursor.close(); 
 			}

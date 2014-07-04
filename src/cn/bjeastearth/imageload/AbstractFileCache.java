@@ -17,7 +17,7 @@ public abstract class AbstractFileCache {
 		
 		dirString = getCacheDir();
 		boolean ret = FileHelper.createDirectory(dirString);
-		Log.e("", "FileHelper.createDirectory:" + dirString + ", ret = " + ret);
+//		Log.e("", "FileHelper.createDirectory:" + dirString + ", ret = " + ret);
 	}
 	
 	public File getFile(String url) {

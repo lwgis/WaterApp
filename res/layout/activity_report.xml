@@ -1,100 +1,180 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#ffffff">
+    <RelativeLayout 
+    android:layout_width="match_parent"
+    android:layout_height="50dp"
+    android:background="@drawable/title_bg" >
+
+    <Button
+        android:id="@+id/btnReportBack"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_alignParentLeft="true"
+        android:background="@drawable/newsbackbtn"
+        android:textSize="15sp" />
+    <cn.bjeastearth.waterapp.MyTextButton
+        android:id="@+id/btnSendReport"
+        android:paddingTop="8dp"
+        android:layout_width="60dp"
+        android:layout_height="40dp"
+        android:layout_alignParentRight="true"
+        android:background="@null"
+        android:textSize="20sp"
+        android:textColor="#eeeeee"
+        android:text="发送" />
+
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:paddingTop="5dp"
+        android:text="@string/reportTitle"
+        android:textColor="#FFFFFF"
+        android:textSize="25sp"
+        android:shadowColor="#222222"
+    	android:shadowDy="-1"
+    	android:shadowRadius="6" />
+
+</RelativeLayout>
+    <ScrollView 
     android:layout_width="match_parent"
     android:layout_height="match_parent" 
     android:background="#FFFFFF"
     >
-    <RelativeLayout 
-      	android:layout_width="fill_parent"
-    	android:layout_height="wrap_content" 
-    	android:background="#FFFFFF">
-    <TextView 
-        android:id="@+id/reportTilteTextView"
-        style="@style/textviewstyle"
-        android:layout_width="60dp"
+
+    <LinearLayout
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:text="标题:"/>
-    <EditText
-        android:id="@+id/reportTitleEditText"
-        android:layout_width="250dp"
-        android:layout_height="35dp"
-        android:textSize="22sp"
-        android:gravity="top"
-        android:paddingLeft="3dp"
-        android:paddingTop="3dp"
-        android:background="@drawable/edittext_bg" 
-        android:hint="请输入举报的标题"
-        android:layout_toRightOf="@id/reportTilteTextView"
-        android:layout_alignBaseline="@id/reportTilteTextView"/>
-    <TextView 
-        android:id="@+id/reportAddrTextView"
-        style="@style/textviewstyle"
-        android:layout_width="60dp"
-        android:layout_height="wrap_content"
-        android:text="地址"
-        android:layout_below="@id/reportTilteTextView"/>
-    <EditText
-        android:id="@+id/reportAddrEditText"
-        android:layout_width="250dp"
-        android:layout_height="35dp"
-        android:textSize="22sp"
-        android:gravity="top"
-        android:paddingLeft="3dp"
-        android:paddingTop="3dp"
-        android:background="@drawable/edittext_bg" 
-        android:hint="请输入举报的地址"
-        android:layout_toRightOf="@id/reportAddrTextView"
-        android:layout_alignBaseline="@id/reportAddrTextView"/>
-     <TextView 
-        android:id="@+id/reportTelTextView"
-		style="@style/textviewstyle"
-        android:layout_width="60dp"
-        android:layout_height="wrap_content"
-        android:text="电话:"
-        android:layout_below="@id/reportAddrTextView"/>
-    <EditText
-        android:id="@+id/reportTelEditText"
-        android:layout_width="250dp"
-        android:layout_height="35dp"
-        android:textSize="22sp"
-        android:gravity="top"
-        android:paddingLeft="3dp"
-        android:paddingTop="3dp"
-        android:background="@drawable/edittext_bg"
-        android:hint="请输入您的联系电话"
-        android:inputType="number"
-        android:layout_below="@id/reportAddrTextView"
-        android:layout_toRightOf="@id/reportTelTextView"
-        android:layout_alignBaseline="@id/reportTelTextView"/>
-     <TextView 
-        android:id="@+id/reportMailTextView"
-		style="@style/textviewstyle"
-        android:layout_width="60dp"
-        android:layout_height="wrap_content"
-        android:text="邮箱:"
-        android:inputType="textEmailAddress"
-        android:layout_below="@id/reportTelTextView"/>
-    <EditText
-        android:id="@+id/reportMailEditText"
-        android:layout_width="250dp"
-        android:layout_height="35dp"
-        android:textSize="22sp"
-        android:gravity="top"
-        android:paddingLeft="3dp"
-        android:paddingTop="3dp"
-        android:background="@drawable/edittext_bg"
-        android:hint="请输入你的邮箱地址"
-        android:layout_below="@id/reportTelTextView"
-        android:layout_toRightOf="@id/reportMailTextView"
-        android:layout_alignBaseline="@id/reportMailTextView"/>
+        android:background="#FFFFFF"
+        android:orientation="vertical" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+
+            <TextView
+                android:id="@+id/reportTilteTextView"
+                style="@style/textviewstyle"
+                android:layout_width="60dp"
+                android:layout_height="wrap_content"
+                android:text="标题:" />
+
+            <EditText
+                android:id="@+id/reportTitleEditText"
+                android:layout_width="250dp"
+                android:layout_height="35dp"
+                android:layout_marginRight="5dp"
+                android:layout_weight="1"
+                android:background="@drawable/edittext_bg"
+                android:ems="10"
+                android:gravity="top"
+                android:hint="请输入举报的标题"
+                android:paddingLeft="3dp"
+                android:paddingRight="3dp"
+                android:paddingTop="3dp"
+                android:textSize="22sp" >
+
+                <requestFocus />
+            </EditText>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+
+            <TextView
+                android:id="@+id/reportAddrTextView"
+                style="@style/textviewstyle"
+                android:layout_width="60dp"
+                android:layout_height="wrap_content"
+                android:text="地址" />
+
+            <EditText
+                android:id="@+id/reportAddrEditText"
+                android:layout_width="250dp"
+                android:layout_height="35dp"
+                android:layout_marginRight="5dp"
+                android:layout_weight="1"
+                android:background="@drawable/edittext_bg"
+                android:ems="10"
+                android:gravity="top"
+                android:hint="请输入举报的地址"
+                android:paddingLeft="3dp"
+                android:paddingRight="3dp"
+                android:paddingTop="3dp"
+                android:textSize="22sp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+
+            <TextView
+                android:id="@+id/reportTelTextView"
+                style="@style/textviewstyle"
+                android:layout_width="60dp"
+                android:layout_height="wrap_content"
+                android:text="电话:" />
+
+            <EditText
+                android:id="@+id/reportTelEditText"
+                android:layout_width="250dp"
+                android:layout_height="35dp"
+                android:layout_marginRight="5dp"
+                android:layout_weight="1"
+                android:background="@drawable/edittext_bg"
+                android:ems="10"
+                android:gravity="top"
+                android:hint="请输入您的联系电话"
+                android:inputType="number"
+                android:paddingLeft="3dp"
+                android:paddingRight="3dp"
+                android:paddingTop="3dp"
+                android:textSize="22sp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+
+            <TextView
+                android:id="@+id/reportMailTextView"
+                style="@style/textviewstyle"
+                android:layout_width="60dp"
+                android:layout_height="wrap_content"
+                android:inputType="textEmailAddress"
+                android:text="邮箱:" />
+
+            <EditText
+                android:id="@+id/reportMailEditText"
+                android:layout_width="250dp"
+                android:layout_height="35dp"
+                android:layout_marginRight="5dp"
+                android:layout_weight="1"
+                android:background="@drawable/edittext_bg"
+                android:ems="10"
+                android:gravity="top"
+                android:hint="请输入你的邮箱地址"
+                android:paddingLeft="3dp"
+                android:paddingRight="3dp"
+                android:paddingTop="3dp"
+                android:textSize="22sp" />
+
+        </LinearLayout>
+
      <TextView 
         android:id="@+id/reportContentTextView"
 		style="@style/textviewstyle"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:text="举报内容"
-        android:gravity="center"
-        android:layout_below="@id/reportMailEditText"/>
+        android:gravity="center"/>
     <cn.bjeastearth.waterapp.MyEditText 
         android:id="@+id/reportEditText"
         android:layout_width="fill_parent"
@@ -102,16 +182,20 @@
         android:gravity="top"
         android:padding="3dp"
         android:background="@drawable/edittext_bg" 
-        android:hint="请输入举报的内容"
-        android:layout_below="@id/reportContentTextView"/>
-    <GridView 
+        android:hint="请输入举报的内容"/>
+
+    <GridView
         android:id="@+id/reportGridView"
         android:layout_width="fill_parent"
-        android:layout_height="100dp"
-        android:numColumns="4"
+        android:layout_height="80dp"
         android:background="#ffffff"
-        android:layout_below="@id/reportEditText"
-        android:layout_alignParentBottom="true"
-        />
-	</RelativeLayout>
+        android:numColumns="4" 
+        android:listSelector="@null"/>
+
+</LinearLayout>
+
+ 
+
 </ScrollView>
+    
+</LinearLayout>

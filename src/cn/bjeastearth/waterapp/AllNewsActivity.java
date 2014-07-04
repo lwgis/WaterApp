@@ -1,8 +1,10 @@
 package cn.bjeastearth.waterapp;
 
 import java.util.List;
+
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+
 import cn.bjeastearth.http.HttpUtil;
 import cn.bjeastearth.waterapp.model.WaterNew;
 import android.annotation.SuppressLint;
@@ -20,8 +22,9 @@ import android.widget.Button;
 import android.widget.ListView;
 
 public class AllNewsActivity extends Activity {
-	private Button btnReport;
 	private ListView mListView=null;
+	private Button btnBack;
+
 	@SuppressLint("HandlerLeak") private Handler myHandle=new Handler(){
 
 	@Override
@@ -42,18 +45,14 @@ public class AllNewsActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
-        requestWindowFeature(Window.FEATURE_CUSTOM_TITLE);
         setContentView(R.layout.activity_all_news); 
-        getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE,      
-        R.layout.title_all_news); 
-        this.btnReport=(Button)findViewById(R.id.btnReport);
-        this.btnReport.setOnClickListener(new OnClickListener() {
+		btnBack=(Button)findViewById(R.id.btnNewsBack);
+		btnBack.setOnClickListener(new OnClickListener() {
 			
 			@Override
 			public void onClick(View v) {
-				Intent it=new Intent(AllNewsActivity.this,ReportActivity.class);
-				startActivity(it);
-				
+				// TODO Auto-generated method stub
+				AllNewsActivity.this.finish();
 			}
 		});
         this.mListView=(ListView)findViewById(R.id.allNewsListView);
