@@ -20,19 +20,27 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:paddingTop="5dp"
-        android:text="@string/allNewsLabelTitle"
+        android:text="重大项目"
         android:textColor="#FFFFFF"
         android:textSize="25sp" />
     </RelativeLayout>
-    <TabHost android:id="@+id/tabhost" android:layout_width="fill_parent" android:layout_height="wrap_content">  
+    <TabHost android:id="@+id/tabhost" android:layout_width="fill_parent" android:layout_height="fill_parent">  
         <LinearLayout android:orientation="vertical" android:layout_width="fill_parent" android:layout_height="fill_parent">  
             <!-- TabWidget的id属性必须为 @android:id/tabs-->              
             <TabWidget android:id="@android:id/tabs" android:orientation="horizontal" android:layout_width="fill_parent"  
               android:layout_height="wrap_content" />  
             <!-- FrameLayout的id属性必须为 @android:id/tabcontent-->  
              <FrameLayout android:id="@android:id/tabcontent" android:layout_width="fill_parent" android:layout_height="fill_parent">  
-                <ListView android:id="@+id/hotprojectListView" android:layout_width="fill_parent" android:layout_height="fill_parent" />  
-                <TextView android:id="@+id/view2" android:layout_width="fill_parent" android:layout_height="fill_parent" android:text="222222"/>  
+                   <ListView android:id="@+id/hotprojectListView" android:layout_width="fill_parent" android:layout_height="fill_parent" android:background="#ff0000"/>  
+
+                   <com.esri.android.map.MapView 
+                    android:id="@+id/mapViewHotProject" 
+                    android:layout_width="fill_parent" 
+                    android:layout_height="fill_parent"
+                    android:background="#ff0000"/>
+
+               	
+                
              </FrameLayout>  
          </LinearLayout>  
     </TabHost> 
