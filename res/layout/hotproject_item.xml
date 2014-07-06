@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@layout/allnews_item_bg" >
+
+    <ImageView
+        android:id="@+id/hpImageView"
+        android:layout_width="100dip"
+        android:layout_height="100dip"
+        android:padding="5dp"
+        android:scaleType="fitXY" />
+    <TextView
+        android:id="@+id/hpNameTextView"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:textSize="25sp"
+        android:layout_toRightOf="@id/hpImageView"
+       	android:textColor="#222222"
+       	android:paddingTop="10dp"/>
+    <TextView
+        android:id="@+id/hpGcjdTextView"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:textSize="15sp"
+        android:layout_toRightOf="@id/hpImageView"
+        android:layout_alignParentBottom="true"
+       	android:textColor="#444444"
+       	android:paddingBottom="15dp"/>
+</RelativeLayout>

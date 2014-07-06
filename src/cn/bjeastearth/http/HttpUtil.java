@@ -74,6 +74,10 @@ public static String getAllNewsString() {
 	return jsonString;
 }
 	
+public static String getHotProjectString() {
+	String jsonString=HttpUtil.executeHttpGet("http://159.226.110.64:8001/WaterService/GProject.svc/All");
+	return jsonString;
+}
 public static void uploadReport(Inform inform) throws Throwable {
 	String jsonString = JsonUtil.convertObjectToJson(inform);
 	HttpUtil.postRequest("http://159.226.110.64:8001/WaterService/Inform.svc/IInform/Add",jsonString);

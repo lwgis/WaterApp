@@ -1,10 +1,15 @@
 package cn.bjeastearth.waterapp.model;
 
-import android.R.string;
+import java.io.Serializable;
 
-public class HotProjectType {
+
+public class HotProjectType implements Serializable {
+/**
+	 * 
+	 */
+	private static final long serialVersionUID = 8981982868783733557L;
 private int ID;
-private string Name;
+private String Name;
 private int Status;
 public int getID() {
 	return ID;
@@ -12,10 +17,10 @@ public int getID() {
 public void setID(int iD) {
 	ID = iD;
 }
-public string getName() {
+public String getName() {
 	return Name;
 }
-public void setName(string name) {
+public void setName(String name) {
 	Name = name;
 }
 public int getStatus() {
