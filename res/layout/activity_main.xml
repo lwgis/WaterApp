@@ -35,8 +35,8 @@
             android:gravity="center"
             android:paddingTop="3dp"
             android:shadowColor="#222222"
-            android:shadowDy="-1"
-            android:shadowRadius="6"
+            android:shadowDy="-2"
+            android:shadowRadius="2"
             android:text="@string/app_name"
             android:textColor="#FFFFFF"
             android:textSize="25sp" />
@@ -118,7 +118,7 @@
                             android:orientation="horizontal" >
 
                             <Button
-                                android:id="@+id/btnProfiles"
+                                android:id="@+id/btnSituation"
                                 android:layout_width="0dp"
                                 android:layout_height="match_parent"
                                 android:layout_marginLeft="5dp"

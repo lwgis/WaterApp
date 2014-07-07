@@ -10,6 +10,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
+
 import org.apache.http.HttpResponse;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
@@ -25,15 +26,14 @@ import cn.bjeastearth.http.AttachmentType;
 import cn.bjeastearth.http.HttpUtil;
 import cn.bjeastearth.http.Inform;
 import cn.bjeastearth.http.InformAttachement;
-
 import cn.bjeastearth.waterapp.model.Department;
-
+import cn.bjeastearth.waterapp.myview.MyEditText;
+import cn.bjeastearth.waterapp.myview.MyTextButton;
 import android.app.Activity;
 import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
-
 import android.os.Handler;
 import android.os.Message;
 import android.text.Editable;

@@ -4,13 +4,13 @@
     android:layout_height="match_parent"
     android:orientation="vertical" 
     android:background="#ffffff">
-    <RelativeLayout 
+       <RelativeLayout 
     android:layout_width="match_parent"
     android:layout_height="50dp"
     android:background="@drawable/title_bg" >
 
     <Button
-        android:id="@+id/btnNewsBack"
+        android:id="@+id/btnBack"
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:layout_alignParentLeft="true"
@@ -21,18 +21,17 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:paddingTop="5dp"
-        android:text="@string/allNewsLabelTitle"
-        android:textColor="#FFFFFF"
         android:shadowColor="#222222"
         android:shadowDy="-2"
         android:shadowRadius="2"
+        android:text="总体概况"
+        android:textColor="#FFFFFF"
         android:textSize="25sp" />
-
-</RelativeLayout>
-    <WebView
-       android:id="@+id/newsWebView"
-       android:layout_width="fill_parent"
-       android:layout_height="fill_parent" 
-       ></WebView>
-
+    </RelativeLayout>
+	<ListView
+	    android:id="@+id/rootProjectListView"
+	    android:layout_width="fill_parent"
+	    android:layout_height="fill_parent"
+	    android:divider="@null"
+	    />
 </LinearLayout>

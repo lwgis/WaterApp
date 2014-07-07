@@ -14,42 +14,29 @@ import com.esri.android.map.MapView;
 import com.esri.android.map.ags.ArcGISTiledMapServiceLayer;
 import com.esri.android.map.event.OnSingleTapListener;
 import com.esri.core.geometry.Envelope;
-import com.esri.core.geometry.GeometryEngine;
 import com.esri.core.geometry.Point;
-import com.esri.core.geometry.SpatialReference;
 import com.esri.core.map.Graphic;
 import com.esri.core.symbol.PictureMarkerSymbol;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-
-import android.R.string;
 import android.annotation.SuppressLint;
 import android.app.Activity;
-import android.app.Fragment;
 import android.content.Intent;
-import android.graphics.Color;
-import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.ViewGroup.LayoutParams;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
-import android.widget.FrameLayout;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.ListView;
-import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 import android.widget.TabHost;
 import android.widget.TextView;
-import android.widget.Toast;
 
 public class HotProjectActivity extends Activity {
 	MapView mapView = null;
@@ -63,6 +50,7 @@ public class HotProjectActivity extends Activity {
 	ImageView imHp=null;
 	ImageLoader mImageLoader;
 	HotProjectAdapter mAdapter;
+	HotProject currentHotProject;
 	@SuppressLint("HandlerLeak")
 	private Handler myHandle = new Handler() {
 
@@ -88,6 +76,7 @@ public class HotProjectActivity extends Activity {
 				Drawable image = HotProjectActivity.this.getBaseContext()
 						.getResources().getDrawable(R.drawable.map_item);
 				PictureMarkerSymbol symbol = new PictureMarkerSymbol(image);
+				
 				Graphic oneGraphic = new Graphic(onePoint, symbol, map);
 				mGraphicsLayer.addGraphic(oneGraphic);
 			}
@@ -174,6 +163,14 @@ public class HotProjectActivity extends Activity {
 		tvHpName=(TextView)findViewById(R.id.hpNameTextView);
 		tvHpJd=(TextView)findViewById(R.id.hpGcjdTextView);
 		imHp=(ImageView)findViewById(R.id.hpImageView);
+		Button btn=(Button)findViewById(R.id.hpShowDetailBtn);
+		btn.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				HotProjectActivity.this.showDetailActivity(currentHotProject);
+			}
+		});
 	}
 
 	protected void showDetailActivity(HotProject oneHotProject) {
@@ -185,6 +182,7 @@ public class HotProjectActivity extends Activity {
 	protected void showMapInfo(int hotProjectID) {
 		mapInfoLayout.setVisibility(View.VISIBLE);
 		HotProject oneHotProject=findHotProjectByid(hotProjectID);
+		currentHotProject=oneHotProject;
 		tvHpName.setText(oneHotProject.getName());
 		tvHpJd.setText("工程进度:"+oneHotProject.getGcjd()+"%");
 		if (mImageLoader==null) {

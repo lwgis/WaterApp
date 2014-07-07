@@ -1,4 +1,4 @@
-package cn.bjeastearth.waterapp;
+package cn.bjeastearth.waterapp.myview;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;

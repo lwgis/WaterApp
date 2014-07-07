@@ -16,7 +16,7 @@
         android:layout_alignParentLeft="true"
         android:background="@drawable/newsbackbtn"
         android:textSize="15sp" />
-    <cn.bjeastearth.waterapp.MyTextButton
+    <cn.bjeastearth.waterapp.myview.MyTextButton
         android:id="@+id/btnSendReport"
         android:paddingTop="8dp"
         android:layout_width="60dp"
@@ -36,8 +36,8 @@
         android:textColor="#FFFFFF"
         android:textSize="25sp"
         android:shadowColor="#222222"
-    	android:shadowDy="-1"
-    	android:shadowRadius="6" />
+    	android:shadowDy="-2"
+    	android:shadowRadius="2" />
 
 </RelativeLayout>
     <ScrollView 
@@ -175,7 +175,7 @@
         android:layout_height="wrap_content"
         android:text="举报内容"
         android:gravity="center"/>
-    <cn.bjeastearth.waterapp.MyEditText 
+     <cn.bjeastearth.waterapp.myview.MyEditText
         android:id="@+id/reportEditText"
         android:layout_width="fill_parent"
         android:layout_height="160dp"

@@ -4,6 +4,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
+import cn.bjeastearth.waterapp.myview.GridImageView;
 import android.R.raw;
 import android.content.Context;
 import android.media.Image;

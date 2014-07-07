@@ -22,8 +22,8 @@
         android:gravity="center"
         android:paddingTop="5dp"
         android:shadowColor="#222222"
-        android:shadowDy="-1"
-        android:shadowRadius="6"
+        android:shadowDy="-2"
+        android:shadowRadius="2"
         android:text="重大项目信息"
         android:textColor="#FFFFFF"
         android:textSize="25sp" />

@@ -21,8 +21,8 @@
         android:gravity="center"
         android:paddingTop="5dp"
         android:shadowColor="#222222"
-        android:shadowDy="-1"
-        android:shadowRadius="6"
+        android:shadowDy="-2"
+        android:shadowRadius="2"
         android:text="重大项目"
         android:textColor="#FFFFFF"
         android:textSize="25sp" />
@@ -51,6 +51,10 @@
                         android:layout_height="90dp"
                         android:background="@drawable/item_bg"
                         android:layout_alignParentBottom="true">
+                        <Button android:id="@+id/hpShowDetailBtn"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="#00ffffff"/>
 						 <ImageView
 					        android:id="@+id/hpImageView"
 					        android:layout_width="85dip"

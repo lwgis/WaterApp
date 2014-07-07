@@ -1,4 +1,4 @@
-package cn.bjeastearth.waterapp;
+package cn.bjeastearth.waterapp.myview;
 
 import android.content.Context;
 import android.util.AttributeSet;

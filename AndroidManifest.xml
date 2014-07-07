@@ -57,8 +57,12 @@
             android:name="cn.bjeastearth.waterapp.ReportActivity"
             android:screenOrientation="portrait">
         </activity>
-                <activity 
+        <activity 
             android:name="cn.bjeastearth.waterapp.HotProjectDetailActivity"
+            android:screenOrientation="portrait">
+        </activity>
+        <activity 
+            android:name="cn.bjeastearth.waterapp.RootProjectActivity"
             android:screenOrientation="portrait">
         </activity>
     </application>

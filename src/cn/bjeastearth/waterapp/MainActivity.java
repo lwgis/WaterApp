@@ -1,5 +1,6 @@
 package cn.bjeastearth.waterapp;
 
+import android.R.integer;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
@@ -16,6 +17,7 @@ private long exitTime = 0;
 private Button btnAllNews=null;
 private Button btnReport=null;
 private Button btnHotProject=null;
+private Button btnSituation;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
@@ -27,6 +29,8 @@ private Button btnHotProject=null;
 		  this.btnReport.setOnClickListener(this);
 		  this.btnHotProject=(Button)findViewById(R.id.btnHotProject);
 		  this.btnHotProject.setOnClickListener(this);
+		  this.btnSituation=(Button)findViewById(R.id.btnSituation);
+		  this.btnSituation.setOnClickListener(this);
 	}
 
 	@Override
@@ -40,19 +44,26 @@ private Button btnHotProject=null;
 	@Override
 	public void onClick(View v) {
 		Button btn=(Button)v;
-		String btnName=btn.getText().toString();
-		if (btnName.equals("治水新闻")) {
-			Intent it=new Intent(this,AllNewsActivity.class);
-			startActivity(it);
+		int id=btn.getId();
+		Intent it=new Intent();
+		switch (id) {
+		case R.id.btnHotProject:
+			it.setClass(this, HotProjectActivity.class);
+			break;
+		case R.id.btnReport:
+			it.setClass(this, ReportActivity.class);
+			break;
+		case R.id.btnAllNews:
+			it.setClass(this, AllNewsActivity.class);
+			break;
+		case R.id.btnSituation:
+			it.setClass(this, RootProjectActivity.class);
+			break;
+		default:
+			break;
 		}
-		if (btnName.equals("举报")) {
-			Intent it=new Intent(this,ReportActivity.class);
-			startActivity(it);
-		}
-		if (btnName.equals("重大项目")) {
-			Intent it=new Intent(this,HotProjectActivity.class);
-			startActivity(it);
-		}
+		startActivity(it);
+
 	}
 	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
