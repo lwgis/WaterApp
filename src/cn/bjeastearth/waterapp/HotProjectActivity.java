@@ -7,7 +7,7 @@ import java.util.Map;
 import cn.bjeastearth.http.HttpUtil;
 import cn.bjeastearth.imageload.ImageLoader;
 import cn.bjeastearth.waterapp.model.HotProject;
-import cn.bjeastearth.waterapp.model.HotProjectImage;
+import cn.bjeastearth.waterapp.model.ProjectImage;
 
 import com.esri.android.map.GraphicsLayer;
 import com.esri.android.map.MapView;
@@ -186,12 +186,15 @@ public class HotProjectActivity extends Activity {
 		currentHotProject=oneHotProject;
 		tvHpName.setText(oneHotProject.getName());
 		tvHpJd.setText("工程进度:"+oneHotProject.getGcjd()+"%");
-		if (mImageLoader==null) {
-			mImageLoader=new ImageLoader(this);
+		if (oneHotProject.getImages()!=null&&oneHotProject.getImages().size()>0) {
+			if (mImageLoader==null) {
+				mImageLoader=new ImageLoader(this);
+			}
+			ProjectImage projectImage=oneHotProject.getImages().get(0);
+			String url=this.getString(R.string.NewTileImgAddr)+projectImage.getName();
+			mImageLoader.DisplayImage(url, imHp, false);
 		}
-		HotProjectImage projectImage=oneHotProject.getImages().get(0);
-		String url=this.getString(R.string.NewTileImgAddr)+projectImage.getName();
-		mImageLoader.DisplayImage(url, imHp, false);
+	
 	}
 
 	private HotProject findHotProjectByid(int hotProjectID) {

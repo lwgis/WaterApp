@@ -3,7 +3,7 @@ package cn.bjeastearth.waterapp.model;
 import java.io.Serializable;
 
 
-public class HotProjectImage implements Serializable{
+public class ProjectImage implements Serializable{
 /**
 	 * 
 	 */

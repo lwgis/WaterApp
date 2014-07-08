@@ -87,4 +87,8 @@ public static String getAllRootProjectString() {
 	String jsonString=HttpUtil.executeHttpGet("http://159.226.110.64:8001/WaterService/OverAll.svc/All");
 	return jsonString;
 }
+public static String getAllSewageFactoryString() {
+	String jsonString=HttpUtil.executeHttpGet("http://159.226.110.64:8001/WaterService/WsWorks.svc/All");
+	return jsonString;
+}
 }

@@ -18,7 +18,7 @@ private String EndTime;
 private String Fzr;
 private int Gcjd;
 private HotProjectType Gclb;
-private List<HotProjectImage> Images;
+private List<ProjectImage> Images;
 private String Jsdw;
 private String Dzdw;
 private int Status;
@@ -69,10 +69,10 @@ public HotProjectType getGclb() {
 public void setGclb(HotProjectType gclb) {
 	Gclb = gclb;
 }
-public List<HotProjectImage> getImages() {
+public List<ProjectImage> getImages() {
 	return Images;
 }
-public void setImages(List<HotProjectImage> images) {
+public void setImages(List<ProjectImage> images) {
 	Images = images;
 }
 public String getJsdw() {
@@ -135,7 +135,7 @@ public ArrayList<FieldItem> getFieldItems() {
 	fieldItems.add(new FieldItem("负责人", getFzr()));
 	fieldItems.add(new FieldItem("开始时间", getStartTime()));
 	fieldItems.add(new FieldItem("结束时间", getEndTime()));
-	for (HotProjectImage projectImage : getImages()) {
+	for (ProjectImage projectImage : getImages()) {
 		fieldItems.add(new FieldItem(projectImage.getName()));
 	}
 

@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" android:background="#ffffff">
+    <RelativeLayout 
+    android:layout_width="match_parent"
+    android:layout_height="50dp"
+    android:background="@drawable/title_bg" >
+
+    <Button
+        android:id="@+id/btnBack"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_alignParentLeft="true"
+        android:background="@drawable/newsbackbtn"
+        android:textSize="15sp" />
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:paddingTop="5dp"
+        android:shadowColor="#222222"
+        android:shadowDy="-2"
+        android:shadowRadius="2"
+        android:text="污水处理厂"
+        android:textColor="#FFFFFF"
+        android:textSize="25sp" />
+    </RelativeLayout>
+    <TabHost android:id="@+id/tabhost" android:layout_width="fill_parent" android:layout_height="fill_parent">  
+        <LinearLayout android:orientation="vertical" android:layout_width="fill_parent" android:layout_height="fill_parent">  
+            <!-- TabWidget的id属性必须为 @android:id/tabs-->              
+            <TabWidget android:id="@android:id/tabs" android:orientation="horizontal" android:layout_width="fill_parent"  
+              android:layout_height="wrap_content" />  
+            <!-- FrameLayout的id属性必须为 @android:id/tabcontent-->  
+             <FrameLayout android:id="@android:id/tabcontent" android:layout_width="fill_parent" android:layout_height="fill_parent">  
+                   	<ListView 
+                       android:id="@+id/sewageFactoryListView" 
+                       android:layout_width="fill_parent" 
+                       android:layout_height="fill_parent"
+                       android:divider="@null" />  
+                   
+					<RelativeLayout android:id="@+id/mapLayout" android:layout_width="fill_parent" android:layout_height="fill_parent">
+			          <com.esri.android.map.MapView 
+			                    android:id="@+id/mapView" 
+			                    android:layout_width="fill_parent" 
+			                    android:layout_height="fill_parent"
+			                    android:background="#ff0000"/>
+			        <RelativeLayout android:id="@+id/mapInfoLayout"
+                        android:layout_width="fill_parent"
+                        android:layout_height="90dp"
+                        android:background="@drawable/item_bg"
+                        android:layout_alignParentBottom="true">
+                        <Button android:id="@+id/showDetailBtn"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="#00ffffff"/>
+						 <ImageView
+					        android:id="@+id/itemImageView"
+					        android:layout_width="85dip"
+					        android:layout_height="85dip"
+					        android:padding="5dp"
+					        android:scaleType="fitXY" />
+					    <TextView
+					        android:id="@+id/firstTv"
+					        android:layout_width="fill_parent"
+					        android:layout_height="wrap_content"
+					        android:textSize="22sp"
+					        android:layout_toRightOf="@id/itemImageView"
+					       	android:textColor="#222222"
+					       	android:paddingTop="5dp"/>
+					    <TextView
+					        android:id="@+id/secondTv"
+					        android:layout_width="fill_parent"
+					        android:layout_height="wrap_content"
+					        android:textSize="15sp"
+					        android:layout_toRightOf="@id/itemImageView"
+					        android:layout_alignParentBottom="true"
+					       	android:textColor="#444444"
+					       	android:paddingBottom="5dp"/>
+                    </RelativeLayout>
+
+			</RelativeLayout>
+             </FrameLayout>  
+         </LinearLayout>  
+    </TabHost> 
+
+</LinearLayout>
