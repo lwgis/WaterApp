@@ -1,9 +1,10 @@
 package cn.bjeastearth.waterapp.model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 
 
-public class RootProject implements Serializable {
+public class RootProject implements Serializable,FieldItemable {
 
 	/**
 	 * 
@@ -71,6 +72,18 @@ public String getWorkSum() {
 }
 public void setWorkSum(String workSum) {
 	WorkSum = workSum;
+}
+@Override
+public ArrayList<FieldItem> getFieldItems() {
+	ArrayList<FieldItem> fieldItems=new ArrayList<FieldItem>();
+	fieldItems.add(new FieldItem("标题", getTitle()));
+	fieldItems.add(new FieldItem("工作概述",getDescription()));
+	fieldItems.add(new FieldItem("工作总量", getWorkSum()));
+	fieldItems.add(new FieldItem("完成进度", String.valueOf(getWcjd())));
+	fieldItems.add(new FieldItem("近期工作部署", getJqgzbs()));
+	fieldItems.add(new FieldItem("阶段工作安排", getGjdgzap()));
+	fieldItems.add(new FieldItem("备注", getRemark()));
+	return fieldItems;
 }
 
 }

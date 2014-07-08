@@ -174,8 +174,9 @@ public class HotProjectActivity extends Activity {
 	}
 
 	protected void showDetailActivity(HotProject oneHotProject) {
-		Intent intent = new Intent(this, HotProjectDetailActivity.class);  
-		intent.putExtra("HotProject", oneHotProject);  
+		Intent intent = new Intent(this, FieldItemActivity.class);  
+		intent.putExtra("Title", "重大项目信息");
+		intent.putExtra("FieldItems", oneHotProject.getFieldItems());  
 		startActivity(intent); 
 	}
 

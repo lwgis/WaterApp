@@ -2,7 +2,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="horizontal" >
+    android:orientation="horizontal"
+    android:background="@drawable/rootproject_item_bg" >
     <TextView 
         android:id="@+id/rootProjectNameTv"
         android:layout_width="130dp"
@@ -10,19 +11,20 @@
  		android:textSize="20sp"
         android:textColor="#715b4c"
 		android:gravity="center"
+		android:padding="5dp"
         />
 	<ImageView 
 	    android:layout_width="2dp"
 	    android:layout_height="fill_parent"
 	    android:background="@drawable/field_item_fgx"
 	    android:scaleType="fitXY" />
-    <ProgressBar
+    <cn.bjeastearth.waterapp.myview.TextProgressBar
         android:id="@+id/rootProjectPressBar"
         style="?android:attr/progressBarStyleHorizontal"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="fill_parent"
        	android:layout_gravity="center"
-        android:padding="5dp"
+       	android:padding="5dp"
         android:progressDrawable="@drawable/rootproject_progress"
          />
 	

@@ -58,7 +58,7 @@
             android:screenOrientation="portrait">
         </activity>
         <activity 
-            android:name="cn.bjeastearth.waterapp.HotProjectDetailActivity"
+            android:name="cn.bjeastearth.waterapp.FieldItemActivity"
             android:screenOrientation="portrait">
         </activity>
         <activity 

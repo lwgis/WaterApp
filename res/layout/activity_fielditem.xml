@@ -17,6 +17,7 @@
         android:background="@drawable/newsbackbtn"
         android:textSize="15sp" />
     <TextView
+        android:id="@+id/titleTv"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
@@ -24,7 +25,6 @@
         android:shadowColor="#222222"
         android:shadowDy="-2"
         android:shadowRadius="2"
-        android:text="重大项目信息"
         android:textColor="#FFFFFF"
         android:textSize="25sp" />
 

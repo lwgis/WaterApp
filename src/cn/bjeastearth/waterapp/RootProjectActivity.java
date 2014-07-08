@@ -6,21 +6,24 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
 import cn.bjeastearth.http.HttpUtil;
-import cn.bjeastearth.waterapp.model.HotProject;
 import cn.bjeastearth.waterapp.model.RootProject;
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.AdapterView.OnItemClickListener;
 
 public class RootProjectActivity extends Activity {
 
 	private List<RootProject> allRootProjects;
 	private ListView mListView;
+	RootProjectAdapter mAdapter;
 	private Handler mHandler=new Handler(){
 
 		@Override
@@ -29,11 +32,26 @@ public class RootProjectActivity extends Activity {
 			allRootProjects=gson.fromJson(msg.obj.toString(), 
 					new TypeToken<List<RootProject>>() {
 					}.getType());
-			RootProjectAdapter adapter=new RootProjectAdapter(RootProjectActivity.this, RootProjectActivity.this.allRootProjects);
-			mListView.setAdapter(adapter);
+			mAdapter=new RootProjectAdapter(RootProjectActivity.this, RootProjectActivity.this.allRootProjects);
+			mListView.setAdapter(mAdapter);
 		}
 		
 	};
+	private OnItemClickListener mOnItemClickListener= new OnItemClickListener() {
+
+		@Override
+		public void onItemClick(AdapterView<?> parent, View view, int position,
+				long id) {
+			RootProject oneRootProject=(RootProject)mAdapter.getItem(position);
+			showDetailActivity(oneRootProject);			
+		}
+	};
+	protected void showDetailActivity(RootProject oneRootProject) {
+		Intent intent = new Intent(this, FieldItemActivity.class);  
+		intent.putExtra("Title", "总体项目概况信息");
+		intent.putExtra("FieldItems", oneRootProject.getFieldItems());  
+		startActivity(intent); 
+	}
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
@@ -59,7 +77,8 @@ public class RootProjectActivity extends Activity {
 					mHandler.sendMessage(msg);
 				}
 			}
-		}).start();;
+		}).start();
+		this.mListView.setOnItemClickListener(mOnItemClickListener);
 	}
 
 }
