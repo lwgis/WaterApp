@@ -34,7 +34,7 @@
               android:layout_height="wrap_content" />  
             <!-- FrameLayout的id属性必须为 @android:id/tabcontent-->  
              <FrameLayout android:id="@android:id/tabcontent" android:layout_width="fill_parent" android:layout_height="fill_parent">  
-                   	<ListView 
+                   	<cn.bjeastearth.waterapp.myview.WebListView 
                        android:id="@+id/sewageFactoryListView" 
                        android:layout_width="fill_parent" 
                        android:layout_height="fill_parent"

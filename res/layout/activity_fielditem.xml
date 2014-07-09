@@ -29,7 +29,7 @@
         android:textSize="25sp" />
 
 	</RelativeLayout>
-    <ListView
+    <cn.bjeastearth.waterapp.myview.WebListView
         android:id="@+id/hotPrjDetailListView"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"

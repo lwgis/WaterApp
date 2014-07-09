@@ -8,6 +8,7 @@ import cn.bjeastearth.http.HttpUtil;
 import cn.bjeastearth.imageload.ImageLoader;
 import cn.bjeastearth.waterapp.model.HotProject;
 import cn.bjeastearth.waterapp.model.ProjectImage;
+import cn.bjeastearth.waterapp.myview.WebListView;
 
 import com.esri.android.map.GraphicsLayer;
 import com.esri.android.map.MapView;
@@ -19,6 +20,7 @@ import com.esri.core.map.Graphic;
 import com.esri.core.symbol.PictureMarkerSymbol;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
@@ -40,7 +42,7 @@ import android.widget.TextView;
 
 public class HotProjectActivity extends Activity {
 	MapView mapView = null;
-	ListView mListView = null;
+	WebListView mListView = null;
 	List<HotProject> allProjects=null;
 	ArcGISTiledMapServiceLayer tiledMapServiceLayer = null;
 	GraphicsLayer mGraphicsLayer;
@@ -126,7 +128,8 @@ public class HotProjectActivity extends Activity {
 			}
 		});
 		// 列表
-		this.mListView = (ListView) findViewById(R.id.hotprojectListView);
+		this.mListView = (WebListView) findViewById(R.id.hotprojectListView);
+		this.mListView.showLoading();
 		this.mListView.setOnItemClickListener(mOnItemClickListener);
 		// 地图
 		View tabListView = (View) LayoutInflater.from(this).inflate(

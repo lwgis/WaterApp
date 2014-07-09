@@ -8,6 +8,7 @@ import cn.bjeastearth.http.HttpUtil;
 import cn.bjeastearth.imageload.ImageLoader;
 import cn.bjeastearth.waterapp.model.ProjectImage;
 import cn.bjeastearth.waterapp.model.SewageFactory;
+import cn.bjeastearth.waterapp.myview.WebListView;
 
 import com.esri.android.map.GraphicsLayer;
 import com.esri.android.map.MapView;
@@ -41,7 +42,7 @@ import android.widget.AdapterView.OnItemClickListener;
 
 public class SewageFactoryActivity extends Activity {
 	MapView mapView = null;
-	ListView mListView = null;
+	WebListView mListView = null;
 	List<SewageFactory> allProjects=null;
 	ArcGISTiledMapServiceLayer tiledMapServiceLayer = null;
 	GraphicsLayer mGraphicsLayer;
@@ -126,7 +127,8 @@ public class SewageFactoryActivity extends Activity {
 			}
 		});
 		// 列表
-		this.mListView = (ListView) findViewById(R.id.sewageFactoryListView);
+		this.mListView = (WebListView) findViewById(R.id.sewageFactoryListView);
+		this.mListView.showLoading();
 		this.mListView.setOnItemClickListener(mOnItemClickListener);
 		// 地图
 				View tabListView = (View) LayoutInflater.from(this).inflate(

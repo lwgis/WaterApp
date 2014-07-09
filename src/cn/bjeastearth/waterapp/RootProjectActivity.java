@@ -7,6 +7,7 @@ import com.google.gson.reflect.TypeToken;
 
 import cn.bjeastearth.http.HttpUtil;
 import cn.bjeastearth.waterapp.model.RootProject;
+import cn.bjeastearth.waterapp.myview.WebListView;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -22,7 +23,7 @@ import android.widget.AdapterView.OnItemClickListener;
 public class RootProjectActivity extends Activity {
 
 	private List<RootProject> allRootProjects;
-	private ListView mListView;
+	private WebListView mListView;
 	RootProjectAdapter mAdapter;
 	private Handler mHandler=new Handler(){
 
@@ -65,7 +66,8 @@ public class RootProjectActivity extends Activity {
 				RootProjectActivity.this.finish();
 			}
 		});
-		this.mListView=(ListView)findViewById(R.id.rootProjectListView);
+		this.mListView=(WebListView)findViewById(R.id.rootProjectListView);
+		this.mListView.showLoading();
 		new Thread(new Runnable() {
 			
 			@Override

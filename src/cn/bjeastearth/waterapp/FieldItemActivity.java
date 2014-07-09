@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import cn.bjeastearth.waterapp.model.FieldItem;
 import cn.bjeastearth.waterapp.model.HotProject;
+import cn.bjeastearth.waterapp.myview.WebListView;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -28,7 +29,8 @@ public class FieldItemActivity extends Activity {
 				FieldItemActivity.this.finish();
 			}
 		});
-		ListView myListView=(ListView)findViewById(R.id.hotPrjDetailListView);
+		WebListView myListView=(WebListView)findViewById(R.id.hotPrjDetailListView);
+		myListView.showLoading();
 		TextView titleTextView=(TextView)findViewById(R.id.titleTv);
 		Intent oneIntent=getIntent();
 		titleTextView.setText(oneIntent.getStringExtra("Title"));

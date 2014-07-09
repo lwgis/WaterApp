@@ -30,12 +30,13 @@
     android:textSize="25sp" />
 
 </RelativeLayout>
-<ListView 
+
+<cn.bjeastearth.waterapp.myview.WebListView 
     android:id="@+id/allNewsListView"
     android:layout_height="match_parent"
     android:layout_width="match_parent"
     android:background="#FFFFFF"
     android:divider="@null"
-    ></ListView>
+    />
 
 </LinearLayout>

@@ -2,17 +2,21 @@ package cn.bjeastearth.waterapp;
 
 import java.util.List;
 
+import com.esri.core.internal.tasks.ags.m;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
 import cn.bjeastearth.http.HttpUtil;
+import cn.bjeastearth.waterapp.R.layout;
 import cn.bjeastearth.waterapp.model.WaterNew;
+import cn.bjeastearth.waterapp.myview.WebListView;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.Window;
@@ -20,9 +24,11 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 
 public class AllNewsActivity extends Activity {
-	private ListView mListView=null;
+	private WebListView mListView=null;
 	private Button btnBack;
 
 	@SuppressLint("HandlerLeak") private Handler myHandle=new Handler(){
@@ -34,7 +40,6 @@ public class AllNewsActivity extends Activity {
 		 Gson gson=new Gson();
 		 List<WaterNew> news=gson.fromJson(msg.obj.toString(),new TypeToken<List<WaterNew>>(){}.getType());
 		 AllNewsActivity.this.mListView.setAdapter(new AllNewsAdapter(AllNewsActivity.this, news));
-//		AllNewsActivity.this.myTextView.setText(wnes.get(1).toString());
 	}
 	
 };
@@ -55,7 +60,8 @@ public class AllNewsActivity extends Activity {
 				AllNewsActivity.this.finish();
 			}
 		});
-        this.mListView=(ListView)findViewById(R.id.allNewsListView);
+        this.mListView=(WebListView)findViewById(R.id.allNewsListView);
+        this.mListView.showLoading();
        new Thread(new httpThread(),"httpthread").start();
        this.mListView.setOnItemClickListener(new OnItemClickListener() {
 
@@ -71,6 +77,8 @@ public class AllNewsActivity extends Activity {
 	});
     }
     
+
+
 class httpThread  implements  Runnable{
 
 	@Override
