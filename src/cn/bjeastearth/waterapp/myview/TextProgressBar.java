@@ -1,6 +1,5 @@
 package cn.bjeastearth.waterapp.myview;
 
-import cn.bjeastearth.waterapp.DpTransform;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;

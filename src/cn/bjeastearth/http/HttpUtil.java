@@ -91,4 +91,8 @@ public static String getAllSewageFactoryString() {
 	String jsonString=HttpUtil.executeHttpGet("http://159.226.110.64:8001/WaterService/WsWorks.svc/All");
 	return jsonString;
 }
+public static String getAllPollutionString(String typeString) {
+	String jsonString=HttpUtil.executeHttpGet("http://159.226.110.64:8001/WaterService/WrSource.svc/"+typeString);
+	return jsonString;
+}
 }

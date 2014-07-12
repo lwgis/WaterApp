@@ -81,6 +81,7 @@ public class SewageFactoryActivity extends Activity {
 				Graphic oneGraphic = new Graphic(onePoint, symbol, map);
 				mGraphicsLayer.addGraphic(oneGraphic);
 			}
+			SewageFactoryActivity.this.mListView.setOnItemClickListener(mOnItemClickListener);
 
 		}
 
@@ -129,7 +130,6 @@ public class SewageFactoryActivity extends Activity {
 		// 列表
 		this.mListView = (WebListView) findViewById(R.id.sewageFactoryListView);
 		this.mListView.showLoading();
-		this.mListView.setOnItemClickListener(mOnItemClickListener);
 		// 地图
 				View tabListView = (View) LayoutInflater.from(this).inflate(
 						R.layout.tab_item, null);

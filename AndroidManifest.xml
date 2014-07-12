@@ -69,6 +69,10 @@
             android:name="cn.bjeastearth.waterapp.SewageFactoryActivity"
             android:screenOrientation="portrait">
         </activity>
+        <activity 
+            android:name="cn.bjeastearth.waterapp.PollutionActivity"
+            android:screenOrientation="portrait">
+        </activity>
     </application>
 
 </manifest>

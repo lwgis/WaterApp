@@ -2,8 +2,9 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical" android:background="#ffffff">
-    <RelativeLayout 
+    android:orientation="vertical" 
+    android:background="#ffffff">
+        <RelativeLayout 
     android:layout_width="match_parent"
     android:layout_height="50dp"
     android:background="@drawable/title_bg" >
@@ -23,11 +24,11 @@
         android:shadowColor="#222222"
         android:shadowDy="-2"
         android:shadowRadius="2"
-        android:text="重大项目"
+        android:text="污染源"
         android:textColor="#FFFFFF"
         android:textSize="25sp" />
     </RelativeLayout>
-    <TabHost android:id="@+id/tabhost" android:layout_width="fill_parent" android:layout_height="fill_parent">  
+ <TabHost android:id="@+id/tabhost" android:layout_width="fill_parent" android:layout_height="300dp" android:layout_weight="1">  
         <LinearLayout android:orientation="vertical" android:layout_width="fill_parent" android:layout_height="fill_parent">  
             <!-- TabWidget的id属性必须为 @android:id/tabs-->              
             <TabWidget android:id="@android:id/tabs" android:orientation="horizontal" android:layout_width="fill_parent"  
@@ -35,14 +36,14 @@
             <!-- FrameLayout的id属性必须为 @android:id/tabcontent-->  
              <FrameLayout android:id="@android:id/tabcontent" android:layout_width="fill_parent" android:layout_height="fill_parent">  
                    	<cn.bjeastearth.waterapp.myview.WebListView 
-                       android:id="@+id/hotprojectListView" 
+                       android:id="@+id/pollutionListView" 
                        android:layout_width="fill_parent" 
                        android:layout_height="fill_parent"
                        android:divider="@null" />  
                    
 					<RelativeLayout android:id="@+id/mapLayout" android:layout_width="fill_parent" android:layout_height="fill_parent">
-			                   <com.esri.android.map.MapView 
-			                    android:id="@+id/mapViewHotProject" 
+			          <com.esri.android.map.MapView 
+			                    android:id="@+id/mapView" 
 			                    android:layout_width="fill_parent" 
 			                    android:layout_height="fill_parent"
 			                    android:background="#ff0000"/>
@@ -51,30 +52,30 @@
                         android:layout_height="90dp"
                         android:background="@drawable/item_bg"
                         android:layout_alignParentBottom="true">
-                        <Button android:id="@+id/hpShowDetailBtn"
+                        <Button android:id="@+id/showDetailBtn"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:background="#00ffffff"/>
 						 <ImageView
-					        android:id="@+id/hpImageView"
+					        android:id="@+id/itemImageView"
 					        android:layout_width="85dip"
 					        android:layout_height="85dip"
 					        android:padding="5dp"
 					        android:scaleType="fitXY" />
 					    <TextView
-					        android:id="@+id/hpNameTextView"
+					        android:id="@+id/firstTv"
 					        android:layout_width="fill_parent"
 					        android:layout_height="wrap_content"
 					        android:textSize="22sp"
-					        android:layout_toRightOf="@id/hpImageView"
+					        android:layout_toRightOf="@id/itemImageView"
 					       	android:textColor="#222222"
 					       	android:paddingTop="5dp"/>
 					    <TextView
-					        android:id="@+id/hpGcjdTextView"
+					        android:id="@+id/secondTv"
 					        android:layout_width="fill_parent"
 					        android:layout_height="wrap_content"
 					        android:textSize="15sp"
-					        android:layout_toRightOf="@id/hpImageView"
+					        android:layout_toRightOf="@id/itemImageView"
 					        android:layout_alignParentBottom="true"
 					       	android:textColor="#444444"
 					       	android:paddingBottom="5dp"/>
@@ -84,5 +85,69 @@
              </FrameLayout>  
          </LinearLayout>  
     </TabHost> 
+    <LinearLayout 
+        android:layout_width="fill_parent"
+        android:layout_height="40dp"
+        android:layout_weight="0"
+        android:orientation="horizontal"
+        android:background="#ffffff"
+        >
 
+        <Button
+            android:id="@+id/btnGywry"
+            android:textColor="@drawable/text_selected"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="工业"
+            android:shadowColor="#222222"
+        	android:shadowDy="-1"
+        	android:shadowRadius="1" 
+            android:textSize="20sp"
+            android:background="@drawable/tabbar_item"/>
+
+        <Button
+            android:id="@+id/btnNywry"
+            android:textColor="@drawable/text_selected"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="农业" 
+            android:shadowColor="#222222"
+        	android:shadowDy="-1"
+        	android:shadowRadius="1" 
+            android:textSize="20sp"
+            android:background="@drawable/tabbar_item"/>
+
+        <Button
+            android:id="@+id/btnShwry"
+            android:textColor="@drawable/text_selected"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="生活" 
+            android:shadowColor="#222222"
+        	android:shadowDy="-1"
+        	android:shadowRadius="1" 
+            android:textSize="20sp"
+            android:background="@drawable/tabbar_item"/>
+
+        <Button
+            android:id="@+id/btnAllwry"
+            android:textColor="@drawable/text_selected"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="全部" 
+            android:shadowColor="#222222"
+        	android:shadowDy="-1"
+        	android:shadowRadius="1" 
+            android:textSize="20sp"
+            android:background="@drawable/tabbar_item"/>
+        
+    </LinearLayout>
 </LinearLayout>

@@ -1,4 +1,4 @@
-package cn.bjeastearth.waterapp;
+package cn.bjeastearth.waterapp.myview;
 
 import android.R.integer;
 import android.app.Activity;

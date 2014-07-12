@@ -54,9 +54,12 @@ public class SewageFactoryAdapter extends BaseAdapter {
 			TextView tvDaTe=(TextView)convertView.findViewById(R.id.secondTv);
 			tvDaTe.setText("类型:"+mAllSewageFactorys.get(position).getType().getName());
 			ImageView iView=(ImageView)convertView.findViewById(R.id.imageView);
-			ProjectImage projectImage=mAllSewageFactorys.get(position).getImages().get(0);
-			String url=mContext.getString(R.string.NewTileImgAddr)+projectImage.getName();
-			mImageLoader.DisplayImage(url, iView, false);
+			List<ProjectImage> images=mAllSewageFactorys.get(position).getImages();
+			if (images!=null&&images.size()>0) {
+				ProjectImage projectImage=mAllSewageFactorys.get(position).getImages().get(0);
+				String url=mContext.getString(R.string.NewTileImgAddr)+projectImage.getName();
+				mImageLoader.DisplayImage(url, iView, false);
+			}
 			convertView.setTag(mAllSewageFactorys.get(position));
 			return convertView;
 		}

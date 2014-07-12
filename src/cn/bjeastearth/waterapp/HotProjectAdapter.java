@@ -53,9 +53,14 @@ public  HotProjectAdapter(Context con,List<HotProject> hotProjects) {
 		TextView tvDaTe=(TextView)convertView.findViewById(R.id.hpGcjdTextView);
 		tvDaTe.setText("工程进度:"+allHotProjects.get(position).getGcjd()+"%");
 		ImageView iView=(ImageView)convertView.findViewById(R.id.hpImageView);
-		ProjectImage projectImage=allHotProjects.get(position).getImages().get(0);
-		String url=mContext.getString(R.string.NewTileImgAddr)+projectImage.getName();
-		mImageLoader.DisplayImage(url, iView, false);
+		List<ProjectImage> images=allHotProjects.get(position).getImages();
+		if (images != null && images.size() > 0) {
+			ProjectImage projectImage = allHotProjects.get(position)
+					.getImages().get(0);
+			String url = mContext.getString(R.string.NewTileImgAddr)
+					+ projectImage.getName();
+			mImageLoader.DisplayImage(url, iView, false);
+		}
 		convertView.setTag(allHotProjects.get(position));
 		return convertView;
 	}

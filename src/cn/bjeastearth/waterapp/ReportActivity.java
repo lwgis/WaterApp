@@ -27,6 +27,7 @@ import cn.bjeastearth.http.HttpUtil;
 import cn.bjeastearth.http.Inform;
 import cn.bjeastearth.http.InformAttachement;
 import cn.bjeastearth.waterapp.model.Department;
+import cn.bjeastearth.waterapp.myview.DpTransform;
 import cn.bjeastearth.waterapp.myview.MyEditText;
 import cn.bjeastearth.waterapp.myview.MyTextButton;
 import android.app.Activity;

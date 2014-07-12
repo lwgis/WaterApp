@@ -2,21 +2,28 @@ package cn.bjeastearth.waterapp;
 
 import java.util.List;
 
+import com.esri.core.internal.tasks.ags.r;
+
 import cn.bjeastearth.imageload.ImageLoader;
 import cn.bjeastearth.waterapp.model.FieldItem;
+import cn.bjeastearth.waterapp.myview.LvHeightUtil;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewGroup.LayoutParams;
+import android.widget.AbsListView;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.TextView;
 
-public class HotProjectDetailAdapter extends BaseAdapter {
+public class FieldItemAdapter extends BaseAdapter {
 	private Context mContext;
 	private ImageLoader mImageLoader;
 	private List<FieldItem> mFieldItems;
-	public HotProjectDetailAdapter(Context con,List<FieldItem> fileFieldItems){
+	public FieldItemAdapter(Context con,List<FieldItem> fileFieldItems){
 		this.mContext=con;
 		this.mFieldItems=fileFieldItems;
 		mImageLoader=new ImageLoader(con);
@@ -42,26 +49,40 @@ public class HotProjectDetailAdapter extends BaseAdapter {
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
 		FieldItem item=mFieldItems.get(position);
-		if (convertView==null) {
-			if (item.getType()==0) {
-				convertView = LayoutInflater.from(mContext).inflate(
-						R.layout.fielditem_text, null);
-			}
-			else {
-				convertView = LayoutInflater.from(mContext).inflate(
-						R.layout.fielditem_image, null);
-			}
-		}
-	
 		if (item.getType()==0) {
+			convertView = LayoutInflater.from(mContext).inflate(
+						R.layout.fielditem_text, null);
 			TextView tvName=(TextView)convertView.findViewById(R.id.fieldNameTv);
 			tvName.setText(item.getName());
 			TextView tvValue=(TextView)convertView.findViewById(R.id.fieldValueTv);
 			tvValue.setText(item.getContent());
 		}
-		else {
+		if (item.getType()==1) {
+			convertView = LayoutInflater.from(mContext).inflate(
+						R.layout.fielditem_image, null);
 			ImageView imageView=(ImageView)convertView.findViewById(R.id.fieldContentImage);
 			mImageLoader.DisplayImage(mContext.getString(R.string.NewTileImgAddr)+ item.getContent(), imageView, false);
+		}
+		if (item.getType()==-1) {
+			convertView = LayoutInflater.from(mContext).inflate(
+						R.layout.fielditem_listview, null);
+			LinearLayout layout=(LinearLayout)convertView.findViewById(R.id.fieldlayout);
+			for (FieldItem cItem : item.getChildFieldItems()) {
+				View cView=null;
+				if (cItem.getName().equals("")) {
+					cView=LayoutInflater.from(mContext).inflate(R.layout.fielditem_content, null);
+				}
+				else {
+					cView=LayoutInflater.from(mContext).inflate(R.layout.fielditem_text, null);
+					TextView tvName=(TextView)cView.findViewById(R.id.fieldNameTv);
+					tvName.setText(cItem.getName());
+				}
+				TextView tvValue=(TextView)cView.findViewById(R.id.fieldValueTv);
+				tvValue.setText(cItem.getContent());
+				layout.addView(cView);
+				}
+			TextView tvName=(TextView)convertView.findViewById(R.id.fieldNameTv);
+			tvName.setText(item.getName());
 		}
 		return convertView;
 	}

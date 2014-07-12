@@ -40,6 +40,18 @@ public class AllNewsActivity extends Activity {
 		 Gson gson=new Gson();
 		 List<WaterNew> news=gson.fromJson(msg.obj.toString(),new TypeToken<List<WaterNew>>(){}.getType());
 		 AllNewsActivity.this.mListView.setAdapter(new AllNewsAdapter(AllNewsActivity.this, news));
+	      AllNewsActivity.this.mListView.setOnItemClickListener(new OnItemClickListener() {
+
+	  		@Override
+	  		public void onItemClick(AdapterView<?> parent, View view, int position,
+	  				long id) {
+	  			WaterNew aNew=(WaterNew)view.getTag();
+	  			Intent it=new Intent(AllNewsActivity.this,NewsDetailActivity.class);
+	  			it.putExtra("title", aNew.getTitle());
+	  			it.putExtra("content", aNew.getContent());
+	  			AllNewsActivity.this.startActivity(it);
+	  		}
+	  	});
 	}
 	
 };
@@ -63,18 +75,6 @@ public class AllNewsActivity extends Activity {
         this.mListView=(WebListView)findViewById(R.id.allNewsListView);
         this.mListView.showLoading();
        new Thread(new httpThread(),"httpthread").start();
-       this.mListView.setOnItemClickListener(new OnItemClickListener() {
-
-		@Override
-		public void onItemClick(AdapterView<?> parent, View view, int position,
-				long id) {
-			WaterNew aNew=(WaterNew)view.getTag();
-			Intent it=new Intent(AllNewsActivity.this,NewsDetailActivity.class);
-			it.putExtra("title", aNew.getTitle());
-			it.putExtra("content", aNew.getContent());
-			AllNewsActivity.this.startActivity(it);
-		}
-	});
     }
     
 

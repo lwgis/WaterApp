@@ -35,7 +35,7 @@ public class FieldItemActivity extends Activity {
 		Intent oneIntent=getIntent();
 		titleTextView.setText(oneIntent.getStringExtra("Title"));
 		ArrayList<FieldItem> fieldItems=(ArrayList<FieldItem>)oneIntent.getSerializableExtra("FieldItems");
-		HotProjectDetailAdapter adapter=new HotProjectDetailAdapter(this, fieldItems);
+		FieldItemAdapter adapter=new FieldItemAdapter(this, fieldItems);
 		myListView.setAdapter(adapter);
 	}
 	

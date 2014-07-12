@@ -19,6 +19,8 @@ private Button btnReport=null;
 private Button btnHotProject=null;
 private Button btnSituation=null;
 private Button btnSewageFactory=null;
+private Button btnPollution=null;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
@@ -34,6 +36,8 @@ private Button btnSewageFactory=null;
 		  this.btnSituation.setOnClickListener(this);
 		  this.btnSewageFactory=(Button)findViewById(R.id.btnWsclc);
 		  this.btnSewageFactory.setOnClickListener(this);
+		  this.btnPollution=(Button)findViewById(R.id.btnWry);
+		  this.btnPollution.setOnClickListener(this);
 	}
 
 	@Override
@@ -64,6 +68,10 @@ private Button btnSewageFactory=null;
 			break;
 		case R.id.btnWsclc:
 			it.setClass(this, SewageFactoryActivity.class);
+			break;
+		case R.id.btnWry:
+			it.setClass(this, PollutionActivity.class);
+			break;
 		default:
 			break;
 		}

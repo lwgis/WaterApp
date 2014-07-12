@@ -1,15 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:orientation="horizontal" 
     android:background="@drawable/field_item_bg">
-
     <TextView
         android:id="@+id/fieldNameTv"
         android:layout_width="100dp"
         android:layout_height="wrap_content"
-        android:textSize="20sp"
+        android:textSize="18sp"
         android:textColor="#715b4c"
         android:gravity="center"
         android:padding="3dp" />
@@ -20,10 +19,11 @@
 	    android:scaleType="fitXY" />
     <TextView
         android:id="@+id/fieldValueTv"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="20sp"
+        android:textSize="18sp"
         android:textColor="#715b4c"
-        android:paddingLeft="5dp" />
+        android:paddingLeft="5dp"
+         />
 
 </LinearLayout>

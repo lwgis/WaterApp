@@ -35,6 +35,8 @@ public class RootProjectActivity extends Activity {
 					}.getType());
 			mAdapter=new RootProjectAdapter(RootProjectActivity.this, RootProjectActivity.this.allRootProjects);
 			mListView.setAdapter(mAdapter);
+			 RootProjectActivity.this.mListView.setOnItemClickListener(mOnItemClickListener);
+
 		}
 		
 	};
@@ -80,7 +82,6 @@ public class RootProjectActivity extends Activity {
 				}
 			}
 		}).start();
-		this.mListView.setOnItemClickListener(mOnItemClickListener);
 	}
 
 }
