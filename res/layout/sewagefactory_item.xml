@@ -8,7 +8,8 @@
         android:layout_width="80dip"
         android:layout_height="80dip"
         android:padding="5dp"
-        android:scaleType="fitXY" />
+        android:scaleType="fitXY"
+        android:src="@drawable/imageview" />
     <TextView
         android:id="@+id/firstTv"
         android:layout_width="fill_parent"

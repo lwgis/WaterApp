@@ -1,5 +1,5 @@
 package cn.bjeastearth.waterapp.model;
 
-public class PsFarming {
+public class PsXqyz {
 
 }

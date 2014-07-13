@@ -11,27 +11,27 @@ public class PsIndustry implements Serializable,FieldItemable {
 	 */
 	private static final long serialVersionUID = -7210753076400650517L;
 	private int ID;
-	private int Bod;
+	private double Bod;
 	private List<PollutionClass1> Class1jls;
 	private List<PollutionClass2> Class2jls;
-	private int Cod;
+	private double Cod;
 	private String Cylx;
 	private String Fzr;
 	private Department GsDept;
 	private Department HbDept;
 	private List<ProjectImage> Images;
-	private int NH3N;
-	private int Ncz;
-	private int PSum;
+	private double NH3N;
+	private double Ncz;
+	private double PSum;
 	private String Qymc;
 	private int Status;
 	private PollutionType Wrwlx;
 	private double X;
 	private double Y;
-	private int Zczj;
-	private int Zjs;
+	private double Zczj;
+	private double Zjs;
 	private Region Xzq;
-	public int getBod() {
+	public double getBod() {
 		return Bod;
 	}
 	public void setBod(int bod) {
@@ -49,7 +49,7 @@ public class PsIndustry implements Serializable,FieldItemable {
 	public void setClass2jls(List<PollutionClass2> class2jls) {
 		Class2jls = class2jls;
 	}
-	public int getCod() {
+	public double getCod() {
 		return Cod;
 	}
 	public void setCod(int cod) {
@@ -85,19 +85,19 @@ public class PsIndustry implements Serializable,FieldItemable {
 	public void setImages(List<ProjectImage> images) {
 		Images = images;
 	}
-	public int getNH3N() {
+	public double getNH3N() {
 		return NH3N;
 	}
 	public void setNH3N(int nH3N) {
 		NH3N = nH3N;
 	}
-	public int getNcz() {
+	public double getNcz() {
 		return Ncz;
 	}
 	public void setNcz(int ncz) {
 		Ncz = ncz;
 	}
-	public int getPSum() {
+	public double getPSum() {
 		return PSum;
 	}
 	public void setPSum(int pSum) {
@@ -133,13 +133,13 @@ public class PsIndustry implements Serializable,FieldItemable {
 	public void setY(double y) {
 		Y = y;
 	}
-	public int getZczj() {
+	public double getZczj() {
 		return Zczj;
 	}
 	public void setZczj(int zczj) {
 		Zczj = zczj;
 	}
-	public int getZjs() {
+	public double getZjs() {
 		return Zjs;
 	}
 	public void setZjs(int zjs) {
