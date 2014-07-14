@@ -1,8 +1,13 @@
 package cn.bjeastearth.waterapp.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
-public class PsScyz {
+import cn.bjeastearth.waterapp.R;
+import android.content.Context;
+import android.graphics.drawable.Drawable;
+
+public class PsScyz implements PollutionSource{
 	private double Bod;
 	private String CTime;
 	private double Clcz;
@@ -13,6 +18,8 @@ public class PsScyz {
 	private double PSum;
 	private int Status;
 	private double Symj;
+	private Region Xzq;
+	private PsScyzType Yztype;
 	private double X;
 	private double Y;
 	public double getBod() {
@@ -99,6 +106,41 @@ public class PsScyz {
 	public void setYztype(PsScyzType yztype) {
 		Yztype = yztype;
 	}
-	private Region Xzq;
-	private PsScyzType Yztype;
+	@Override
+	public String getShowTitle() {
+		// TODO Auto-generated method stub
+		return getXzq().getName();
+	}
+	@Override
+	public String getShowDescribing() {
+		// TODO Auto-generated method stub
+		return "水产类型："+ getYztype().getName();
+	}
+	@Override
+	public ArrayList<FieldItem> getFieldItems() {
+		ArrayList<FieldItem> fieldItems=new ArrayList<FieldItem>();
+		fieldItems.add(new FieldItem("行政区",getXzq().getName()));
+		fieldItems.add(new FieldItem("水产类型", getYztype().getName()));
+		fieldItems.add(new FieldItem("水域面积", String.valueOf(getSymj())));
+		fieldItems.add(new FieldItem("产量产值", String.valueOf(getClcz())));
+		fieldItems.add(new FieldItem("BOD",  String.valueOf(getBod())));
+		fieldItems.add(new FieldItem("COD",  String.valueOf(getBod())));
+		fieldItems.add(new FieldItem("氨氮",  String.valueOf(getNh3N())));
+		fieldItems.add(new FieldItem("总磷",  String.valueOf(getPSum())));
+		fieldItems.add(new FieldItem("时间", getCTime()));
+		return fieldItems;
+	}
+	@Override
+	public String getImageString() {
+		if (getImages()!=null&&getImages().size()>0) {
+			ProjectImage projectImage=getImages().get(0);
+			return projectImage.getName();
+		}
+		return null;
+	}
+	@Override
+	public Drawable getMapDrawable(Context context) {
+		Drawable image = context.getResources().getDrawable(R.drawable.map_item_ny);
+		return image;
+	}
 }

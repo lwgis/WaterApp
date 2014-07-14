@@ -3,6 +3,7 @@ package cn.bjeastearth.waterapp;
 import java.util.List;
 
 import cn.bjeastearth.imageload.ImageLoader;
+import cn.bjeastearth.waterapp.model.PollutionSource;
 import cn.bjeastearth.waterapp.model.PsIndustry;
 import cn.bjeastearth.waterapp.model.ProjectImage;
 import android.content.Context;
@@ -14,10 +15,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 public class PollutionAdapter extends BaseAdapter {
-	List<PsIndustry> mAllPollutionSources;
+	List<PollutionSource> mAllPollutionSources;
 	Context mContext;
 	ImageLoader mImageLoader;
-	public  PollutionAdapter(Context con,List<PsIndustry> sources) {
+	public  PollutionAdapter(Context con,List<PollutionSource> sources) {
 		mContext=con;
 		mAllPollutionSources=sources;
 		mImageLoader=new ImageLoader(mContext);
@@ -50,14 +51,12 @@ public class PollutionAdapter extends BaseAdapter {
 			convertView=LayoutInflater.from(mContext).inflate(R.layout.pollution_item, null);
 		}
 		TextView tvtitle=(TextView)convertView.findViewById(R.id.firstTv);
-		tvtitle.setText(mAllPollutionSources.get(position).getQymc());
+		tvtitle.setText(mAllPollutionSources.get(position).getShowTitle());
 		TextView tvDaTe=(TextView)convertView.findViewById(R.id.secondTv);
-		tvDaTe.setText("产业类型:"+mAllPollutionSources.get(position).getCylx());
+		tvDaTe.setText(mAllPollutionSources.get(position).getShowDescribing());
 		ImageView iView=(ImageView)convertView.findViewById(R.id.imageView);
-		List<ProjectImage> images=mAllPollutionSources.get(position).getImages();
-		if (images!=null&&images.size()>0) {
-			ProjectImage projectImage=mAllPollutionSources.get(position).getImages().get(0);
-			String url=mContext.getString(R.string.NewTileImgAddr)+projectImage.getName();
+		if (mAllPollutionSources.get(position).getImageString()!=null) {
+			String url=mContext.getString(R.string.NewTileImgAddr)+mAllPollutionSources.get(position).getImageString();
 			mImageLoader.DisplayImage(url, iView, false);
 		}
 		return convertView;

@@ -1,14 +1,17 @@
 package cn.bjeastearth.waterapp;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import cn.bjeastearth.http.HttpUtil;
 import cn.bjeastearth.imageload.ImageLoader;
-import cn.bjeastearth.waterapp.model.ProjectImage;
+import cn.bjeastearth.waterapp.model.PollutionSource;
+import cn.bjeastearth.waterapp.model.PsFarmingManager;
 import cn.bjeastearth.waterapp.model.PsIndustry;
-import cn.bjeastearth.waterapp.model.SewageFactory;
+import cn.bjeastearth.waterapp.model.PsLive;
+import cn.bjeastearth.waterapp.model.PsManager;
 import cn.bjeastearth.waterapp.myview.WebListView;
 
 import com.esri.android.map.GraphicsLayer;
@@ -45,13 +48,17 @@ public class PollutionActivity extends Activity implements OnClickListener{
 	ArcGISTiledMapServiceLayer tiledMapServiceLayer = null;
 	GraphicsLayer mGraphicsLayer;
 	RelativeLayout mapInfoLayout=null;
-	List<PsIndustry> mAllPollutionSources;
+	ArrayList<PollutionSource> mAllPollutionSources;
+	List<PsIndustry> mAllPsIndustries;
+	PsFarmingManager mPsFarmingManager;
+	List<PsLive> mAllPsLives;
+	PsManager mPsManager;
 	PollutionAdapter mAdapter;
 	Button btnGywry;
 	Button btnNywry;
 	Button btnShwry;
 	Button btnAllwry;
-	PsIndustry currentPsIndustry;
+	PollutionSource currentPsIndustry;
 	ImageLoader mImageLoader;
 	TextView firstTv=null;
 	TextView secondTv=null;
@@ -62,23 +69,22 @@ public class PollutionActivity extends Activity implements OnClickListener{
 		public void handleMessage(Message msg) {
 			// TODO Auto-generated method stub
 			super.handleMessage(msg);
-			Gson gson=new Gson();
-			mAllPollutionSources= gson.fromJson(msg.obj.toString(),
-					new TypeToken<List<PsIndustry>>() {
-					}.getType());
+		
+//			mAllPollutionSources=new ArrayList<PollutionSource>(mAllPsIndustries);
+			mAllPollutionSources=getAllPollutionSources(msg);
+
 			mAdapter=new PollutionAdapter(PollutionActivity.this, mAllPollutionSources);
 			mListView.setAdapter(mAdapter);
 			if (mGraphicsLayer == null) {
 				mGraphicsLayer = new GraphicsLayer();
 				mapView.addLayer(mGraphicsLayer);
 			}
-			for (PsIndustry pollutionSource : mAllPollutionSources) {
+			mGraphicsLayer.removeAll();
+			for (PollutionSource pollutionSource : mAllPollutionSources) {
 				Point onePoint = new Point(pollutionSource.getX(), pollutionSource.getY());
 				Map<String, Object> map = new HashMap<String, Object>();
 				map.put("id", String.valueOf(pollutionSource.getID()));
-				Drawable image = PollutionActivity.this.getBaseContext()
-						.getResources().getDrawable(R.drawable.map_item);
-				PictureMarkerSymbol symbol = new PictureMarkerSymbol(image);
+				PictureMarkerSymbol symbol = new PictureMarkerSymbol(pollutionSource.getMapDrawable(PollutionActivity.this));
 				Graphic oneGraphic = new Graphic(onePoint, symbol, map);
 				mGraphicsLayer.addGraphic(oneGraphic);
 			}
@@ -92,7 +98,7 @@ public class PollutionActivity extends Activity implements OnClickListener{
 		public void onItemClick(AdapterView<?> parent, View view, int position,
 				long id) {
 			// TODO Auto-generated method stub
-			PsIndustry onePollutionSource=mAllPollutionSources.get(position);
+			PollutionSource onePollutionSource=mAllPollutionSources.get(position);
 			Intent intent = new Intent(PollutionActivity.this, FieldItemActivity.class);  
 			intent.putExtra("Title", "污染源信息");
 			intent.putExtra("FieldItems", onePollutionSource.getFieldItems());  
@@ -192,6 +198,57 @@ public class PollutionActivity extends Activity implements OnClickListener{
 			}
 		});
 	}
+	protected ArrayList<PollutionSource> getAllPollutionSources(Message msg) {
+		ArrayList<PollutionSource> pollutionSources=null;
+		Gson gson=new Gson();
+		switch (msg.what) {
+		case 0://工业
+			mAllPsIndustries= gson.fromJson(msg.obj.toString(),
+					new TypeToken<List<PsIndustry>>() {
+					}.getType());
+			pollutionSources=new ArrayList<PollutionSource>(mAllPsIndustries);
+			break;
+		case 1://农业
+			mPsFarmingManager=gson.fromJson(msg.obj.toString(), PsFarmingManager.class);
+			pollutionSources =new ArrayList<PollutionSource>();
+			for (PollutionSource pollutionSource : mPsFarmingManager.getScyzwry()) {
+				pollutionSources.add(pollutionSource);
+			}
+			for (PollutionSource pollutionSource : mPsFarmingManager.getXqyzwry()) {
+				pollutionSources.add(pollutionSource);
+			}
+			for (PollutionSource pollutionSource : mPsFarmingManager.getZzwry()) {
+				pollutionSources.add(pollutionSource);
+			}
+			break;
+		case 2://生活
+			mAllPsLives=gson.fromJson(msg.obj.toString(), new TypeToken<List<PsLive>>(){}.getType());
+			pollutionSources=new ArrayList<PollutionSource>(mAllPsLives);
+			break;
+		case 3://全部
+			mPsManager=gson.fromJson(msg.obj.toString(), PsManager.class);
+			pollutionSources =new ArrayList<PollutionSource>();
+			for (PollutionSource pollutionSource : mPsManager.getGys()) {
+				pollutionSources.add(pollutionSource);
+			}
+			for (PollutionSource pollutionSource : mPsManager.getNySource().getScyzwry()) {
+				pollutionSources.add(pollutionSource);
+			}
+			for (PollutionSource pollutionSource : mPsManager.getNySource().getXqyzwry()) {
+				pollutionSources.add(pollutionSource);
+			}
+			for (PollutionSource pollutionSource : mPsManager.getNySource().getZzwry()) {
+				pollutionSources.add(pollutionSource);
+			}
+			for (PollutionSource pollutionSource : mPsManager.getShs()) {
+				pollutionSources.add(pollutionSource);
+			}
+			break;
+		default:
+			break;
+		}
+		return pollutionSources;
+	}
 	@Override
 	public void onClick(View v) {
 		if (v.isSelected()) {
@@ -208,10 +265,13 @@ public class PollutionActivity extends Activity implements OnClickListener{
 		new Thread(new HttpThread("gywry")).start();
 			break;
 		case R.id.btnNywry:v.setSelected(true);
+		new Thread(new HttpThread("nywry")).start();
 		break;
 		case R.id.btnShwry:v.setSelected(true);
+		new Thread(new HttpThread("shws")).start();
 		break;
 		case R.id.btnAllwry:v.setSelected(true);
+		new Thread(new HttpThread("all")).start();
 		break;
 		default:
 			break;
@@ -249,24 +309,23 @@ public class PollutionActivity extends Activity implements OnClickListener{
 	}
 	protected void showMapInfo(int swId) {
 		mapInfoLayout.setVisibility(View.VISIBLE);
-		PsIndustry psIndustry=findHotProjectByid(swId);
-		currentPsIndustry=psIndustry;
-		firstTv.setText(psIndustry.getQymc());
-		secondTv.setText("产业类型:"+psIndustry.getCylx());
-		if (psIndustry.getImages()!=null&&psIndustry.getImages().size()>0) {
+		PollutionSource pollutionSource=findHotProjectByid(swId);
+		currentPsIndustry=pollutionSource;
+		firstTv.setText(pollutionSource.getShowTitle());
+		secondTv.setText(pollutionSource.getShowDescribing());
+		if (pollutionSource.getImageString()!=null) {
 			if (mImageLoader==null) {
 				mImageLoader=new ImageLoader(this);
 			}
-			ProjectImage projectImage=psIndustry.getImages().get(0);
-			String url=this.getString(R.string.NewTileImgAddr)+projectImage.getName();
+			String url=this.getString(R.string.NewTileImgAddr)+pollutionSource.getImageString();
 			mImageLoader.DisplayImage(url, itemImageView, false);
 		}
 
 	}
-	private PsIndustry findHotProjectByid(int psID) {
-		for (PsIndustry psIndustry : mAllPollutionSources) {
-			if (psID==psIndustry.getID()) {
-				return psIndustry;
+	private PollutionSource findHotProjectByid(int psID) {
+		for (PollutionSource pollutionSource : mAllPollutionSources) {
+			if (psID==pollutionSource.getID()) {
+				return pollutionSource;
 			}
 		}
 		return null;
@@ -285,6 +344,18 @@ public class PollutionActivity extends Activity implements OnClickListener{
 			String jsonString = HttpUtil.getAllPollutionString(pollutionTpyeString);
 			if (jsonString != "") {
 				Message msg = new Message();
+				if (pollutionTpyeString.equals("gywry")) {
+					msg.what=0;
+				}
+				if (pollutionTpyeString.equals("nywry")) {
+					msg.what=1;
+				}
+				if (pollutionTpyeString.equals("shws")) {
+					msg.what=2;
+				}
+				if (pollutionTpyeString.equals("all")) {
+					msg.what=3;
+				}
 				msg.obj = jsonString;
 				mHandler.sendMessage(msg);
 			}

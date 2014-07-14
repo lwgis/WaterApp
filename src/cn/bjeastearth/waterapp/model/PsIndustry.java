@@ -3,8 +3,13 @@ package cn.bjeastearth.waterapp.model;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.jar.Attributes.Name;
 
-public class PsIndustry implements Serializable,FieldItemable {
+import android.content.Context;
+import android.graphics.drawable.Drawable;
+import cn.bjeastearth.waterapp.R;
+
+public class PsIndustry implements Serializable ,PollutionSource{
 
 	/**
 	 * 
@@ -186,5 +191,27 @@ public class PsIndustry implements Serializable,FieldItemable {
 	}
 	public void setXzq(Region xzq) {
 		Xzq = xzq;
+	}
+	@Override
+	public String getShowTitle() {
+		return Qymc;
+	}
+	@Override
+	public String getShowDescribing() {
+		return "产业类型："+ Cylx;
+	}
+	@Override
+	public String getImageString() {
+	
+		if (getImages()!=null&&getImages().size()>0) {
+			ProjectImage projectImage=getImages().get(0);
+			return projectImage.getName();
+		}
+		return null;
+	}
+	@Override
+	public Drawable getMapDrawable(Context context) {
+		Drawable image = context.getResources().getDrawable(R.drawable.map_item);
+		return image;
 	}
 }
