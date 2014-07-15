@@ -71,7 +71,8 @@
         </activity>
         <activity 
             android:name="cn.bjeastearth.waterapp.PollutionActivity"
-            android:screenOrientation="portrait">
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateAlwaysHidden|adjustPan">
         </activity>
     </application>
 

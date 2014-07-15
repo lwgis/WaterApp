@@ -95,4 +95,8 @@ public static String getAllPollutionString(String typeString) {
 	String jsonString=HttpUtil.executeHttpGet("http://159.226.110.64:8001/WaterService/WrSource.svc/"+typeString);
 	return jsonString;
 }
+public static String getAllRegionString() {
+	String jsonString=HttpUtil.executeHttpGet("http://159.226.110.64:8001/WaterService/Dictionary.svc/Xzq");
+	return jsonString;
+}
 }

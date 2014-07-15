@@ -214,4 +214,14 @@ public class PsIndustry implements Serializable ,PollutionSource{
 		Drawable image = context.getResources().getDrawable(R.drawable.map_item);
 		return image;
 	}
+	@Override
+	public String getPID() {
+		// TODO Auto-generated method stub
+		return "GY"+getID();
+	}
+	@Override
+	public PsType getPsType() {
+		// TODO Auto-generated method stub
+		return PsType.GY;
+	}
 }

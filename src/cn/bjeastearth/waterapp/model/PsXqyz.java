@@ -186,5 +186,15 @@ public class PsXqyz  implements PollutionSource {
 		Drawable image = context.getResources().getDrawable(R.drawable.map_item_ny);
 		return image;
 	}
+	@Override
+	public String getPID() {
+		// TODO Auto-generated method stub
+		return "NY"+getID();
+	}
+	@Override
+	public PsType getPsType() {
+		// TODO Auto-generated method stub
+		return PsType.NY;
+	}
 
 }

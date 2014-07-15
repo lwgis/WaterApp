@@ -18,6 +18,11 @@ public class PollutionAdapter extends BaseAdapter {
 	List<PollutionSource> mAllPollutionSources;
 	Context mContext;
 	ImageLoader mImageLoader;
+	public  PollutionAdapter(Context con) {
+		mContext=con;
+		mImageLoader=new ImageLoader(mContext);
+		mImageLoader=new ImageLoader(mContext);
+	}
 	public  PollutionAdapter(Context con,List<PollutionSource> sources) {
 		mContext=con;
 		mAllPollutionSources=sources;
@@ -61,5 +66,8 @@ public class PollutionAdapter extends BaseAdapter {
 		}
 		return convertView;
 	}
-
+ public  void refresh(List<PollutionSource> sources){
+	 mAllPollutionSources=sources;
+	 notifyDataSetChanged();
+ }
 }

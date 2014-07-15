@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/mapInfoLayout"
+                  android:layout_width="fill_parent"
+                  android:layout_height="90dp"
+                  android:background="@drawable/item_bg"
+                  android:layout_alignParentBottom="true">
+                  <Button android:id="@+id/showDetailBtn"
+                      android:layout_width="match_parent"
+                      android:layout_height="match_parent"
+                      android:background="#00ffffff"/>
+ <ImageView
+       android:id="@+id/itemImageView"
+       android:layout_width="85dip"
+       android:layout_height="85dip"
+       android:padding="5dp"
+       android:scaleType="fitXY" />
+   <TextView
+       android:id="@+id/firstTv"
+       android:layout_width="fill_parent"
+       android:layout_height="wrap_content"
+       android:textSize="22sp"
+       android:layout_toRightOf="@id/itemImageView"
+      	android:textColor="#222222"
+      	android:paddingTop="5dp"/>
+   <TextView
+       android:id="@+id/secondTv"
+       android:layout_width="fill_parent"
+       android:layout_height="wrap_content"
+       android:textSize="15sp"
+       android:layout_toRightOf="@id/itemImageView"
+       android:layout_alignParentBottom="true"
+      	android:textColor="#444444"
+      	android:paddingBottom="5dp"/>
+</RelativeLayout>
+    
+

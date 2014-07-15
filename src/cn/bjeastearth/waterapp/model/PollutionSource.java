@@ -6,7 +6,7 @@ import android.content.Context;
 import android.graphics.drawable.Drawable;
 
 public interface PollutionSource {
-		int getID();
+		String getPID();
 		String getShowTitle();
 		String getShowDescribing();
 		ArrayList<FieldItem> getFieldItems();
@@ -14,4 +14,6 @@ public interface PollutionSource {
 		double getX();
 		double getY();
 		Drawable getMapDrawable(Context context);
+		PsType getPsType();
+		Region getXzq();
 }

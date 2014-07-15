@@ -123,4 +123,14 @@ public class PsLive implements PollutionSource {
 		Drawable image = context.getResources().getDrawable(R.drawable.map_item_live);
 		return image;
 	}
+	@Override
+	public String getPID() {
+		// TODO Auto-generated method stub
+		return "SH"+getID();
+	}
+	@Override
+	public PsType getPsType() {
+		// TODO Auto-generated method stub
+		return PsType.SH;
+	}
 }
