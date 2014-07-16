@@ -146,11 +146,11 @@ public class HotProjectActivity extends Activity {
 		tabHost.setup(); // Call setup() before adding tabs if loading TabHost
 							// using findViewById().
 
-		tabHost.addTab(tabHost.newTabSpec("listView").setIndicator(tabListView)
-				.setContent(R.id.hotprojectListView));
 		tabHost.addTab(tabHost.newTabSpec("mapView").setIndicator(tabMapView)
 				.setContent(R.id.mapLayout));
-
+		tabHost.addTab(tabHost.newTabSpec("listView").setIndicator(tabListView)
+				.setContent(R.id.hotprojectListView));
+		
 		String mapURL = "http://cache1.arcgisonline.cn/ArcGIS/rest/services/ChinaOnlineStreetColor/MapServer";
 		mapView = (MapView) findViewById(R.id.mapViewHotProject);
 		tiledMapServiceLayer = new ArcGISTiledMapServiceLayer(mapURL);

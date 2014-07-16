@@ -189,7 +189,7 @@ public class PsXqyz  implements PollutionSource {
 	@Override
 	public String getPID() {
 		// TODO Auto-generated method stub
-		return "NY"+getID();
+		return "NYXQYZ"+getID();
 	}
 	@Override
 	public PsType getPsType() {

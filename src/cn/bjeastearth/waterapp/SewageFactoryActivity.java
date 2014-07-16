@@ -145,10 +145,11 @@ public class SewageFactoryActivity extends Activity {
 				tabHost.setup(); // Call setup() before adding tabs if loading TabHost
 									// using findViewById().
 
-				tabHost.addTab(tabHost.newTabSpec("listView").setIndicator(tabListView)
-						.setContent(R.id.sewageFactoryListView));
 				tabHost.addTab(tabHost.newTabSpec("mapView").setIndicator(tabMapView)
 						.setContent(R.id.mapLayout));
+				tabHost.addTab(tabHost.newTabSpec("listView").setIndicator(tabListView)
+						.setContent(R.id.sewageFactoryListView));
+				
 
 				String mapURL = "http://cache1.arcgisonline.cn/ArcGIS/rest/services/ChinaOnlineStreetColor/MapServer";
 				mapView = (MapView) findViewById(R.id.mapView);

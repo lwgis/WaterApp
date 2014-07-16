@@ -56,6 +56,7 @@ public class PollutionActivity extends Activity implements OnClickListener{
 	ArcGISTiledMapServiceLayer tiledMapServiceLayer = null;
 	GraphicsLayer mGraphicsLayer;
 	RelativeLayout mapInfoLayout=null;
+	TabHost tabHost ;
 	ArrayList<PollutionSource> mPollutionSources;
 	ArrayList<PollutionSource> mAllPollutionSources;
 	List<PsIndustry> mAllPsIndustries;
@@ -158,12 +159,24 @@ public class PollutionActivity extends Activity implements OnClickListener{
 					// 获得附加特别的属性
 					String pid = String.valueOf(result
 							.getAttributeValue("PID"));
-					mapView.centerAt((Point)result.getGeometry(), true);
 					showMapInfo(pid);
+				}
+				else {
+					mapInfoLayout.setVisibility(View.GONE);
 				}
 			
 			}
 			
+		}
+	};
+	private OnClickListener mLocationOnClickListener=new OnClickListener() {
+		
+		@Override
+		public void onClick(View v) {
+			// TODO Auto-generated method stub
+			PollutionSource pollutionSource=(PollutionSource)v.getTag();
+			PollutionActivity.this.showMapInfo(pollutionSource.getPID());
+			tabHost.setCurrentTab(0);
 		}
 	};
 	@Override
@@ -195,15 +208,13 @@ public class PollutionActivity extends Activity implements OnClickListener{
 		TextView text1 = (TextView) tabMapView.findViewById(R.id.tab_label);
 		text1.setText("地图");
 
-		TabHost tabHost = (TabHost) findViewById(R.id.tabhost);
+		tabHost = (TabHost) findViewById(R.id.tabhost);
 		tabHost.setup(); // Call setup() before adding tabs if loading TabHost
 							// using findViewById().
-
-		tabHost.addTab(tabHost.newTabSpec("listView").setIndicator(tabListView)
-				.setContent(R.id.listViewLayout));
 		tabHost.addTab(tabHost.newTabSpec("mapView").setIndicator(tabMapView)
 				.setContent(R.id.mapLayout));
-
+		tabHost.addTab(tabHost.newTabSpec("listView").setIndicator(tabListView)
+				.setContent(R.id.listViewLayout));
 		String mapURL = "http://cache1.arcgisonline.cn/ArcGIS/rest/services/ChinaOnlineStreetColor/MapServer";
 		mapView = (MapView) findViewById(R.id.mapView);
 		tiledMapServiceLayer = new ArcGISTiledMapServiceLayer(mapURL);
@@ -385,6 +396,8 @@ public class PollutionActivity extends Activity implements OnClickListener{
 	protected void showMapInfo(String pid) {
 		mapInfoLayout.setVisibility(View.VISIBLE);
 		PollutionSource pollutionSource=findHotProjectByid(pid);
+		Point point=new Point(pollutionSource.getX(), pollutionSource.getY());
+		mapView.centerAt(point, true);
 		currentPs=pollutionSource;
 		firstTv.setText(pollutionSource.getShowTitle());
 		secondTv.setText(pollutionSource.getShowDescribing());
@@ -410,7 +423,7 @@ public class PollutionActivity extends Activity implements OnClickListener{
 		mPollutionSources=getPollutionSources(filter);
 		if (mAdapter==null) {
 			mAdapter = new PollutionAdapter(PollutionActivity.this,
-					mPollutionSources);
+					mPollutionSources,mLocationOnClickListener);
 			mListView.setAdapter(mAdapter);
 		}
 		else {
@@ -432,6 +445,7 @@ public class PollutionActivity extends Activity implements OnClickListener{
 			Graphic oneGraphic = new Graphic(onePoint, symbol, map);
 			mGraphicsLayer.addGraphic(oneGraphic);
 		}
+		mapInfoLayout.setVisibility(View.GONE);
 	}
 
 	class HttpThread implements Runnable {

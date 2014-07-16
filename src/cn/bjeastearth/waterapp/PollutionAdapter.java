@@ -9,8 +9,10 @@ import cn.bjeastearth.waterapp.model.ProjectImage;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -18,15 +20,16 @@ public class PollutionAdapter extends BaseAdapter {
 	List<PollutionSource> mAllPollutionSources;
 	Context mContext;
 	ImageLoader mImageLoader;
+	private OnClickListener locatiOnClickListener;
 	public  PollutionAdapter(Context con) {
 		mContext=con;
 		mImageLoader=new ImageLoader(mContext);
-		mImageLoader=new ImageLoader(mContext);
 	}
-	public  PollutionAdapter(Context con,List<PollutionSource> sources) {
+	public  PollutionAdapter(Context con,List<PollutionSource> sources,OnClickListener listener) {
 		mContext=con;
 		mAllPollutionSources=sources;
 		mImageLoader=new ImageLoader(mContext);
+		locatiOnClickListener=listener;
 	}
 	@Override
 	public int getCount() {
@@ -60,6 +63,9 @@ public class PollutionAdapter extends BaseAdapter {
 		TextView tvDaTe=(TextView)convertView.findViewById(R.id.secondTv);
 		tvDaTe.setText(mAllPollutionSources.get(position).getShowDescribing());
 		ImageView iView=(ImageView)convertView.findViewById(R.id.imageView);
+		Button btnLocation=(Button)convertView.findViewById(R.id.btnLocation);
+		btnLocation.setTag(mAllPollutionSources.get(position));
+		btnLocation.setOnClickListener(locatiOnClickListener);
 		if (mAllPollutionSources.get(position).getImageString()!=null) {
 			String url=mContext.getString(R.string.NewTileImgAddr)+mAllPollutionSources.get(position).getImageString();
 			mImageLoader.DisplayImage(url, iView, false);

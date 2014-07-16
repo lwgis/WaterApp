@@ -184,6 +184,9 @@ public class PsIndustry implements Serializable ,PollutionSource{
 		fieldItems.add(new FieldItem("行政区域",getXzq().getName()));
 		fieldItems.add(new FieldItem("主管环保部门",getHbDept().getName()));
 		fieldItems.add(new FieldItem("主管工商部门",getGsDept().getName()));
+		for (ProjectImage projectImage : getImages()) {
+			fieldItems.add(new FieldItem(projectImage.getName()));
+		}
 		return fieldItems;
 	}
 	public Region getXzq() {
