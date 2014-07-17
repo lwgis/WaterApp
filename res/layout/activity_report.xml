@@ -76,7 +76,7 @@
                 android:paddingLeft="3dp"
                 android:paddingRight="3dp"
                 android:paddingTop="3dp"
-                android:textSize="22sp" >
+                android:textSize="18sp" >
 
                 <requestFocus />
             </EditText>
@@ -106,7 +106,7 @@
                 android:paddingLeft="3dp"
                 android:paddingRight="3dp"
                 android:paddingTop="3dp"
-                android:textSize="22sp" />
+                android:textSize="18sp" />
 
         </LinearLayout>
 
@@ -135,7 +135,7 @@
                 android:paddingLeft="3dp"
                 android:paddingRight="3dp"
                 android:paddingTop="3dp"
-                android:textSize="22sp" />
+                android:textSize="18sp" />
 
         </LinearLayout>
 
@@ -164,7 +164,7 @@
                 android:paddingLeft="3dp"
                 android:paddingRight="3dp"
                 android:paddingTop="3dp"
-                android:textSize="22sp" />
+                android:textSize="18sp" />
 
         </LinearLayout>
 

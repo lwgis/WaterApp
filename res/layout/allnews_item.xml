@@ -16,7 +16,7 @@
         android:id="@+id/newsItemTvTitle"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:textSize="22sp"
+        android:textSize="18sp"
         android:layout_toRightOf="@id/newsItemImageView"
        	android:textColor="#222222"
        	android:paddingTop="10dp"/>

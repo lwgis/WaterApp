@@ -4,35 +4,50 @@
     android:layout_height="match_parent"
     android:orientation="vertical" 
     android:background="#ffffff">
-        <RelativeLayout 
-    android:layout_width="match_parent"
-    android:layout_height="50dp"
-    android:background="@drawable/title_bg" >
-
-    <Button
-        android:id="@+id/btnBack"
-        android:layout_width="50dp"
+    <RelativeLayout
+        android:id="@+id/titleLayout"
+        android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:layout_alignParentLeft="true"
-        android:background="@drawable/newsbackbtn"
-        android:textSize="15sp" />
-    <TextView
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:paddingTop="5dp"
-        android:shadowColor="#222222"
-        android:shadowDy="-2"
-        android:shadowRadius="2"
-        android:text="污染源"
-        android:textColor="#FFFFFF"
-        android:textSize="25sp" />
+        android:background="@drawable/title_bg" >
+
+        <Button
+            android:id="@+id/btnBack"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_alignParentLeft="true"
+            android:background="@drawable/newsbackbtn"
+            android:textSize="15sp" />
+
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:paddingTop="5dp"
+            android:shadowColor="#222222"
+            android:shadowDy="-2"
+            android:shadowRadius="2"
+            android:text="污染源"
+            android:textColor="#FFFFFF"
+            android:textSize="25sp" />
+
+        <cn.bjeastearth.waterapp.myview.MyTextButton
+            android:id="@+id/btnAddPs"
+            android:layout_width="60dp"
+            android:layout_height="40dp"
+            android:layout_alignParentRight="true"
+            android:background="@null"
+            android:paddingTop="8dp"
+            android:text="新建"
+            android:textColor="#eeeeee"
+            android:textSize="20sp" />
     </RelativeLayout>
+
      <LinearLayout 
     	android:layout_width="fill_parent"
                 	android:layout_height="44dp"
                 	android:background="#aae0f4"
-                	android:orientation="horizontal">
+                	android:orientation="horizontal"
+                	android:descendantFocusability="beforeDescendants">
                 <AutoCompleteTextView
                    android:id="@+id/SearchEditText"
                    android:layout_width="300dp"
@@ -43,10 +58,12 @@
                    android:inputType="text"
                    android:paddingLeft="10dp"
                    android:paddingRight="10dp"
-   				android:layout_margin="2dp"
-   				android:layout_weight="1"
-   				android:completionThreshold="1"
-   				android:hint="输入行政区域或河道名"/>
+   				   android:layout_margin="2dp"
+   				   android:layout_weight="1"
+   				   android:completionThreshold="1"
+   				   android:hint="输入行政区域或河道名"
+   				   android:dropDownSelector="#47a7f8"
+   				/>
                 <Button 
                     android:id="@+id/btnSearch"
                     android:layout_width="60dp"
@@ -91,13 +108,12 @@
                         android:layout_height="90dp"
                         android:background="@drawable/item_bg"
                         android:layout_alignParentBottom="true">
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                        <ImageView
+                            android:layout_width="30dp"
+                            android:layout_height="match_parent"
                             android:layout_alignParentRight="true"
                             android:layout_centerVertical="true"
-                            android:textSize="50dp"
-                            android:text=">"/>
+                            android:src="@drawable/arrow" />
 
                         <Button android:id="@+id/showDetailBtn"
                             android:layout_width="match_parent"
@@ -113,7 +129,7 @@
 					        android:id="@+id/firstTv"
 					        android:layout_width="fill_parent"
 					        android:layout_height="wrap_content"
-					        android:textSize="22sp"
+					        android:textSize="18sp"
 					        android:layout_toRightOf="@id/itemImageView"
 					       	android:textColor="#222222"
 					       	android:paddingTop="5dp"/>

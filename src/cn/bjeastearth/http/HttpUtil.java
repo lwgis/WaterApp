@@ -83,6 +83,9 @@ public static void uploadReport(Inform inform) throws Throwable {
 	HttpUtil.postRequest("http://159.226.110.64:8001/WaterService/Inform.svc/IInform/Add",jsonString);
 
 }
+public static void uploadPollutionSource(String jsonString) throws Throwable{
+	HttpUtil.postRequest("http://192.168.31.120/WaterService/WrSource.svc/Gywry/Add", jsonString);
+}
 public static String getAllRootProjectString() {
 	String jsonString=HttpUtil.executeHttpGet("http://159.226.110.64:8001/WaterService/OverAll.svc/All");
 	return jsonString;
