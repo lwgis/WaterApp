@@ -225,28 +225,7 @@ public class PollutionActivity extends Activity implements OnClickListener {
 				PollutionActivity.this.finish();
 			}
 		});
-		btnAddPs = (Button) findViewById(R.id.btnAddPs);
-		btnAddPs.setOnClickListener(new OnClickListener() {
-
-			@SuppressLint("InflateParams")
-			@Override
-			public void onClick(View v) {
-				View popView = LayoutInflater.from(PollutionActivity.this)
-						.inflate(R.layout.popupwindow_addps, null);
-				if (mAddPopupWindow == null) {
-					mAddPopupWindow = new PopupWindow(popView,DpTransform.dip2px(PollutionActivity.this, 100),DpTransform.dip2px(PollutionActivity.this, 250));
-//					mAddPopupWindow.setBackgroundDrawable(new BitmapDrawable());
-//					mAddPopupWindow.setOutsideTouchable(true);
-				}
-				if (mAddPopupWindow.isShowing()) {
-					mAddPopupWindow.dismiss();
-				}
-				else {
-					mAddPopupWindow.showAsDropDown(btnAddPs,-DpTransform.dip2px(PollutionActivity.this, 45),DpTransform.dip2px(PollutionActivity.this, 4));
-					popWindowIsShow=true;
-				}
-			}
-		});
+		initAddPsBtn();
 		// 列表
 		this.mListView = (WebListView) findViewById(R.id.pollutionListView);
 		this.mListView.showLoading();
@@ -308,6 +287,42 @@ public class PollutionActivity extends Activity implements OnClickListener {
 				intent.putExtra("Title", "污染源信息");
 				intent.putExtra("FieldItems", currentPs.getFieldItems());
 				startActivity(intent);
+			}
+		});
+	}
+
+	//初始化新建按钮
+	private void initAddPsBtn() {
+		btnAddPs = (Button) findViewById(R.id.btnAddPs);
+		final View popView = LayoutInflater.from(PollutionActivity.this)
+				.inflate(R.layout.popupwindow_addps, null);
+		btnAddPs.setOnClickListener(new OnClickListener() {
+			@SuppressLint("InflateParams")
+			@Override
+			public void onClick(View v) {
+			
+				if (mAddPopupWindow == null) {
+					mAddPopupWindow = new PopupWindow(popView,DpTransform.dip2px(PollutionActivity.this, 100),DpTransform.dip2px(PollutionActivity.this, 250));
+//					mAddPopupWindow.setBackgroundDrawable(new BitmapDrawable());
+//					mAddPopupWindow.setOutsideTouchable(true);
+				}
+				if (mAddPopupWindow.isShowing()) {
+					mAddPopupWindow.dismiss();
+				}
+				else {
+					mAddPopupWindow.showAsDropDown(btnAddPs,-DpTransform.dip2px(PollutionActivity.this, 45),DpTransform.dip2px(PollutionActivity.this, 4));
+					popWindowIsShow=true;
+				}
+			}
+		});
+		Button btnAddGyPs=(Button)popView.findViewById(R.id.btnAddGyPs);
+		btnAddGyPs.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				Intent it=new Intent(PollutionActivity.this, AddPsGyActivity.class);
+				PollutionActivity.this.startActivity(it);
+				mAddPopupWindow.dismiss();
 			}
 		});
 	}
@@ -534,7 +549,7 @@ public class PollutionActivity extends Activity implements OnClickListener {
 		@Override
 		public void run() {
 			if (pollutionTpyeString.equals("xzq")) {
-				String jsonString = HttpUtil.getAllRegionString();
+				String jsonString = HttpUtil.getDectionaryString(pollutionTpyeString);
 				Message msg = new Message();
 				msg.what = -1;
 				if (!jsonString.equals("")) {

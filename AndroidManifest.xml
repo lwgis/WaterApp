@@ -74,6 +74,10 @@
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateAlwaysHidden|adjustPan">
         </activity>
+         <activity 
+            android:name="cn.bjeastearth.waterapp.AddPsGyActivity"
+            android:screenOrientation="portrait">
+        </activity>
     </application>
 
 </manifest>

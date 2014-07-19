@@ -1,0 +1,502 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#f5f2eb" >
+<RelativeLayout 
+	android:layout_width="match_parent"
+	android:layout_height="50dp"
+	android:background="@drawable/title_bg">
+	 <Button
+        android:id="@+id/btnNewsBack"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_alignParentLeft="true"
+        android:background="@drawable/newsbackbtn"
+        android:textSize="15sp" />
+
+	<TextView
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_alignParentTop="true"
+    android:layout_centerHorizontal="true"
+    android:gravity="center"
+    android:paddingTop="3dp"
+    android:shadowColor="#222222"
+    android:shadowDy="-2"
+    android:shadowRadius="2"
+    android:text="新建工业污染源"
+    android:textColor="#FFFFFF"
+    android:textSize="25sp" />
+
+   <cn.bjeastearth.waterapp.myview.MyTextButton
+        android:id="@+id/btnSendPs"
+        android:paddingTop="8dp"
+        android:layout_width="60dp"
+        android:layout_height="40dp"
+        android:layout_alignParentRight="true"
+        android:background="@null"
+        android:textSize="20sp"
+        android:textColor="#eeeeee"
+        android:text="上传" />
+</RelativeLayout>
+
+<ScrollView
+    android:id="@+id/scrollView1"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <LinearLayout
+        android:id="@+id/layoutAddps"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/field_item_bg"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:padding="3dp"
+                android:text="企业名称"
+                android:textColor="#715b4c"
+                android:textSize="18sp" />
+
+            <ImageView
+                android:layout_width="2dp"
+                android:layout_height="fill_parent"
+                android:background="@drawable/field_item_fgx"
+                android:scaleType="fitXY" />
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="#00000000"
+                android:paddingLeft="5dp"
+                android:textColor="#715b4c"
+                android:textSize="18sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/field_item_bg"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:padding="3dp"
+                android:text="产业类型"
+                android:textColor="#715b4c"
+                android:textSize="18sp" />
+
+            <ImageView
+                android:layout_width="2dp"
+                android:layout_height="fill_parent"
+                android:background="@drawable/field_item_fgx"
+                android:scaleType="fitXY" />
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#00000000"
+                android:paddingLeft="5dp"
+                android:textColor="#715b4c"
+                android:textSize="18sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/field_item_bg"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:padding="3dp"
+                android:text="年产值"
+                android:textColor="#715b4c"
+                android:textSize="18sp" />
+
+            <ImageView
+                android:layout_width="2dp"
+                android:layout_height="fill_parent"
+                android:background="@drawable/field_item_fgx"
+                android:scaleType="fitXY" />
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="#00000000"
+                android:paddingLeft="5dp"
+                android:textColor="#715b4c"
+                android:textSize="18sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/field_item_bg"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:padding="3dp"
+                android:text="负责人"
+                android:textColor="#715b4c"
+                android:textSize="18sp" />
+
+            <ImageView
+                android:layout_width="2dp"
+                android:layout_height="fill_parent"
+                android:background="@drawable/field_item_fgx"
+                android:scaleType="fitXY" />
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="#00000000"
+                android:paddingLeft="5dp"
+                android:textColor="#715b4c"
+                android:textSize="18sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/field_item_bg"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:padding="3dp"
+                android:text="注册资金"
+                android:textColor="#715b4c"
+                android:textSize="18sp" />
+
+            <ImageView
+                android:layout_width="2dp"
+                android:layout_height="fill_parent"
+                android:background="@drawable/field_item_fgx"
+                android:scaleType="fitXY" />
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="#00000000"
+                android:paddingLeft="5dp"
+                android:textColor="#715b4c"
+                android:textSize="18sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/field_item_bg"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:padding="3dp"
+                android:text="行政区域"
+                android:textColor="#715b4c"
+                android:textSize="18sp" />
+
+            <ImageView
+                android:layout_width="2dp"
+                android:layout_height="fill_parent"
+                android:background="@drawable/field_item_fgx"
+                android:scaleType="fitXY" />
+
+            <Spinner
+                android:id="@+id/regionSpin"
+                style="@style/spinner_style"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:paddingLeft="5dp"
+                android:textColor="#715b4c"
+                android:textSize="16sp" 
+                android:dropDownSelector="#ff0000"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/field_item_bg"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:padding="3dp"
+                android:text="主管环保部门"
+                android:textColor="#715b4c"
+                android:textSize="18sp" />
+
+            <ImageView
+                android:layout_width="2dp"
+                android:layout_height="fill_parent"
+                android:background="@drawable/field_item_fgx"
+                android:scaleType="fitXY" />
+
+          <Spinner
+                android:id="@+id/deptHbSpin"
+                style="@style/spinner_style"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:paddingLeft="5dp"
+                android:textColor="#715b4c"
+                android:textSize="16sp" 
+                android:dropDownSelector="#ff0000"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/field_item_bg"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:padding="3dp"
+                android:text="主管工商部门"
+                android:textColor="#715b4c"
+                android:textSize="18sp" />
+
+            <ImageView
+                android:layout_width="2dp"
+                android:layout_height="fill_parent"
+                android:background="@drawable/field_item_fgx"
+                android:scaleType="fitXY" />
+
+          <Spinner
+                android:id="@+id/deptGsSpin"
+                style="@style/spinner_style"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:paddingLeft="5dp"
+                android:textColor="#715b4c"
+                android:textSize="16sp" 
+                android:dropDownSelector="#ff0000"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/field_item_bg"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:padding="3dp"
+                android:text="污染物类型"
+                android:textColor="#715b4c"
+                android:textSize="18sp" />
+
+            <ImageView
+                android:layout_width="2dp"
+                android:layout_height="fill_parent"
+                android:background="@drawable/field_item_fgx"
+                android:scaleType="fitXY" />
+
+              <Spinner
+                android:id="@+id/psTypeSpin"
+                style="@style/spinner_style"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:paddingLeft="5dp"
+                android:textColor="#715b4c"
+                android:textSize="16sp" 
+                android:dropDownSelector="#ff0000"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/field_item_bg"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:padding="3dp"
+                android:text="BOD"
+                android:textColor="#715b4c"
+                android:textSize="18sp" />
+
+            <ImageView
+                android:layout_width="2dp"
+                android:layout_height="fill_parent"
+                android:background="@drawable/field_item_fgx"
+                android:scaleType="fitXY" />
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="#00000000"
+                android:paddingLeft="5dp"
+                android:textColor="#715b4c"
+                android:textSize="18sp" >
+
+                <requestFocus />
+            </EditText>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/field_item_bg"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:padding="3dp"
+                android:text="COD"
+                android:textColor="#715b4c"
+                android:textSize="18sp" />
+
+            <ImageView
+                android:layout_width="2dp"
+                android:layout_height="fill_parent"
+                android:background="@drawable/field_item_fgx"
+                android:scaleType="fitXY" />
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#00000000"
+                android:paddingLeft="5dp"
+                android:textColor="#715b4c"
+                android:textSize="18sp" >
+            </EditText>
+        </LinearLayout>
+           <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/field_item_bg"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:padding="3dp"
+                android:text="氨氮"
+                android:textColor="#715b4c"
+                android:textSize="18sp" />
+
+            <ImageView
+                android:layout_width="2dp"
+                android:layout_height="fill_parent"
+                android:background="@drawable/field_item_fgx"
+                android:scaleType="fitXY" />
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#00000000"
+                android:paddingLeft="5dp"
+                android:textColor="#715b4c"
+                android:textSize="18sp" >
+            </EditText>
+        </LinearLayout>
+
+           <LinearLayout
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+               android:background="@drawable/field_item_bg"
+               android:orientation="horizontal" >
+
+               <TextView
+                   android:layout_width="100dp"
+                   android:layout_height="wrap_content"
+                   android:gravity="center"
+                   android:padding="3dp"
+                   android:text="总磷"
+                   android:textColor="#715b4c"
+                   android:textSize="18sp" />
+
+               <ImageView
+                   android:layout_width="2dp"
+                   android:layout_height="fill_parent"
+                   android:background="@drawable/field_item_fgx"
+                   android:scaleType="fitXY" />
+
+               <EditText
+                   android:layout_width="match_parent"
+                   android:layout_height="wrap_content"
+                   android:layout_weight="1"
+                   android:background="#00000000"
+                   android:paddingLeft="5dp"
+                   android:textColor="#715b4c"
+                   android:textSize="18sp" />
+           </LinearLayout>
+
+           <LinearLayout
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+               android:background="@drawable/field_item_bg"
+               android:orientation="horizontal" >
+
+               <TextView
+                   android:layout_width="100dp"
+                   android:layout_height="wrap_content"
+                   android:gravity="center"
+                   android:padding="3dp"
+                   android:text="重金属"
+                   android:textColor="#715b4c"
+                   android:textSize="18sp" />
+
+               <ImageView
+                   android:layout_width="2dp"
+                   android:layout_height="fill_parent"
+                   android:background="@drawable/field_item_fgx"
+                   android:scaleType="fitXY" />
+
+               <EditText
+                   android:layout_width="match_parent"
+                   android:layout_height="wrap_content"
+                   android:layout_weight="1"
+                   android:background="#00000000"
+                   android:paddingLeft="5dp"
+                   android:textColor="#715b4c"
+                   android:textSize="18sp" />
+           </LinearLayout>
+
+    </LinearLayout>
+</ScrollView>
+
+</LinearLayout>

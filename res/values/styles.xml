@@ -30,7 +30,12 @@
 	     <item name="android:windowTitleBackgroundStyle">@style/CustomWindowTitleBackground</item>
 	</style>
 	<style name="textviewstyle">
-	    <item name="android:textSize">22sp</item>
+	    <item name="android:textSize">18sp</item>
 	    <item name="android:padding">5dp</item>
+	    <item name="android:textColor">#6d6d6d</item>
+	</style>
+	<style name="spinner_style">
+	   <item name="android:background">@drawable/spinner_selector</item>
+	   <item name="android:textSize">28sp</item>
 	</style>
 </resources>

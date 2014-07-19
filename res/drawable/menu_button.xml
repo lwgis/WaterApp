@@ -8,6 +8,8 @@
         android:startColor="#f033b5e5" />
 
     <stroke
+        android:dashGap="1dp"
         android:width="0.5dp"
-        android:color="#96000000" />  
+        android:color="#96000000" 
+        />  
 </shape>
