@@ -1,39 +1,40 @@
 package cn.bjeastearth.waterapp;
 
-import java.io.File;
 import java.util.ArrayList;
-import java.util.List;
 
 import cn.bjeastearth.waterapp.myview.GridImageView;
-import android.R.raw;
 import android.content.Context;
-import android.media.Image;
-import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.ViewGroup.LayoutParams;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 
-public class ReportAdapter extends BaseAdapter {
-	private ArrayList<String> mlistimImages;
+public class AddImageAdapter extends BaseAdapter {
+	private ArrayList<String> images;
+	public ArrayList<String> getImages() {
+		return images;
+	}
+	public void setImages(ArrayList<String> images) {
+		this.images = images;
+	}
+
 	private Context mContext;
-	public  ReportAdapter(Context context,ArrayList<String> list) {
+	public  AddImageAdapter(Context context,ArrayList<String> list) {
 		this.mContext=context;
-		mlistimImages=list;
+		images=list;
 	}
 	@Override
 	public int getCount() {
 		// TODO Auto-generated method stub
-		return mlistimImages.size()+1;
+		return images.size()+1;
 	}
 
 	@Override
 	public Object getItem(int position) {
 		// TODO Auto-generated method stub
-		if (position<mlistimImages.size()) {
-			return mlistimImages.get(position);
+		if (position<images.size()) {
+			return images.get(position);
 		}
 		return null;
 	}
@@ -46,14 +47,14 @@ public class ReportAdapter extends BaseAdapter {
 
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
-		if (convertView==null) {
+//		if (convertView==null) {
 			convertView = LayoutInflater.from(mContext).inflate(
 					R.layout.gridview_item, null);
-		}
+//		}
 		GridImageView img =(GridImageView)convertView.findViewById(R.id.gridViewItem);
-		if (position<mlistimImages.size()) {
+		if (position<images.size()) {
 				// 定义图片视图
-			img.setImageFilePath(mlistimImages.get(position)); 	// 给ImageView设置资源
+			img.setImageFilePath(images.get(position)); 	// 给ImageView设置资源
 			img.setScaleType(ImageView.ScaleType.FIT_XY);
 		}
 		else {

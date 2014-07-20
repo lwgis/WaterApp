@@ -43,7 +43,6 @@ import android.util.Base64;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup.LayoutParams;
-import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
@@ -59,8 +58,8 @@ public class ReportActivity extends Activity {
 	private EditText reportTelEditText;
 	private EditText reportMailEditText;
 	private MyEditText reportEditText;
-	private GridView reportGridView;
-	private ReportAdapter reportAdapter;
+	private GridView imageGridView;
+	private AddImageAdapter reportAdapter;
 	private ArrayList<String> allImageStrings;
 	private Handler mHandler=new Handler(){
 
@@ -112,11 +111,11 @@ public class ReportActivity extends Activity {
 		 this.reportTelEditText.addTextChangedListener(textWatcherimpl);
 		 this.reportMailEditText.addTextChangedListener(textWatcherimpl);
 		 this.reportEditText.addTextChangedListener(textWatcherimpl);
-		 this.reportGridView=(GridView)findViewById(R.id.reportGridView);
+		 this.imageGridView=(GridView)findViewById(R.id.imageGridView);
 		 this.allImageStrings=new ArrayList<String>();
-		 this.reportAdapter=new ReportAdapter(this,allImageStrings);
-		 this.reportGridView.setAdapter(reportAdapter);
-		 this.reportGridView.setOnItemClickListener(new OnItemClickListener() {
+		 this.reportAdapter=new AddImageAdapter(this,allImageStrings);
+		 this.imageGridView.setAdapter(reportAdapter);
+		 this.imageGridView.setOnItemClickListener(new OnItemClickListener() {
 
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view,
@@ -154,12 +153,12 @@ public class ReportActivity extends Activity {
 //				String imgSize = cursor.getString(2); // 锟斤拷鍓э拷锟芥径褍锟斤拷 
 //				String imgname = cursor.getString(3); // 锟斤拷鍓э拷锟斤拷锟斤拷娴犺泛锟斤拷 
 				allImageStrings.add(imgPath);
-				this.reportAdapter=new ReportAdapter(this, allImageStrings); 
-				this.reportGridView.setAdapter(this.reportAdapter);
-				LayoutParams lParams=this.reportGridView.getLayoutParams();
+				this.reportAdapter.setImages(allImageStrings);
+				this.reportAdapter.notifyDataSetChanged();
+				LayoutParams lParams=this.imageGridView.getLayoutParams();
 				int height=(this.allImageStrings.size()/4+1);
 				lParams.height=DpTransform.dip2px(this, 80*height);
-				this.reportGridView.setLayoutParams(lParams);
+				this.imageGridView.setLayoutParams(lParams);
 				cursor.close(); 
 			}
 		}

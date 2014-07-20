@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal"
+    android:background="@drawable/field_item_bg">
+       <Spinner
+         android:id="@+id/pc1Spin"
+         style="@style/spinner_style"
+         android:layout_width="350dp"
+         android:layout_height="wrap_content"
+         android:layout_weight="1"
+         android:paddingLeft="5dp"
+         android:textColor="#715b4c"
+         android:textSize="16sp" 
+         android:dropDownSelector="#ff0000"/>
+       <ImageView
+         android:layout_width="2dp"
+         android:layout_height="fill_parent"
+         android:background="@drawable/field_item_fgx"
+         android:scaleType="fitXY" />
+
+	  <EditText
+	      android:id="@+id/pc1Value"
+	      android:layout_width="300dp"
+	      android:layout_height="wrap_content"
+	      android:layout_weight="1"
+	      android:background="#00000000"
+	      android:inputType="numberDecimal"
+	      android:paddingLeft="5dp"
+	      android:textColor="#715b4c"
+	      android:textSize="18sp" >
+
+         <requestFocus />
+         </EditText>
+       <ImageView
+         android:layout_width="2dp"
+         android:layout_height="fill_parent"
+         android:background="@drawable/field_item_fgx"
+         android:scaleType="fitXY" />
+	  
+      <Button 
+          android:id="@+id/btnRemvoePc"
+          android:layout_width="30dp"
+          android:layout_height="30dp"
+          android:layout_weight="0"
+          android:background="#00000000"
+          android:textSize="18sp"
+          android:text="X"/>
+</LinearLayout>

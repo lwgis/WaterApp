@@ -18,7 +18,8 @@
 
 
     
-<uses-feature android:glEsVersion="0x00020000" android:required="true"/> 
+<uses-feature android:glEsVersion="0x00020000" android:required="true"/>
+<uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/> 
 
 
 <application
@@ -78,6 +79,12 @@
             android:name="cn.bjeastearth.waterapp.AddPsGyActivity"
             android:screenOrientation="portrait">
         </activity>
+         <activity 
+             android:name="LocationActivity" 
+             android:screenOrientation="portrait">
+         </activity>
+         <service android:name="cn.bjeastearth.waterapp.location.LocationSvc" />
+         
     </application>
 
 </manifest>
