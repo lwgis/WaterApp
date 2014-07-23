@@ -9,7 +9,7 @@
 	android:layout_height="50dp"
 	android:background="@drawable/title_bg">
 	 <Button
-        android:id="@+id/btnNewsBack"
+        android:id="@+id/btnBack"
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:layout_alignParentLeft="true"
@@ -371,6 +371,7 @@
                 android:scaleType="fitXY" />
 
             <EditText
+                android:id="@+id/bodEt"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -406,6 +407,7 @@
                 android:scaleType="fitXY" />
 
             <EditText
+                android:id="@+id/codEt"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="#00000000"
@@ -438,6 +440,7 @@
                 android:scaleType="fitXY" />
 
             <EditText
+                android:id="@+id/adEt"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="#00000000"
@@ -470,6 +473,7 @@
                    android:scaleType="fitXY" />
 
                <EditText
+                   android:id="@+id/zlEt"
                    android:layout_width="match_parent"
                    android:layout_height="wrap_content"
                    android:layout_weight="1"
@@ -502,6 +506,7 @@
                    android:scaleType="fitXY" />
 
                <EditText
+                   android:id="@+id/zjsEt"
                    android:layout_width="match_parent"
                    android:layout_height="wrap_content"
                    android:layout_weight="1"

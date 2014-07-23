@@ -39,7 +39,7 @@ public class PsIndustry implements Serializable ,PollutionSource{
 	public double getBod() {
 		return Bod;
 	}
-	public void setBod(int bod) {
+	public void setBod(double bod) {
 		Bod = bod;
 	}
 	public List<PollutionClass1> getClass1jls() {
@@ -57,7 +57,7 @@ public class PsIndustry implements Serializable ,PollutionSource{
 	public double getCod() {
 		return Cod;
 	}
-	public void setCod(int cod) {
+	public void setCod(double cod) {
 		Cod = cod;
 	}
 	public String getCylx() {
@@ -93,19 +93,19 @@ public class PsIndustry implements Serializable ,PollutionSource{
 	public double getNH3N() {
 		return NH3N;
 	}
-	public void setNH3N(int nH3N) {
+	public void setNH3N(double nH3N) {
 		NH3N = nH3N;
 	}
 	public double getNcz() {
 		return Ncz;
 	}
-	public void setNcz(int ncz) {
+	public void setNcz(double ncz) {
 		Ncz = ncz;
 	}
 	public double getPSum() {
 		return PSum;
 	}
-	public void setPSum(int pSum) {
+	public void setPSum(double pSum) {
 		PSum = pSum;
 	}
 	public String getQymc() {
@@ -141,13 +141,13 @@ public class PsIndustry implements Serializable ,PollutionSource{
 	public double getZczj() {
 		return Zczj;
 	}
-	public void setZczj(int zczj) {
+	public void setZczj(double zczj) {
 		Zczj = zczj;
 	}
 	public double getZjs() {
 		return Zjs;
 	}
-	public void setZjs(int zjs) {
+	public void setZjs(double zjs) {
 		Zjs = zjs;
 	}
 	public int getID() {

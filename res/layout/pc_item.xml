@@ -5,7 +5,7 @@
     android:orientation="horizontal"
     android:background="@drawable/field_item_bg">
        <Spinner
-         android:id="@+id/pc1Spin"
+         android:id="@+id/pcSpin"
          style="@style/spinner_style"
          android:layout_width="350dp"
          android:layout_height="wrap_content"
@@ -21,7 +21,7 @@
          android:scaleType="fitXY" />
 
 	  <EditText
-	      android:id="@+id/pc1Value"
+	      android:id="@+id/pcValue"
 	      android:layout_width="300dp"
 	      android:layout_height="wrap_content"
 	      android:layout_weight="1"

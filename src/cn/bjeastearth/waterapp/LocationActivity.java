@@ -58,6 +58,14 @@ public class LocationActivity extends Activity {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		super.setContentView(R.layout.activity_location);
+		Button btnBack=(Button)findViewById(R.id.btnBack);
+		btnBack.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				LocationActivity.this.finish();
+			}
+		});
 		String mapURL = "http://cache1.arcgisonline.cn/ArcGIS/rest/services/ChinaOnlineStreetColor/MapServer";
 		mapView = (MapView) findViewById(R.id.mapView);
 		tiledMapServiceLayer = new ArcGISTiledMapServiceLayer(mapURL);

@@ -26,6 +26,7 @@ import cn.bjeastearth.http.AttachmentType;
 import cn.bjeastearth.http.HttpUtil;
 import cn.bjeastearth.http.Inform;
 import cn.bjeastearth.http.InformAttachement;
+import cn.bjeastearth.http.UploadImageUtil;
 import cn.bjeastearth.waterapp.model.Department;
 import cn.bjeastearth.waterapp.myview.DpTransform;
 import cn.bjeastearth.waterapp.myview.MyEditText;
@@ -212,7 +213,7 @@ public void uploadInform(){
 					List<InformAttachement> imgs = new ArrayList<InformAttachement>();
 					for (String filepath : allImageStrings) {
 						
-						String imgname = uploadImage(filepath);
+						String imgname = UploadImageUtil.uploadImage(filepath,"http://159.226.110.64:8001/WaterService/Inform.svc/file/upload");
 						
 						//举报信息附件对象，（注意新增的对象不要给id赋值）					
 						InformAttachement img1 = new InformAttachement();
@@ -274,99 +275,5 @@ public void uploadInform(){
 		}).start(); 
 		
 	}
-/***
- * 上传图片方法
- * @param path
- * @return
- */
-public String uploadImage(final String path){
-	
-	//服务端保存的图片名称
-	final String imgname = UUID.randomUUID().toString() + ".png";
-	
-	HttpClient hc = new DefaultHttpClient();
-    HttpPost hp = new HttpPost(
-            "http://159.226.110.64:8001/WaterService/Inform.svc/file/upload");
-    HttpResponse hr;
-    File f = new File(path);
-    if (f.exists()) {
-        // System.out.println("successful");
-        try {
-            //将图片转成字符串
-            String jason = get64String(path);
-            JSONObject jo1 = new JSONObject();
-            jo1.put("name", imgname);
-            jo1.put("content", jason);
-            jo1.put("type", ".png");
-            StringEntity se = new StringEntity(jo1.toString(),
-                    HTTP.UTF_8);
-            se.setContentType("application/json");
-            hp.setEntity(se);
 
-            hr = hc.execute(hp);
-            String strResp = null;
-            if (hr.getStatusLine().getStatusCode() == HttpURLConnection.HTTP_OK) {
-                strResp = EntityUtils.toString(hr.getEntity());
-            } else {
-                strResp = "$no_found_date$";
-            }
-            
-        } catch (UnsupportedEncodingException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        } catch (ClientProtocolException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        } catch (IOException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        } catch (JSONException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        } finally {
-            hp.abort();
-        }
-	
-    }
-	
-	return imgname;
-}
-/**
- * 图片转成字符串方法
- * @param filepath
- * @return
- */
-public String get64String(String filepath){
-	
-	String result = null;
-	
-	FileInputStream fin = null;
-	
-	try{ 
-		
-         fin = new FileInputStream(filepath);
-         
-         int length = fin.available(); 
-         
-         byte[] buffer = new byte[length]; 
-         
-         fin.read(buffer);
-         
-         result = Base64.encodeToString(buffer, Base64.DEFAULT);
-         
-         fin.close();   
-         
-    } 
-    catch(Exception e){ 
-    	
-     e.printStackTrace(); 
-     
-    }finally{
-    	
-    	
-    }
-	
-	return result;
-	
-}
 }

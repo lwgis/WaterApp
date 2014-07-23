@@ -8,11 +8,17 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
 import cn.bjeastearth.http.HttpUtil;
+import cn.bjeastearth.http.UploadImageUtil;
+import cn.bjeastearth.waterapp.AllNewsActivity.httpThread;
 import cn.bjeastearth.waterapp.R.id;
 import cn.bjeastearth.waterapp.model.Department;
 import cn.bjeastearth.waterapp.model.Pollution1;
 import cn.bjeastearth.waterapp.model.Pollution2;
+import cn.bjeastearth.waterapp.model.PollutionClass1;
+import cn.bjeastearth.waterapp.model.PollutionClass2;
 import cn.bjeastearth.waterapp.model.PollutionType;
+import cn.bjeastearth.waterapp.model.ProjectImage;
+import cn.bjeastearth.waterapp.model.PsIndustry;
 import cn.bjeastearth.waterapp.model.Region;
 import cn.bjeastearth.waterapp.myview.DpTransform;
 import cn.bjeastearth.waterapp.myview.MyTextButton;
@@ -23,6 +29,8 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup.LayoutParams;
@@ -35,9 +43,12 @@ import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.Toast;
 
 
 public class AddPsGyActivity extends Activity {
+	private final int sendPs=100;
+	private Button btnBack;
 	private EditText qymcEditText;
 	private EditText cylxEditText;
 	private EditText nczEditText;
@@ -66,6 +77,10 @@ public class AddPsGyActivity extends Activity {
 	private GridView imageGridView;
 	private AddImageAdapter imageAdapter;
 	private ArrayList<String> allImageStrings;
+	private TextView xTv;
+	private TextView yTv;
+	private double x=0.0;
+	private double y=0.0;
 	private Handler  mHandler=new Handler(){
 		@Override
 		public void handleMessage(Message msg) {
@@ -121,6 +136,10 @@ public class AddPsGyActivity extends Activity {
 						new TypeToken<List<Pollution2>>() {
 						}.getType());
 				}
+			if (msg.what==sendPs) {
+				Toast.makeText(AddPsGyActivity.this, msg.obj.toString(), Toast.LENGTH_SHORT).show();
+			    AddPsGyActivity.this.btnSendPs.setEnabled(true);
+			}
 		}
 	};
 	@Override
@@ -128,21 +147,49 @@ public class AddPsGyActivity extends Activity {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		super.setContentView(R.layout.activity_addps_gy);
-		mRegionSpinner=(Spinner)findViewById(R.id.regionSpin);
-		mDeptGsSpinner=(Spinner)findViewById(R.id.deptGsSpin);
-		mDeptHbSpinner=(Spinner)findViewById(R.id.deptHbSpin);
-		mPsTypeSpinner=(Spinner)findViewById(R.id.psTypeSpin);
+		btnBack=(Button)findViewById(R.id.btnBack);
+		btnBack.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				AddPsGyActivity.this.finish();
+			}
+		});
 		this.btnSendPs=(MyTextButton)findViewById(R.id.btnSendPs);
 		 this.btnSendPs.setFocusable(true);
 		 this.btnSendPs.setFocusableInTouchMode(true);
 		 this.btnSendPs.requestFocus();
 		 this.btnSendPs.requestFocusFromTouch();
+		 this.btnSendPs.setEnabled(false);
+		 this.btnSendPs.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				AddPsGyActivity.this.btnSendPs.setEnabled(false);
+			    AddPsGyActivity.this.uploadPsIndustry();
+			}
+		});
+		qymcEditText=(EditText)findViewById(R.id.qymcEt);
+		cylxEditText=(EditText)findViewById(R.id.cylxEt);
+		nczEditText=(EditText)findViewById(R.id.nczEt);
+		fzrEditText=(EditText)findViewById(R.id.fzrEt);
+		zczjEditText=(EditText)findViewById(R.id.zczjEt);
+		bodEditText=(EditText)findViewById(R.id.bodEt);
+		codEditText=(EditText)findViewById(R.id.codEt);
+		adEditText=(EditText)findViewById(R.id.adEt);
+		zlEditText=(EditText)findViewById(R.id.zlEt);
+		zjsEditText=(EditText)findViewById(R.id.zjsEt);
+		mRegionSpinner=(Spinner)findViewById(R.id.regionSpin);
+		mDeptGsSpinner=(Spinner)findViewById(R.id.deptGsSpin);
+		mDeptHbSpinner=(Spinner)findViewById(R.id.deptHbSpin);
+		mPsTypeSpinner=(Spinner)findViewById(R.id.psTypeSpin);
+	
 		 this.btnAddPc1=(Button)findViewById(R.id.btnAddPc1);
 		 this.layoutPc1=(LinearLayout)findViewById(R.id.layoutPc1);
 		 this.btnAddPc1.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				LinearLayout layout=(LinearLayout)AddPsGyActivity.this.getLayoutInflater().inflate(R.layout.pc1_item, null);
+				LinearLayout layout=(LinearLayout)AddPsGyActivity.this.getLayoutInflater().inflate(R.layout.pc_item, null);
 				layoutPc1.addView(layout);
 				ArrayList<String> arrayList = new ArrayList<String>();
 				for (Pollution1 pollution1 : pollution1s) {
@@ -151,7 +198,7 @@ public class AddPsGyActivity extends Activity {
 				ArrayAdapter<String> adapter = new ArrayAdapter<String>(
 						AddPsGyActivity.this,R.layout.simple_spinner_item,
 						arrayList);
-				Spinner spinner=(Spinner)layout.findViewById(R.id.pc1Spin);
+				Spinner spinner=(Spinner)layout.findViewById(R.id.pcSpin);
 				spinner.setAdapter(adapter);
 				Button btnRemovePc=(Button)layout.findViewById(R.id.btnRemvoePc);
 				btnRemovePc.setTag(layout);
@@ -170,7 +217,7 @@ public class AddPsGyActivity extends Activity {
 			
 			@Override
 			public void onClick(View v) {
-				LinearLayout layout=(LinearLayout)AddPsGyActivity.this.getLayoutInflater().inflate(R.layout.pc1_item, null);
+				LinearLayout layout=(LinearLayout)AddPsGyActivity.this.getLayoutInflater().inflate(R.layout.pc_item, null);
 				layoutPc2.addView(layout);
 				ArrayList<String> arrayList = new ArrayList<String>();
 				for (Pollution2 pollution2 : pollution2s) {
@@ -179,7 +226,7 @@ public class AddPsGyActivity extends Activity {
 				ArrayAdapter<String> adapter = new ArrayAdapter<String>(
 						AddPsGyActivity.this,R.layout.simple_spinner_item,
 						arrayList);
-				Spinner spinner=(Spinner)layout.findViewById(R.id.pc1Spin);
+				Spinner spinner=(Spinner)layout.findViewById(R.id.pcSpin);
 				spinner.setAdapter(adapter);
 				Button btnRemovePc=(Button)layout.findViewById(R.id.btnRemvoePc);
 				btnRemovePc.setTag(layout);
@@ -192,6 +239,8 @@ public class AddPsGyActivity extends Activity {
 				});				
 			}
 		});
+		 this.xTv=(TextView)findViewById(R.id.xTv);
+		 this.yTv=(TextView)findViewById(R.id.yTv);
 		 this.btnLocation=(Button)findViewById(R.id.btnAddLocation);
 		 this.btnLocation.setOnClickListener(new OnClickListener() {
 			
@@ -219,6 +268,7 @@ public class AddPsGyActivity extends Activity {
 				
 			}
 		});
+		 setTextWatcher();
 		new Thread(new HttpThread("Xzq")).start();
 		new Thread(new HttpThread("Dept")).start();
 		new Thread(new HttpThread("GywrType")).start();
@@ -226,18 +276,179 @@ public class AddPsGyActivity extends Activity {
 		new Thread(new HttpThread("WrwClass2")).start();
 	}
 
+
+
+	protected void uploadPsIndustry() {
+		// TODO Auto-generated method stub
+		new Thread(new Runnable() {
+			
+			@Override
+			public void run() {
+				PsIndustry psIndustry= createPollution();
+				Message msg=new Message();
+				msg.what=sendPs;
+				try {
+					HttpUtil.uploadPollutionSource(psIndustry);
+					msg.obj="上传成功";
+					mHandler.sendMessage(msg);
+					AddPsGyActivity.this.finish();
+				} catch (Throwable e) {
+					msg.obj="上传失败";
+					mHandler.sendMessage(msg);
+					e.printStackTrace();
+				}
+				
+			}
+		}).start();
+	}
+
+	protected PsIndustry createPollution() {
+		// TODO Auto-generated method stub
+		PsIndustry psIndustry=new PsIndustry();
+		psIndustry.setQymc(this.qymcEditText.getText().toString());
+		psIndustry.setCylx(this.cylxEditText.getText().toString());
+		psIndustry.setNcz(Double.parseDouble(this.nczEditText.getText().toString()));
+		psIndustry.setFzr(this.fzrEditText.getText().toString());
+		psIndustry.setZczj(Double.parseDouble(this.zczjEditText.getText().toString()));
+		psIndustry.setXzq(creatRegion(this.mRegionSpinner.getSelectedItem().toString()));
+		psIndustry.setHbDept(creatDept(this.mDeptHbSpinner.getSelectedItem().toString()));
+		psIndustry.setGsDept(creatDept(this.mDeptGsSpinner.getSelectedItem().toString()));
+		psIndustry.setWrwlx(createPollutionType(this.mPsTypeSpinner.getSelectedItem().toString()));
+		psIndustry.setBod(Double.parseDouble(this.bodEditText.getText().toString()));
+		psIndustry.setCod(Double.parseDouble(this.codEditText.getText().toString()));
+		psIndustry.setNH3N(Double.parseDouble(this.adEditText.getText().toString()));
+		psIndustry.setPSum(Double.parseDouble(this.zlEditText.getText().toString()));
+		psIndustry.setZjs(Double.parseDouble(this.zjsEditText.getText().toString()));
+		psIndustry.setClass1jls(getPsClass1s());
+		psIndustry.setClass2jls(getPsClass2s());
+		psIndustry.setX(x);
+		psIndustry.setY(y);
+		psIndustry.setImages(getImages());
+		return psIndustry;
+	}
+
+	private List<ProjectImage> getImages() {
+		ArrayList<ProjectImage> images=new ArrayList<ProjectImage>();
+		for (String imageString : allImageStrings) {
+			ProjectImage projectImage=new ProjectImage();
+			projectImage.setName(UploadImageUtil.uploadImage(imageString, "http://159.226.110.64:8001/WaterService/Files.svc/upload"));
+			images.add(projectImage);
+		}
+		if (images.size()>0) {
+			return images;
+		}
+		return null;
+	}
+
+	private List<PollutionClass2> getPsClass2s() {
+		ArrayList<PollutionClass2> pollutionClass2s=new ArrayList<PollutionClass2>();
+		for (int i = 0; i < layoutPc2.getChildCount(); i++) {
+			View view=layoutPc2.getChildAt(i);
+			if (view.getClass().equals(LinearLayout.class)) {
+				LinearLayout cLayout=(LinearLayout)view;
+				Spinner cSpinner=(Spinner)cLayout.findViewById(R.id.pcSpin);
+				EditText cEditText=(EditText)cLayout.findViewById(R.id.pcValue);
+				PollutionClass2 pollutionClass2=new PollutionClass2();
+				pollutionClass2.setWrw(createPollution2(cSpinner.getSelectedItem().toString()));
+				pollutionClass2.setJlvalue(cEditText.getText().toString());
+				pollutionClass2s.add(pollutionClass2);
+			}
+		}
+		if (pollutionClass2s.size()>0) {
+			return pollutionClass2s;
+		}
+		return null;
+	}
+
+	private Pollution2 createPollution2(String p2String) {
+		for (Pollution2 pollution2 :pollution2s) {
+			String tempString=pollution2.getType().getName()+"("+pollution2.getSyfw()+")";
+			if (tempString.equals(p2String)){
+				return pollution2;
+			}
+		}
+		return null;
+	}
+
+	private List<PollutionClass1> getPsClass1s() {
+		ArrayList<PollutionClass1> pollutionClass1s=new ArrayList<PollutionClass1>();
+		for (int i = 0; i < layoutPc1.getChildCount(); i++) {
+			View view=layoutPc1.getChildAt(i);
+			if (view.getClass().equals(LinearLayout.class)) {
+				LinearLayout cLayout=(LinearLayout)view;
+				Spinner cSpinner=(Spinner)cLayout.findViewById(R.id.pcSpin);
+				EditText cEditText=(EditText)cLayout.findViewById(R.id.pcValue);
+				PollutionClass1 pollutionClass1=new PollutionClass1();
+				pollutionClass1.setWrw(createPollution1(cSpinner.getSelectedItem().toString()));
+				pollutionClass1.setJlvalue(Double.parseDouble(cEditText.getText().toString()));
+				pollutionClass1s.add(pollutionClass1);
+			}
+		}
+		if (pollutionClass1s.size()>0) {
+			return pollutionClass1s;
+		}
+		return null;
+	}
+
+	private Pollution1 createPollution1(String p1String) {
+		// TODO Auto-generated method stub
+		for (Pollution1 pollution1 :pollution1s) {
+			if (pollution1.getWrw().equals(p1String)){
+				return pollution1;
+			}
+		}
+		return null;
+	}
+
+	private PollutionType createPollutionType(String ptString) {
+		for (PollutionType pollutionType : pollutionTypes) {
+			if (pollutionType.getName().equals(ptString)) {
+				return pollutionType;
+			}
+		}
+		return null;
+	}
+
+	private Department creatDept(String dString) {
+		for (Department department : departments) {
+			if (department.getName().equals(dString)) {
+				return department;
+			}
+		}
+		return null;
+	}
+
+	private Region creatRegion(String rName) {
+		// TODO Auto-generated method stub
+		for (Region region : listRegions) {
+			if (region.getName().equals(rName)) {
+				return region;
+			}
+		}
+		return null;
+	}
+
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		// TODO Auto-generated method stub
 		super.onActivityResult(requestCode, resultCode, data);
 		if (resultCode==2) {
-			TextView xTv=(TextView)findViewById(R.id.xTv);
-			TextView yTv=(TextView)findViewById(R.id.yTv);
-			double x=data.getExtras().getDouble("X");
-			double y=data.getExtras().getDouble("Y");
+			x=data.getExtras().getDouble("X");
+			y=data.getExtras().getDouble("Y");
 			DecimalFormat df = new DecimalFormat("0.00000");   
 			xTv.setText("X: "+df.format(x));
 			yTv.setText("Y: "+df.format(y));
+			if (qymcEditText.getText().length() > 0
+					&& cylxEditText.getText().length() > 0
+					&& zczjEditText.getText().length() > 0
+					&& bodEditText.getText().length() > 0
+					&& codEditText.getText().length() > 0
+					&& adEditText.getText().length() > 0
+					&& zlEditText.getText().length()>0
+					&& zjsEditText.getText().length()>0
+					&& x!=0.0&& y!=0) {
+				btnSendPs.setEnabled(true);
+			}
 		}
 		if (resultCode == Activity.RESULT_OK) {
 			if (requestCode==3) {
@@ -245,10 +456,7 @@ public class AddPsGyActivity extends Activity {
 				Cursor cursor = AddPsGyActivity.this.getContentResolver().query(uri, null, 
 				null, null, null); 
 				cursor.moveToFirst(); 
-//				String imgNo = cursor.getString(0); // 锟斤拷鍓э拷锟界紓锟斤拷锟斤拷 
-				String imgPath = cursor.getString(1); // 锟斤拷鍓э拷锟斤拷锟斤拷娴犳儼鐭惧锟?
-//				String imgSize = cursor.getString(2); // 锟斤拷鍓э拷锟芥径褍锟斤拷 
-//				String imgname = cursor.getString(3); // 锟斤拷鍓э拷锟斤拷锟斤拷娴犺泛锟斤拷 
+				String imgPath = cursor.getString(1); 
 				allImageStrings.add(imgPath);
 				this.imageAdapter.setImages(allImageStrings); 
 				this.imageAdapter.notifyDataSetChanged();
@@ -260,7 +468,17 @@ public class AddPsGyActivity extends Activity {
 			}
 		}
 	}
-
+	private void setTextWatcher() {
+		TextWatcherimpl textWatcherimpl=new TextWatcherimpl();
+		qymcEditText.addTextChangedListener(textWatcherimpl);
+		cylxEditText.addTextChangedListener(textWatcherimpl);
+		zczjEditText.addTextChangedListener(textWatcherimpl);
+		bodEditText.addTextChangedListener(textWatcherimpl);
+		codEditText.addTextChangedListener(textWatcherimpl);
+		adEditText.addTextChangedListener(textWatcherimpl);
+		zlEditText.addTextChangedListener(textWatcherimpl);
+		zjsEditText.addTextChangedListener(textWatcherimpl);
+	}
 	class HttpThread implements Runnable{
 		private String typeString;
 		@Override
@@ -291,5 +509,39 @@ public class AddPsGyActivity extends Activity {
 			super();
 			this.typeString = typeString;
 			}
+	}
+	class TextWatcherimpl implements TextWatcher{
+
+		@Override
+		public void beforeTextChanged(CharSequence s, int start, int count,
+				int after) {
+			// TODO Auto-generated method stub
+			
 		}
+
+		@Override
+		public void onTextChanged(CharSequence s, int start, int before,
+				int count) {
+			if (qymcEditText.getText().length() > 0
+					&& cylxEditText.getText().length() > 0
+					&& zczjEditText.getText().length() > 0
+					&& bodEditText.getText().length() > 0
+					&& codEditText.getText().length() > 0
+					&& adEditText.getText().length() > 0
+					&& zlEditText.getText().length()>0
+					&& zjsEditText.getText().length()>0
+					&& x!=0.0&& y!=0) {
+				btnSendPs.setEnabled(true);
+			}
+			else {
+				btnSendPs.setEnabled(false);
+			}
+		}
+
+		@Override 
+		public void afterTextChanged(Editable s) {
+			
+		}
+		
+	}
 }
