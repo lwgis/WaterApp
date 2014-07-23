@@ -170,6 +170,9 @@ public class PsXqyz  implements PollutionSource {
 		fieldItems.add(new FieldItem("注册资金",String.valueOf(getZczj())));
 		fieldItems.add(new FieldItem("主管环保部门", getHbDept().getName()));
 		fieldItems.add(new FieldItem("主管工商部门", getGsDept().getName()));
+		for (ProjectImage projectImage : getImages()) {
+			fieldItems.add(new FieldItem(projectImage.getName()));
+		}
 		return fieldItems;
 	}
 	@Override

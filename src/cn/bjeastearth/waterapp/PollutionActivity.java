@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import cn.bjeastearth.http.HttpUtil;
-import cn.bjeastearth.imageload.ImageLoader;
+import cn.bjeastearth.http.ImageOptions;
 import cn.bjeastearth.waterapp.model.PollutionSource;
 import cn.bjeastearth.waterapp.model.PsFarmingManager;
 import cn.bjeastearth.waterapp.model.PsIndustry;
@@ -27,6 +27,7 @@ import com.esri.core.map.Graphic;
 import com.esri.core.symbol.PictureMarkerSymbol;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.nostra13.universalimageloader.core.ImageLoader;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
@@ -72,7 +73,6 @@ public class PollutionActivity extends Activity implements OnClickListener {
 	Button btnShwry;
 	Button btnAllwry;
 	PollutionSource currentPs;
-	ImageLoader mImageLoader;
 	TextView firstTv = null;
 	TextView secondTv = null;
 	ImageView itemImageView = null;
@@ -325,6 +325,17 @@ public class PollutionActivity extends Activity implements OnClickListener {
 				mAddPopupWindow.dismiss();
 			}
 		});
+		Button btnAddXqyzPs=(Button)popView.findViewById(R.id.btnAddXqyzPs);
+		btnAddXqyzPs.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				Intent it=new Intent(PollutionActivity.this, AddPsXqyzActivity.class);
+				PollutionActivity.this.startActivity(it);
+				mAddPopupWindow.dismiss();
+				
+			}
+		});
 	}
 
 	protected ArrayList<PollutionSource> getPollutionSources(String filter) {
@@ -489,12 +500,12 @@ public class PollutionActivity extends Activity implements OnClickListener {
 		firstTv.setText(pollutionSource.getShowTitle());
 		secondTv.setText(pollutionSource.getShowDescribing());
 		if (pollutionSource.getImageString() != null) {
-			if (mImageLoader == null) {
-				mImageLoader = new ImageLoader(this);
-			}
 			String url = this.getString(R.string.NewTileImgAddr)
 					+ pollutionSource.getImageString();
-			mImageLoader.DisplayImage(url, itemImageView, false);
+			ImageLoader.getInstance().displayImage(url, itemImageView,ImageOptions.options);
+		}
+		else {
+			itemImageView.setImageResource(R.drawable.imageview);
 		}
 
 	}

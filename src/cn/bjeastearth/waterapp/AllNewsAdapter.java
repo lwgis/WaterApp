@@ -8,7 +8,11 @@ import java.util.List;
 
 
 
-import cn.bjeastearth.imageload.ImageLoader;
+
+
+import com.nostra13.universalimageloader.core.ImageLoader;
+
+import cn.bjeastearth.http.ImageOptions;
 import cn.bjeastearth.waterapp.model.WaterNew;
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -21,11 +25,9 @@ import android.widget.TextView;
 public class AllNewsAdapter extends BaseAdapter {
 	private List<WaterNew> allWaterNews;
 	private Context mContext;
-	private ImageLoader mImageLoader;
 	public  AllNewsAdapter(Context con,List<WaterNew> news) {
 		allWaterNews=news;
 		mContext=con;
-		mImageLoader = new ImageLoader(con);
 	}
 	@Override
 	public int getCount() {
@@ -58,7 +60,7 @@ public class AllNewsAdapter extends BaseAdapter {
 		tvDaTe.setText(allWaterNews.get(position).getNewsTime());
 		ImageView iView=(ImageView)convertView.findViewById(R.id.newsItemImageView);
 		String url=mContext.getString(R.string.NewTileImgAddr)+allWaterNews.get(position).getThumbnail();
-		mImageLoader.DisplayImage(url, iView, false);
+		ImageLoader.getInstance().displayImage(url, iView,ImageOptions.options);
 		convertView.setTag(allWaterNews.get(position));
 		return convertView;
 	}

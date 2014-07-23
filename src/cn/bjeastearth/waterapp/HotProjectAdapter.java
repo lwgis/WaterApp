@@ -2,7 +2,9 @@ package cn.bjeastearth.waterapp;
 
 import java.util.List;
 
-import cn.bjeastearth.imageload.ImageLoader;
+import com.nostra13.universalimageloader.core.ImageLoader;
+
+import cn.bjeastearth.http.ImageOptions;
 import cn.bjeastearth.waterapp.model.HotProject;
 import cn.bjeastearth.waterapp.model.ProjectImage;
 import android.content.Context;
@@ -16,11 +18,9 @@ import android.widget.TextView;
 public class HotProjectAdapter extends BaseAdapter {
 private List<HotProject> allHotProjects=null;
 private Context mContext;
-private ImageLoader mImageLoader;
 public  HotProjectAdapter(Context con,List<HotProject> hotProjects) {
 	allHotProjects=hotProjects;
 	mContext=con;
-	mImageLoader = new ImageLoader(con);
 }
 
 	@Override
@@ -59,7 +59,7 @@ public  HotProjectAdapter(Context con,List<HotProject> hotProjects) {
 					.getImages().get(0);
 			String url = mContext.getString(R.string.NewTileImgAddr)
 					+ projectImage.getName();
-			mImageLoader.DisplayImage(url, iView, false);
+			ImageLoader.getInstance().displayImage(url, iView,ImageOptions.options);
 		}
 		convertView.setTag(allHotProjects.get(position));
 		return convertView;

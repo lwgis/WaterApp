@@ -2,7 +2,9 @@ package cn.bjeastearth.waterapp;
 
 import java.util.List;
 
-import cn.bjeastearth.imageload.ImageLoader;
+import com.nostra13.universalimageloader.core.ImageLoader;
+
+import cn.bjeastearth.http.ImageOptions;
 import cn.bjeastearth.waterapp.model.ProjectImage;
 import cn.bjeastearth.waterapp.model.SewageFactory;
 import android.content.Context;
@@ -17,11 +19,9 @@ public class SewageFactoryAdapter extends BaseAdapter {
 
 	private List<SewageFactory> mAllSewageFactorys=null;
 	private Context mContext;
-	private ImageLoader mImageLoader;
 	public  SewageFactoryAdapter(Context con,List<SewageFactory> factorys) {
 		mAllSewageFactorys=factorys;
 		mContext=con;
-		mImageLoader = new ImageLoader(con);
 	}
 
 		@Override
@@ -58,7 +58,7 @@ public class SewageFactoryAdapter extends BaseAdapter {
 			if (images!=null&&images.size()>0) {
 				ProjectImage projectImage=mAllSewageFactorys.get(position).getImages().get(0);
 				String url=mContext.getString(R.string.NewTileImgAddr)+projectImage.getName();
-				mImageLoader.DisplayImage(url, iView, false);
+				ImageLoader.getInstance().displayImage(url, iView,ImageOptions.options);
 			}
 			convertView.setTag(mAllSewageFactorys.get(position));
 			return convertView;

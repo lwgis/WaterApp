@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import cn.bjeastearth.http.HttpUtil;
-import cn.bjeastearth.imageload.ImageLoader;
+import cn.bjeastearth.http.ImageOptions;
 import cn.bjeastearth.waterapp.model.HotProject;
 import cn.bjeastearth.waterapp.model.ProjectImage;
 import cn.bjeastearth.waterapp.myview.WebListView;
@@ -20,6 +20,7 @@ import com.esri.core.map.Graphic;
 import com.esri.core.symbol.PictureMarkerSymbol;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.nostra13.universalimageloader.core.ImageLoader;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
@@ -50,7 +51,6 @@ public class HotProjectActivity extends Activity {
 	TextView tvHpName=null;
 	TextView tvHpJd=null;
 	ImageView imHp=null;
-	ImageLoader mImageLoader;
 	HotProjectAdapter mAdapter;
 	HotProject currentHotProject;
 	@SuppressLint("HandlerLeak")
@@ -190,12 +190,9 @@ public class HotProjectActivity extends Activity {
 		tvHpName.setText(oneHotProject.getName());
 		tvHpJd.setText("工程进度:"+oneHotProject.getGcjd()+"%");
 		if (oneHotProject.getImages()!=null&&oneHotProject.getImages().size()>0) {
-			if (mImageLoader==null) {
-				mImageLoader=new ImageLoader(this);
-			}
 			ProjectImage projectImage=oneHotProject.getImages().get(0);
 			String url=this.getString(R.string.NewTileImgAddr)+projectImage.getName();
-			mImageLoader.DisplayImage(url, imHp, false);
+			ImageLoader.getInstance().displayImage(url, imHp,ImageOptions.options);
 		}
 	
 	}

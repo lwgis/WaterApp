@@ -4,13 +4,10 @@ import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
-
 import cn.bjeastearth.http.HttpUtil;
 import cn.bjeastearth.http.UploadImageUtil;
-import cn.bjeastearth.waterapp.AllNewsActivity.httpThread;
-import cn.bjeastearth.waterapp.R.id;
+import cn.bjeastearth.waterapp.AddPsXqyzActivity.HttpThread;
+import cn.bjeastearth.waterapp.AddPsXqyzActivity.TextWatcherimpl;
 import cn.bjeastearth.waterapp.model.Department;
 import cn.bjeastearth.waterapp.model.Pollution1;
 import cn.bjeastearth.waterapp.model.Pollution2;
@@ -18,10 +15,14 @@ import cn.bjeastearth.waterapp.model.PollutionClass1;
 import cn.bjeastearth.waterapp.model.PollutionClass2;
 import cn.bjeastearth.waterapp.model.PollutionType;
 import cn.bjeastearth.waterapp.model.ProjectImage;
-import cn.bjeastearth.waterapp.model.PsIndustry;
+import cn.bjeastearth.waterapp.model.PsXqyz;
 import cn.bjeastearth.waterapp.model.Region;
 import cn.bjeastearth.waterapp.myview.DpTransform;
 import cn.bjeastearth.waterapp.myview.MyTextButton;
+
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.database.Cursor;
@@ -42,15 +43,14 @@ import android.widget.GridView;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Toast;
+import android.widget.AdapterView.OnItemClickListener;
 
-
-public class AddPsGyActivity extends Activity {
+public class AddPsXqyzActivity extends Activity {
 	private final int sendPs=100;
 	private Button btnBack;
-	private EditText qymcEditText;
-	private EditText cylxEditText;
+	private EditText dwmcEditText;
+	private EditText xqslEditText;
 	private EditText nczEditText;
 	private EditText fzrEditText;
 	private EditText zczjEditText;
@@ -58,20 +58,14 @@ public class AddPsGyActivity extends Activity {
 	private EditText codEditText;
 	private EditText adEditText;
 	private EditText zlEditText;
-	private EditText zjsEditText;
 	private Spinner mRegionSpinner;
 	private Spinner mDeptHbSpinner;
 	private Spinner mDeptGsSpinner;
-	private Spinner mPsTypeSpinner;
 	private MyTextButton btnSendPs;
 	private List<Region> listRegions;
 	private List<Department> departments;
-	private List<PollutionType> pollutionTypes;
-	private List<Pollution1> pollution1s;
 	private List<Pollution2> pollution2s;
-	private Button btnAddPc1;
 	private Button btnAddPc2;
-	private LinearLayout layoutPc1;
 	private LinearLayout layoutPc2;
 	private Button btnLocation;
 	private GridView imageGridView;
@@ -95,9 +89,9 @@ public class AddPsGyActivity extends Activity {
 					arrayList.add(region.getName());
 				}
 				ArrayAdapter<String> adapter = new ArrayAdapter<String>(
-						AddPsGyActivity.this,R.layout.simple_spinner_item,
+						AddPsXqyzActivity.this,R.layout.simple_spinner_item,
 						arrayList);
-				AddPsGyActivity.this.mRegionSpinner.setAdapter(adapter);
+				AddPsXqyzActivity.this.mRegionSpinner.setAdapter(adapter);
 			}
 			if (msg.what==2) {
 				departments = gson.fromJson(msg.obj.toString(),
@@ -108,28 +102,10 @@ public class AddPsGyActivity extends Activity {
 					arrayList.add(department.getName());
 				}
 				ArrayAdapter<String> adapter = new ArrayAdapter<String>(
-						AddPsGyActivity.this,R.layout.simple_spinner_item,
+						AddPsXqyzActivity.this,R.layout.simple_spinner_item,
 						arrayList);
-				AddPsGyActivity.this.mDeptGsSpinner.setAdapter(adapter);
-				AddPsGyActivity.this.mDeptHbSpinner.setAdapter(adapter);
-			}
-			if (msg.what==3) {
-				pollutionTypes = gson.fromJson(msg.obj.toString(),
-						new TypeToken<List<PollutionType>>() {
-						}.getType());
-				ArrayList<String> arrayList = new ArrayList<String>();
-				for (PollutionType pollutionType : pollutionTypes) {
-					arrayList.add(pollutionType.getName());
-				}
-				ArrayAdapter<String> adapter = new ArrayAdapter<String>(
-						AddPsGyActivity.this,R.layout.simple_spinner_item,
-						arrayList);
-				AddPsGyActivity.this.mPsTypeSpinner.setAdapter(adapter);
-			}
-			if (msg.what==4) {
-				pollution1s= gson.fromJson(msg.obj.toString(),
-						new TypeToken<List<Pollution1>>() {
-						}.getType());
+				AddPsXqyzActivity.this.mDeptGsSpinner.setAdapter(adapter);
+				AddPsXqyzActivity.this.mDeptHbSpinner.setAdapter(adapter);
 			}
 			if (msg.what==5) {
 				pollution2s= gson.fromJson(msg.obj.toString(),
@@ -137,8 +113,8 @@ public class AddPsGyActivity extends Activity {
 						}.getType());
 				}
 			if (msg.what==sendPs) {
-				Toast.makeText(AddPsGyActivity.this, msg.obj.toString(), Toast.LENGTH_SHORT).show();
-			    AddPsGyActivity.this.btnSendPs.setEnabled(true);
+				Toast.makeText(AddPsXqyzActivity.this, msg.obj.toString(), Toast.LENGTH_SHORT).show();
+			    AddPsXqyzActivity.this.btnSendPs.setEnabled(true);
 			}
 		}
 	};
@@ -146,13 +122,13 @@ public class AddPsGyActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
-		super.setContentView(R.layout.activity_addps_gy);
+		super.setContentView(R.layout.activity_addps_xqyz);
 		btnBack=(Button)findViewById(R.id.btnBack);
 		btnBack.setOnClickListener(new OnClickListener() {
 			
 			@Override
 			public void onClick(View v) {
-				AddPsGyActivity.this.finish();
+				AddPsXqyzActivity.this.finish();
 			}
 		});
 		this.btnSendPs=(MyTextButton)findViewById(R.id.btnSendPs);
@@ -165,12 +141,12 @@ public class AddPsGyActivity extends Activity {
 			
 			@Override
 			public void onClick(View v) {
-				AddPsGyActivity.this.btnSendPs.setEnabled(false);
-			    AddPsGyActivity.this.uploadPsIndustry();
+				AddPsXqyzActivity.this.btnSendPs.setEnabled(false);
+			    AddPsXqyzActivity.this.uploadPsIndustry();
 			}
 		});
-		qymcEditText=(EditText)findViewById(R.id.qymcEt);
-		cylxEditText=(EditText)findViewById(R.id.cylxEt);
+		dwmcEditText=(EditText)findViewById(R.id.dwmcEt);
+		xqslEditText=(EditText)findViewById(R.id.xqslEt);
 		nczEditText=(EditText)findViewById(R.id.nczEt);
 		fzrEditText=(EditText)findViewById(R.id.fzrEt);
 		zczjEditText=(EditText)findViewById(R.id.zczjEt);
@@ -178,53 +154,23 @@ public class AddPsGyActivity extends Activity {
 		codEditText=(EditText)findViewById(R.id.codEt);
 		adEditText=(EditText)findViewById(R.id.adEt);
 		zlEditText=(EditText)findViewById(R.id.zlEt);
-		zjsEditText=(EditText)findViewById(R.id.zjsEt);
 		mRegionSpinner=(Spinner)findViewById(R.id.regionSpin);
 		mDeptGsSpinner=(Spinner)findViewById(R.id.deptGsSpin);
 		mDeptHbSpinner=(Spinner)findViewById(R.id.deptHbSpin);
-		mPsTypeSpinner=(Spinner)findViewById(R.id.psTypeSpin);
-	
-		 this.btnAddPc1=(Button)findViewById(R.id.btnAddPc1);
-		 this.layoutPc1=(LinearLayout)findViewById(R.id.layoutPc1);
-		 this.btnAddPc1.setOnClickListener(new OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				LinearLayout layout=(LinearLayout)AddPsGyActivity.this.getLayoutInflater().inflate(R.layout.pc_item, null);
-				layoutPc1.addView(layout);
-				ArrayList<String> arrayList = new ArrayList<String>();
-				for (Pollution1 pollution1 : pollution1s) {
-					arrayList.add(pollution1.getWrw());
-				}
-				ArrayAdapter<String> adapter = new ArrayAdapter<String>(
-						AddPsGyActivity.this,R.layout.simple_spinner_item,
-						arrayList);
-				Spinner spinner=(Spinner)layout.findViewById(R.id.pcSpin);
-				spinner.setAdapter(adapter);
-				Button btnRemovePc=(Button)layout.findViewById(R.id.btnRemvoePc);
-				btnRemovePc.setTag(layout);
-				btnRemovePc.setOnClickListener(new OnClickListener() {
-					
-					@Override
-					public void onClick(View v) {
-						layoutPc1.removeView((View)v.getTag());
-					}
-				});
-			}
-		});
 		 this.layoutPc2=(LinearLayout)findViewById(R.id.layoutPc2);
 		 this.btnAddPc2=(Button)findViewById(R.id.btnAddPc2);
 		 this.btnAddPc2.setOnClickListener(new OnClickListener() {
 			
 			@Override
 			public void onClick(View v) {
-				LinearLayout layout=(LinearLayout)AddPsGyActivity.this.getLayoutInflater().inflate(R.layout.pc_item, null);
+				LinearLayout layout=(LinearLayout)AddPsXqyzActivity.this.getLayoutInflater().inflate(R.layout.pc_item, null);
 				layoutPc2.addView(layout);
 				ArrayList<String> arrayList = new ArrayList<String>();
 				for (Pollution2 pollution2 : pollution2s) {
 					arrayList.add(pollution2.getType().getName()+"("+pollution2.getSyfw()+")");
 				}
 				ArrayAdapter<String> adapter = new ArrayAdapter<String>(
-						AddPsGyActivity.this,R.layout.simple_spinner_item,
+						AddPsXqyzActivity.this,R.layout.simple_spinner_item,
 						arrayList);
 				Spinner spinner=(Spinner)layout.findViewById(R.id.pcSpin);
 				spinner.setAdapter(adapter);
@@ -246,8 +192,8 @@ public class AddPsGyActivity extends Activity {
 			
 			@Override
 			public void onClick(View v) {
-					Intent it=new Intent(AddPsGyActivity.this,LocationActivity.class);
-					AddPsGyActivity.this.startActivityForResult(it, 2);
+					Intent it=new Intent(AddPsXqyzActivity.this,LocationActivity.class);
+					AddPsXqyzActivity.this.startActivityForResult(it, 2);
 			}
 		});
 		 
@@ -261,7 +207,7 @@ public class AddPsGyActivity extends Activity {
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view,
 					int position, long id) {
-				if (AddPsGyActivity.this.imageAdapter.getItem(position)==null) {
+				if (AddPsXqyzActivity.this.imageAdapter.getItem(position)==null) {
 					Intent it=new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
 					startActivityForResult(it,3);
 				}
@@ -284,14 +230,14 @@ public class AddPsGyActivity extends Activity {
 			
 			@Override
 			public void run() {
-				PsIndustry psIndustry= createPollution();
+				PsXqyz psXqyz= createPollution();
 				Message msg=new Message();
 				msg.what=sendPs;
 				try {
-					HttpUtil.uploadPollutionSource(psIndustry,"Gywry");
+					HttpUtil.uploadPollutionSource(psXqyz,"Xqyzwry");
 					msg.obj="上传成功";
 					mHandler.sendMessage(msg);
-					AddPsGyActivity.this.finish();
+					AddPsXqyzActivity.this.finish();
 				} catch (Throwable e) {
 					msg.obj="上传失败";
 					mHandler.sendMessage(msg);
@@ -302,29 +248,26 @@ public class AddPsGyActivity extends Activity {
 		}).start();
 	}
 
-	protected PsIndustry createPollution() {
+	protected PsXqyz createPollution() {
 		// TODO Auto-generated method stub
-		PsIndustry psIndustry=new PsIndustry();
-		psIndustry.setQymc(this.qymcEditText.getText().toString());
-		psIndustry.setCylx(this.cylxEditText.getText().toString());
-		psIndustry.setNcz(Double.parseDouble(this.nczEditText.getText().toString()));
-		psIndustry.setFzr(this.fzrEditText.getText().toString());
-		psIndustry.setZczj(Double.parseDouble(this.zczjEditText.getText().toString()));
-		psIndustry.setXzq(creatRegion(this.mRegionSpinner.getSelectedItem().toString()));
-		psIndustry.setHbDept(creatDept(this.mDeptHbSpinner.getSelectedItem().toString()));
-		psIndustry.setGsDept(creatDept(this.mDeptGsSpinner.getSelectedItem().toString()));
-		psIndustry.setWrwlx(createPollutionType(this.mPsTypeSpinner.getSelectedItem().toString()));
-		psIndustry.setBod(Double.parseDouble(this.bodEditText.getText().toString()));
-		psIndustry.setCod(Double.parseDouble(this.codEditText.getText().toString()));
-		psIndustry.setNH3N(Double.parseDouble(this.adEditText.getText().toString()));
-		psIndustry.setPSum(Double.parseDouble(this.zlEditText.getText().toString()));
-		psIndustry.setZjs(Double.parseDouble(this.zjsEditText.getText().toString()));
-		psIndustry.setClass1jls(getPsClass1s());
-		psIndustry.setClass2jls(getPsClass2s());
-		psIndustry.setX(x);
-		psIndustry.setY(y);
-		psIndustry.setImages(getImages());
-		return psIndustry;
+		PsXqyz psXqyz=new PsXqyz();
+		psXqyz.setDwmc(this.dwmcEditText.getText().toString());
+		psXqyz.setNcz(Double.parseDouble(this.nczEditText.getText().toString()));
+		psXqyz.setFzr(this.fzrEditText.getText().toString());
+		psXqyz.setZczj(Double.parseDouble(this.zczjEditText.getText().toString()));
+		psXqyz.setXzq(creatRegion(this.mRegionSpinner.getSelectedItem().toString()));
+		psXqyz.setHbDept(creatDept(this.mDeptHbSpinner.getSelectedItem().toString()));
+		psXqyz.setGsDept(creatDept(this.mDeptGsSpinner.getSelectedItem().toString()));
+		psXqyz.setXqCount(Double.parseDouble(this.xqslEditText.getText().toString()));
+		psXqyz.setBod(Double.parseDouble(this.bodEditText.getText().toString()));
+		psXqyz.setCod(Double.parseDouble(this.codEditText.getText().toString()));
+		psXqyz.setNh3N(Double.parseDouble(this.adEditText.getText().toString()));
+		psXqyz.setPSum(Double.parseDouble(this.zlEditText.getText().toString()));
+		psXqyz.setXqwrwjls(getPsClass2s());
+		psXqyz.setX(x);
+		psXqyz.setY(y);
+		psXqyz.setImages(getImages());
+		return psXqyz;
 	}
 
 	private List<ProjectImage> getImages() {
@@ -370,44 +313,11 @@ public class AddPsGyActivity extends Activity {
 		return null;
 	}
 
-	private List<PollutionClass1> getPsClass1s() {
-		ArrayList<PollutionClass1> pollutionClass1s=new ArrayList<PollutionClass1>();
-		for (int i = 0; i < layoutPc1.getChildCount(); i++) {
-			View view=layoutPc1.getChildAt(i);
-			if (view.getClass().equals(LinearLayout.class)) {
-				LinearLayout cLayout=(LinearLayout)view;
-				Spinner cSpinner=(Spinner)cLayout.findViewById(R.id.pcSpin);
-				EditText cEditText=(EditText)cLayout.findViewById(R.id.pcValue);
-				PollutionClass1 pollutionClass1=new PollutionClass1();
-				pollutionClass1.setWrw(createPollution1(cSpinner.getSelectedItem().toString()));
-				pollutionClass1.setJlvalue(Double.parseDouble(cEditText.getText().toString()));
-				pollutionClass1s.add(pollutionClass1);
-			}
-		}
-		if (pollutionClass1s.size()>0) {
-			return pollutionClass1s;
-		}
-		return null;
-	}
 
-	private Pollution1 createPollution1(String p1String) {
-		// TODO Auto-generated method stub
-		for (Pollution1 pollution1 :pollution1s) {
-			if (pollution1.getWrw().equals(p1String)){
-				return pollution1;
-			}
-		}
-		return null;
-	}
 
-	private PollutionType createPollutionType(String ptString) {
-		for (PollutionType pollutionType : pollutionTypes) {
-			if (pollutionType.getName().equals(ptString)) {
-				return pollutionType;
-			}
-		}
-		return null;
-	}
+
+
+
 
 	private Department creatDept(String dString) {
 		for (Department department : departments) {
@@ -438,14 +348,13 @@ public class AddPsGyActivity extends Activity {
 			DecimalFormat df = new DecimalFormat("0.00000");   
 			xTv.setText("X: "+df.format(x));
 			yTv.setText("Y: "+df.format(y));
-			if (qymcEditText.getText().length() > 0
-					&& cylxEditText.getText().length() > 0
+			if (dwmcEditText.getText().length() > 0
+					&& xqslEditText.getText().length() > 0
 					&& zczjEditText.getText().length() > 0
 					&& bodEditText.getText().length() > 0
 					&& codEditText.getText().length() > 0
 					&& adEditText.getText().length() > 0
 					&& zlEditText.getText().length()>0
-					&& zjsEditText.getText().length()>0
 					&& x!=0.0&& y!=0) {
 				btnSendPs.setEnabled(true);
 			}
@@ -453,7 +362,7 @@ public class AddPsGyActivity extends Activity {
 		if (resultCode == Activity.RESULT_OK) {
 			if (requestCode==3) {
 				Uri uri = data.getData(); 
-				Cursor cursor = AddPsGyActivity.this.getContentResolver().query(uri, null, 
+				Cursor cursor = AddPsXqyzActivity.this.getContentResolver().query(uri, null, 
 				null, null, null); 
 				cursor.moveToFirst(); 
 				String imgPath = cursor.getString(1); 
@@ -470,14 +379,13 @@ public class AddPsGyActivity extends Activity {
 	}
 	private void setTextWatcher() {
 		TextWatcherimpl textWatcherimpl=new TextWatcherimpl();
-		qymcEditText.addTextChangedListener(textWatcherimpl);
-		cylxEditText.addTextChangedListener(textWatcherimpl);
+		dwmcEditText.addTextChangedListener(textWatcherimpl);
+		xqslEditText.addTextChangedListener(textWatcherimpl);
 		zczjEditText.addTextChangedListener(textWatcherimpl);
 		bodEditText.addTextChangedListener(textWatcherimpl);
 		codEditText.addTextChangedListener(textWatcherimpl);
 		adEditText.addTextChangedListener(textWatcherimpl);
 		zlEditText.addTextChangedListener(textWatcherimpl);
-		zjsEditText.addTextChangedListener(textWatcherimpl);
 	}
 	class HttpThread implements Runnable{
 		private String typeString;
@@ -522,14 +430,13 @@ public class AddPsGyActivity extends Activity {
 		@Override
 		public void onTextChanged(CharSequence s, int start, int before,
 				int count) {
-			if (qymcEditText.getText().length() > 0
-					&& cylxEditText.getText().length() > 0
+			if (dwmcEditText.getText().length() > 0
+					&& xqslEditText.getText().length() > 0
 					&& zczjEditText.getText().length() > 0
 					&& bodEditText.getText().length() > 0
 					&& codEditText.getText().length() > 0
 					&& adEditText.getText().length() > 0
 					&& zlEditText.getText().length()>0
-					&& zjsEditText.getText().length()>0
 					&& x!=0.0&& y!=0) {
 				btnSendPs.setEnabled(true);
 			}
@@ -545,3 +452,4 @@ public class AddPsGyActivity extends Activity {
 		
 	}
 }
+

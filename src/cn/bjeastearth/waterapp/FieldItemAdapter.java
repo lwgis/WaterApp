@@ -3,11 +3,15 @@ package cn.bjeastearth.waterapp;
 import java.util.List;
 
 import com.esri.core.internal.tasks.ags.r;
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.assist.FailReason;
+import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
 
-import cn.bjeastearth.imageload.ImageLoader;
+import cn.bjeastearth.http.ImageOptions;
 import cn.bjeastearth.waterapp.model.FieldItem;
 import cn.bjeastearth.waterapp.myview.LvHeightUtil;
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,12 +25,10 @@ import android.widget.TextView;
 
 public class FieldItemAdapter extends BaseAdapter {
 	private Context mContext;
-	private ImageLoader mImageLoader;
 	private List<FieldItem> mFieldItems;
 	public FieldItemAdapter(Context con,List<FieldItem> fileFieldItems){
 		this.mContext=con;
 		this.mFieldItems=fileFieldItems;
-		mImageLoader=new ImageLoader(con);
 	}
 	@Override
 	public int getCount() {
@@ -61,7 +63,7 @@ public class FieldItemAdapter extends BaseAdapter {
 			convertView = LayoutInflater.from(mContext).inflate(
 						R.layout.fielditem_image, null);
 			ImageView imageView=(ImageView)convertView.findViewById(R.id.fieldContentImage);
-			mImageLoader.DisplayImage(mContext.getString(R.string.NewTileImgAddr)+ item.getContent(), imageView, false);
+			ImageLoader.getInstance().displayImage(mContext.getString(R.string.NewTileImgAddr)+ item.getContent(), imageView,ImageOptions.options);
 		}
 		if (item.getType()==-1) {
 			convertView = LayoutInflater.from(mContext).inflate(

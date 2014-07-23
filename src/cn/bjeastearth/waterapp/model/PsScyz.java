@@ -128,6 +128,9 @@ public class PsScyz implements PollutionSource{
 		fieldItems.add(new FieldItem("氨氮",  String.valueOf(getNh3N())));
 		fieldItems.add(new FieldItem("总磷",  String.valueOf(getPSum())));
 		fieldItems.add(new FieldItem("时间", getCTime()));
+		for (ProjectImage projectImage : getImages()) {
+			fieldItems.add(new FieldItem(projectImage.getName()));
+		}
 		return fieldItems;
 	}
 	@Override

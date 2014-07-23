@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="#f5f2eb" >
-<RelativeLayout 
+    <RelativeLayout 
 	android:layout_width="match_parent"
 	android:layout_height="50dp"
 	android:background="@drawable/title_bg">
@@ -30,20 +30,20 @@
    <TextView
        android:layout_width="wrap_content"
        android:layout_height="wrap_content"
+       android:layout_alignBaseline="@+id/btnBack"
+       android:layout_alignBottom="@+id/btnBack"
        android:layout_centerHorizontal="true"
-       android:layout_centerVertical="true"
        android:gravity="center"
        android:paddingTop="3dp"
        android:shadowColor="#222222"
        android:shadowDy="-2"
        android:shadowRadius="2"
-       android:text="新建工业污染源"
+       android:text="新建畜禽养殖污染源"
        android:textColor="#FFFFFF"
        android:textSize="20sp" />
 
-</RelativeLayout>
-
-<ScrollView
+	</RelativeLayout>
+	<ScrollView
     android:id="@+id/scrollView1"
     android:layout_width="match_parent"
     android:layout_height="match_parent" >
@@ -66,7 +66,7 @@
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:padding="3dp"
-                android:text="企业名称"
+                android:text="单位名称"
                 android:textColor="#715b4c"
                 android:textSize="18sp" />
 
@@ -77,7 +77,7 @@
                 android:scaleType="fitXY" />
 
             <EditText
-                android:id="@+id/qymcEt"
+                android:id="@+id/dwmcEt"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -98,7 +98,7 @@
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:padding="3dp"
-                android:text="产业类型"
+                android:text="畜禽数量"
                 android:textColor="#715b4c"
                 android:textSize="18sp" />
 
@@ -109,12 +109,13 @@
                 android:scaleType="fitXY" />
 
             <EditText
-                android:id="@+id/cylxEt"
+                android:id="@+id/xqslEt"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="#00000000"
                 android:paddingLeft="5dp"
                 android:textColor="#715b4c"
+				android:inputType="numberDecimal"
                 android:textSize="18sp" />
         </LinearLayout>
 
@@ -483,77 +484,7 @@
                    android:textSize="18sp" 
                    android:inputType="numberDecimal"/>
            </LinearLayout>
-
-           <LinearLayout
-               android:layout_width="match_parent"
-               android:layout_height="wrap_content"
-               android:background="@drawable/field_item_bg"
-               android:orientation="horizontal" >
-
-               <TextView
-                   android:layout_width="100dp"
-                   android:layout_height="wrap_content"
-                   android:gravity="center"
-                   android:padding="3dp"
-                   android:text="重金属"
-                   android:textColor="#715b4c"
-                   android:textSize="18sp" />
-
-               <ImageView
-                   android:layout_width="2dp"
-                   android:layout_height="fill_parent"
-                   android:background="@drawable/field_item_fgx"
-                   android:scaleType="fitXY" />
-
-               <EditText
-                   android:id="@+id/zjsEt"
-                   android:layout_width="match_parent"
-                   android:layout_height="wrap_content"
-                   android:layout_weight="1"
-                   android:background="#00000000"
-                   android:paddingLeft="5dp"
-                   android:textColor="#715b4c"
-                   android:textSize="18sp"
-                   android:inputType="numberDecimal" />
-           </LinearLayout>
-		    <LinearLayout
-               android:layout_width="match_parent"
-               android:layout_height="wrap_content"
-               android:background="@drawable/field_item_bg"
-               android:orientation="horizontal" >
-
-               <TextView
-                   android:layout_width="100dp"
-                   android:layout_height="match_parent"
-                   android:gravity="center"
-                   android:padding="3dp"
-                   android:text="一类污染物"
-                   android:textColor="#715b4c"
-                   android:textSize="18sp" />
-
-               <ImageView
-                   android:layout_width="2dp"
-                   android:layout_height="fill_parent"
-                   android:background="@drawable/field_item_fgx"
-                   android:scaleType="fitXY" />
-				<LinearLayout 
-				    android:id="@+id/layoutPc1"
-				    android:layout_width="0dp"
-				    android:layout_height="wrap_content"
-				    android:orientation="vertical"
-				    android:layout_weight="1">
-	               	<Button
-	                   android:id="@+id/btnAddPc1"
-	                   android:layout_width="match_parent"
-	                   android:layout_height="wrap_content"                   
-	                   android:background="#00000000"
-	                   android:paddingLeft="5dp"
-	                   android:textColor="#715b4c"
-	                   android:textSize="40sp" 
-	                   android:text="+"/>
-             </LinearLayout>
-           </LinearLayout>
-           		<LinearLayout
+           	<LinearLayout
                android:layout_width="match_parent"
                android:layout_height="wrap_content"
                android:background="@drawable/field_item_bg"

@@ -6,8 +6,8 @@
     android:background="#f5f2eb">
 	<ImageView 
 	    android:id="@+id/fieldContentImage"
-	    android:layout_width="fill_parent"
+	    android:layout_width="match_parent"
 	    android:layout_height="300dp"
-	    android:scaleType="centerCrop"
+	    android:scaleType="fitCenter"
 	    android:padding="5dp"/>
 </LinearLayout>

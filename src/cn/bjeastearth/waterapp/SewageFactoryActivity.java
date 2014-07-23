@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import cn.bjeastearth.http.HttpUtil;
-import cn.bjeastearth.imageload.ImageLoader;
+import cn.bjeastearth.http.ImageOptions;
 import cn.bjeastearth.waterapp.model.ProjectImage;
 import cn.bjeastearth.waterapp.model.SewageFactory;
 import cn.bjeastearth.waterapp.myview.WebListView;
@@ -20,6 +20,7 @@ import com.esri.core.map.Graphic;
 import com.esri.core.symbol.PictureMarkerSymbol;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.nostra13.universalimageloader.core.ImageLoader;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
@@ -50,7 +51,6 @@ public class SewageFactoryActivity extends Activity {
 	TextView firstTv=null;
 	TextView secondTv=null;
 	ImageView itemImageView=null;
-	ImageLoader mImageLoader;
 	SewageFactoryAdapter mAdapter;
 	SewageFactory currentFactory;
 	@SuppressLint("HandlerLeak")
@@ -224,12 +224,9 @@ public class SewageFactoryActivity extends Activity {
 		firstTv.setText(oneFactory.getName());
 		secondTv.setText("类型:"+oneFactory.getType().getName());
 		if (oneFactory.getImages()!=null&&oneFactory.getImages().size()>0) {
-			if (mImageLoader==null) {
-				mImageLoader=new ImageLoader(this);
-			}
 			ProjectImage projectImage=oneFactory.getImages().get(0);
 			String url=this.getString(R.string.NewTileImgAddr)+projectImage.getName();
-			mImageLoader.DisplayImage(url, itemImageView, false);
+			ImageLoader.getInstance().displayImage(url, itemImageView,ImageOptions.options);
 		}
 
 	}

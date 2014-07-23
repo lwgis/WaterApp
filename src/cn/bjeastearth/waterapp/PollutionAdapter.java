@@ -2,7 +2,9 @@ package cn.bjeastearth.waterapp;
 
 import java.util.List;
 
-import cn.bjeastearth.imageload.ImageLoader;
+import com.nostra13.universalimageloader.core.ImageLoader;
+
+import cn.bjeastearth.http.ImageOptions;
 import cn.bjeastearth.waterapp.model.PollutionSource;
 import cn.bjeastearth.waterapp.model.PsIndustry;
 import cn.bjeastearth.waterapp.model.ProjectImage;
@@ -19,16 +21,13 @@ import android.widget.TextView;
 public class PollutionAdapter extends BaseAdapter {
 	List<PollutionSource> mAllPollutionSources;
 	Context mContext;
-	ImageLoader mImageLoader;
 	private OnClickListener locatiOnClickListener;
 	public  PollutionAdapter(Context con) {
 		mContext=con;
-		mImageLoader=new ImageLoader(mContext);
 	}
 	public  PollutionAdapter(Context con,List<PollutionSource> sources,OnClickListener listener) {
 		mContext=con;
 		mAllPollutionSources=sources;
-		mImageLoader=new ImageLoader(mContext);
 		locatiOnClickListener=listener;
 	}
 	@Override
@@ -68,7 +67,10 @@ public class PollutionAdapter extends BaseAdapter {
 		btnLocation.setOnClickListener(locatiOnClickListener);
 		if (mAllPollutionSources.get(position).getImageString()!=null) {
 			String url=mContext.getString(R.string.NewTileImgAddr)+mAllPollutionSources.get(position).getImageString();
-			mImageLoader.DisplayImage(url, iView, false);
+			ImageLoader.getInstance().displayImage(url, iView,ImageOptions.options);
+		}
+		else {
+			iView.setImageResource(R.drawable.imageview);
 		}
 		return convertView;
 	}
