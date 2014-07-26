@@ -88,6 +88,22 @@
              android:name="cn.bjeastearth.waterapp.AddPsXqyzActivity"
              android:screenOrientation="portrait">
          </activity>
+         <activity 
+             android:name="cn.bjeastearth.waterapp.AddPsScyzActivity"
+             android:screenOrientation="portrait">
+         </activity>
+         <activity 
+             android:name="cn.bjeastearth.waterapp.AddPsZzActivity"
+             android:screenOrientation="portrait">
+         </activity>
+         <activity 
+             android:name="cn.bjeastearth.waterapp.AddPsShActivity"
+             android:screenOrientation="portrait">
+         </activity>
+         <activity
+             android:name="cn.bjeastearth.waterapp.RiverActivity"
+             android:screenOrientation="portrait">
+         </activity>
          <service android:name="cn.bjeastearth.waterapp.location.LocationSvc" />
          
     </application>

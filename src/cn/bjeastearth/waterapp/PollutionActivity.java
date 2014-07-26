@@ -336,6 +336,39 @@ public class PollutionActivity extends Activity implements OnClickListener {
 				
 			}
 		});
+		Button btnAddScyzPs=(Button)popView.findViewById(R.id.btnAddScyzPs);
+		btnAddScyzPs.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				Intent it=new Intent(PollutionActivity.this, AddPsScyzActivity.class);
+				PollutionActivity.this.startActivity(it);
+				mAddPopupWindow.dismiss();
+			}
+		});
+		Button btnAddZzPs=(Button)popView.findViewById(R.id.btnAddZzPs);
+		btnAddZzPs.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				Intent it=new Intent(PollutionActivity.this, AddPsZzActivity.class);
+				PollutionActivity.this.startActivity(it);
+				mAddPopupWindow.dismiss();
+			}
+		});
+		Button btnAddShPs=(Button)popView.findViewById(R.id.btnAddShPs);
+		btnAddShPs.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				Intent it=new Intent(PollutionActivity.this, AddPsShActivity.class);
+				PollutionActivity.this.startActivity(it);
+				mAddPopupWindow.dismiss();
+			}
+		});
 	}
 
 	protected ArrayList<PollutionSource> getPollutionSources(String filter) {
