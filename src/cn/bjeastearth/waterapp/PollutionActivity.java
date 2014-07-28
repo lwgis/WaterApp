@@ -582,10 +582,6 @@ public class PollutionActivity extends Activity implements OnClickListener {
 	class HttpThread implements Runnable {
 		String pollutionTpyeString = "gywry";
 
-		private HttpThread() {
-
-		}
-
 		public HttpThread(String type) {
 			pollutionTpyeString = type;
 		}

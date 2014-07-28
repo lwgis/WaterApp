@@ -105,5 +105,8 @@ public static String getDectionaryString(String typeString) {
 	String jsonString=HttpUtil.executeHttpGet("http://159.226.110.64:8001/WaterService/Dictionary.svc/"+typeString);
 	return jsonString;
 }
-
+public static String getAllRiverString() {
+	String jsonString=HttpUtil.executeHttpGet("http://159.226.110.64:8001/WaterService/HdqlService.svc/All");
+	return jsonString;
+}
 }

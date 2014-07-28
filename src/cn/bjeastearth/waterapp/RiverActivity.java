@@ -3,12 +3,14 @@ package cn.bjeastearth.waterapp;
 import java.util.ArrayList;
 import java.util.List;
 
+import cn.bjeastearth.http.HttpUtil;
 import cn.bjeastearth.waterapp.model.PollutionSource;
 import cn.bjeastearth.waterapp.model.PsFarmingManager;
 import cn.bjeastearth.waterapp.model.PsIndustry;
 import cn.bjeastearth.waterapp.model.PsLive;
 import cn.bjeastearth.waterapp.model.PsManager;
 import cn.bjeastearth.waterapp.model.PsType;
+import cn.bjeastearth.waterapp.model.River;
 import cn.bjeastearth.waterapp.myview.WebListView;
 
 import com.esri.android.map.GraphicsLayer;
@@ -16,13 +18,19 @@ import com.esri.android.map.MapView;
 import com.esri.android.map.ags.ArcGISDynamicMapServiceLayer;
 import com.esri.android.map.ags.ArcGISTiledMapServiceLayer;
 import com.esri.core.geometry.Envelope;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.reflect.TypeToken;
 
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.AdapterView;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -30,41 +38,78 @@ import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 import android.widget.TabHost;
 import android.widget.TextView;
+import android.widget.AdapterView.OnItemClickListener;
 
 public class RiverActivity extends Activity implements OnClickListener {
-	MapView mapView = null;
-	WebListView mListView = null;
-	ArcGISTiledMapServiceLayer tiledMapServiceLayer = null;
-	ArcGISDynamicMapServiceLayer riverLayer=null;
-	GraphicsLayer mGraphicsLayer;
-	RelativeLayout mapInfoLayout = null;
-	TabHost tabHost;
-	ArrayList<PollutionSource> mPollutionSources;
-	ArrayList<PollutionSource> mAllPollutionSources;
-	List<PsIndustry> mAllPsIndustries;
-	PsFarmingManager mPsFarmingManager;
-	List<PsLive> mAllPsLives;
-	PsManager mPsManager;
-	PollutionAdapter mAdapter;
-	Button btnGywry;
-	Button btnNywry;
-	Button btnShwry;
-	Button btnAllwry;
-	PollutionSource currentPs;
-	TextView firstTv = null;
-	TextView secondTv = null;
-	ImageView itemImageView = null;
-	AutoCompleteTextView mSearchEditView = null;
-	Button btnSearch;
-	PsType mPsType;
-	PopupWindow mAddPopupWindow;
-	boolean popWindowIsShow;
-	Button btnAddPs;
+	private final int MSG_XZQ=-1;
+	private final int MSG_ALLRIVER=1;
+	private MapView mapView = null;
+	private WebListView mListView = null;
+	private ArcGISTiledMapServiceLayer tiledMapServiceLayer = null;
+	private ArcGISDynamicMapServiceLayer riverLayer=null;
+	private GraphicsLayer mGraphicsLayer;
+	private RelativeLayout mapInfoLayout = null;
+	private TabHost tabHost;
+	private List<River> mRivers;
+	private ArrayList<PollutionSource> mAllPollutionSources;
+	private List<PsIndustry> mAllPsIndustries;
+	private PsFarmingManager mPsFarmingManager;
+	private List<PsLive> mAllPsLives;
+	private PsManager mPsManager;
+	private RiverAdapter mAdapter;
+	private Button btnGywry;
+	private Button btnNywry;
+	private Button btnShwry;
+	private Button btnAllwry;
+	private TextView firstTv = null;
+	private TextView secondTv = null;
+	private ImageView itemImageView = null;
+	private AutoCompleteTextView mSearchEditView = null;
+	private Button btnSearch;
+	private PsType mPsType;
+	private PopupWindow mAddPopupWindow;
+	private boolean popWindowIsShow;
+	private Button btnAddPs;
+	private PollutionSource currentPs;
+	private Handler mHandler;
+	private OnItemClickListener mOnItemClickListener = new OnItemClickListener() {
+
+		@Override
+		public void onItemClick(AdapterView<?> parent, View view, int position,
+				long id) {
+			// TODO Auto-generated method stub
+			River onerRiver = (River)mAdapter
+					.getItem(position);
+			Intent intent = new Intent(RiverActivity.this,
+					FieldItemActivity.class);
+			intent.putExtra("Title", "河道信息");
+			intent.putExtra("FieldItems", onerRiver.getFieldItems());
+			startActivity(intent);
+		}
+	};
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		super.setContentView(R.layout.activity_river);
+		mHandler=new Handler(){
+
+			@Override
+			public void handleMessage(Message msg) {
+				// TODO Auto-generated method stub
+				super.handleMessage(msg);
+				if (msg.what==MSG_ALLRIVER) {
+					Gson gson=new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
+					mRivers=gson.fromJson(msg.obj.toString(),
+							new TypeToken<List<River>>() {
+							}.getType());
+					mAdapter=new RiverAdapter(RiverActivity.this, mRivers);
+					mListView.setAdapter(mAdapter);
+					mListView.setOnItemClickListener(mOnItemClickListener);
+				}
+			}
+			
+		};
 		Button backButton = (Button) findViewById(R.id.btnBack);
 		backButton.setOnClickListener(new OnClickListener() {
 
@@ -139,12 +184,41 @@ public class RiverActivity extends Activity implements OnClickListener {
 				startActivity(intent);
 			}
 		});
+		new Thread(new HttpThread(MSG_ALLRIVER)).start();
 	}
 	@Override
 	public void onClick(View v) {
 		// TODO Auto-generated method stub
 		
 	}
-	
+	class HttpThread implements Runnable {
+		int tpyeString ;
+
+		public HttpThread(int type) {
+			tpyeString = type;
+		}
+
+		@Override
+		public void run() {
+			if (tpyeString==MSG_XZQ) {
+				String jsonString = HttpUtil.getDectionaryString("Xzq");
+				Message msg = RiverActivity.this.mHandler.obtainMessage();
+				msg.what = MSG_XZQ;
+				if (!jsonString.equals("")) {
+					msg.obj = jsonString;
+					msg.sendToTarget();
+				}
+			} else {
+				String jsonString = HttpUtil
+						.getAllRiverString();
+				if (!jsonString.equals("")) {
+					Message msg =RiverActivity.this.mHandler.obtainMessage();
+					msg.what=MSG_ALLRIVER;
+					msg.obj = jsonString;
+					msg.sendToTarget();
+				}
+			}
+		}
+	}
 
 }

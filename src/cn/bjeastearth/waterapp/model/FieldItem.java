@@ -3,30 +3,35 @@ package cn.bjeastearth.waterapp.model;
 import java.io.Serializable;
 import java.util.ArrayList;
 
-import com.esri.core.internal.tasks.ags.s;
 
 
 public class FieldItem implements Serializable {
 
 private static final long serialVersionUID = 7630902320893226411L;
 private String name;
+private FieldItemType type;
+private String content;
 private ArrayList<FieldItem> childFieldItems;
+private Object targe;
 public FieldItem(String name,String content) {
 	this.name = name;
-	this.type = 0;
+	this.type = FieldItemType.TOWTEXT;
 	this.content = content;
 }
 public FieldItem(String content) {
-	this.type = 1;
+	this.type = FieldItemType.IMAGE;
 	this.content = content;
 }
 public FieldItem(String name,ArrayList<FieldItem> fieldItems){
 	childFieldItems=fieldItems;
-	this.type=-1;
+	this.type=FieldItemType.PARENT;
 	this.name=name;
 }
-private int type;
-private String content;
+public FieldItem(String name,Object targeObject){
+	this.name=name;
+	this.targe=targeObject;
+	this.type=FieldItemType.TEXTBUTTON;
+}
 public String getName() {
 
 	return name;
@@ -34,10 +39,10 @@ public String getName() {
 public void setName(String name) {
 	this.name = name;
 }
-public int getType() {
+public FieldItemType getType() {
 	return type;
 }
-public void setType(int type) {
+public void setType(FieldItemType type) {
 	this.type = type;
 }
 public String getContent() {
@@ -52,5 +57,11 @@ public ArrayList<FieldItem> getChildFieldItems() {
 }
 public void setChildFieldItems(ArrayList<FieldItem> childFieldItems) {
 	this.childFieldItems = childFieldItems;
+}
+public Object getTarge() {
+	return targe;
+}
+public void setTarge(Object targe) {
+	this.targe = targe;
 }
 }
