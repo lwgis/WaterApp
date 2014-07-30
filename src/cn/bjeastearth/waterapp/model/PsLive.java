@@ -19,6 +19,7 @@ public class PsLive implements PollutionSource {
 	private double	X;
 	private Region	Xzq;
 	private double	Y;
+	private ArrayList<FieldItem> mFieldItems;
 	public String getCTime() {
 		return CTime;
 	}
@@ -103,15 +104,17 @@ public class PsLive implements PollutionSource {
 	}
 	@Override
 	public ArrayList<FieldItem> getFieldItems() {
-		ArrayList<FieldItem> fieldItems=new ArrayList<FieldItem>();
-		fieldItems.add(new FieldItem("行政区域", getXzq().getName()));
-		fieldItems.add(new FieldItem("污水类型",getType().getName()));
-		fieldItems.add(new FieldItem("供水量", String.valueOf(getGsl())));
-		fieldItems.add(new FieldItem("污水管道接管率", String.valueOf(getWsgdjgl())));
-		fieldItems.add(new FieldItem("污水总量",String.valueOf(getWszl())));
-		fieldItems.add(new FieldItem("污水处理率", String.valueOf(getWscll())));
-		fieldItems.add(new FieldItem("人口", String.valueOf(getRk())));
-		return fieldItems;
+		if (mFieldItems==null) {
+			mFieldItems=new ArrayList<FieldItem>();
+			mFieldItems.add(new FieldItem("行政区域", getXzq().getName()));
+			mFieldItems.add(new FieldItem("污水类型",getType().getName()));
+			mFieldItems.add(new FieldItem("供水量", String.valueOf(getGsl())));
+			mFieldItems.add(new FieldItem("污水管道接管率", String.valueOf(getWsgdjgl())));
+			mFieldItems.add(new FieldItem("污水总量",String.valueOf(getWszl())));
+			mFieldItems.add(new FieldItem("污水处理率", String.valueOf(getWscll())));
+			mFieldItems.add(new FieldItem("人口", String.valueOf(getRk())));
+		}
+		return mFieldItems;
 	}
 	@Override
 	public String getImageString() {

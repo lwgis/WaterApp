@@ -5,12 +5,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class SewageFactory implements Serializable,FieldItemable {
+public class SewageFactory implements FieldItemable {
 
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = -1297451627595377902L;
 	private int ID;
 	private String Name;
 	private String Address;
@@ -24,6 +23,7 @@ public class SewageFactory implements Serializable,FieldItemable {
 	private double Tzje;
 	private List<ProjectImage> Images;
 	private SewageFactoryTpye Type;
+	private ArrayList<FieldItem>mFieldItems;
 	private double X;
 	public int getID() {
 		return ID;
@@ -112,22 +112,27 @@ public class SewageFactory implements Serializable,FieldItemable {
 	private double Y;
 	@Override
 	public ArrayList<FieldItem> getFieldItems() {
-		ArrayList<FieldItem>fieldItems=new ArrayList<FieldItem>();
-		fieldItems.add(new FieldItem("名称", getName()));
-		fieldItems.add(new FieldItem("类型", getType().getName()));
-		fieldItems.add(new FieldItem("地址",getAddress()));
-		fieldItems.add(new FieldItem("创建时间", getCTime()));
-		fieldItems.add(new FieldItem("处理能力", getClnl()));
-		fieldItems.add(new FieldItem("处理方法", getClff()));
-		fieldItems.add(new FieldItem("处理级别", getCljb()));
-		fieldItems.add(new FieldItem("投资金额", String.valueOf(getTzje())));
-		fieldItems.add(new FieldItem("负责人", getFzr()));
-		fieldItems.add(new FieldItem("联系方式", getContact()));
-		for (ProjectImage projectImage : getImages()) {
-			fieldItems.add(new FieldItem(projectImage.getName()));
-		}
-
-		return fieldItems;	
+		if (mFieldItems==null) {
+			mFieldItems=new ArrayList<FieldItem>();
+			mFieldItems.add(new FieldItem("名称", getName()));
+			mFieldItems.add(new FieldItem("类型", getType().getName()));
+			mFieldItems.add(new FieldItem("地址",getAddress()));
+			mFieldItems.add(new FieldItem("创建时间", getCTime()));
+			mFieldItems.add(new FieldItem("处理能力", getClnl()));
+			mFieldItems.add(new FieldItem("处理方法", getClff()));
+			mFieldItems.add(new FieldItem("处理级别", getCljb()));
+			mFieldItems.add(new FieldItem("投资金额", String.valueOf(getTzje())));
+			mFieldItems.add(new FieldItem("负责人", getFzr()));
+			mFieldItems.add(new FieldItem("联系方式", getContact()));
+			if (getImages()!=null&&getImages().size()>0) {
+				ArrayList<FieldItem> imArrayList=new ArrayList<FieldItem>();
+				for (ProjectImage projectImage : getImages()) {
+					imArrayList.add(new FieldItem(null, projectImage.getName()));
+				}
+				mFieldItems.add(new FieldItem(imArrayList));
+			}
+		}		
+		return mFieldItems;	
 	}
 	public String getFzr() {
 		return Fzr;

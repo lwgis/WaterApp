@@ -1,5 +1,7 @@
 package cn.bjeastearth.waterapp.model;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -192,12 +194,84 @@ public class River implements FieldItemable {
 		if (mFieldItems==null) {
 			mFieldItems=new ArrayList<FieldItem>();
 			mFieldItems.add(new FieldItem("河道名", getName()));
+			mFieldItems.add(new FieldItem("河道类别", getCategory().getName()));
+			mFieldItems.add(new FieldItem("河道级别", getGrade().getName()));
+			mFieldItems.add(new FieldItem("水质等级",getSzdj().getName()));
+			mFieldItems.add(new FieldItem("河道编码", getCode()));
+			mFieldItems.add(new FieldItem("行政区域",getXzq().getName()));
+			mFieldItems.add(new FieldItem("开工时间",getStartTime()));
+			mFieldItems.add(new FieldItem("完工时间",getEndTime()));
+			mFieldItems.add(new FieldItem("起始点",getStartPoint()));
+			mFieldItems.add(new FieldItem("终止点",getEndPoint()));
+			mFieldItems.add(new FieldItem("长度",String.valueOf(getLength())));
+			mFieldItems.add(new FieldItem("宽度",String.valueOf(getWidth())));
+			mFieldItems.add(new FieldItem("深度",String.valueOf(getDepth())));
+			mFieldItems.add(new FieldItem("高锰酸钾",String.valueOf(getKMnO4())));
+			mFieldItems.add(new FieldItem("氨氮",String.valueOf(getNH3N())));
+			mFieldItems.add(new FieldItem("总磷",String.valueOf(getPSUM())));
+			//工业
 			if (getGywrys()!=null&&getGywrys().size()>0) {
 				ArrayList<FieldItem> gyArrayList=new ArrayList<FieldItem>();
 				for (PsIndustry psIndustry : getGywrys()) {
-					gyArrayList.add(new FieldItem(psIndustry.getQymc(), (Object)psIndustry.getFieldItems()));
+					gyArrayList.add(new FieldItem(psIndustry.getShowTitle(), (Object)psIndustry.getFieldItems()));
 				}
 				mFieldItems.add(new FieldItem("工业污染源", gyArrayList));
+			}
+			//畜禽
+			if (getXqyzwrys()!=null&&getXqyzwrys().size()>0) {
+				ArrayList<FieldItem> xqyzArrayList=new ArrayList<FieldItem>();
+				for (PsXqyz psXqyz : getXqyzwrys()) {
+					xqyzArrayList.add(new FieldItem(psXqyz.getShowTitle(),(Object)psXqyz.getFieldItems()));
+				}
+				mFieldItems.add(new FieldItem("畜禽污染源", xqyzArrayList));
+			}
+			//水产
+			if (getScwrys()!=null&&getScwrys().size()>0) {
+				ArrayList<FieldItem> scArrayList=new ArrayList<FieldItem>();
+				for (PsScyz psScyz : getScwrys()) {
+					scArrayList.add(new FieldItem(psScyz.getShowTitle(), (Object)psScyz.getFieldItems()));
+				}
+				mFieldItems.add(new FieldItem("水产污染源", scArrayList));
+			}
+			//种植
+			if (getZzwrys()!=null&&getZzwrys().size()>0) {
+				ArrayList<FieldItem> zzArrayList=new ArrayList<FieldItem>();
+				for (PsZz psZz : getZzwrys()) {
+					zzArrayList.add(new FieldItem(psZz.getShowTitle(), (Object)psZz.getFieldItems()));
+				}
+				mFieldItems.add(new FieldItem("种植污染源", zzArrayList));
+			}
+			//生活
+			if (getShwss()!=null&&getScwrys().size()>0) {
+				ArrayList<FieldItem> shArrayList=new ArrayList<FieldItem>();
+				for (PsLive psLive : getShwss()) {
+					shArrayList.add(new FieldItem(psLive.getShowTitle(), (Object)psLive.getFieldItems()));
+				}
+				mFieldItems.add(new FieldItem("生活污染源", shArrayList));
+			}
+			//河长
+			if (getHdhzs()!=null&&getHdhzs().size()>0) {
+				ArrayList<FieldItem> rmArrayList=new ArrayList<FieldItem>();
+				for (RiverManager riverManager : getHdhzs()) {
+					riverManager.fillFieldItem(rmArrayList);
+				}
+				mFieldItems.add(new FieldItem("河道河长", rmArrayList));
+			}
+			//整理计划
+			if (getRepairplans()!=null&&getRepairplans().size()>0) {
+				ArrayList<FieldItem> rpArrayList=new ArrayList<FieldItem>();
+				for (RiverRepairPlan repairPlan : getRepairplans()) {
+					repairPlan.fillFieldItem(rpArrayList);
+				}
+				mFieldItems.add(new FieldItem("整治计划", rpArrayList));
+			}
+			if (getImages()!=null&&getImages().size()>0) {
+				ArrayList<FieldItem> imArrayList=new ArrayList<FieldItem>();
+				DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+				for (RiverImage riverImage : getImages()) {
+					imArrayList.add(new FieldItem(df.format(riverImage.getStartTime()), riverImage.getName()));
+				}
+				mFieldItems.add(new FieldItem(imArrayList));
 			}
 		}
 		return mFieldItems;

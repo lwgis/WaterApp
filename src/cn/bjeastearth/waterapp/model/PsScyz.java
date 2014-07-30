@@ -22,6 +22,7 @@ public class PsScyz implements PollutionSource{
 	private PsScyzType Yztype;
 	private double X;
 	private double Y;
+	private ArrayList<FieldItem> mFieldItems;
 	public double getBod() {
 		return Bod;
 	}
@@ -118,20 +119,26 @@ public class PsScyz implements PollutionSource{
 	}
 	@Override
 	public ArrayList<FieldItem> getFieldItems() {
-		ArrayList<FieldItem> fieldItems=new ArrayList<FieldItem>();
-		fieldItems.add(new FieldItem("行政区",getXzq().getName()));
-		fieldItems.add(new FieldItem("水产类型", getYztype().getName()));
-		fieldItems.add(new FieldItem("水域面积", String.valueOf(getSymj())));
-		fieldItems.add(new FieldItem("产量产值", String.valueOf(getClcz())));
-		fieldItems.add(new FieldItem("BOD",  String.valueOf(getBod())));
-		fieldItems.add(new FieldItem("COD",  String.valueOf(getBod())));
-		fieldItems.add(new FieldItem("氨氮",  String.valueOf(getNh3N())));
-		fieldItems.add(new FieldItem("总磷",  String.valueOf(getPSum())));
-		fieldItems.add(new FieldItem("时间", getCTime()));
-		for (ProjectImage projectImage : getImages()) {
-			fieldItems.add(new FieldItem(projectImage.getName()));
+		if (mFieldItems==null) {
+			mFieldItems=new ArrayList<FieldItem>();
+			mFieldItems.add(new FieldItem("行政区",getXzq().getName()));
+			mFieldItems.add(new FieldItem("水产类型", getYztype().getName()));
+			mFieldItems.add(new FieldItem("水域面积", String.valueOf(getSymj())));
+			mFieldItems.add(new FieldItem("产量产值", String.valueOf(getClcz())));
+			mFieldItems.add(new FieldItem("BOD",  String.valueOf(getBod())));
+			mFieldItems.add(new FieldItem("COD",  String.valueOf(getBod())));
+			mFieldItems.add(new FieldItem("氨氮",  String.valueOf(getNh3N())));
+			mFieldItems.add(new FieldItem("总磷",  String.valueOf(getPSum())));
+			mFieldItems.add(new FieldItem("时间", getCTime()));
+			if (getImages()!=null&&getImages().size()>0) {
+				ArrayList<FieldItem> imArrayList=new ArrayList<FieldItem>();
+				for (ProjectImage projectImage : getImages()) {
+					imArrayList.add(new FieldItem(null, projectImage.getName()));
+				}
+				mFieldItems.add(new FieldItem(imArrayList));
+			}
 		}
-		return fieldItems;
+		return mFieldItems;
 	}
 	@Override
 	public String getImageString() {

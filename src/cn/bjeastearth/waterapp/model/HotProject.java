@@ -27,6 +27,7 @@ private double Tzje;
 private ProjectRegion Xzq;
 private double X;
 private double Y;
+private ArrayList<FieldItem>mFieldItems;
 public int getID() {
 	return ID;
 }
@@ -125,21 +126,26 @@ public void setTzdw(String tzdw) {
 }
 @Override
 public ArrayList<FieldItem> getFieldItems() {
-	ArrayList<FieldItem>fieldItems=new ArrayList<FieldItem>();
-	fieldItems.add(new FieldItem("工程名称", getName()));
-	fieldItems.add(new FieldItem("工程进度", getGcjd()+"%"));
-	fieldItems.add(new FieldItem("工程类型", getGclb().getName()));
-	fieldItems.add(new FieldItem("投资单位", getTzdw()));
-	fieldItems.add(new FieldItem("投资金额", String.valueOf(getTzje())));
-	fieldItems.add(new FieldItem("建设单位", getJsdw()));
-	fieldItems.add(new FieldItem("负责人", getFzr()));
-	fieldItems.add(new FieldItem("开始时间", getStartTime()));
-	fieldItems.add(new FieldItem("结束时间", getEndTime()));
-	for (ProjectImage projectImage : getImages()) {
-		fieldItems.add(new FieldItem(projectImage.getName()));
+	if (mFieldItems==null) {
+		mFieldItems=new ArrayList<FieldItem>();
+		mFieldItems.add(new FieldItem("工程名称", getName()));
+		mFieldItems.add(new FieldItem("工程进度", getGcjd()+"%"));
+		mFieldItems.add(new FieldItem("工程类型", getGclb().getName()));
+		mFieldItems.add(new FieldItem("投资单位", getTzdw()));
+		mFieldItems.add(new FieldItem("投资金额", String.valueOf(getTzje())));
+		mFieldItems.add(new FieldItem("建设单位", getJsdw()));
+		mFieldItems.add(new FieldItem("负责人", getFzr()));
+		mFieldItems.add(new FieldItem("开始时间", getStartTime()));
+		mFieldItems.add(new FieldItem("结束时间", getEndTime()));
+		if (getImages()!=null&&getImages().size()>0) {
+			ArrayList<FieldItem> imArrayList=new ArrayList<FieldItem>();
+			for (ProjectImage projectImage : getImages()) {
+				imArrayList.add(new FieldItem(null, projectImage.getName()));
+			}
+			mFieldItems.add(new FieldItem(imArrayList));
+		}
 	}
-
-	return fieldItems;
+	return mFieldItems;
 }
 
 

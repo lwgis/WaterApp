@@ -26,6 +26,7 @@ public class PsXqyz  implements PollutionSource {
 	private List<PollutionClass2> Xqwrwjls;
 	private Region Xzq;
 	private double Y;
+	private ArrayList<FieldItem> mFieldItems;
 	public double getBod() {
 		return Bod;
 	}
@@ -152,29 +153,38 @@ public class PsXqyz  implements PollutionSource {
 	}
 	@Override
 	public ArrayList<FieldItem> getFieldItems() {
-		ArrayList<FieldItem> fieldItems=new ArrayList<FieldItem>();
-		fieldItems.add(new FieldItem("单位名称", getDwmc()));
-		fieldItems.add(new FieldItem("畜禽数量", String.valueOf(getXqCount())));
-		fieldItems.add(new FieldItem("行政区域", getXzq().getName()));
-		fieldItems.add(new FieldItem("BOD", String.valueOf(getBod())));
-		fieldItems.add(new FieldItem("COD", String.valueOf(getCod())));
-		fieldItems.add(new FieldItem("氨氮", String.valueOf(getNh3N())));
-		fieldItems.add(new FieldItem("总磷", String.valueOf(getPSum())));
-		ArrayList<FieldItem> childFieldItems2=new ArrayList<FieldItem>();
-		for (PollutionClass2 pollutionClass2 : getXqwrwjls()) {
-			pollutionClass2.fillFieldItem(childFieldItems2);
+		if (mFieldItems == null) {
+			mFieldItems = new ArrayList<FieldItem>();
+			mFieldItems.add(new FieldItem("单位名称", getDwmc()));
+			mFieldItems
+					.add(new FieldItem("畜禽数量", String.valueOf(getXqCount())));
+			mFieldItems.add(new FieldItem("行政区域", getXzq().getName()));
+			mFieldItems.add(new FieldItem("BOD", String.valueOf(getBod())));
+			mFieldItems.add(new FieldItem("COD", String.valueOf(getCod())));
+			mFieldItems.add(new FieldItem("氨氮", String.valueOf(getNh3N())));
+			mFieldItems.add(new FieldItem("总磷", String.valueOf(getPSum())));
+			ArrayList<FieldItem> childFieldItems2 = new ArrayList<FieldItem>();
+			for (PollutionClass2 pollutionClass2 : getXqwrwjls()) {
+				pollutionClass2.fillFieldItem(childFieldItems2);
+			}
+			mFieldItems.add(new FieldItem("二类污染", childFieldItems2));
+			mFieldItems.add(new FieldItem("负责人", getFzr()));
+			mFieldItems.add(new FieldItem("年产值", String.valueOf(getNcz())));
+			mFieldItems.add(new FieldItem("注册资金", String.valueOf(getZczj())));
+			mFieldItems.add(new FieldItem("主管环保部门", getHbDept().getName()));
+			mFieldItems.add(new FieldItem("主管工商部门", getGsDept().getName()));
+			if (getImages() != null && getImages().size() > 0) {
+				ArrayList<FieldItem> imArrayList = new ArrayList<FieldItem>();
+				for (ProjectImage projectImage : getImages()) {
+					imArrayList
+							.add(new FieldItem(null, projectImage.getName()));
+				}
+				mFieldItems.add(new FieldItem(imArrayList));
+			}
 		}
-		fieldItems.add(new FieldItem("二类污染", childFieldItems2));
-		fieldItems.add(new FieldItem("负责人", getFzr()));
-		fieldItems.add(new FieldItem("年产值", String.valueOf(getNcz())));
-		fieldItems.add(new FieldItem("注册资金",String.valueOf(getZczj())));
-		fieldItems.add(new FieldItem("主管环保部门", getHbDept().getName()));
-		fieldItems.add(new FieldItem("主管工商部门", getGsDept().getName()));
-		for (ProjectImage projectImage : getImages()) {
-			fieldItems.add(new FieldItem(projectImage.getName()));
-		}
-		return fieldItems;
+		return mFieldItems;
 	}
+
 	@Override
 	public String getImageString() {
 		// TODO Auto-generated method stub

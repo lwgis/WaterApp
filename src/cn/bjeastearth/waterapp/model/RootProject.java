@@ -4,12 +4,11 @@ import java.io.Serializable;
 import java.util.ArrayList;
 
 
-public class RootProject implements Serializable,FieldItemable {
+public class RootProject implements FieldItemable {
 
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 1898863801783542436L;
 private int ID;
 private int Status;
 private int Wcjd;
@@ -19,6 +18,7 @@ private String Gjdgzap;
 private String Jqgzbs;
 private String Remark;
 private String WorkSum;
+private ArrayList<FieldItem>mFieldItems;
 public int getID() {
 	return ID;
 }
@@ -75,15 +75,17 @@ public void setWorkSum(String workSum) {
 }
 @Override
 public ArrayList<FieldItem> getFieldItems() {
-	ArrayList<FieldItem> fieldItems=new ArrayList<FieldItem>();
-	fieldItems.add(new FieldItem("标题", getTitle()));
-	fieldItems.add(new FieldItem("工作概述",getDescription()));
-	fieldItems.add(new FieldItem("工作总量", getWorkSum()));
-	fieldItems.add(new FieldItem("完成进度", String.valueOf(getWcjd())));
-	fieldItems.add(new FieldItem("近期工作部署", getJqgzbs()));
-	fieldItems.add(new FieldItem("阶段工作安排", getGjdgzap()));
-	fieldItems.add(new FieldItem("备注", getRemark()));
-	return fieldItems;
+	if (mFieldItems==null) {
+		mFieldItems=new ArrayList<FieldItem>();
+		mFieldItems.add(new FieldItem("标题", getTitle()));
+		mFieldItems.add(new FieldItem("工作概述",getDescription()));
+		mFieldItems.add(new FieldItem("工作总量", getWorkSum()));
+		mFieldItems.add(new FieldItem("完成进度", String.valueOf(getWcjd())));
+		mFieldItems.add(new FieldItem("近期工作部署", getJqgzbs()));
+		mFieldItems.add(new FieldItem("阶段工作安排", getGjdgzap()));
+		mFieldItems.add(new FieldItem("备注", getRemark()));
+	}
+	return mFieldItems;
 }
 
 }

@@ -19,6 +19,7 @@ public class PsZz  implements PollutionSource {
 	private double	X;
 	private Region	Xzq;
 	private double	Y;
+	private ArrayList<FieldItem> mFieldItems;
 	public String getCTime() {
 		return CTime;
 	}
@@ -97,14 +98,16 @@ public class PsZz  implements PollutionSource {
 	}
 	@Override
 	public ArrayList<FieldItem> getFieldItems() {
-		ArrayList<FieldItem> fieldItems=new ArrayList<FieldItem>();
-		fieldItems.add(new FieldItem("行政区域", getXzq().getName()));
-		fieldItems.add(new FieldItem("耕地面积", String.valueOf(getGdmj())));
-		fieldItems.add(new FieldItem("农药用量", String.valueOf(getNyyl())));
-		fieldItems.add(new FieldItem("农肥用量", String.valueOf(getNfyl())));
-		fieldItems.add(new FieldItem("农业产出", String.valueOf(getNycc())));
-		fieldItems.add(new FieldItem("污染程度", getCd().getName()));
-		return fieldItems;
+		if (mFieldItems==null) {
+			mFieldItems=new ArrayList<FieldItem>();
+			mFieldItems.add(new FieldItem("行政区域", getXzq().getName()));
+			mFieldItems.add(new FieldItem("耕地面积", String.valueOf(getGdmj())));
+			mFieldItems.add(new FieldItem("农药用量", String.valueOf(getNyyl())));
+			mFieldItems.add(new FieldItem("农肥用量", String.valueOf(getNfyl())));
+			mFieldItems.add(new FieldItem("农业产出", String.valueOf(getNycc())));
+			mFieldItems.add(new FieldItem("污染程度", getCd().getName()));
+		}
+		return mFieldItems;
 	}
 	@Override
 	public String getImageString() {

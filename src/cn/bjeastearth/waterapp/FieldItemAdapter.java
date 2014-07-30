@@ -11,22 +11,31 @@ import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
 import cn.bjeastearth.http.ImageOptions;
 import cn.bjeastearth.waterapp.model.FieldItem;
 import cn.bjeastearth.waterapp.model.FieldItemType;
+import cn.bjeastearth.waterapp.myview.GalleryImageView;
 import cn.bjeastearth.waterapp.myview.LvHeightUtil;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.view.ViewGroup.LayoutParams;
+import android.view.animation.AnimationUtils;
 import android.widget.AbsListView;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.BaseAdapter;
 import android.widget.Button;
+import android.widget.Gallery;
+import android.widget.ImageSwitcher;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.ViewSwitcher;
 
 public class FieldItemAdapter extends BaseAdapter {
 	private Context mContext;
@@ -69,6 +78,10 @@ public class FieldItemAdapter extends BaseAdapter {
 						R.layout.fielditem_image, null);
 			ImageView imageView=(ImageView)convertView.findViewById(R.id.fieldContentImage);
 			ImageLoader.getInstance().displayImage(mContext.getString(R.string.NewTileImgAddr)+ item.getContent(), imageView,ImageOptions.options);
+		}
+		if (item.getType()==FieldItemType.IMAGES) {
+			convertView =LayoutInflater.from(mContext).inflate(R.layout.gallery_image, null);
+			setGalleryImage(convertView,item.getChildFieldItems());
 		}
 		if (item.getType()==FieldItemType.PARENT) {
 			convertView = LayoutInflater.from(mContext).inflate(
@@ -113,6 +126,70 @@ public class FieldItemAdapter extends BaseAdapter {
 			tvName.setText(item.getName());
 		}
 		return convertView;
+	}
+	private void setGalleryImage(View convertView,final ArrayList<FieldItem> cFieldItems) {
+		
+		 final ImageSwitcher  imageSwitcher = (ImageSwitcher) convertView
+				.findViewById(R.id.imageSwitcher);
+			imageSwitcher.setFactory((ViewSwitcher.ViewFactory)mContext);
+			 imageSwitcher.setInAnimation(AnimationUtils.loadAnimation(mContext,
+					    android.R.anim.fade_in));
+			imageSwitcher.setOutAnimation(AnimationUtils.loadAnimation(mContext,
+					    android.R.anim.fade_out));
+		Gallery gallery = (Gallery) convertView.findViewById(R.id.gallery);
+		final TextView textView=(TextView)convertView.findViewById(R.id.textView);		
+		gallery.setAdapter(new BaseAdapter() {
+			
+			@Override
+			public View getView(int position, View convertView, ViewGroup parent) {
+				ImageView imageView = (ImageView) convertView;
+				if (imageView == null) {
+					imageView = (ImageView)LayoutInflater.from(mContext).inflate(R.layout.item_gallery_image, parent, false);
+				}
+				ImageLoader.getInstance().displayImage(mContext.getString(R.string.NewTileImgAddr)+ cFieldItems.get(position).getContent(), imageView,ImageOptions.options);
+				return imageView;
+			}
+			
+			@Override
+			public long getItemId(int position) {
+				// TODO Auto-generated method stub
+				return position;
+			}
+			
+			@Override
+			public Object getItem(int position) {
+				// TODO Auto-generated method stub
+				return position;
+			}
+			
+			@Override
+			public int getCount() {
+				// TODO Auto-generated method stub
+				return cFieldItems.size();
+			}
+		});
+		gallery.setOnItemSelectedListener(new OnItemSelectedListener() {
+
+			@Override
+			public void onItemSelected(AdapterView<?> parent, View view,
+					int position, long id) {
+				if (cFieldItems.get(position).getName()!=null) {
+					textView.setText(cFieldItems.get(position).getName());
+				}
+				ImageLoader.getInstance().displayImage(
+						mContext.getString(R.string.NewTileImgAddr)
+								+ cFieldItems.get(position).getContent(),
+						(ImageView) imageSwitcher.getNextView(),
+						ImageOptions.options);
+				imageSwitcher.showNext();
+			}
+
+			@Override
+			public void onNothingSelected(AdapterView<?> parent) {
+				// TODO Auto-generated method stub
+				
+			}
+		});
 	}
 
 }

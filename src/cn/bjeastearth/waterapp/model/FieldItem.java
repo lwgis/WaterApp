@@ -32,6 +32,10 @@ public FieldItem(String name,Object targeObject){
 	this.targe=targeObject;
 	this.type=FieldItemType.TEXTBUTTON;
 }
+public FieldItem(ArrayList<FieldItem> fieldItems){
+	this.childFieldItems=fieldItems;
+	this.type=FieldItemType.IMAGES;
+}
 public String getName() {
 
 	return name;

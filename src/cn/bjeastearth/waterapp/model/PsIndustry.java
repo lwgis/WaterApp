@@ -1,6 +1,8 @@
 package cn.bjeastearth.waterapp.model;
 
 import java.io.Serializable;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.jar.Attributes.Name;
@@ -9,12 +11,11 @@ import android.content.Context;
 import android.graphics.drawable.Drawable;
 import cn.bjeastearth.waterapp.R;
 
-public class PsIndustry implements Serializable ,PollutionSource{
+public class PsIndustry implements  PollutionSource{
 
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = -7210753076400650517L;
 	private int ID;
 	private double Bod;
 	private List<PollutionClass1> Class1jls;
@@ -36,6 +37,7 @@ public class PsIndustry implements Serializable ,PollutionSource{
 	private double Zczj;
 	private double Zjs;
 	private Region Xzq;
+	private ArrayList<FieldItem> mFieldItems;
 	public double getBod() {
 		return Bod;
 	}
@@ -158,36 +160,42 @@ public class PsIndustry implements Serializable ,PollutionSource{
 	}
 	@Override
 	public ArrayList<FieldItem> getFieldItems() {
-		// TODO Auto-generated method stub
-		ArrayList<FieldItem> fieldItems=new ArrayList<FieldItem>();
-		fieldItems.add(new FieldItem("企业名称", getQymc()));
-		fieldItems.add(new FieldItem("产业类型",getCylx()));
-		fieldItems.add(new FieldItem("污染物类型", getWrwlx().getName()));
-		fieldItems.add(new FieldItem("BOD", String.valueOf(getBod())));
-		fieldItems.add(new FieldItem("COD", String.valueOf(getCod())));
-		fieldItems.add(new FieldItem("氨氮", String.valueOf(getNH3N())));
-		fieldItems.add(new FieldItem("总磷", String.valueOf(getPSum())));
-		fieldItems.add(new FieldItem("重金属", String.valueOf(getZjs())));
-		ArrayList<FieldItem> childFieldItems1=new ArrayList<FieldItem>();
-		ArrayList<FieldItem> childFieldItems2=new ArrayList<FieldItem>();
-		for (PollutionClass1 pollutionClass1 : getClass1jls()) {
-			pollutionClass1.fillFieldItem(childFieldItems1);
+		if (mFieldItems==null) {
+			mFieldItems=new ArrayList<FieldItem>();
+			mFieldItems.add(new FieldItem("企业名称", getQymc()));
+			mFieldItems.add(new FieldItem("产业类型",getCylx()));
+			mFieldItems.add(new FieldItem("污染物类型", getWrwlx().getName()));
+			mFieldItems.add(new FieldItem("BOD", String.valueOf(getBod())));
+			mFieldItems.add(new FieldItem("COD", String.valueOf(getCod())));
+			mFieldItems.add(new FieldItem("氨氮", String.valueOf(getNH3N())));
+			mFieldItems.add(new FieldItem("总磷", String.valueOf(getPSum())));
+			mFieldItems.add(new FieldItem("重金属", String.valueOf(getZjs())));
+			ArrayList<FieldItem> childFieldItems1=new ArrayList<FieldItem>();
+			ArrayList<FieldItem> childFieldItems2=new ArrayList<FieldItem>();
+			for (PollutionClass1 pollutionClass1 : getClass1jls()) {
+				pollutionClass1.fillFieldItem(childFieldItems1);
+			}
+			for (PollutionClass2 pollutionClass2 : getClass2jls()) {
+				pollutionClass2.fillFieldItem(childFieldItems2);
+			}
+			mFieldItems.add(new FieldItem("一类污染",childFieldItems1));
+			mFieldItems.add(new FieldItem("二类污染",childFieldItems2));
+			mFieldItems.add(new FieldItem("年产值",String.valueOf(getNcz())));
+			mFieldItems.add(new FieldItem("负责人",getFzr()));
+			mFieldItems.add(new FieldItem("注册资金",String.valueOf(getZczj())));
+			mFieldItems.add(new FieldItem("行政区域",getXzq().getName()));
+			mFieldItems.add(new FieldItem("主管环保部门",getHbDept().getName()));
+			mFieldItems.add(new FieldItem("主管工商部门",getGsDept().getName()));
+			if (getImages()!=null&&getImages().size()>0) {
+				ArrayList<FieldItem> imArrayList=new ArrayList<FieldItem>();
+				for (ProjectImage projectImage : getImages()) {
+					imArrayList.add(new FieldItem(null, projectImage.getName()));
+				}
+				mFieldItems.add(new FieldItem(imArrayList));
+			}
 		}
-		for (PollutionClass2 pollutionClass2 : getClass2jls()) {
-			pollutionClass2.fillFieldItem(childFieldItems2);
-		}
-		fieldItems.add(new FieldItem("一类污染",childFieldItems1));
-		fieldItems.add(new FieldItem("二类污染",childFieldItems2));
-		fieldItems.add(new FieldItem("年产值",String.valueOf(getNcz())));
-		fieldItems.add(new FieldItem("负责人",getFzr()));
-		fieldItems.add(new FieldItem("注册资金",String.valueOf(getZczj())));
-		fieldItems.add(new FieldItem("行政区域",getXzq().getName()));
-		fieldItems.add(new FieldItem("主管环保部门",getHbDept().getName()));
-		fieldItems.add(new FieldItem("主管工商部门",getGsDept().getName()));
-		for (ProjectImage projectImage : getImages()) {
-			fieldItems.add(new FieldItem(projectImage.getName()));
-		}
-		return fieldItems;
+		
+		return mFieldItems;
 	}
 	public Region getXzq() {
 		return Xzq;
