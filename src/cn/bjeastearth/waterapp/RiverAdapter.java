@@ -10,6 +10,7 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.BaseAdapter;
 import android.widget.Button;
@@ -19,9 +20,11 @@ import android.widget.TextView;
 public class RiverAdapter extends BaseAdapter {
 	private List<River> mRivers;
 	private Context mContext;
-	public RiverAdapter(Context context,List<River> rivers){
+	private OnClickListener mlocatiOnClickListener;
+	public RiverAdapter(Context context,List<River> rivers,OnClickListener locatiOnClickListener){
 		this.mContext=context;
 		this.mRivers=rivers;
+		this.mlocatiOnClickListener=locatiOnClickListener;
 	}
 	@Override
 	public int getCount() {
@@ -51,9 +54,9 @@ public class RiverAdapter extends BaseAdapter {
 		TextView tvDaTe=(TextView)convertView.findViewById(R.id.secondTv);
 		tvDaTe.setText(mRivers.get(position).getCategory().getName());
 		ImageView iView=(ImageView)convertView.findViewById(R.id.imageView);
-//		Button btnLocation=(Button)convertView.findViewById(R.id.btnLocation);
-//		btnLocation.setTag(mAllPollutionSources.get(position));
-//		btnLocation.setOnClickListener(locatiOnClickListener);
+		Button btnLocation=(Button)convertView.findViewById(R.id.btnLocation);
+		btnLocation.setTag(getItem(position));
+		btnLocation.setOnClickListener(mlocatiOnClickListener);
 		if (mRivers.get(position).getImages()!=null) {
 			String url=mContext.getString(R.string.NewTileImgAddr)+mRivers.get(position).getImages().get(0).getName();
 			ImageLoader.getInstance().displayImage(url, iView,ImageOptions.options);
