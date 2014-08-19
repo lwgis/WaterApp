@@ -66,5 +66,8 @@ public class RiverAdapter extends BaseAdapter {
 		}
 		return convertView;
 	}
-
+  public void refresh(List<River>  rivers){
+	  mRivers=rivers;
+	  notifyDataSetChanged();
+  }
 }

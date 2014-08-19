@@ -1,9 +1,13 @@
 package cn.bjeastearth.waterapp;
 
+import java.lang.ref.WeakReference;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import cn.bjeastearth.http.HttpUtil;
+import cn.bjeastearth.http.ImageOptions;
 import cn.bjeastearth.waterapp.model.PollutionSource;
 import cn.bjeastearth.waterapp.model.PsFarmingManager;
 import cn.bjeastearth.waterapp.model.PsIndustry;
@@ -21,28 +25,32 @@ import com.esri.android.map.ags.ArcGISTiledMapServiceLayer;
 import com.esri.android.map.ags.ArcGISFeatureLayer.MODE;
 import com.esri.android.map.event.OnSingleTapListener;
 import com.esri.android.map.event.OnStatusChangedListener;
-import com.esri.android.map.event.OnStatusChangedListener.STATUS;
 import com.esri.core.geometry.Envelope;
 import com.esri.core.geometry.Geometry;
 import com.esri.core.geometry.Point;
-import com.esri.core.geometry.Polygon;
-import com.esri.core.geometry.Polyline;
 import com.esri.core.map.CallbackListener;
 import com.esri.core.map.FeatureSet;
+import com.esri.core.map.Graphic;
+import com.esri.core.symbol.PictureMarkerSymbol;
 import com.esri.core.tasks.SpatialRelationship;
 import com.esri.core.tasks.ags.query.Query;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
+import com.nostra13.universalimageloader.core.ImageLoader;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
@@ -52,10 +60,12 @@ import android.widget.RelativeLayout;
 import android.widget.TabHost;
 import android.widget.TextView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.TextView.OnEditorActionListener;
 
 public class RiverActivity extends Activity implements OnClickListener {
 	private final int MSG_XZQ = -1;
 	private final int MSG_ALLRIVER = 1;
+	private final int MSG_AllPs=2;
 	private MapView mapView = null;
 	private WebListView mListView = null;
 	private ArcGISTiledMapServiceLayer tiledMapServiceLayer = null;
@@ -66,6 +76,7 @@ public class RiverActivity extends Activity implements OnClickListener {
 	private TabHost tabHost;
 	private List<River> mRivers;
 	private ArrayList<PollutionSource> mAllPollutionSources;
+	private ArrayList<PollutionSource> mPollutionSources;
 	private List<PsIndustry> mAllPsIndustries;
 	private PsFarmingManager mPsFarmingManager;
 	private List<PsLive> mAllPsLives;
@@ -85,7 +96,7 @@ public class RiverActivity extends Activity implements OnClickListener {
 	private boolean popWindowIsShow;
 	private Button btnAddPs;
 	private PollutionSource currentPs;
-	private Handler mHandler;
+	private MyHandler mHandler;
 	private Envelope initextext;
 	private OnItemClickListener mOnItemClickListener = new OnItemClickListener() {
 
@@ -111,10 +122,6 @@ public class RiverActivity extends Activity implements OnClickListener {
 			} else {
 				riverFeatureLayer
 						.setOnStatusChangedListener(new OnStatusChangedListener() {
-
-							/**
-					 * 
-					 */
 							private static final long serialVersionUID = 2484966524402589675L;
 
 							@Override
@@ -136,26 +143,7 @@ public class RiverActivity extends Activity implements OnClickListener {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		super.setContentView(R.layout.activity_river);
-		mHandler = new Handler() {
-
-			@Override
-			public void handleMessage(Message msg) {
-				// TODO Auto-generated method stub
-				super.handleMessage(msg);
-				if (msg.what == MSG_ALLRIVER) {
-					Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd")
-							.create();
-					mRivers = gson.fromJson(msg.obj.toString(),
-							new TypeToken<List<River>>() {
-							}.getType());
-					mAdapter = new RiverAdapter(RiverActivity.this, mRivers,
-							mlocationClickListener);
-					mListView.setAdapter(mAdapter);
-					mListView.setOnItemClickListener(mOnItemClickListener);
-				}
-			}
-
-		};
+		mHandler = new MyHandler(this);
 		Button backButton = (Button) findViewById(R.id.btnBack);
 		backButton.setOnClickListener(new OnClickListener() {
 
@@ -217,7 +205,6 @@ public class RiverActivity extends Activity implements OnClickListener {
 		this.btnAllwry = (Button) findViewById(R.id.btnAllwry);
 		this.btnAllwry.setOnClickListener(this);
 		this.mPsType = PsType.GY;
-		// new Thread(new HttpThread("all")).start();
 		// 地图信息栏
 		firstTv = (TextView) findViewById(R.id.firstTv);
 		secondTv = (TextView) findViewById(R.id.secondTv);
@@ -243,6 +230,8 @@ public class RiverActivity extends Activity implements OnClickListener {
 
 			@Override
 			public void onSingleTap(float x, float y) {
+				final float tx=x;
+				final float ty=y;
 				Point startPoint = mapView.toMapPoint(x - 50, y - 50);
 				Point endPoint = mapView.toMapPoint(x + 50, y + 50);
 				Envelope envelope = new Envelope(startPoint.getX(), startPoint
@@ -275,6 +264,26 @@ public class RiverActivity extends Activity implements OnClickListener {
 										startActivity(intent);
 									}
 								}
+								else {
+									RiverActivity.this.runOnUiThread(new Runnable() {
+										
+										@Override
+										public void run() {
+											Graphic result = null;
+											// 检索当前 光标点（手指按压位置）的附近的 graphic对象
+											result = GetGraphicsFromLayer(tx, ty, mGraphicsLayer);
+											if (result != null) {
+												// 获得附加特别的属性
+												String pid = String
+														.valueOf(result.getAttributeValue("PID"));
+												showMapInfo(pid);
+											} else {
+												mapInfoLayout.setVisibility(View.GONE);
+											}
+											
+										}
+									});
+								}
 							}
 
 							@Override
@@ -283,9 +292,96 @@ public class RiverActivity extends Activity implements OnClickListener {
 
 							}
 						});
+			
 			}
 		});
 		new Thread(new HttpThread(MSG_ALLRIVER)).start();
+		new Thread(new HttpThread(MSG_AllPs)).start();
+
+	}
+	private PollutionSource findHotProjectByid(String psID) {
+		for (PollutionSource pollutionSource : mPollutionSources) {
+			if (psID.equals(pollutionSource.getPID())) {
+				return pollutionSource;
+			}
+		}
+		return null;
+	}
+	protected void showMapInfo(String pid) {
+		PollutionSource pollutionSource = findHotProjectByid(pid);
+		Point point = new Point(pollutionSource.getX(), pollutionSource.getY());
+		mapView.centerAt(point, true);
+		currentPs = pollutionSource;
+		firstTv.setText(pollutionSource.getShowTitle());
+		secondTv.setText(pollutionSource.getShowDescribing());
+		if (pollutionSource.getImageString() != null) {
+			String url = this.getString(R.string.NewTileImgAddr)
+					+ pollutionSource.getImageString();
+			ImageLoader.getInstance().displayImage(url, itemImageView,ImageOptions.options);
+		}
+		else {
+			itemImageView.setImageResource(R.drawable.imageview);
+		}
+		mapInfoLayout.setVisibility(View.VISIBLE);
+
+	}
+	/*
+	 * 从一个图层里里 查找获得 Graphics对象. x,y是屏幕坐标,layer
+	 * 是GraphicsLayer目标图层（要查找的）。相差的距离是50像素。
+	 */
+	private Graphic GetGraphicsFromLayer(double xScreen, double yScreen,
+			GraphicsLayer layer) {
+		Graphic result = null;
+		try {
+			int[] idsArr = layer.getGraphicIDs();
+			double x = xScreen;
+			double y = yScreen;
+			for (int i = 0; i < idsArr.length; i++) {
+				Graphic gpVar = layer.getGraphic(idsArr[i]);
+				if (gpVar != null) {
+					Point pointVar = (Point) gpVar.getGeometry();
+					pointVar = mapView.toScreenPoint(pointVar);
+					double x1 = pointVar.getX();
+					double y1 = pointVar.getY();
+					if (Math.sqrt((x - x1) * (x - x1) + (y - y1) * (y - y1)) < 50) {
+						result = gpVar;
+						break;
+					}
+				}
+			}
+		} catch (Exception e) {
+			return null;
+		}
+		return result;
+	}
+	protected void updatePollutionSource(PsType type) {
+		if (mPollutionSources==null) {
+			mPollutionSources=new ArrayList<PollutionSource>();
+		}
+		else {
+			mPollutionSources.clear();
+		}
+		for (PollutionSource pollutionSource : mAllPollutionSources) {
+			if (pollutionSource.getPsType().equals(this.mPsType)||this.mPsType==PsType.ALL) {
+				mPollutionSources.add(pollutionSource);
+			}
+		}
+		if (mGraphicsLayer == null) {
+			mGraphicsLayer = new GraphicsLayer();
+			mapView.addLayer(mGraphicsLayer);
+		}
+		mGraphicsLayer.removeAll();
+		for (PollutionSource pollutionSource : mPollutionSources) {
+			Point onePoint = new Point(pollutionSource.getX(),
+					pollutionSource.getY());
+			Map<String, Object> map = new HashMap<String, Object>();
+			map.put("PID", pollutionSource.getPID());
+			PictureMarkerSymbol symbol = new PictureMarkerSymbol(
+					pollutionSource.getMapDrawable(RiverActivity.this));
+			Graphic oneGraphic = new Graphic(onePoint, symbol, map);
+			mGraphicsLayer.addGraphic(oneGraphic);
+		}
+		mapInfoLayout.setVisibility(View.GONE);
 	}
 
 	protected River findRiverByCode(String codeString) {
@@ -295,6 +391,18 @@ public class RiverActivity extends Activity implements OnClickListener {
 			}
 		}
 		return null;
+	}
+	protected List<River> findRiversByName(String riverName) {
+		if (riverName.equals("")) {
+			return mRivers;
+		}
+		List<River> rivers=new ArrayList<River>();
+		for (River river : mRivers) {
+			if (river.getName().contains(riverName)) {
+				rivers.add(river);
+			}
+		}
+		return rivers;
 	}
 	private void locationRiver(River river) {
 		Query query = new Query();
@@ -340,8 +448,37 @@ public class RiverActivity extends Activity implements OnClickListener {
 	@Override
 	public void onClick(View v) {
 		// TODO Auto-generated method stub
-
+		if (v.isSelected()) {
+			return;
+		}
+		this.btnGywry.setSelected(false);
+		this.btnNywry.setSelected(false);
+		this.btnShwry.setSelected(false);
+		this.btnAllwry.setSelected(false);
+		this.mGraphicsLayer.removeAll();
+		switch (v.getId()) {
+		case R.id.btnGywry:
+			v.setSelected(true);
+			mPsType = PsType.GY;
+			break;
+		case R.id.btnNywry:
+			v.setSelected(true);
+			mPsType = PsType.NY;
+			break;
+		case R.id.btnShwry:
+			v.setSelected(true);
+			mPsType = PsType.SH;
+			break;
+		case R.id.btnAllwry:
+			v.setSelected(true);
+			mPsType = PsType.ALL;
+			break;
+		default:
+			break;
+		}
+		updatePollutionSource(mPsType);
 	}
+	
 
 	class HttpThread implements Runnable {
 		int tpyeString;
@@ -360,7 +497,8 @@ public class RiverActivity extends Activity implements OnClickListener {
 					msg.obj = jsonString;
 					msg.sendToTarget();
 				}
-			} else {
+			} 
+			if(tpyeString==MSG_ALLRIVER) {
 				String jsonString = HttpUtil.getAllRiverString();
 				if (!jsonString.equals("")) {
 					Message msg = RiverActivity.this.mHandler.obtainMessage();
@@ -369,7 +507,95 @@ public class RiverActivity extends Activity implements OnClickListener {
 					msg.sendToTarget();
 				}
 			}
+			if (tpyeString==MSG_AllPs) {
+				String jsonString = HttpUtil
+						.getAllPollutionString("all");
+				Message msg=mHandler.obtainMessage();
+				msg.obj=jsonString;
+				msg.what=MSG_AllPs;
+				msg.sendToTarget();
+			}
 		}
 	}
+	static class MyHandler extends Handler{
+		WeakReference<RiverActivity> activityReference;
+		public MyHandler(RiverActivity activity){
+			activityReference=new WeakReference<RiverActivity>(activity);
+		}
+		@Override
+		public void handleMessage(Message msg) {
+			  final RiverActivity activity = activityReference.get();
 
+			if (msg.what == activity.MSG_ALLRIVER) {
+				Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd")
+						.create();
+				activity.mRivers = gson.fromJson(msg.obj.toString(),
+						new TypeToken<List<River>>() {
+						}.getType());
+				activity.mAdapter = new RiverAdapter(activity, activity.mRivers,
+						activity.mlocationClickListener);
+				activity.mListView.setAdapter(activity.mAdapter);
+				activity.mListView.setOnItemClickListener(activity.mOnItemClickListener);
+				activity.btnSearch.setOnClickListener(new OnClickListener() {
+					
+					@Override
+					public void onClick(View v) {
+						
+							InputMethodManager im = (InputMethodManager) activity
+									.getSystemService(Context.INPUT_METHOD_SERVICE);
+							im.hideSoftInputFromWindow(
+									activity.mSearchEditView
+											.getWindowToken(),
+									InputMethodManager.HIDE_NOT_ALWAYS);
+							activity.tabHost.setCurrentTab(1);
+							activity.mAdapter.refresh(activity.findRiversByName(activity.mSearchEditView.getText().toString()));
+					}
+				});
+				activity.mSearchEditView
+				.setOnEditorActionListener(new OnEditorActionListener() {
+
+					@Override
+					public boolean onEditorAction(TextView v,
+							int actionId, KeyEvent event) {
+						if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+								InputMethodManager im = (InputMethodManager) activity
+										.getSystemService(Context.INPUT_METHOD_SERVICE);
+								im.hideSoftInputFromWindow(
+										activity.mSearchEditView
+												.getWindowToken(),
+										InputMethodManager.HIDE_NOT_ALWAYS);
+								activity.tabHost.setCurrentTab(1);
+								activity.mAdapter.refresh(activity.findRiversByName(activity.mSearchEditView.getText().toString()));
+						}
+						return false;
+					}
+				});
+			}
+			if (msg.what==activity.MSG_AllPs) {
+				Gson gson=new Gson();
+				activity.mPsManager = gson.fromJson(msg.obj.toString(), PsManager.class);
+				activity.mAllPollutionSources = new ArrayList<PollutionSource>();
+				for (PollutionSource pollutionSource : activity.mPsManager.getGys()) {
+					activity.mAllPollutionSources.add(pollutionSource);
+				}
+				for (PollutionSource pollutionSource : activity.mPsManager.getNySource()
+						.getScyzwry()) {
+					activity.mAllPollutionSources.add(pollutionSource);
+				}
+				for (PollutionSource pollutionSource : activity.mPsManager.getNySource()
+						.getXqyzwry()) {
+					activity.mAllPollutionSources.add(pollutionSource);
+				}
+				for (PollutionSource pollutionSource : activity.mPsManager.getNySource()
+						.getZzwry()) {
+					activity.mAllPollutionSources.add(pollutionSource);
+				}
+				for (PollutionSource pollutionSource : activity.mPsManager.getShs()) {
+					activity.mAllPollutionSources.add(pollutionSource);
+				}
+				activity.updatePollutionSource(PsType.GY);
+			}
+		}
+	}
+	
 }

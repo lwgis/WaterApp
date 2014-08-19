@@ -1,10 +1,13 @@
 package cn.bjeastearth.waterapp;
 
+import java.io.File;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 import cn.bjeastearth.http.HttpUtil;
+import cn.bjeastearth.http.ImageOptions;
 import cn.bjeastearth.http.UploadImageUtil;
 import cn.bjeastearth.waterapp.model.Department;
 import cn.bjeastearth.waterapp.model.ProjectImage;
@@ -24,8 +27,11 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.provider.MediaStore;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup.LayoutParams;
@@ -35,6 +41,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.GridView;
 import android.widget.LinearLayout;
+import android.widget.PopupWindow;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -62,6 +69,9 @@ public class AddPsScyzActivity extends Activity {
 	private TextView yTv;
 	private double x=0.0;
 	private double y=0.0;
+	private PopupWindow mPopupWindow;
+	private View popView;
+	private File currentfile;
 	private Handler  mHandler=new Handler(){
 		@Override
 		public void handleMessage(Message msg) {
@@ -152,16 +162,57 @@ public class AddPsScyzActivity extends Activity {
 		 this.allImageStrings=new ArrayList<String>();
 		 this.imageAdapter=new AddImageAdapter(this,allImageStrings);
 		 this.imageGridView.setAdapter(imageAdapter);
+		 popView = LayoutInflater.from(AddPsScyzActivity.this)
+					.inflate(R.layout.popupwindow_camera, null);
 		 this.imageGridView.setOnItemClickListener(new OnItemClickListener() {
-
+			
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view,
 					int position, long id) {
 				if (AddPsScyzActivity.this.imageAdapter.getItem(position)==null) {
-					Intent it=new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-					startActivityForResult(it,3);
+					if (mPopupWindow==null) {
+						mPopupWindow=new PopupWindow(popView,DpTransform.dip2px(AddPsScyzActivity.this, 180),DpTransform.dip2px(AddPsScyzActivity.this, 100));
+					}
+					if (mPopupWindow.isShowing()) {
+						mPopupWindow.dismiss();
+					}
+					else {
+						mPopupWindow.showAsDropDown(view,-DpTransform.dip2px(AddPsScyzActivity.this, 0),DpTransform.dip2px(AddPsScyzActivity.this, 0));
+					}
 				}
 				
+			}
+		});
+		 //相机按钮
+		 Button btnCamera=(Button)popView.findViewById(R.id.btnCamera);
+		 btnCamera.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+			 File fileCache = ImageOptions.getCache(AddPsScyzActivity.this);
+			 Intent intent = new Intent();
+				intent.setAction(MediaStore.ACTION_IMAGE_CAPTURE);
+//				intent.addCategory(Intent.CATEGORY_DEFAULT);
+				currentfile = new File(fileCache.getPath()+"/"+ UUID.randomUUID().toString() + ".jpg");
+				if (currentfile.exists()) {
+					currentfile.delete();
+				}
+				Uri uri = Uri.fromFile(currentfile);
+				intent.putExtra(MediaStore.EXTRA_OUTPUT, uri);
+				startActivityForResult(intent, 3);
+				mPopupWindow.dismiss();
+			}
+		});
+		 //相册按钮
+		 Button btnPhoto=(Button)popView.findViewById(R.id.btnPhoto);
+		 btnPhoto.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				Intent it=new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+				startActivityForResult(it,2);		
+				mPopupWindow.dismiss();
 			}
 		});
 		 setTextWatcher();
@@ -236,16 +287,17 @@ public class AddPsScyzActivity extends Activity {
 		return null;
 	}
 
-
-
-
-
-
-
-
-
-
-
+	@Override
+	public boolean dispatchTouchEvent(MotionEvent ev) {
+		// TODO Auto-generated method stub
+		if (mPopupWindow != null && mPopupWindow.isShowing()) {
+			mPopupWindow.dismiss();
+			mPopupWindow = null;
+			return true;
+		}
+		return super.dispatchTouchEvent(ev);
+	}	
+	
 	private Region creatRegion(String rName) {
 		// TODO Auto-generated method stub
 		for (Region region : listRegions) {
@@ -277,7 +329,7 @@ public class AddPsScyzActivity extends Activity {
 			}
 		}
 		if (resultCode == Activity.RESULT_OK) {
-			if (requestCode==3) {
+			if (requestCode==2) {
 				Uri uri = data.getData(); 
 				Cursor cursor = AddPsScyzActivity.this.getContentResolver().query(uri, null, 
 				null, null, null); 
@@ -291,6 +343,15 @@ public class AddPsScyzActivity extends Activity {
 				lParams.height=DpTransform.dip2px(this, 80*height);
 				this.imageGridView.setLayoutParams(lParams);
 				cursor.close(); 
+			}
+			if (requestCode==3) {
+				allImageStrings.add(currentfile.getPath());
+				this.imageAdapter.setImages(allImageStrings);
+				this.imageAdapter.notifyDataSetChanged();
+				LayoutParams lParams=this.imageGridView.getLayoutParams();
+				int height=(this.allImageStrings.size()/4+1);
+				lParams.height=DpTransform.dip2px(this, 80*height);
+				this.imageGridView.setLayoutParams(lParams);
 			}
 		}
 	}

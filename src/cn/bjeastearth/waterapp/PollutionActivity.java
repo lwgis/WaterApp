@@ -55,33 +55,32 @@ import android.widget.TextView;
 import android.widget.TextView.OnEditorActionListener;
 
 public class PollutionActivity extends Activity implements OnClickListener {
-	MapView mapView = null;
-	WebListView mListView = null;
-	ArcGISTiledMapServiceLayer tiledMapServiceLayer = null;
-	GraphicsLayer mGraphicsLayer;
-	RelativeLayout mapInfoLayout = null;
-	TabHost tabHost;
-	ArrayList<PollutionSource> mPollutionSources;
-	ArrayList<PollutionSource> mAllPollutionSources;
-	List<PsIndustry> mAllPsIndustries;
-	PsFarmingManager mPsFarmingManager;
-	List<PsLive> mAllPsLives;
-	PsManager mPsManager;
-	PollutionAdapter mAdapter;
-	Button btnGywry;
-	Button btnNywry;
-	Button btnShwry;
-	Button btnAllwry;
-	PollutionSource currentPs;
-	TextView firstTv = null;
-	TextView secondTv = null;
-	ImageView itemImageView = null;
-	AutoCompleteTextView mSearchEditView = null;
-	Button btnSearch;
-	PsType mPsType;
-	PopupWindow mAddPopupWindow;
-	boolean popWindowIsShow;
-	Button btnAddPs;
+	private MapView mapView = null;
+	private WebListView mListView = null;
+	private ArcGISTiledMapServiceLayer tiledMapServiceLayer = null;
+	private GraphicsLayer mGraphicsLayer;
+	private RelativeLayout mapInfoLayout = null;
+	private TabHost tabHost;
+	private ArrayList<PollutionSource> mPollutionSources;
+	private ArrayList<PollutionSource> mAllPollutionSources;
+	private List<PsIndustry> mAllPsIndustries;
+	private PsFarmingManager mPsFarmingManager;
+	private List<PsLive> mAllPsLives;
+	private PsManager mPsManager;
+	private PollutionAdapter mAdapter;
+	private Button btnGywry;
+	private Button btnNywry;
+	private Button btnShwry;
+	private Button btnAllwry;
+	private PollutionSource currentPs;
+	private TextView firstTv = null;
+	private TextView secondTv = null;
+	private ImageView itemImageView = null;
+	private AutoCompleteTextView mSearchEditView = null;
+	private Button btnSearch;
+	private PsType mPsType;
+	private PopupWindow mAddPopupWindow;
+	private Button btnAddPs;
 	private Handler mHandler = new Handler() {
 
 		@Override
@@ -109,13 +108,13 @@ public class PollutionActivity extends Activity implements OnClickListener {
 										PollutionActivity.this.mSearchEditView
 												.getWindowToken(),
 										InputMethodManager.HIDE_NOT_ALWAYS);
-								PollutionActivity.this.mSearchEditView
-										.setCursorVisible(false);
-								PollutionActivity.this.btnSearch.requestFocus();
-								PollutionActivity.this.btnSearch
-										.requestFocusFromTouch();
-								PollutionActivity.this.mSearchEditView
-										.setCursorVisible(true);
+//								PollutionActivity.this.mSearchEditView
+//										.setCursorVisible(false);
+//								PollutionActivity.this.btnSearch.requestFocus();
+//								PollutionActivity.this.btnSearch
+//										.requestFocusFromTouch();
+//								PollutionActivity.this.mSearchEditView
+//										.setCursorVisible(true);
 
 							}
 						});
@@ -135,14 +134,6 @@ public class PollutionActivity extends Activity implements OnClickListener {
 											PollutionActivity.this.mSearchEditView
 													.getWindowToken(),
 											InputMethodManager.HIDE_NOT_ALWAYS);
-									PollutionActivity.this.mSearchEditView
-											.setCursorVisible(false);
-									PollutionActivity.this.btnSearch
-											.requestFocus();
-									PollutionActivity.this.btnSearch
-											.requestFocusFromTouch();
-									PollutionActivity.this.mSearchEditView
-											.setCursorVisible(true);
 								}
 								return false;
 							}
@@ -181,6 +172,11 @@ public class PollutionActivity extends Activity implements OnClickListener {
 		}
 	};
 	private OnSingleTapListener mSingleTapListener = new OnSingleTapListener() {
+
+		/**
+		 * 
+		 */
+		private static final long serialVersionUID = 5233999380006567976L;
 
 		@Override
 		public void onSingleTap(float x, float y) {
@@ -311,7 +307,6 @@ public class PollutionActivity extends Activity implements OnClickListener {
 				}
 				else {
 					mAddPopupWindow.showAsDropDown(btnAddPs,-DpTransform.dip2px(PollutionActivity.this, 45),DpTransform.dip2px(PollutionActivity.this, 4));
-					popWindowIsShow=true;
 				}
 			}
 		});

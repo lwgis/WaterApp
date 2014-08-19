@@ -31,7 +31,7 @@ public class AllNewsActivity extends Activity {
 	private WebListView mListView=null;
 	private Button btnBack;
 
-	@SuppressLint("HandlerLeak") private Handler myHandle=new Handler(){
+	private Handler myHandle=new Handler(){
 
 	@Override
 	public void handleMessage(Message msg) {

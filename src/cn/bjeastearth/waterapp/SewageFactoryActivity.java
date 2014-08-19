@@ -75,7 +75,7 @@ public class SewageFactoryActivity extends Activity {
 				Map<String, Object> map = new HashMap<String, Object>();
 				map.put("id", String.valueOf(factory.getID()));
 				Drawable image = SewageFactoryActivity.this.getBaseContext()
-						.getResources().getDrawable(R.drawable.map_item);
+						.getResources().getDrawable(R.drawable.map_item_wsclc);
 				PictureMarkerSymbol symbol = new PictureMarkerSymbol(image);
 				
 				Graphic oneGraphic = new Graphic(onePoint, symbol, map);
