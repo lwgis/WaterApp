@@ -249,11 +249,11 @@ public class AddPsScyzActivity extends Activity {
 	protected PsScyz createPollution() {
 		// TODO Auto-generated method stub
 		PsScyz psScyz=new PsScyz();
-		psScyz.setXzq(creatRegion(this.mRegionSpinner.getSelectedItem().toString()));
-		psScyz.setYztype(creatYztype(this.mSclxSpinner.getSelectedItem().toString()));
-		psScyz.setSymj(Double.parseDouble(this.symjEditText.getText().toString()));
-		psScyz.setClcz(Double.parseDouble(this.clczEditText.getText().toString()));
-		psScyz.setBod(Double.parseDouble(this.bodEditText.getText().toString()));
+//		psScyz.setXzq(creatRegion(this.mRegionSpinner.getSelectedItem().toString()));
+//		psScyz.setYztype(creatYztype(this.mSclxSpinner.getSelectedItem().toString()));
+//		psScyz.setSymj(Double.parseDouble(this.symjEditText.getText().toString()));
+//		psScyz.setClcz(Double.parseDouble(this.clczEditText.getText().toString()));
+//		psScyz.setBod(Double.parseDouble(this.bodEditText.getText().toString()));
 		psScyz.setCod(Double.parseDouble(this.codEditText.getText().toString()));
 		psScyz.setNh3N(Double.parseDouble(this.adEditText.getText().toString()));
 		psScyz.setPSum(Double.parseDouble(this.zlEditText.getText().toString()));

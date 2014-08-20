@@ -55,7 +55,7 @@ public class AddImageAdapter extends BaseAdapter {
 		if (position<images.size()) {
 				// 定义图片视图
 			img.setImageFilePath(images.get(position)); 	// 给ImageView设置资源
-			img.setScaleType(ImageView.ScaleType.FIT_XY);
+			img.setScaleType(ImageView.ScaleType.CENTER_CROP);
 		}
 		else {
 //			LayoutParams lParams=new LayoutParams(DpTransform.px2dip(mContext, 80), DpTransform.px2dip(mContext, 80));

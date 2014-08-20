@@ -8,30 +8,43 @@ import android.content.Context;
 import android.graphics.drawable.Drawable;
 
 public class PsXqyz  implements PollutionSource {
-	private double Bod;
-	private String CTime;
 	private double Cod;
-	private String Dwmc;
+	private String Contact;
+	private String CTime;
+	private double Fspfl;
 	private String Fzr;
-	private Department GsDept;
-	private Department HbDept;
 	private int ID;
-	private List<ProjectImage> Images;
+	private List<ProjectImage>Images;
+	private int JQCount;
 	private double Ncz;
 	private double Nh3N;
+	private int NiuCount;
+	private double NSum;
 	private double PSum;
+	private String Qymc;
+	private String Sfdbpf;
+	private Region Ssxz;
 	private int Status;
+	private int TuCount;
+	private String Wsclss;
 	private double X;
-	private double XqCount;
-	private List<PollutionClass2> Xqwrwjls;
-	private Region Xzq;
 	private double Y;
+	private int YangCount;
+	private double Ysl;
+	private int ZhuCount;
 	private ArrayList<FieldItem> mFieldItems;
-	public double getBod() {
-		return Bod;
+
+	public double getCod() {
+		return Cod;
 	}
-	public void setBod(double bod) {
-		Bod = bod;
+	public void setCod(double cod) {
+		Cod = cod;
+	}
+	public String getContact() {
+		return Contact;
+	}
+	public void setContact(String contact) {
+		Contact = contact;
 	}
 	public String getCTime() {
 		return CTime;
@@ -39,35 +52,17 @@ public class PsXqyz  implements PollutionSource {
 	public void setCTime(String cTime) {
 		CTime = cTime;
 	}
-	public double getCod() {
-		return Cod;
+	public double getFspfl() {
+		return Fspfl;
 	}
-	public void setCod(double cod) {
-		Cod = cod;
-	}
-	public String getDwmc() {
-		return Dwmc;
-	}
-	public void setDwmc(String dwmc) {
-		Dwmc = dwmc;
+	public void setFspfl(double fspfl) {
+		Fspfl = fspfl;
 	}
 	public String getFzr() {
 		return Fzr;
 	}
 	public void setFzr(String fzr) {
 		Fzr = fzr;
-	}
-	public Department getGsDept() {
-		return GsDept;
-	}
-	public void setGsDept(Department gsDept) {
-		GsDept = gsDept;
-	}
-	public Department getHbDept() {
-		return HbDept;
-	}
-	public void setHbDept(Department hbDept) {
-		HbDept = hbDept;
 	}
 	public int getID() {
 		return ID;
@@ -81,6 +76,12 @@ public class PsXqyz  implements PollutionSource {
 	public void setImages(List<ProjectImage> images) {
 		Images = images;
 	}
+	public int getJQCount() {
+		return JQCount;
+	}
+	public void setJQCount(int jQCount) {
+		JQCount = jQCount;
+	}
 	public double getNcz() {
 		return Ncz;
 	}
@@ -93,11 +94,41 @@ public class PsXqyz  implements PollutionSource {
 	public void setNh3N(double nh3n) {
 		Nh3N = nh3n;
 	}
+	public int getNiuCount() {
+		return NiuCount;
+	}
+	public void setNiuCount(int niuCount) {
+		NiuCount = niuCount;
+	}
+	public double getNSum() {
+		return NSum;
+	}
+	public void setNSum(double nSum) {
+		NSum = nSum;
+	}
 	public double getPSum() {
 		return PSum;
 	}
 	public void setPSum(double pSum) {
 		PSum = pSum;
+	}
+	public String getQymc() {
+		return Qymc;
+	}
+	public void setQymc(String qymc) {
+		Qymc = qymc;
+	}
+	public String getSfdbpf() {
+		return Sfdbpf;
+	}
+	public void setSfdbpf(String sfdbpf) {
+		Sfdbpf = sfdbpf;
+	}
+	public Region getSsxz() {
+		return Ssxz;
+	}
+	public void setSsxz(Region ssxz) {
+		Ssxz = ssxz;
 	}
 	public int getStatus() {
 		return Status;
@@ -105,29 +136,23 @@ public class PsXqyz  implements PollutionSource {
 	public void setStatus(int status) {
 		Status = status;
 	}
+	public int getTuCount() {
+		return TuCount;
+	}
+	public void setTuCount(int tuCount) {
+		TuCount = tuCount;
+	}
+	public String getWsclss() {
+		return Wsclss;
+	}
+	public void setWsclss(String wsclss) {
+		Wsclss = wsclss;
+	}
 	public double getX() {
 		return X;
 	}
 	public void setX(double x) {
 		X = x;
-	}
-	public double getXqCount() {
-		return XqCount;
-	}
-	public void setXqCount(double xqCount) {
-		XqCount = xqCount;
-	}
-	public List<PollutionClass2> getXqwrwjls() {
-		return Xqwrwjls;
-	}
-	public void setXqwrwjls(List<PollutionClass2> xqwrwjls) {
-		Xqwrwjls = xqwrwjls;
-	}
-	public Region getXzq() {
-		return Xzq;
-	}
-	public void setXzq(Region xzq) {
-		Xzq = xzq;
 	}
 	public double getY() {
 		return Y;
@@ -135,65 +160,72 @@ public class PsXqyz  implements PollutionSource {
 	public void setY(double y) {
 		Y = y;
 	}
-	public double getZczj() {
-		return Zczj;
+	public int getYangCount() {
+		return YangCount;
 	}
-	public void setZczj(double zczj) {
-		Zczj = zczj;
+	public void setYangCount(int yangCount) {
+		YangCount = yangCount;
 	}
-	private double Zczj;
+	public double getYsl() {
+		return Ysl;
+	}
+	public void setYsl(double ysl) {
+		Ysl = ysl;
+	}
+	public int getZhuCount() {
+		return ZhuCount;
+	}
+	public void setZhuCount(int zhuCount) {
+		ZhuCount = zhuCount;
+	}
 	@Override
 	public String getShowTitle() {
-		return getDwmc();
+		// TODO Auto-generated method stub
+		return getQymc();
 	}
 	@Override
 	public String getShowDescribing() {
 		// TODO Auto-generated method stub
-		return "畜禽数量："+String.valueOf(getXqCount());
+		return "所属乡镇："+ getSsxz();
 	}
 	@Override
 	public ArrayList<FieldItem> getFieldItems() {
-		if (mFieldItems == null) {
-			mFieldItems = new ArrayList<FieldItem>();
-			mFieldItems.add(new FieldItem("单位名称", getDwmc()));
-			mFieldItems
-					.add(new FieldItem("畜禽数量", String.valueOf(getXqCount())));
-			mFieldItems.add(new FieldItem("行政区域", getXzq().getName()));
-			mFieldItems.add(new FieldItem("BOD", String.valueOf(getBod())));
-			mFieldItems.add(new FieldItem("COD", String.valueOf(getCod())));
-			mFieldItems.add(new FieldItem("氨氮", String.valueOf(getNh3N())));
-			mFieldItems.add(new FieldItem("总磷", String.valueOf(getPSum())));
-			ArrayList<FieldItem> childFieldItems2 = new ArrayList<FieldItem>();
-			for (PollutionClass2 pollutionClass2 : getXqwrwjls()) {
-				pollutionClass2.fillFieldItem(childFieldItems2);
-			}
-			mFieldItems.add(new FieldItem("二类污染", childFieldItems2));
+		if (mFieldItems==null) {
+			mFieldItems=new ArrayList<FieldItem>();
+			mFieldItems.add(new FieldItem("企业名称",getQymc()));
 			mFieldItems.add(new FieldItem("负责人", getFzr()));
-			mFieldItems.add(new FieldItem("年产值", String.valueOf(getNcz())));
-			mFieldItems.add(new FieldItem("注册资金", String.valueOf(getZczj())));
-			mFieldItems.add(new FieldItem("主管环保部门", getHbDept().getName()));
-			mFieldItems.add(new FieldItem("主管工商部门", getGsDept().getName()));
-			if (getImages() != null && getImages().size() > 0) {
-				ArrayList<FieldItem> imArrayList = new ArrayList<FieldItem>();
+			mFieldItems.add(new FieldItem("联系方式", getContact()));
+			mFieldItems.add(new FieldItem("所属乡镇", getSsxz().getName()));
+			mFieldItems.add(new FieldItem("年产值",  String.valueOf(getNcz())));
+			mFieldItems.add(new FieldItem("猪数量",  String.valueOf(getZhuCount())));
+			mFieldItems.add(new FieldItem("牛数量",  String.valueOf(getZhuCount())));
+			mFieldItems.add(new FieldItem("羊数量",  String.valueOf(getZhuCount())));
+			mFieldItems.add(new FieldItem("家禽数量",  String.valueOf(getZhuCount())));
+			mFieldItems.add(new FieldItem("兔数量",  String.valueOf(getZhuCount())));
+			mFieldItems.add(new FieldItem("用水量",  String.valueOf(getYsl())));
+			mFieldItems.add(new FieldItem("废水排放量",  String.valueOf(getFspfl())));
+			mFieldItems.add(new FieldItem("COD",  String.valueOf(getCod())));
+			mFieldItems.add(new FieldItem("氨氮",  String.valueOf(getNh3N())));
+			mFieldItems.add(new FieldItem("TP",  String.valueOf(getPSum())));
+			mFieldItems.add(new FieldItem("TN",  String.valueOf(getNSum())));
+			if (getImages()!=null&&getImages().size()>0) {
+				ArrayList<FieldItem> imArrayList=new ArrayList<FieldItem>();
 				for (ProjectImage projectImage : getImages()) {
-					imArrayList
-							.add(new FieldItem(null, projectImage.getName()));
+					imArrayList.add(new FieldItem(null, projectImage.getName()));
 				}
 				mFieldItems.add(new FieldItem(imArrayList));
 			}
 		}
 		return mFieldItems;
 	}
-
 	@Override
 	public String getImageString() {
-		// TODO Auto-generated method stub
-			if (getImages() != null && getImages().size() > 0) {
-				ProjectImage projectImage = getImages().get(0);
-				return projectImage.getName();
-			}
-			return null;
+		if (getImages()!=null&&getImages().size()>0) {
+			ProjectImage projectImage=getImages().get(0);
+			return projectImage.getName();
 		}
+		return null;
+	}
 	@Override
 	public Drawable getMapDrawable(Context context) {
 		Drawable image = context.getResources().getDrawable(R.drawable.map_item_ny);
@@ -208,6 +240,11 @@ public class PsXqyz  implements PollutionSource {
 	public PsType getPsType() {
 		// TODO Auto-generated method stub
 		return PsType.NY;
+	}
+	@Override
+	public Region getXzq() {
+		// TODO Auto-generated method stub
+		return Ssxz;
 	}
 
 }

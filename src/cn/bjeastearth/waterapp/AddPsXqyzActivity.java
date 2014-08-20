@@ -302,19 +302,19 @@ public class AddPsXqyzActivity extends Activity {
 	protected PsXqyz createPollution() {
 		// TODO Auto-generated method stub
 		PsXqyz psXqyz=new PsXqyz();
-		psXqyz.setDwmc(this.dwmcEditText.getText().toString());
+//		psXqyz.setDwmc(this.dwmcEditText.getText().toString());
 		psXqyz.setNcz(Double.parseDouble(this.nczEditText.getText().toString()));
 		psXqyz.setFzr(this.fzrEditText.getText().toString());
-		psXqyz.setZczj(Double.parseDouble(this.zczjEditText.getText().toString()));
-		psXqyz.setXzq(creatRegion(this.mRegionSpinner.getSelectedItem().toString()));
-		psXqyz.setHbDept(creatDept(this.mDeptHbSpinner.getSelectedItem().toString()));
-		psXqyz.setGsDept(creatDept(this.mDeptGsSpinner.getSelectedItem().toString()));
-		psXqyz.setXqCount(Double.parseDouble(this.xqslEditText.getText().toString()));
-		psXqyz.setBod(Double.parseDouble(this.bodEditText.getText().toString()));
+//		psXqyz.setZczj(Double.parseDouble(this.zczjEditText.getText().toString()));
+//		psXqyz.setXzq(creatRegion(this.mRegionSpinner.getSelectedItem().toString()));
+//		psXqyz.setHbDept(creatDept(this.mDeptHbSpinner.getSelectedItem().toString()));
+//		psXqyz.setGsDept(creatDept(this.mDeptGsSpinner.getSelectedItem().toString()));
+//		psXqyz.setXqCount(Double.parseDouble(this.xqslEditText.getText().toString()));
+//		psXqyz.setBod(Double.parseDouble(this.bodEditText.getText().toString()));
 		psXqyz.setCod(Double.parseDouble(this.codEditText.getText().toString()));
 		psXqyz.setNh3N(Double.parseDouble(this.adEditText.getText().toString()));
 		psXqyz.setPSum(Double.parseDouble(this.zlEditText.getText().toString()));
-		psXqyz.setXqwrwjls(getPsClass2s());
+//		psXqyz.setXqwrwjls(getPsClass2s());
 		psXqyz.setX(x);
 		psXqyz.setY(y);
 		psXqyz.setImages(getImages());

@@ -162,7 +162,7 @@ public class AddPsZzActivity extends Activity {
 		// TODO Auto-generated method stub
 		PsZz psZz=new PsZz();
 		psZz.setXzq(creatRegion(this.mRegionSpinner.getSelectedItem().toString()));
-		psZz.setGdmj(Double.parseDouble(this.gdmjEditText.getText().toString()));
+//		psZz.setGdmj(Double.parseDouble(this.gdmjEditText.getText().toString()));
 		psZz.setNyyl(Double.parseDouble(this.nyylEditText.getText().toString()));
 		psZz.setNfyl(Double.parseDouble(this.nfylEditText.getText().toString()));
 		psZz.setNycc(Double.parseDouble(this.nyccEditText.getText().toString()));

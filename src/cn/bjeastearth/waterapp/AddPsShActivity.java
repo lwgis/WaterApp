@@ -164,7 +164,7 @@ public class AddPsShActivity extends Activity {
 		// TODO Auto-generated method stub
 		PsLive psLive=new PsLive();
 		psLive.setXzq(creatRegion(this.mRegionSpinner.getSelectedItem().toString()));
-		psLive.setType(creatType(this.mWslxSpinner.getSelectedItem().toString()));
+//		psLive.setType(creatType(this.mWslxSpinner.getSelectedItem().toString()));
 		psLive.setGsl(Double.parseDouble(this.gslEditText.getText().toString()));
 		psLive.setWsgdjgl(Double.parseDouble(this.wsgdjglEditText.getText().toString()));
 		psLive.setWszl(Double.parseDouble(this.wszlEditText.getText().toString()));

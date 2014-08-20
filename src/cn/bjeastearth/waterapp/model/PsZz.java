@@ -2,53 +2,78 @@ package cn.bjeastearth.waterapp.model;
 
 import java.util.ArrayList;
 
-import cn.bjeastearth.waterapp.PollutionActivity;
 import cn.bjeastearth.waterapp.R;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 
 public class PsZz  implements PollutionSource {
+	private PsZzLevel Cd;
+	private double Cod;
 	private String CTime;
-	private PsZzLevel	Cd;
-	private double	Gdmj;
-	private int	 ID;
-	private double	Nfyl;
-	private double	Nycc;
-	private double	Nyyl;
-	private int	 Status;
-	private double	X;
-	private Region	Xzq;
-	private double	Y;
+	private double Gymj;
+	private double Hdmj;
+	private double Nfyl;
+	private double Nh3N;
+	private double Nsum;
+	private double Nycc;
+	private double Nyyl;
+	private double Psum;
+	private int Status;
+	private double Stmj;
+	private double Symj;
+	private Region Xzq;
+	private int ID;
+	private double X;
+	private double Y;
 	private ArrayList<FieldItem> mFieldItems;
-	public String getCTime() {
-		return CTime;
-	}
-	public void setCTime(String cTime) {
-		CTime = cTime;
-	}
+	
 	public PsZzLevel getCd() {
 		return Cd;
 	}
 	public void setCd(PsZzLevel cd) {
 		Cd = cd;
 	}
-	public double getGdmj() {
-		return Gdmj;
+	public double getCod() {
+		return Cod;
 	}
-	public void setGdmj(double gdmj) {
-		Gdmj = gdmj;
+	public void setCod(double cod) {
+		Cod = cod;
 	}
-	public int getID() {
-		return ID;
+	public String getCTime() {
+		return CTime;
 	}
-	public void setID(int iD) {
-		ID = iD;
+	public void setCTime(String cTime) {
+		CTime = cTime;
+	}
+	public double getGymj() {
+		return Gymj;
+	}
+	public void setGymj(double gymj) {
+		Gymj = gymj;
+	}
+	public double getHdmj() {
+		return Hdmj;
+	}
+	public void setHdmj(double hdmj) {
+		Hdmj = hdmj;
 	}
 	public double getNfyl() {
 		return Nfyl;
 	}
 	public void setNfyl(double nfyl) {
 		Nfyl = nfyl;
+	}
+	public double getNh3N() {
+		return Nh3N;
+	}
+	public void setNh3N(double nh3n) {
+		Nh3N = nh3n;
+	}
+	public double getNsum() {
+		return Nsum;
+	}
+	public void setNsum(double nsum) {
+		Nsum = nsum;
 	}
 	public double getNycc() {
 		return Nycc;
@@ -62,23 +87,47 @@ public class PsZz  implements PollutionSource {
 	public void setNyyl(double nyyl) {
 		Nyyl = nyyl;
 	}
+	public double getPsum() {
+		return Psum;
+	}
+	public void setPsum(double psum) {
+		Psum = psum;
+	}
 	public int getStatus() {
 		return Status;
 	}
 	public void setStatus(int status) {
 		Status = status;
 	}
-	public double getX() {
-		return X;
+	public double getStmj() {
+		return Stmj;
 	}
-	public void setX(double x) {
-		X = x;
+	public void setStmj(double stmj) {
+		Stmj = stmj;
+	}
+	public double getSymj() {
+		return Symj;
+	}
+	public void setSymj(double symj) {
+		Symj = symj;
 	}
 	public Region getXzq() {
 		return Xzq;
 	}
 	public void setXzq(Region xzq) {
 		Xzq = xzq;
+	}
+	public int getID() {
+		return ID;
+	}
+	public void setID(int iD) {
+		ID = iD;
+	}
+	public double getX() {
+		return X;
+	}
+	public void setX(double x) {
+		X = x;
 	}
 	public double getY() {
 		return Y;
@@ -101,11 +150,18 @@ public class PsZz  implements PollutionSource {
 		if (mFieldItems==null) {
 			mFieldItems=new ArrayList<FieldItem>();
 			mFieldItems.add(new FieldItem("行政区域", getXzq().getName()));
-			mFieldItems.add(new FieldItem("耕地面积", String.valueOf(getGdmj())));
+			mFieldItems.add(new FieldItem("污染程度", getCd().getName()));
+			mFieldItems.add(new FieldItem("水田面积", String.valueOf(getStmj())));
+			mFieldItems.add(new FieldItem("旱地面积", String.valueOf(getHdmj())));
+			mFieldItems.add(new FieldItem("桑园面积", String.valueOf(getSymj())));
+			mFieldItems.add(new FieldItem("果园面积", String.valueOf(getGymj())));
 			mFieldItems.add(new FieldItem("农药用量", String.valueOf(getNyyl())));
 			mFieldItems.add(new FieldItem("农肥用量", String.valueOf(getNfyl())));
 			mFieldItems.add(new FieldItem("农业产出", String.valueOf(getNycc())));
-			mFieldItems.add(new FieldItem("污染程度", getCd().getName()));
+			mFieldItems.add(new FieldItem("COD", String.valueOf(getCod())));
+			mFieldItems.add(new FieldItem("氨氮", String.valueOf(getNh3N())));
+			mFieldItems.add(new FieldItem("TP", String.valueOf(getPsum())));
+			mFieldItems.add(new FieldItem("TN", String.valueOf(getNsum())));
 		}
 		return mFieldItems;
 	}
@@ -127,5 +183,9 @@ public class PsZz  implements PollutionSource {
 	public PsType getPsType() {
 		// TODO Auto-generated method stub
 		return PsType.NY;
+	}
+	public Region getSsxz() {
+		// TODO Auto-generated method stub
+		return Xzq;
 	}
 }

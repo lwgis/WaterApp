@@ -17,56 +17,65 @@ public class PsIndustry implements  PollutionSource{
 	 * 
 	 */
 	private int ID;
-	private double Bod;
-	private List<PollutionClass1> Class1jls;
-	private List<PollutionClass2> Class2jls;
-	private double Cod;
-	private String Cylx;
+	private double Cod_c;
+	private double Cod_z;
+	private String Contact;
+	private String CTime;
+	private String Fsclss;
 	private String Fzr;
-	private Department GsDept;
-	private Department HbDept;
+	private String Gyfspfl_c;
+	private String Gyfspfl_z;
+	private double Gyysl;
 	private List<ProjectImage> Images;
-	private double NH3N;
 	private double Ncz;
-	private double PSum;
+	private double NH3N_c;
+	private double NH3N_z;
+	private double PSum_c;
+	private double PSum_z;
 	private String Qymc;
+	private String Sfdb;
+	private Region Ssxz;
 	private int Status;
-	private PollutionType Wrwlx;
+	private double TN_c;
+	private double TN_z;
 	private double X;
 	private double Y;
-	private double Zczj;
-	private double Zjs;
-	private Region Xzq;
-	private ArrayList<FieldItem> mFieldItems;
-	public double getBod() {
-		return Bod;
+	private ArrayList<FieldItem>mFieldItems;
+	public int getID() {
+		return ID;
 	}
-	public void setBod(double bod) {
-		Bod = bod;
+	public void setID(int iD) {
+		ID = iD;
 	}
-	public List<PollutionClass1> getClass1jls() {
-		return Class1jls;
+	public double getCod_c() {
+		return Cod_c;
 	}
-	public void setClass1jls(List<PollutionClass1> class1jls) {
-		Class1jls = class1jls;
+	public void setCod_c(double cod_c) {
+		Cod_c = cod_c;
 	}
-	public List<PollutionClass2> getClass2jls() {
-		return Class2jls;
+	public double getCod_z() {
+		return Cod_z;
 	}
-	public void setClass2jls(List<PollutionClass2> class2jls) {
-		Class2jls = class2jls;
+	public void setCod_z(double cod_z) {
+		Cod_z = cod_z;
 	}
-	public double getCod() {
-		return Cod;
+	public String getContact() {
+		return Contact;
 	}
-	public void setCod(double cod) {
-		Cod = cod;
+	public void setContact(String contact) {
+		Contact = contact;
 	}
-	public String getCylx() {
-		return Cylx;
+	public String getCTime() {
+		return CTime;
 	}
-	public void setCylx(String cylx) {
-		Cylx = cylx;
+	public void setCTime(String cTime) {
+		CTime = cTime;
+	}
+	public String getFsclss() {
+		return Fsclss;
+	}
+	public void setFsclss(String fsclss) {
+		Fsclss = fsclss;
 	}
 	public String getFzr() {
 		return Fzr;
@@ -74,17 +83,23 @@ public class PsIndustry implements  PollutionSource{
 	public void setFzr(String fzr) {
 		Fzr = fzr;
 	}
-	public Department getGsDept() {
-		return GsDept;
+	public String getGyfspfl_c() {
+		return Gyfspfl_c;
 	}
-	public void setGsDept(Department gsDept) {
-		GsDept = gsDept;
+	public void setGyfspfl_c(String gyfspfl_c) {
+		Gyfspfl_c = gyfspfl_c;
 	}
-	public Department getHbDept() {
-		return HbDept;
+	public String getGyfspfl_z() {
+		return Gyfspfl_z;
 	}
-	public void setHbDept(Department hbDept) {
-		HbDept = hbDept;
+	public void setGyfspfl_z(String gyfspfl_z) {
+		Gyfspfl_z = gyfspfl_z;
+	}
+	public double getGyysl() {
+		return Gyysl;
+	}
+	public void setGyysl(double gyysl) {
+		Gyysl = gyysl;
 	}
 	public List<ProjectImage> getImages() {
 		return Images;
@@ -92,23 +107,35 @@ public class PsIndustry implements  PollutionSource{
 	public void setImages(List<ProjectImage> images) {
 		Images = images;
 	}
-	public double getNH3N() {
-		return NH3N;
-	}
-	public void setNH3N(double nH3N) {
-		NH3N = nH3N;
-	}
 	public double getNcz() {
 		return Ncz;
 	}
 	public void setNcz(double ncz) {
 		Ncz = ncz;
 	}
-	public double getPSum() {
-		return PSum;
+	public double getNH3N_c() {
+		return NH3N_c;
 	}
-	public void setPSum(double pSum) {
-		PSum = pSum;
+	public void setNH3N_c(double nH3N_c) {
+		NH3N_c = nH3N_c;
+	}
+	public double getNH3N_z() {
+		return NH3N_z;
+	}
+	public void setNH3N_z(double nH3N_z) {
+		NH3N_z = nH3N_z;
+	}
+	public double getPSum_c() {
+		return PSum_c;
+	}
+	public void setPSum_c(double pSum_c) {
+		PSum_c = pSum_c;
+	}
+	public double getPSum_z() {
+		return PSum_z;
+	}
+	public void setPSum_z(double pSum_z) {
+		PSum_z = pSum_z;
 	}
 	public String getQymc() {
 		return Qymc;
@@ -116,17 +143,35 @@ public class PsIndustry implements  PollutionSource{
 	public void setQymc(String qymc) {
 		Qymc = qymc;
 	}
+	public String getSfdb() {
+		return Sfdb;
+	}
+	public void setSfdb(String sfdb) {
+		Sfdb = sfdb;
+	}
+	public Region getSsxz() {
+		return Ssxz;
+	}
+	public void setSsxz(Region ssxz) {
+		Ssxz = ssxz;
+	}
 	public int getStatus() {
 		return Status;
 	}
 	public void setStatus(int status) {
 		Status = status;
 	}
-	public PollutionType getWrwlx() {
-		return Wrwlx;
+	public double getTN_c() {
+		return TN_c;
 	}
-	public void setWrwlx(PollutionType wrwlx) {
-		Wrwlx = wrwlx;
+	public void setTN_c(double tN_c) {
+		TN_c = tN_c;
+	}
+	public double getTN_z() {
+		return TN_z;
+	}
+	public void setTN_z(double tN_z) {
+		TN_z = tN_z;
 	}
 	public double getX() {
 		return X;
@@ -140,52 +185,29 @@ public class PsIndustry implements  PollutionSource{
 	public void setY(double y) {
 		Y = y;
 	}
-	public double getZczj() {
-		return Zczj;
-	}
-	public void setZczj(double zczj) {
-		Zczj = zczj;
-	}
-	public double getZjs() {
-		return Zjs;
-	}
-	public void setZjs(double zjs) {
-		Zjs = zjs;
-	}
-	public int getID() {
-		return ID;
-	}
-	public void setID(int iD) {
-		ID = iD;
-	}
 	@Override
 	public ArrayList<FieldItem> getFieldItems() {
 		if (mFieldItems==null) {
 			mFieldItems=new ArrayList<FieldItem>();
 			mFieldItems.add(new FieldItem("企业名称", getQymc()));
-			mFieldItems.add(new FieldItem("产业类型",getCylx()));
-			mFieldItems.add(new FieldItem("污染物类型", getWrwlx().getName()));
-			mFieldItems.add(new FieldItem("BOD", String.valueOf(getBod())));
-			mFieldItems.add(new FieldItem("COD", String.valueOf(getCod())));
-			mFieldItems.add(new FieldItem("氨氮", String.valueOf(getNH3N())));
-			mFieldItems.add(new FieldItem("总磷", String.valueOf(getPSum())));
-			mFieldItems.add(new FieldItem("重金属", String.valueOf(getZjs())));
-			ArrayList<FieldItem> childFieldItems1=new ArrayList<FieldItem>();
-			ArrayList<FieldItem> childFieldItems2=new ArrayList<FieldItem>();
-			for (PollutionClass1 pollutionClass1 : getClass1jls()) {
-				pollutionClass1.fillFieldItem(childFieldItems1);
-			}
-			for (PollutionClass2 pollutionClass2 : getClass2jls()) {
-				pollutionClass2.fillFieldItem(childFieldItems2);
-			}
-			mFieldItems.add(new FieldItem("一类污染",childFieldItems1));
-			mFieldItems.add(new FieldItem("二类污染",childFieldItems2));
-			mFieldItems.add(new FieldItem("年产值",String.valueOf(getNcz())));
 			mFieldItems.add(new FieldItem("负责人",getFzr()));
-			mFieldItems.add(new FieldItem("注册资金",String.valueOf(getZczj())));
-			mFieldItems.add(new FieldItem("行政区域",getXzq().getName()));
-			mFieldItems.add(new FieldItem("主管环保部门",getHbDept().getName()));
-			mFieldItems.add(new FieldItem("主管工商部门",getGsDept().getName()));
+			mFieldItems.add(new FieldItem("联系方式",getContact()));
+			mFieldItems.add(new FieldItem("行政区域",getSsxz().getName()));
+			mFieldItems.add(new FieldItem("年产值",String.valueOf(getNcz())));
+			mFieldItems.add(new FieldItem("工业用水量", String.valueOf(getGyysl())));
+			mFieldItems.add(new FieldItem("工业废水排放量(直排)", String.valueOf(getGyfspfl_z())));
+			mFieldItems.add(new FieldItem("工业废水排放量(处理)", String.valueOf(getGyfspfl_c())));
+			mFieldItems.add(new FieldItem("COD排放量(直排)", String.valueOf(getCod_z())));
+			mFieldItems.add(new FieldItem("COD排放量(处理)", String.valueOf(getCod_c())));
+			mFieldItems.add(new FieldItem("氨氮排放量(直排)", String.valueOf(getNH3N_z())));
+			mFieldItems.add(new FieldItem("氨氮排放量(处理)", String.valueOf(getNH3N_c())));
+			mFieldItems.add(new FieldItem("TP(直排)", String.valueOf(getPSum_z())));
+			mFieldItems.add(new FieldItem("TP(处理)", String.valueOf(getPSum_c())));
+			mFieldItems.add(new FieldItem("TN(直排)", String.valueOf(getTN_z())));
+			mFieldItems.add(new FieldItem("TN(处理)", String.valueOf(getTN_c())));
+			mFieldItems.add(new FieldItem("是否有污水处理设施", getFsclss()));
+			mFieldItems.add(new FieldItem("是否达标排放", getSfdb()));
+
 			if (getImages()!=null&&getImages().size()>0) {
 				ArrayList<FieldItem> imArrayList=new ArrayList<FieldItem>();
 				for (ProjectImage projectImage : getImages()) {
@@ -197,19 +219,14 @@ public class PsIndustry implements  PollutionSource{
 		
 		return mFieldItems;
 	}
-	public Region getXzq() {
-		return Xzq;
-	}
-	public void setXzq(Region xzq) {
-		Xzq = xzq;
-	}
+
 	@Override
 	public String getShowTitle() {
 		return Qymc;
 	}
 	@Override
 	public String getShowDescribing() {
-		return "产业类型："+ Cylx;
+		return "所属乡镇："+ getSsxz().getName();
 	}
 	@Override
 	public String getImageString() {
@@ -234,5 +251,10 @@ public class PsIndustry implements  PollutionSource{
 	public PsType getPsType() {
 		// TODO Auto-generated method stub
 		return PsType.GY;
+	}
+	@Override
+	public Region getXzq() {
+		// TODO Auto-generated method stub
+		return Ssxz;
 	}
 }
