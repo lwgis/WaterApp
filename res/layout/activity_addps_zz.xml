@@ -18,14 +18,14 @@
 
    <cn.bjeastearth.waterapp.myview.MyTextButton
         android:id="@+id/btnSendPs"
-        android:paddingTop="8dp"
-        android:layout_width="60dp"
-        android:layout_height="40dp"
-        android:layout_alignParentRight="true"
-        android:background="@null"
-        android:textSize="20sp"
-        android:textColor="#eeeeee"
-        android:text="上传" />
+          android:layout_width="60dp"
+            android:layout_height="40dp"
+            android:layout_alignParentRight="true"
+            android:background="@null"
+            android:paddingTop="8dp"
+            android:text="上传"
+            android:textColor="#eeeeee"
+            android:textSize="20sp"/>
 
    <TextView
        android:layout_width="wrap_content"
@@ -33,6 +33,7 @@
        android:layout_alignBaseline="@+id/btnBack"
        android:layout_alignBottom="@+id/btnBack"
        android:layout_centerHorizontal="true"
+	   android:layout_centerVertical="true"
        android:gravity="center"
        android:paddingTop="3dp"
        android:shadowColor="#222222"
@@ -54,7 +55,7 @@
         android:layout_height="wrap_content"
         android:orientation="vertical" 
         android:paddingBottom="30dp">
- 		<LinearLayout
+          <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/field_item_bg"
@@ -77,18 +78,19 @@
 
             <Spinner
                 android:id="@+id/regionSpin"
-                style="@style/spinner_style"
-                android:layout_width="match_parent"
+                style="@style/myspinner_style"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:paddingLeft="5dp"
+                android:paddingRight="50dp"
                 android:textColor="#715b4c"
                 android:textSize="16sp" 
                 android:dropDownSelector="#ff0000"
+                android:layout_gravity="center"
                 />
         </LinearLayout>
-       
-    <LinearLayout
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/field_item_bg"
@@ -99,7 +101,41 @@
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:padding="3dp"
-                android:text="耕地面积"
+                android:text="污染程度"
+                android:textColor="#715b4c"
+                android:textSize="18sp" />
+
+            <ImageView
+                android:layout_width="2dp"
+                android:layout_height="fill_parent"
+                android:background="@drawable/field_item_fgx"
+                android:scaleType="fitXY" />
+
+            <Spinner
+                android:id="@+id/wrcdSpin"
+                style="@style/myspinner_style"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:paddingLeft="5dp"
+                android:paddingRight="0dp"
+                android:textColor="#715b4c"
+                android:textSize="16sp" 
+                android:dropDownSelector="#ff0000"
+                />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/field_item_bg"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:padding="3dp"
+                android:text="水田面积"
                 android:textColor="#715b4c"
                 android:textSize="18sp" />
 
@@ -110,20 +146,115 @@
                 android:scaleType="fitXY" />
 
             <EditText
-                android:id="@+id/gdmjEt"
+                android:id="@+id/stmjEt"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:background="#00000000"
                 android:paddingLeft="5dp"
-              	android:inputType="numberDecimal"
+                android:paddingRight="0dp"
+	      		android:inputType="numberDecimal"
                 android:textColor="#715b4c"
-                android:textSize="18sp" >
-
-                <requestFocus />
-            </EditText>
+                android:textSize="18sp" />
         </LinearLayout>
-            <LinearLayout
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/field_item_bg"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:padding="3dp"
+                android:text="旱地面积"
+                android:textColor="#715b4c"
+                android:textSize="18sp" />
+
+            <ImageView
+                android:layout_width="2dp"
+                android:layout_height="fill_parent"
+                android:background="@drawable/field_item_fgx"
+                android:scaleType="fitXY" />
+
+            <EditText
+                android:id="@+id/hdmjEt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#00000000"
+                android:paddingLeft="5dp"
+                android:paddingRight="0dp"
+                android:textColor="#715b4c"
+				android:inputType="numberDecimal"
+                android:textSize="18sp" />
+        </LinearLayout>
+
+   <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/field_item_bg"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:padding="3dp"
+                android:text="桑园面积"
+                android:textColor="#715b4c"
+                android:textSize="18sp" />
+
+            <ImageView
+                android:layout_width="2dp"
+                android:layout_height="fill_parent"
+                android:background="@drawable/field_item_fgx"
+                android:scaleType="fitXY" />
+
+            <EditText
+                android:id="@+id/symjEt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#00000000"
+                android:paddingLeft="5dp"
+                android:paddingRight="0dp"
+                android:textColor="#715b4c"
+				android:inputType="numberDecimal"
+                android:textSize="18sp" />
+        </LinearLayout>
+   		<LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/field_item_bg"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:padding="3dp"
+                android:text="果园面积"
+                android:textColor="#715b4c"
+                android:textSize="18sp" />
+
+            <ImageView
+                android:layout_width="2dp"
+                android:layout_height="fill_parent"
+                android:background="@drawable/field_item_fgx"
+                android:scaleType="fitXY" />
+
+            <EditText
+                android:id="@+id/gymjEt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#00000000"
+                android:paddingLeft="5dp"
+                android:paddingRight="0dp"
+                android:textColor="#715b4c"
+				android:inputType="numberDecimal"
+                android:textSize="18sp" />
+        </LinearLayout>
+   		<LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/field_item_bg"
@@ -148,15 +279,12 @@
                 android:id="@+id/nyylEt"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
                 android:background="#00000000"
                 android:paddingLeft="5dp"
-              	android:inputType="numberDecimal"
+                android:paddingRight="0dp"
                 android:textColor="#715b4c"
-                android:textSize="18sp" >
-
-                <requestFocus />
-            </EditText>
+				android:inputType="numberDecimal"
+                android:textSize="18sp" />
         </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
@@ -184,17 +312,14 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+               	android:inputType="numberDecimal"
                 android:background="#00000000"
                 android:paddingLeft="5dp"
-              	android:inputType="numberDecimal"
+                android:paddingRight="0dp"
                 android:textColor="#715b4c"
-                android:textSize="18sp" >
-
-                <requestFocus />
-            </EditText>
+                android:textSize="18sp" />
         </LinearLayout>
-
-        <LinearLayout
+		<LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/field_item_bg"
@@ -219,15 +344,16 @@
                 android:id="@+id/nyccEt"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
+               	android:inputType="numberDecimal"
                 android:background="#00000000"
                 android:paddingLeft="5dp"
+                android:paddingRight="0dp"
                 android:textColor="#715b4c"
-                android:textSize="18sp"
-              	android:inputType="numberDecimal"
-                 >
-            </EditText>
+                android:textSize="18sp" />
         </LinearLayout>
-     <LinearLayout
+		
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/field_item_bg"
@@ -238,7 +364,7 @@
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:padding="3dp"
-                android:text="污染程度"
+                android:text="COD"
                 android:textColor="#715b4c"
                 android:textSize="18sp" />
 
@@ -248,20 +374,121 @@
                 android:background="@drawable/field_item_fgx"
                 android:scaleType="fitXY" />
 
-            <Spinner
-                android:id="@+id/wrcdSpin"
-                style="@style/spinner_style"
+            <EditText
+                android:id="@+id/codEt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#00000000"
+                android:paddingLeft="5dp"
+                android:paddingRight="0dp"
+                android:textColor="#715b4c"
+                android:textSize="18sp"
+              	android:inputType="numberDecimal"
+                 >
+            </EditText>
+        </LinearLayout>
+           <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/field_item_bg"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:padding="3dp"
+                android:text="氨氮"
+                android:textColor="#715b4c"
+                android:textSize="18sp" />
+
+            <ImageView
+                android:layout_width="2dp"
+                android:layout_height="fill_parent"
+                android:background="@drawable/field_item_fgx"
+                android:scaleType="fitXY" />
+
+            <EditText
+                android:id="@+id/adEt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#00000000"
+                android:paddingLeft="5dp"
+                android:paddingRight="0dp"
+                android:textColor="#715b4c"
+               	android:inputType="numberDecimal"
+                android:textSize="18sp" >
+            </EditText>
+        </LinearLayout>
+
+           <LinearLayout
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+               android:background="@drawable/field_item_bg"
+               android:orientation="horizontal" >
+
+               <TextView
+                   android:layout_width="100dp"
+                   android:layout_height="wrap_content"
+                   android:gravity="center"
+                   android:padding="3dp"
+                   android:text="TP"
+                   android:textColor="#715b4c"
+                   android:textSize="18sp" />
+
+               <ImageView
+                   android:layout_width="2dp"
+                   android:layout_height="fill_parent"
+                   android:background="@drawable/field_item_fgx"
+                   android:scaleType="fitXY" />
+
+               <EditText
+                   android:id="@+id/tpEt"
+                   android:layout_width="match_parent"
+                   android:layout_height="wrap_content"
+                   android:layout_weight="1"
+                   android:background="#00000000"
+                   android:paddingLeft="5dp"
+                   android:paddingRight="0dp"
+                   android:textColor="#715b4c"
+                   android:textSize="18sp" 
+                   android:inputType="numberDecimal"/>
+           </LinearLayout>
+           <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/field_item_bg"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:padding="3dp"
+                android:text="TN"
+                android:textColor="#715b4c"
+                android:textSize="18sp" />
+
+            <ImageView
+                android:layout_width="2dp"
+                android:layout_height="fill_parent"
+                android:background="@drawable/field_item_fgx"
+                android:scaleType="fitXY" />
+
+            <EditText
+                android:id="@+id/tnEt"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:background="#00000000"
                 android:paddingLeft="5dp"
+                android:paddingRight="0dp"
+              	android:inputType="numberDecimal"
                 android:textColor="#715b4c"
-                android:textSize="16sp" 
-                android:dropDownSelector="#ff0000"
-                />
+                android:textSize="18sp" >
+            </EditText>
         </LinearLayout>
-
-        
+           
            <LinearLayout 
                android:layout_width="match_parent"
                android:layout_height="wrap_content"
@@ -312,12 +539,12 @@
                    android:layout_height="40dp"                   
                    android:background="@drawable/btn_location"
                    android:paddingLeft="5dp"
+                   android:paddingRight="0dp"
                    android:textColor="#715b4c"
                    android:layout_marginTop="3dp"
                    />
 	            </LinearLayout>
            </LinearLayout>
-       
     </LinearLayout>
 </ScrollView>
 

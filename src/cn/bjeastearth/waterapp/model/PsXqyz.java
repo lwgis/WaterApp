@@ -186,7 +186,7 @@ public class PsXqyz  implements PollutionSource {
 	@Override
 	public String getShowDescribing() {
 		// TODO Auto-generated method stub
-		return "所属乡镇："+ getSsxz();
+		return "所属乡镇："+ getSsxz().getName();
 	}
 	@Override
 	public ArrayList<FieldItem> getFieldItems() {
@@ -198,10 +198,10 @@ public class PsXqyz  implements PollutionSource {
 			mFieldItems.add(new FieldItem("所属乡镇", getSsxz().getName()));
 			mFieldItems.add(new FieldItem("年产值",  String.valueOf(getNcz())));
 			mFieldItems.add(new FieldItem("猪数量",  String.valueOf(getZhuCount())));
-			mFieldItems.add(new FieldItem("牛数量",  String.valueOf(getZhuCount())));
-			mFieldItems.add(new FieldItem("羊数量",  String.valueOf(getZhuCount())));
-			mFieldItems.add(new FieldItem("家禽数量",  String.valueOf(getZhuCount())));
-			mFieldItems.add(new FieldItem("兔数量",  String.valueOf(getZhuCount())));
+			mFieldItems.add(new FieldItem("牛数量",  String.valueOf(getNiuCount())));
+			mFieldItems.add(new FieldItem("羊数量",  String.valueOf(getYangCount())));
+			mFieldItems.add(new FieldItem("家禽数量",  String.valueOf(getJQCount())));
+			mFieldItems.add(new FieldItem("兔数量",  String.valueOf(getTuCount())));
 			mFieldItems.add(new FieldItem("用水量",  String.valueOf(getYsl())));
 			mFieldItems.add(new FieldItem("废水排放量",  String.valueOf(getFspfl())));
 			mFieldItems.add(new FieldItem("COD",  String.valueOf(getCod())));

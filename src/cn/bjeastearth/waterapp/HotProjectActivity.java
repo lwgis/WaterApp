@@ -76,7 +76,7 @@ public class HotProjectActivity extends Activity {
 				Map<String, Object> map = new HashMap<String, Object>();
 				map.put("id", String.valueOf(hotProject.getID()));
 				Drawable image = HotProjectActivity.this.getBaseContext()
-						.getResources().getDrawable(R.drawable.map_item);
+						.getResources().getDrawable(R.drawable.map_item_gy);
 				PictureMarkerSymbol symbol = new PictureMarkerSymbol(image);
 				
 				Graphic oneGraphic = new Graphic(onePoint, symbol, map);

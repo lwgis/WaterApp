@@ -105,11 +105,7 @@ public class RiverActivity extends Activity implements OnClickListener {
 				long id) {
 			// TODO Auto-generated method stub
 			River onerRiver = (River) mAdapter.getItem(position);
-			Intent intent = new Intent(RiverActivity.this,
-					FieldItemActivity.class);
-			intent.putExtra("Title", "河道信息");
-			intent.putExtra("FieldItems", onerRiver.getFieldItems());
-			startActivity(intent);
+			showRiverDetail(onerRiver);
 		}
 	};
 	private OnClickListener mlocationClickListener = new OnClickListener() {
@@ -255,13 +251,7 @@ public class RiverActivity extends Activity implements OnClickListener {
 									River river = RiverActivity.this
 											.findRiverByCode(codeString);
 									if (river != null) {
-										Intent intent = new Intent(
-												RiverActivity.this,
-												FieldItemActivity.class);
-										intent.putExtra("Title", "河道信息");
-										intent.putExtra("FieldItems",
-												river.getFieldItems());
-										startActivity(intent);
+										showRiverDetail(river);
 									}
 								}
 								else {
@@ -479,6 +469,17 @@ public class RiverActivity extends Activity implements OnClickListener {
 		updatePollutionSource(mPsType);
 	}
 	
+
+	private void showRiverDetail(River onerRiver) {
+		Intent intent = new Intent(RiverActivity.this,
+				RiverDetailActivity.class);
+		intent.putExtra("jbxx", onerRiver.getJbxxFieldItems());
+		intent.putExtra("wry", onerRiver.getWryFieldItems());
+		intent.putExtra("szjl", onerRiver.getSzjlFieldItems());
+		intent.putExtra("zljh", onerRiver.getZljhFieldItems());
+		startActivity(intent);
+	}
+
 
 	class HttpThread implements Runnable {
 		int tpyeString;

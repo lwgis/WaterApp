@@ -1,38 +1,140 @@
 package cn.bjeastearth.waterapp.model;
 
+import java.io.Serializable;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 public class River implements FieldItemable {
+
 	private RiverCategory Category;
 	private String Code;
-	private double Depth;
+	private String Cjhz;
+	private String Qjhz;
+	private String Zjhz;
 	private String EndPoint;
 	private String EndTime;
 	private RiverGrade Grade;
 	private List<PsIndustry> Gywrys;
-	private List<RiverManager> Hdhzs;
 	private int ID;
 	private List<RiverImage> Images;
-	private double KMnO4;
 	private double Length;
-	private double NH3N;
 	private String Name;
-	private double PSUM;
-	private List<RiverRepairPlan> Repairplans;
+	private List<RiverRepairPlan> Hdzljls;
 	private List<PsScyz> Scwrys;
 	private List<PsLive> Shwss;
 	private String StartPoint;
 	private String StartTime;
-	private int Status;
-	private RiverWaterQuality Szdj;
 	private double Width;
 	private List<PsXqyz> Xqyzwrys;
 	private Region Xzq;
 	private List<PsZz> Zzwrys;
+	private List<RiverWaterQuality> Szjls;
 	private ArrayList<FieldItem> mFieldItems;
+	private ArrayList<FieldItem> jbxxFieldItems;
+	private ArrayList<FieldItem> wryFieldItems;
+	private ArrayList<FieldItem> szjlFieldItems;
+	private ArrayList<FieldItem> zljhFieldItems;
+	public ArrayList<FieldItem> getJbxxFieldItems() {
+		if (jbxxFieldItems==null) {
+			jbxxFieldItems=new ArrayList<FieldItem>();
+			jbxxFieldItems.add(new FieldItem("河道名", getName()));
+			jbxxFieldItems.add(new FieldItem("河道类别", getCategory().getName()));
+			jbxxFieldItems.add(new FieldItem("河道级别", getGrade().getName()));
+			jbxxFieldItems.add(new FieldItem("河道编码", getCode()));
+			jbxxFieldItems.add(new FieldItem("行政区域",getXzq().getName()));
+			jbxxFieldItems.add(new FieldItem("开工时间",getStartTime()));
+			jbxxFieldItems.add(new FieldItem("完工时间",getEndTime()));
+			jbxxFieldItems.add(new FieldItem("起始点",getStartPoint()));
+			jbxxFieldItems.add(new FieldItem("终止点",getEndPoint()));
+			jbxxFieldItems.add(new FieldItem("长度",String.valueOf(getLength())));
+			jbxxFieldItems.add(new FieldItem("宽度",String.valueOf(getWidth())));
+			jbxxFieldItems.add(new FieldItem("区级河长",String.valueOf(getQjhz())));
+			jbxxFieldItems.add(new FieldItem("镇级河长",String.valueOf(getZjhz())));
+			jbxxFieldItems.add(new FieldItem("村级河长",String.valueOf(getCjhz())));
+			if (getImages()!=null&&getImages().size()>0) {
+				ArrayList<FieldItem> imArrayList=new ArrayList<FieldItem>();
+				DateFormat df = new SimpleDateFormat("yyyy-MM-dd",Locale.CHINA);
+				for (RiverImage riverImage : getImages()) {
+					imArrayList.add(new FieldItem(df.format(riverImage.getStartTime()), riverImage.getName()));
+				}
+				jbxxFieldItems.add(new FieldItem(imArrayList));
+			}
+		}
+		return jbxxFieldItems;
+	}
+	public ArrayList<FieldItem> getWryFieldItems() {
+		if (wryFieldItems==null) {
+			wryFieldItems=new ArrayList<FieldItem>();
+			//工业
+			if (getGywrys()!=null&&getGywrys().size()>0) {
+				ArrayList<FieldItem> gyArrayList=new ArrayList<FieldItem>();
+				for (PsIndustry psIndustry : getGywrys()) {
+					gyArrayList.add(new FieldItem(psIndustry.getShowTitle(), (Object)psIndustry.getFieldItems()));
+				}
+				wryFieldItems.add(new FieldItem("工业污染源", gyArrayList));
+			}
+			//畜禽
+			if (getXqyzwrys()!=null&&getXqyzwrys().size()>0) {
+				ArrayList<FieldItem> xqyzArrayList=new ArrayList<FieldItem>();
+				for (PsXqyz psXqyz : getXqyzwrys()) {
+					xqyzArrayList.add(new FieldItem(psXqyz.getShowTitle(),(Object)psXqyz.getFieldItems()));
+				}
+				wryFieldItems.add(new FieldItem("畜禽污染源", xqyzArrayList));
+			}
+			//水产
+			if (getScwrys()!=null&&getScwrys().size()>0) {
+				ArrayList<FieldItem> scArrayList=new ArrayList<FieldItem>();
+				for (PsScyz psScyz : getScwrys()) {
+					scArrayList.add(new FieldItem(psScyz.getShowTitle(), (Object)psScyz.getFieldItems()));
+				}
+				wryFieldItems.add(new FieldItem("水产污染源", scArrayList));
+			}
+			//种植
+			if (getZzwrys()!=null&&getZzwrys().size()>0) {
+				ArrayList<FieldItem> zzArrayList=new ArrayList<FieldItem>();
+				for (PsZz psZz : getZzwrys()) {
+					zzArrayList.add(new FieldItem(psZz.getShowTitle(), (Object)psZz.getFieldItems()));
+				}
+				wryFieldItems.add(new FieldItem("种植污染源", zzArrayList));
+			}
+			//生活
+			if (getShwss()!=null&&getScwrys().size()>0) {
+				ArrayList<FieldItem> shArrayList=new ArrayList<FieldItem>();
+				for (PsLive psLive : getShwss()) {
+					shArrayList.add(new FieldItem(psLive.getShowTitle(), (Object)psLive.getFieldItems()));
+				}
+				wryFieldItems.add(new FieldItem("生活污染源", shArrayList));
+			}
+		}
+		return wryFieldItems;
+	}
+
+	public ArrayList<FieldItem> getSzjlFieldItems() {
+		if (szjlFieldItems==null) {
+			szjlFieldItems=new  ArrayList<FieldItem>();
+			if (getSzjls()!=null&&getSzjls().size()>0) {
+				for (RiverWaterQuality riverWaterQuality : getSzjls()) {
+					riverWaterQuality.fillFieldItem(szjlFieldItems);
+				}
+			}
+		}
+		return szjlFieldItems;
+	}
+	public ArrayList<FieldItem> getZljhFieldItems() {
+		if (zljhFieldItems==null) {
+			zljhFieldItems=new ArrayList<FieldItem>();
+			if (getHdzljls()!=null&&getHdzljls().size()>0) {
+				for (RiverRepairPlan repairPlan : getHdzljls()) {
+					repairPlan.fillFieldItem(zljhFieldItems);
+				}
+			}
+		}
+		return zljhFieldItems;
+	}
+
 	public RiverCategory getCategory() {
 		return Category;
 	}
@@ -44,12 +146,6 @@ public class River implements FieldItemable {
 	}
 	public void setCode(String code) {
 		Code = code;
-	}
-	public double getDepth() {
-		return Depth;
-	}
-	public void setDepth(double depth) {
-		Depth = depth;
 	}
 	public String getEndPoint() {
 		return EndPoint;
@@ -75,12 +171,6 @@ public class River implements FieldItemable {
 	public void setGywrys(List<PsIndustry> gywrys) {
 		Gywrys = gywrys;
 	}
-	public List<RiverManager> getHdhzs() {
-		return Hdhzs;
-	}
-	public void setHdhzs(List<RiverManager> hdhzs) {
-		Hdhzs = hdhzs;
-	}
 	public int getID() {
 		return ID;
 	}
@@ -93,23 +183,11 @@ public class River implements FieldItemable {
 	public void setImages(List<RiverImage> images) {
 		Images = images;
 	}
-	public double getKMnO4() {
-		return KMnO4;
-	}
-	public void setKMnO4(double kMnO4) {
-		KMnO4 = kMnO4;
-	}
 	public double getLength() {
 		return Length;
 	}
 	public void setLength(double length) {
 		Length = length;
-	}
-	public double getNH3N() {
-		return NH3N;
-	}
-	public void setNH3N(double nH3N) {
-		NH3N = nH3N;
 	}
 	public String getName() {
 		return Name;
@@ -117,18 +195,7 @@ public class River implements FieldItemable {
 	public void setName(String name) {
 		Name = name;
 	}
-	public double getPSUM() {
-		return PSUM;
-	}
-	public void setPSUM(double pSUM) {
-		PSUM = pSUM;
-	}
-	public List<RiverRepairPlan> getRepairplans() {
-		return Repairplans;
-	}
-	public void setRepairplans(List<RiverRepairPlan> repairplans) {
-		Repairplans = repairplans;
-	}
+
 	public List<PsScyz> getScwrys() {
 		return Scwrys;
 	}
@@ -152,18 +219,6 @@ public class River implements FieldItemable {
 	}
 	public void setStartTime(String startTime) {
 		StartTime = startTime;
-	}
-	public int getStatus() {
-		return Status;
-	}
-	public void setStatus(int status) {
-		Status = status;
-	}
-	public RiverWaterQuality getSzdj() {
-		return Szdj;
-	}
-	public void setSzdj(RiverWaterQuality szdj) {
-		Szdj = szdj;
 	}
 	public double getWidth() {
 		return Width;
@@ -196,7 +251,6 @@ public class River implements FieldItemable {
 			mFieldItems.add(new FieldItem("河道名", getName()));
 			mFieldItems.add(new FieldItem("河道类别", getCategory().getName()));
 			mFieldItems.add(new FieldItem("河道级别", getGrade().getName()));
-			mFieldItems.add(new FieldItem("水质等级",getSzdj().getName()));
 			mFieldItems.add(new FieldItem("河道编码", getCode()));
 			mFieldItems.add(new FieldItem("行政区域",getXzq().getName()));
 			mFieldItems.add(new FieldItem("开工时间",getStartTime()));
@@ -205,10 +259,9 @@ public class River implements FieldItemable {
 			mFieldItems.add(new FieldItem("终止点",getEndPoint()));
 			mFieldItems.add(new FieldItem("长度",String.valueOf(getLength())));
 			mFieldItems.add(new FieldItem("宽度",String.valueOf(getWidth())));
-			mFieldItems.add(new FieldItem("深度",String.valueOf(getDepth())));
-			mFieldItems.add(new FieldItem("高锰酸钾",String.valueOf(getKMnO4())));
-			mFieldItems.add(new FieldItem("氨氮",String.valueOf(getNH3N())));
-			mFieldItems.add(new FieldItem("总磷",String.valueOf(getPSUM())));
+			mFieldItems.add(new FieldItem("区级河长",String.valueOf(getQjhz())));
+			mFieldItems.add(new FieldItem("镇级河长",String.valueOf(getZjhz())));
+			mFieldItems.add(new FieldItem("村级河长",String.valueOf(getCjhz())));
 			//工业
 			if (getGywrys()!=null&&getGywrys().size()>0) {
 				ArrayList<FieldItem> gyArrayList=new ArrayList<FieldItem>();
@@ -249,25 +302,17 @@ public class River implements FieldItemable {
 				}
 				mFieldItems.add(new FieldItem("生活污染源", shArrayList));
 			}
-			//河长
-			if (getHdhzs()!=null&&getHdhzs().size()>0) {
-				ArrayList<FieldItem> rmArrayList=new ArrayList<FieldItem>();
-				for (RiverManager riverManager : getHdhzs()) {
-					riverManager.fillFieldItem(rmArrayList);
-				}
-				mFieldItems.add(new FieldItem("河道河长", rmArrayList));
-			}
 			//整理计划
-			if (getRepairplans()!=null&&getRepairplans().size()>0) {
+			if (getHdzljls()!=null&&getHdzljls().size()>0) {
 				ArrayList<FieldItem> rpArrayList=new ArrayList<FieldItem>();
-				for (RiverRepairPlan repairPlan : getRepairplans()) {
+				for (RiverRepairPlan repairPlan : getHdzljls()) {
 					repairPlan.fillFieldItem(rpArrayList);
 				}
 				mFieldItems.add(new FieldItem("整治计划", rpArrayList));
 			}
 			if (getImages()!=null&&getImages().size()>0) {
 				ArrayList<FieldItem> imArrayList=new ArrayList<FieldItem>();
-				DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+				DateFormat df = new SimpleDateFormat("yyyy-MM-dd",Locale.CHINA);
 				for (RiverImage riverImage : getImages()) {
 					imArrayList.add(new FieldItem(df.format(riverImage.getStartTime()), riverImage.getName()));
 				}
@@ -275,6 +320,36 @@ public class River implements FieldItemable {
 			}
 		}
 		return mFieldItems;
+	}
+	public String getCjhz() {
+		return Cjhz;
+	}
+	public void setCjhz(String cjhz) {
+		Cjhz = cjhz;
+	}
+	public String getQjhz() {
+		return Qjhz;
+	}
+	public void setQjhz(String qjhz) {
+		Qjhz = qjhz;
+	}
+	public String getZjhz() {
+		return Zjhz;
+	}
+	public void setZjhz(String zjhz) {
+		Zjhz = zjhz;
+	}
+	public List<RiverWaterQuality> getSzjls() {
+		return Szjls;
+	}
+	public void setSzjls(List<RiverWaterQuality> szjls) {
+		Szjls = szjls;
+	}
+	public List<RiverRepairPlan> getHdzljls() {
+		return Hdzljls;
+	}
+	public void setHdzljls(List<RiverRepairPlan> hdzljls) {
+		Hdzljls = hdzljls;
 	}
 	
 }

@@ -226,7 +226,6 @@ public class PollutionActivity extends Activity implements OnClickListener {
 		this.mListView = (WebListView) findViewById(R.id.pollutionListView);
 		this.mListView.showLoading();
 		this.mSearchEditView = (AutoCompleteTextView) findViewById(R.id.SearchEditText);
-		new Thread(new HttpThread("xzq")).start();
 		this.btnSearch = (Button) findViewById(R.id.btnSearch);
 		// 地图
 		View tabListView = (View) LayoutInflater.from(this).inflate(
@@ -285,6 +284,7 @@ public class PollutionActivity extends Activity implements OnClickListener {
 				startActivity(intent);
 			}
 		});
+		new Thread(new HttpThread("xzq")).start();
 	}
 
 	//初始化新建按钮

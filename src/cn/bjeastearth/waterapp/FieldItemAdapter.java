@@ -66,10 +66,14 @@ public class FieldItemAdapter extends BaseAdapter {
 	public View getView(int position, View convertView, ViewGroup parent) {
 		FieldItem item=mFieldItems.get(position);
 		if (item.getType()==FieldItemType.TOWTEXT) {
-			convertView = LayoutInflater.from(mContext).inflate(
-						R.layout.fielditem_text, null);
-			TextView tvName=(TextView)convertView.findViewById(R.id.fieldNameTv);
-			tvName.setText(item.getName());
+			if (item.getName().equals("")) {
+				convertView=LayoutInflater.from(mContext).inflate(R.layout.fielditem_content, null);
+			}
+			else {
+				convertView=LayoutInflater.from(mContext).inflate(R.layout.fielditem_text, null);
+				TextView tvName=(TextView)convertView.findViewById(R.id.fieldNameTv);
+				tvName.setText(item.getName());
+			}
 			TextView tvValue=(TextView)convertView.findViewById(R.id.fieldValueTv);
 			tvValue.setText(item.getContent());
 		}

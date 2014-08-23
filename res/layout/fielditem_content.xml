@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="horizontal" 
-    android:background="@drawable/field_item_bg">
+    android:background="@drawable/field_title_bg">
     <TextView
         android:id="@+id/fieldValueTv"
         android:layout_width="match_parent"
@@ -11,6 +11,7 @@
         android:textSize="18sp"
         android:textColor="#715b4c"
         android:paddingLeft="5dp" 
+		android:paddingRight="0dp"        
         android:gravity="center"/>
 
 </LinearLayout>

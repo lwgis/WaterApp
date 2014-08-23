@@ -43,6 +43,8 @@ public class UploadImageUtil {
 	            JSONObject jo1 = new JSONObject();
 	            jo1.put("name", imgname);
 	            jo1.put("content", jason);
+//	            jo1.put("content", "1111");
+
 	            jo1.put("type", ".png");
 	            StringEntity se = new StringEntity(jo1.toString(),
 	                    HTTP.UTF_8);
@@ -56,8 +58,10 @@ public class UploadImageUtil {
 	            } else {
 	                strResp = "$no_found_date$";
 	            }
+
 	            
-	        } catch (UnsupportedEncodingException e) {
+	        }
+	           catch (UnsupportedEncodingException e) {
 	            // TODO Auto-generated catch block
 	            e.printStackTrace();
 	        } catch (ClientProtocolException e) {
@@ -66,7 +70,8 @@ public class UploadImageUtil {
 	        } catch (IOException e) {
 	            // TODO Auto-generated catch block
 	            e.printStackTrace();
-	        } catch (JSONException e) {
+	        } 
+	          catch (Throwable e) {
 	            // TODO Auto-generated catch block
 	            e.printStackTrace();
 	        } finally {

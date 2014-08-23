@@ -50,17 +50,24 @@ import android.widget.AdapterView.OnItemClickListener;
 public class AddPsScyzActivity extends Activity {
 	private final int sendPs=100;
 	private Button btnBack;
-	private EditText symjEditText;
-	private EditText clczEditText;
-	private EditText bodEditText;
+	private EditText fzrEditText;
+	private EditText lxfsEditText;
+	private Spinner mRegionSpinner;
+	private EditText nczEditText;
+	private EditText ylclEditText;
+	private EditText xlclEditText;
+	private EditText blclEditText;
+	private EditText qtclEditText;
+	private EditText ylmjEditText;
+	private EditText xlmjEditText;
+	private EditText blmjEditText;
+	private EditText qtmjEditText;
 	private EditText codEditText;
 	private EditText adEditText;
-	private EditText zlEditText;
-	private Spinner mRegionSpinner;
-	private Spinner mSclxSpinner;
+	private EditText tpEditText;
+	private EditText tnEditText;
 	private MyTextButton btnSendPs;
 	private List<Region> listRegions;
-	private List<PsScyzType> psScyzTypes;
 	private Button btnLocation;
 	private GridView imageGridView;
 	private AddImageAdapter imageAdapter;
@@ -90,19 +97,6 @@ public class AddPsScyzActivity extends Activity {
 						arrayList);
 				AddPsScyzActivity.this.mRegionSpinner.setAdapter(adapter);
 			}
-			if (msg.what==6) {
-				psScyzTypes = gson.fromJson(msg.obj.toString(),
-						new TypeToken<List<PsScyzType>>() {
-						}.getType());
-				ArrayList<String> arrayList = new ArrayList<String>();
-				for (PsScyzType department : psScyzTypes) {
-					arrayList.add(department.getName());
-				}
-				ArrayAdapter<String> adapter = new ArrayAdapter<String>(
-						AddPsScyzActivity.this,R.layout.simple_spinner_item,
-						arrayList);
-				AddPsScyzActivity.this.mSclxSpinner.setAdapter(adapter);
-			}
 			if (msg.what==sendPs) {
 				Toast.makeText(AddPsScyzActivity.this, msg.obj.toString(), Toast.LENGTH_SHORT).show();
 			    AddPsScyzActivity.this.btnSendPs.setEnabled(true);
@@ -123,10 +117,6 @@ public class AddPsScyzActivity extends Activity {
 			}
 		});
 		this.btnSendPs=(MyTextButton)findViewById(R.id.btnSendPs);
-		 this.btnSendPs.setFocusable(true);
-		 this.btnSendPs.setFocusableInTouchMode(true);
-		 this.btnSendPs.requestFocus();
-		 this.btnSendPs.requestFocusFromTouch();
 		 this.btnSendPs.setEnabled(false);
 		 this.btnSendPs.setOnClickListener(new OnClickListener() {
 			
@@ -136,15 +126,22 @@ public class AddPsScyzActivity extends Activity {
 			    AddPsScyzActivity.this.uploadPsIndustry();
 			}
 		});
-		symjEditText=(EditText)findViewById(R.id.symjEt);
-		clczEditText=(EditText)findViewById(R.id.clczEt);
-		bodEditText=(EditText)findViewById(R.id.bodEt);
+		fzrEditText=(EditText)findViewById(R.id.fzrEt);
+		lxfsEditText=(EditText)findViewById(R.id.lxfsEt);
+		mRegionSpinner=(Spinner)findViewById(R.id.regionSpin);
+		nczEditText=(EditText)findViewById(R.id.nczEt);
+		ylclEditText=(EditText)findViewById(R.id.ylclEt);
+		xlclEditText=(EditText)findViewById(R.id.xlclEt);
+		blclEditText=(EditText)findViewById(R.id.blclEt);
+		qtclEditText=(EditText)findViewById(R.id.qtclEt);
+		ylmjEditText=(EditText)findViewById(R.id.ylmjEt);
+		xlmjEditText=(EditText)findViewById(R.id.xlmjEt);
+		blmjEditText=(EditText)findViewById(R.id.blmjEt);
+		qtmjEditText=(EditText)findViewById(R.id.qtmjEt);
 		codEditText=(EditText)findViewById(R.id.codEt);
 		adEditText=(EditText)findViewById(R.id.adEt);
-		zlEditText=(EditText)findViewById(R.id.zlEt);
-		mRegionSpinner=(Spinner)findViewById(R.id.regionSpin);
-		mSclxSpinner=(Spinner)findViewById(R.id.sclxSpin);
-	
+		tpEditText=(EditText)findViewById(R.id.tpEt);
+		tnEditText=(EditText)findViewById(R.id.tnEt);	
 		 this.xTv=(TextView)findViewById(R.id.xTv);
 		 this.yTv=(TextView)findViewById(R.id.yTv);
 		 this.btnLocation=(Button)findViewById(R.id.btnAddLocation);
@@ -217,7 +214,6 @@ public class AddPsScyzActivity extends Activity {
 		});
 		 setTextWatcher();
 		new Thread(new HttpThread("Xzq")).start();
-		new Thread(new HttpThread("ScType")).start();
 	}
 
 
@@ -249,30 +245,27 @@ public class AddPsScyzActivity extends Activity {
 	protected PsScyz createPollution() {
 		// TODO Auto-generated method stub
 		PsScyz psScyz=new PsScyz();
-//		psScyz.setXzq(creatRegion(this.mRegionSpinner.getSelectedItem().toString()));
-//		psScyz.setYztype(creatYztype(this.mSclxSpinner.getSelectedItem().toString()));
-//		psScyz.setSymj(Double.parseDouble(this.symjEditText.getText().toString()));
-//		psScyz.setClcz(Double.parseDouble(this.clczEditText.getText().toString()));
-//		psScyz.setBod(Double.parseDouble(this.bodEditText.getText().toString()));
+		psScyz.setFzr(this.fzrEditText.getText().toString());
+		psScyz.setContact(this.lxfsEditText.getText().toString());
+		psScyz.setSsxz(creatRegion(this.mRegionSpinner.getSelectedItem().toString()));
+		psScyz.setNcz(Double.parseDouble(this.nczEditText.getText().toString()));
+		psScyz.setYu(Double.parseDouble(this.ylclEditText.getText().toString()));
+		psScyz.setXia(Double.parseDouble(this.xlclEditText.getText().toString()));
+		psScyz.setBei(Double.parseDouble(this.blclEditText.getText().toString()));
+		psScyz.setQita(Double.parseDouble(this.qtclEditText.getText().toString()));
+		psScyz.setAYu(Double.parseDouble(this.ylmjEditText.getText().toString()));
+		psScyz.setAXia(Double.parseDouble(this.xlmjEditText.getText().toString()));
+		psScyz.setABei(Double.parseDouble(this.blmjEditText.getText().toString()));
+		psScyz.setAQita(Double.parseDouble(this.qtmjEditText.getText().toString()));
 		psScyz.setCod(Double.parseDouble(this.codEditText.getText().toString()));
 		psScyz.setNh3N(Double.parseDouble(this.adEditText.getText().toString()));
-		psScyz.setPSum(Double.parseDouble(this.zlEditText.getText().toString()));
+		psScyz.setPSum(Double.parseDouble(this.tpEditText.getText().toString()));
+		psScyz.setNSum(Double.parseDouble(this.tnEditText.getText().toString()));
 		psScyz.setX(x);
 		psScyz.setY(y);
 		psScyz.setImages(getImages());
 		return psScyz;
 	}
-
-	private PsScyzType creatYztype(String typeName) {
-		for (PsScyzType psScyzType : psScyzTypes) {
-			if (psScyzType.getName().equals(typeName)) {
-				return psScyzType;
-			}
-		}
-		return null;
-	}
-
-
 
 	private List<ProjectImage> getImages() {
 		ArrayList<ProjectImage> images=new ArrayList<ProjectImage>();
@@ -318,13 +311,7 @@ public class AddPsScyzActivity extends Activity {
 			DecimalFormat df = new DecimalFormat("0.00000");   
 			xTv.setText("X: "+df.format(x));
 			yTv.setText("Y: "+df.format(y));
-			if (symjEditText.getText().length() > 0
-					&& clczEditText.getText().length() > 0
-					&& bodEditText.getText().length() > 0
-					&& codEditText.getText().length() > 0
-					&& adEditText.getText().length() > 0
-					&& zlEditText.getText().length()>0
-					&& x!=0.0&& y!=0) {
+			if (checkTextView()) {
 				btnSendPs.setEnabled(true);
 			}
 		}
@@ -355,14 +342,44 @@ public class AddPsScyzActivity extends Activity {
 			}
 		}
 	}
+
+
+
+	private boolean checkTextView() {
+		return fzrEditText.getText().length() > 0
+				&& lxfsEditText.getText().length() > 0
+				&& nczEditText.getText().length() > 0
+				&& ylclEditText.getText().length() > 0
+				&& xlclEditText.getText().length() > 0
+				&& blclEditText.getText().length() > 0
+				&& qtclEditText.getText().length() > 0
+				&& ylmjEditText.getText().length() > 0
+				&& xlmjEditText.getText().length() > 0
+				&& blmjEditText.getText().length() > 0
+				&& qtmjEditText.getText().length() > 0
+				&& codEditText.getText().length() > 0
+				&& adEditText.getText().length() > 0
+				&& tpEditText.getText().length() > 0
+				&& tnEditText.getText().length() > 0
+				&& x!=0.0&& y!=0;
+	}
 	private void setTextWatcher() {
 		TextWatcherimpl textWatcherimpl=new TextWatcherimpl();
-		symjEditText.addTextChangedListener(textWatcherimpl);
-		clczEditText.addTextChangedListener(textWatcherimpl);
-		bodEditText.addTextChangedListener(textWatcherimpl);
+		fzrEditText.addTextChangedListener(textWatcherimpl);
+		lxfsEditText.addTextChangedListener(textWatcherimpl);
+		nczEditText.addTextChangedListener(textWatcherimpl);
+		ylclEditText.addTextChangedListener(textWatcherimpl);
+		xlclEditText.addTextChangedListener(textWatcherimpl);
+		blclEditText.addTextChangedListener(textWatcherimpl);
+		qtclEditText.addTextChangedListener(textWatcherimpl);
+		ylmjEditText.addTextChangedListener(textWatcherimpl);
+		xlmjEditText.addTextChangedListener(textWatcherimpl);
+		blmjEditText.addTextChangedListener(textWatcherimpl);
+		qtmjEditText.addTextChangedListener(textWatcherimpl);
 		codEditText.addTextChangedListener(textWatcherimpl);
 		adEditText.addTextChangedListener(textWatcherimpl);
-		zlEditText.addTextChangedListener(textWatcherimpl);
+		tpEditText.addTextChangedListener(textWatcherimpl);
+		tnEditText.addTextChangedListener(textWatcherimpl);
 	}
 	class HttpThread implements Runnable{
 		private String typeString;
@@ -410,13 +427,7 @@ public class AddPsScyzActivity extends Activity {
 		@Override
 		public void onTextChanged(CharSequence s, int start, int before,
 				int count) {
-			if (symjEditText.getText().length() > 0
-					&& clczEditText.getText().length() > 0
-					&& bodEditText.getText().length() > 0
-					&& codEditText.getText().length() > 0
-					&& adEditText.getText().length() > 0
-					&& zlEditText.getText().length()>0
-					&& x!=0.0&& y!=0) {
+			if (checkTextView()) {
 				btnSendPs.setEnabled(true);
 			}
 			else {

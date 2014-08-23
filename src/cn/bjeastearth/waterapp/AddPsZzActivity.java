@@ -32,10 +32,17 @@ import android.widget.Toast;
 public class AddPsZzActivity extends Activity {
 	private final int sendPs=100;
 	private Button btnBack;
-	private EditText gdmjEditText;
+	private EditText stmjEditText;
+	private EditText hdmjEditText;
+	private EditText symjEditText;
+	private EditText gymjEditText;
 	private EditText nyylEditText;
 	private EditText nfylEditText;
 	private EditText nyccEditText;
+	private EditText codEditText;
+	private EditText adEditText;
+	private EditText tpEditText;
+	private EditText tnEditText;
 	private Spinner mWrcdSpinner;
 	private Spinner mRegionSpinner;
 	private MyTextButton btnSendPs;
@@ -97,10 +104,6 @@ public class AddPsZzActivity extends Activity {
 			}
 		});
 		this.btnSendPs=(MyTextButton)findViewById(R.id.btnSendPs);
-		 this.btnSendPs.setFocusable(true);
-		 this.btnSendPs.setFocusableInTouchMode(true);
-		 this.btnSendPs.requestFocus();
-		 this.btnSendPs.requestFocusFromTouch();
 		 this.btnSendPs.setEnabled(false);
 		 this.btnSendPs.setOnClickListener(new OnClickListener() {
 			
@@ -110,10 +113,17 @@ public class AddPsZzActivity extends Activity {
 			    AddPsZzActivity.this.uploadPsIndustry();
 			}
 		});
-		gdmjEditText=(EditText)findViewById(R.id.gdmjEt);
+		stmjEditText=(EditText)findViewById(R.id.stmjEt);
+		hdmjEditText=(EditText)findViewById(R.id.hdmjEt);
+		symjEditText=(EditText)findViewById(R.id.symjEt);
+		gymjEditText=(EditText)findViewById(R.id.gymjEt);
 		nyylEditText=(EditText)findViewById(R.id.nyylEt);
 		nfylEditText=(EditText)findViewById(R.id.nfylEt);
 		nyccEditText=(EditText)findViewById(R.id.nyccEt);
+		codEditText=(EditText)findViewById(R.id.codEt);
+		adEditText=(EditText)findViewById(R.id.adEt);
+		tpEditText=(EditText)findViewById(R.id.tpEt);
+		tnEditText=(EditText)findViewById(R.id.tnEt);
 		mWrcdSpinner=(Spinner)findViewById(R.id.wrcdSpin);
 		mRegionSpinner=(Spinner)findViewById(R.id.regionSpin);	
 		 this.xTv=(TextView)findViewById(R.id.xTv);
@@ -162,11 +172,18 @@ public class AddPsZzActivity extends Activity {
 		// TODO Auto-generated method stub
 		PsZz psZz=new PsZz();
 		psZz.setXzq(creatRegion(this.mRegionSpinner.getSelectedItem().toString()));
-//		psZz.setGdmj(Double.parseDouble(this.gdmjEditText.getText().toString()));
+		psZz.setStmj(Double.parseDouble(this.stmjEditText.getText().toString()));
+		psZz.setHdmj(Double.parseDouble(this.hdmjEditText.getText().toString()));
+		psZz.setSymj(Double.parseDouble(this.symjEditText.getText().toString()));
+		psZz.setGymj(Double.parseDouble(this.gymjEditText.getText().toString()));
 		psZz.setNyyl(Double.parseDouble(this.nyylEditText.getText().toString()));
 		psZz.setNfyl(Double.parseDouble(this.nfylEditText.getText().toString()));
 		psZz.setNycc(Double.parseDouble(this.nyccEditText.getText().toString()));
 		psZz.setCd(creatPsZzlevel(this.mWrcdSpinner.getSelectedItem().toString()));
+		psZz.setCod(Double.parseDouble(this.codEditText.getText().toString()));
+		psZz.setNh3N(Double.parseDouble(this.adEditText.getText().toString()));
+		psZz.setPsum(Double.parseDouble(this.tpEditText.getText().toString()));
+		psZz.setNsum(Double.parseDouble(this.tnEditText.getText().toString()));
 		psZz.setX(x);
 		psZz.setY(y);
 		return psZz;
@@ -202,22 +219,42 @@ public class AddPsZzActivity extends Activity {
 			DecimalFormat df = new DecimalFormat("0.00000");   
 			xTv.setText("X: "+df.format(x));
 			yTv.setText("Y: "+df.format(y));
-			if (gdmjEditText.getText().length() > 0
-					&& nyylEditText.getText().length() > 0
-					&& nfylEditText.getText().length() > 0
-					&& nyccEditText.getText().length() > 0
-					&& x!=0.0&& y!=0) {
+			if (checkTextView()) {
 				btnSendPs.setEnabled(true);
 			}
 		}
 
 	}
+
+
+
+	private boolean checkTextView() {
+		return stmjEditText.getText().length() > 0
+				&& hdmjEditText.getText().length() > 0
+				&& symjEditText.getText().length() > 0
+				&& gymjEditText.getText().length() > 0
+				&& nyylEditText.getText().length() > 0
+				&& nfylEditText.getText().length() > 0
+				&& nyccEditText.getText().length() > 0
+				&& codEditText.getText().length() > 0
+				&& adEditText.getText().length() > 0
+				&& tpEditText.getText().length() > 0
+				&& tnEditText.getText().length() > 0
+				&& x!=0.0&& y!=0;
+	}
 	private void setTextWatcher() {
 		TextWatcherimpl textWatcherimpl=new TextWatcherimpl();
-		gdmjEditText.addTextChangedListener(textWatcherimpl);
+		stmjEditText.addTextChangedListener(textWatcherimpl);
+		hdmjEditText.addTextChangedListener(textWatcherimpl);
+		symjEditText.addTextChangedListener(textWatcherimpl);
+		gymjEditText.addTextChangedListener(textWatcherimpl);
 		nyylEditText.addTextChangedListener(textWatcherimpl);
 		nfylEditText.addTextChangedListener(textWatcherimpl);
 		nyccEditText.addTextChangedListener(textWatcherimpl);
+		codEditText.addTextChangedListener(textWatcherimpl);
+		adEditText.addTextChangedListener(textWatcherimpl);
+		tpEditText.addTextChangedListener(textWatcherimpl);
+		tnEditText.addTextChangedListener(textWatcherimpl);
 	}
 	class HttpThread implements Runnable{
 		private String typeString;
@@ -253,11 +290,7 @@ public class AddPsZzActivity extends Activity {
 		@Override
 		public void onTextChanged(CharSequence s, int start, int before,
 				int count) {
-			if (gdmjEditText.getText().length() > 0
-					&& nyylEditText.getText().length() > 0
-					&& nfylEditText.getText().length() > 0
-					&& nyccEditText.getText().length() > 0
-					&& x!=0.0&& y!=0) {
+			if (checkTextView()) {
 				btnSendPs.setEnabled(true);
 			}
 			else {

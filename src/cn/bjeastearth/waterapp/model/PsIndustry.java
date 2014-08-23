@@ -1,12 +1,7 @@
 package cn.bjeastearth.waterapp.model;
 
-import java.io.Serializable;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.jar.Attributes.Name;
-
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 import cn.bjeastearth.waterapp.R;
@@ -23,8 +18,8 @@ public class PsIndustry implements  PollutionSource{
 	private String CTime;
 	private String Fsclss;
 	private String Fzr;
-	private String Gyfspfl_c;
-	private String Gyfspfl_z;
+	private double Gyfspfl_c;
+	private double Gyfspfl_z;
 	private double Gyysl;
 	private List<ProjectImage> Images;
 	private double Ncz;
@@ -83,16 +78,16 @@ public class PsIndustry implements  PollutionSource{
 	public void setFzr(String fzr) {
 		Fzr = fzr;
 	}
-	public String getGyfspfl_c() {
+	public double getGyfspfl_c() {
 		return Gyfspfl_c;
 	}
-	public void setGyfspfl_c(String gyfspfl_c) {
+	public void setGyfspfl_c(double gyfspfl_c) {
 		Gyfspfl_c = gyfspfl_c;
 	}
-	public String getGyfspfl_z() {
+	public double getGyfspfl_z() {
 		return Gyfspfl_z;
 	}
-	public void setGyfspfl_z(String gyfspfl_z) {
+	public void setGyfspfl_z(double gyfspfl_z) {
 		Gyfspfl_z = gyfspfl_z;
 	}
 	public double getGyysl() {
@@ -239,7 +234,7 @@ public class PsIndustry implements  PollutionSource{
 	}
 	@Override
 	public Drawable getMapDrawable(Context context) {
-		Drawable image = context.getResources().getDrawable(R.drawable.map_item);
+		Drawable image = context.getResources().getDrawable(R.drawable.map_item_gy);
 		return image;
 	}
 	@Override

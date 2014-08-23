@@ -6,11 +6,12 @@
     android:background="@drawable/field_item_bg">
        <Spinner
          android:id="@+id/pcSpin"
-         style="@style/spinner_style"
+         style="@style/myspinner_style"
          android:layout_width="350dp"
          android:layout_height="wrap_content"
          android:layout_weight="1"
          android:paddingLeft="5dp"
+         android:paddingRight="0dp"
          android:textColor="#715b4c"
          android:textSize="16sp" 
          android:dropDownSelector="#ff0000"/>
@@ -28,6 +29,7 @@
 	      android:background="#00000000"
 	      android:inputType="numberDecimal"
 	      android:paddingLeft="5dp"
+	      android:paddingRight="0dp"
 	      android:textColor="#715b4c"
 	      android:textSize="18sp" >
 

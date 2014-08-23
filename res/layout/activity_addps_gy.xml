@@ -8,28 +8,12 @@
 	android:layout_width="match_parent"
 	android:layout_height="50dp"
 	android:background="@drawable/title_bg">
-	 <Button
-        android:id="@+id/btnBack"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_alignParentLeft="true"
-        android:background="@drawable/newsbackbtn"
-        android:textSize="15sp" />
-
-   <cn.bjeastearth.waterapp.myview.MyTextButton
-        android:id="@+id/btnSendPs"
-        android:paddingTop="8dp"
-        android:layout_width="60dp"
-        android:layout_height="40dp"
-        android:layout_alignParentRight="true"
-        android:background="@null"
-        android:textSize="20sp"
-        android:textColor="#eeeeee"
-        android:text="上传" />
 
    <TextView
        android:layout_width="wrap_content"
        android:layout_height="wrap_content"
+       android:layout_alignBaseline="@+id/btnBack"
+       android:layout_alignBottom="@+id/btnBack"
        android:layout_centerHorizontal="true"
        android:layout_centerVertical="true"
        android:gravity="center"
@@ -40,6 +24,26 @@
        android:text="新建工业污染源"
        android:textColor="#FFFFFF"
        android:textSize="20sp" />
+
+   <Button
+       android:id="@+id/btnBack"
+       android:layout_width="50dp"
+       android:layout_height="50dp"
+       android:layout_alignParentLeft="true"
+       android:layout_alignParentTop="true"
+       android:background="@drawable/newsbackbtn"
+       android:textSize="15sp" />
+
+   <cn.bjeastearth.waterapp.myview.MyTextButton
+        android:id="@+id/btnSendPs"
+          android:layout_width="60dp"
+            android:layout_height="40dp"
+            android:layout_alignParentRight="true"
+            android:background="@null"
+            android:paddingTop="8dp"
+            android:text="上传"
+            android:textColor="#eeeeee"
+            android:textSize="20sp"/>
 
 </RelativeLayout>
 
@@ -82,71 +86,8 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:background="#00000000"
+                android:paddingRight="0dp"
                 android:paddingLeft="5dp"
-                android:textColor="#715b4c"
-                android:textSize="18sp" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/field_item_bg"
-            android:orientation="horizontal" >
-
-            <TextView
-                android:layout_width="100dp"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:padding="3dp"
-                android:text="产业类型"
-                android:textColor="#715b4c"
-                android:textSize="18sp" />
-
-            <ImageView
-                android:layout_width="2dp"
-                android:layout_height="fill_parent"
-                android:background="@drawable/field_item_fgx"
-                android:scaleType="fitXY" />
-
-            <EditText
-                android:id="@+id/cylxEt"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="#00000000"
-                android:paddingLeft="5dp"
-                android:textColor="#715b4c"
-                android:textSize="18sp" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/field_item_bg"
-            android:orientation="horizontal" >
-
-            <TextView
-                android:layout_width="100dp"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:padding="3dp"
-                android:text="年产值"
-                android:textColor="#715b4c"
-                android:textSize="18sp" />
-
-            <ImageView
-                android:layout_width="2dp"
-                android:layout_height="fill_parent"
-                android:background="@drawable/field_item_fgx"
-                android:scaleType="fitXY" />
-
-            <EditText
-                android:id="@+id/nczEt"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:background="#00000000"
-                android:paddingLeft="5dp"
-	      		android:inputType="numberDecimal"
                 android:textColor="#715b4c"
                 android:textSize="18sp" />
         </LinearLayout>
@@ -176,8 +117,8 @@
                 android:id="@+id/fzrEt"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
                 android:background="#00000000"
+                android:paddingRight="0dp"
                 android:paddingLeft="5dp"
                 android:textColor="#715b4c"
                 android:textSize="18sp" />
@@ -194,7 +135,7 @@
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:padding="3dp"
-                android:text="注册资金"
+                android:text="联系方式"
                 android:textColor="#715b4c"
                 android:textSize="18sp" />
 
@@ -205,18 +146,17 @@
                 android:scaleType="fitXY" />
 
             <EditText
-                android:id="@+id/zczjEt"
+                android:id="@+id/lxfsEt"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-               	android:inputType="numberDecimal"
                 android:background="#00000000"
                 android:paddingLeft="5dp"
+                android:paddingRight="0dp"
                 android:textColor="#715b4c"
                 android:textSize="18sp" />
         </LinearLayout>
-
-        <LinearLayout
+    	<LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/field_item_bg"
@@ -239,17 +179,15 @@
 
             <Spinner
                 android:id="@+id/regionSpin"
-                style="@style/spinner_style"
-                android:layout_width="match_parent"
+                style="@style/myspinner_style"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:paddingLeft="5dp"
+                android:paddingRight="40dp"            
                 android:textColor="#715b4c"
-                android:textSize="16sp" 
-                android:dropDownSelector="#ff0000"
-                />
+                android:textSize="16sp"/>
         </LinearLayout>
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -261,106 +199,7 @@
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:padding="3dp"
-                android:text="环保部门"
-                android:textColor="#715b4c"
-                android:textSize="18sp" />
-
-            <ImageView
-                android:layout_width="2dp"
-                android:layout_height="fill_parent"
-                android:background="@drawable/field_item_fgx"
-                android:scaleType="fitXY" />
-
-          <Spinner
-                android:id="@+id/deptHbSpin"
-                style="@style/spinner_style"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:paddingLeft="5dp"
-                android:textColor="#715b4c"
-                android:textSize="16sp" 
-                android:dropDownSelector="#ff0000"/>
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/field_item_bg"
-            android:orientation="horizontal" >
-
-            <TextView
-                android:layout_width="100dp"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:padding="3dp"
-                android:text="工商部门"
-                android:textColor="#715b4c"
-                android:textSize="18sp" />
-
-            <ImageView
-                android:layout_width="2dp"
-                android:layout_height="fill_parent"
-                android:background="@drawable/field_item_fgx"
-                android:scaleType="fitXY" />
-
-          <Spinner
-                android:id="@+id/deptGsSpin"
-                style="@style/spinner_style"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:paddingLeft="5dp"
-                android:textColor="#715b4c"
-                android:textSize="16sp" 
-                android:dropDownSelector="#ff0000"/>
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/field_item_bg"
-            android:orientation="horizontal" >
-
-            <TextView
-                android:layout_width="100dp"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:padding="3dp"
-                android:text="污染物类型"
-                android:textColor="#715b4c"
-                android:textSize="18sp" />
-
-            <ImageView
-                android:layout_width="2dp"
-                android:layout_height="fill_parent"
-                android:background="@drawable/field_item_fgx"
-                android:scaleType="fitXY" />
-
-              <Spinner
-                android:id="@+id/psTypeSpin"
-                style="@style/spinner_style"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:paddingLeft="5dp"
-                android:textColor="#715b4c"
-                android:textSize="16sp" 
-                android:dropDownSelector="#ff0000"/>
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/field_item_bg"
-            android:orientation="horizontal" >
-
-            <TextView
-                android:layout_width="100dp"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:padding="3dp"
-                android:text="BOD"
+                android:text="年产值 "
                 android:textColor="#715b4c"
                 android:textSize="18sp" />
 
@@ -371,18 +210,16 @@
                 android:scaleType="fitXY" />
 
             <EditText
-                android:id="@+id/bodEt"
+                android:id="@+id/nczEt"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:background="#00000000"
                 android:paddingLeft="5dp"
-              	android:inputType="numberDecimal"
+                android:paddingRight="0dp"                
                 android:textColor="#715b4c"
-                android:textSize="18sp" >
-
-                <requestFocus />
-            </EditText>
+   				android:inputType="numberDecimal"
+                android:textSize="18sp" />
         </LinearLayout>
 
         <LinearLayout
@@ -396,7 +233,7 @@
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:padding="3dp"
-                android:text="COD"
+                android:text="工业用水量"
                 android:textColor="#715b4c"
                 android:textSize="18sp" />
 
@@ -407,242 +244,480 @@
                 android:scaleType="fitXY" />
 
             <EditText
-                android:id="@+id/codEt"
+                android:id="@+id/gyyslEt"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="#00000000"
-                android:paddingLeft="5dp"
-                android:textColor="#715b4c"
-                android:textSize="18sp"
-              	android:inputType="numberDecimal"
-                 >
-            </EditText>
-        </LinearLayout>
-           <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/field_item_bg"
-            android:orientation="horizontal" >
-
-            <TextView
-                android:layout_width="100dp"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:padding="3dp"
-                android:text="氨氮"
-                android:textColor="#715b4c"
-                android:textSize="18sp" />
-
-            <ImageView
-                android:layout_width="2dp"
-                android:layout_height="fill_parent"
-                android:background="@drawable/field_item_fgx"
-                android:scaleType="fitXY" />
-
-            <EditText
-                android:id="@+id/adEt"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="#00000000"
-                android:paddingLeft="5dp"
-                android:textColor="#715b4c"
+                android:layout_weight="1"
                	android:inputType="numberDecimal"
+                android:background="#00000000"
+                android:paddingLeft="5dp"
+                android:paddingRight="0dp"
+                android:textColor="#715b4c"
+                android:textSize="18sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/field_item_bg"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:padding="3dp"
+                android:text="工业废水排放量(直排)"
+                android:textColor="#715b4c"
+                android:textSize="18sp" />
+
+            <ImageView
+                android:layout_width="2dp"
+                android:layout_height="fill_parent"
+                android:background="@drawable/field_item_fgx"
+                android:scaleType="fitXY" />
+
+            <EditText
+                android:id="@+id/gyfspflzpEt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="#00000000"
+                android:paddingLeft="5dp"
+                android:paddingRight="0dp"
+              	android:inputType="numberDecimal"
+                android:textColor="#715b4c"
                 android:textSize="18sp" >
             </EditText>
         </LinearLayout>
+		<LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/field_item_bg"
+            android:orientation="horizontal" >
 
-           <LinearLayout
-               android:layout_width="match_parent"
-               android:layout_height="wrap_content"
-               android:background="@drawable/field_item_bg"
-               android:orientation="horizontal" >
+            <TextView
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:padding="3dp"
+                android:text="工业废水排放量(处理)"
+                android:textColor="#715b4c"
+                android:textSize="18sp" />
 
+            <ImageView
+                android:layout_width="2dp"
+                android:layout_height="fill_parent"
+                android:background="@drawable/field_item_fgx"
+                android:scaleType="fitXY" />
+
+            <EditText
+                android:id="@+id/gyfspflclEt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="#00000000"
+                android:paddingLeft="5dp"
+                android:paddingRight="0dp"
+              	android:inputType="numberDecimal"
+                android:textColor="#715b4c"
+                android:textSize="18sp" >
+            </EditText>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/field_item_bg"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:padding="3dp"
+                android:text="COD排放量(直排)"
+                android:textColor="#715b4c"
+                android:textSize="18sp" />
+
+            <ImageView
+                android:layout_width="2dp"
+                android:layout_height="fill_parent"
+                android:background="@drawable/field_item_fgx"
+                android:scaleType="fitXY" />
+
+            <EditText
+                android:id="@+id/codpflzpEt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="#00000000"
+                android:paddingLeft="5dp"
+                android:paddingRight="0dp"
+              	android:inputType="numberDecimal"
+                android:textColor="#715b4c"
+                android:textSize="18sp" >
+            </EditText>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/field_item_bg"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:padding="3dp"
+                android:text="COD排放量(处理)"
+                android:textColor="#715b4c"
+                android:textSize="18sp" />
+
+            <ImageView
+                android:layout_width="2dp"
+                android:layout_height="fill_parent"
+                android:background="@drawable/field_item_fgx"
+                android:scaleType="fitXY" />
+
+            <EditText
+                android:id="@+id/codpflclEt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="#00000000"
+                android:paddingLeft="5dp"
+                android:paddingRight="0dp"
+              	android:inputType="numberDecimal"
+                android:textColor="#715b4c"
+                android:textSize="18sp" >
+            </EditText>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/field_item_bg"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:padding="3dp"
+                android:text="氨氮排放量(直排)"
+                android:textColor="#715b4c"
+                android:textSize="18sp" />
+
+            <ImageView
+                android:layout_width="2dp"
+                android:layout_height="fill_parent"
+                android:background="@drawable/field_item_fgx"
+                android:scaleType="fitXY" />
+
+            <EditText
+                android:id="@+id/adpflzpEt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="#00000000"
+                android:paddingLeft="5dp"
+                android:paddingRight="0dp"
+              	android:inputType="numberDecimal"
+                android:textColor="#715b4c"
+                android:textSize="18sp" >
+            </EditText>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/field_item_bg"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:padding="3dp"
+                android:text="氨氮排放量(处理)"
+                android:textColor="#715b4c"
+                android:textSize="18sp" />
+
+            <ImageView
+                android:layout_width="2dp"
+                android:layout_height="fill_parent"
+                android:background="@drawable/field_item_fgx"
+                android:scaleType="fitXY" />
+
+            <EditText
+                android:id="@+id/adpflclEt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="#00000000"
+                android:paddingLeft="5dp"
+                android:paddingRight="0dp"
+              	android:inputType="numberDecimal"
+                android:textColor="#715b4c"
+                android:textSize="18sp" >
+            </EditText>
+        </LinearLayout>
+            <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/field_item_bg"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:padding="3dp"
+                android:text="TP(直排)"
+                android:textColor="#715b4c"
+                android:textSize="18sp" />
+
+            <ImageView
+                android:layout_width="2dp"
+                android:layout_height="fill_parent"
+                android:background="@drawable/field_item_fgx"
+                android:scaleType="fitXY" />
+
+            <EditText
+                android:id="@+id/tpzpEt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="#00000000"
+                android:paddingLeft="5dp"
+                android:paddingRight="0dp"
+              	android:inputType="numberDecimal"
+                android:textColor="#715b4c"
+                android:textSize="18sp" >
+            </EditText>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/field_item_bg"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:padding="3dp"
+                android:text="TP(处理)"
+                android:textColor="#715b4c"
+                android:textSize="18sp" />
+
+            <ImageView
+                android:layout_width="2dp"
+                android:layout_height="fill_parent"
+                android:background="@drawable/field_item_fgx"
+                android:scaleType="fitXY" />
+
+            <EditText
+                android:id="@+id/tpclEt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="#00000000"
+                android:paddingLeft="5dp"
+                android:paddingRight="0dp"
+              	android:inputType="numberDecimal"
+                android:textColor="#715b4c"
+                android:textSize="18sp" >
+            </EditText>
+        </LinearLayout>
+            <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/field_item_bg"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:padding="3dp"
+                android:text="TN(直排)"
+                android:textColor="#715b4c"
+                android:textSize="18sp" />
+
+            <ImageView
+                android:layout_width="2dp"
+                android:layout_height="fill_parent"
+                android:background="@drawable/field_item_fgx"
+                android:scaleType="fitXY" />
+
+            <EditText
+                android:id="@+id/tnzpEt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="#00000000"
+                android:paddingLeft="5dp"
+                android:paddingRight="0dp"
+              	android:inputType="numberDecimal"
+                android:textColor="#715b4c"
+                android:textSize="18sp" >
+            </EditText>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/field_item_bg"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:padding="3dp"
+                android:text="TN(处理)"
+                android:textColor="#715b4c"
+                android:textSize="18sp" />
+
+            <ImageView
+                android:layout_width="2dp"
+                android:layout_height="fill_parent"
+                android:background="@drawable/field_item_fgx"
+                android:scaleType="fitXY" />
+
+            <EditText
+                android:id="@+id/tnclEt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="#00000000"
+                android:paddingLeft="5dp"
+                android:paddingRight="0dp"
+              	android:inputType="numberDecimal"
+                android:textColor="#715b4c"
+                android:textSize="18sp" >
+            </EditText>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/field_item_bg"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:padding="3dp"
+                android:text="是否有污水处理设施"
+                android:textColor="#715b4c"
+                android:textSize="18sp" />
+
+            <ImageView
+                android:layout_width="2dp"
+                android:layout_height="fill_parent"
+                android:background="@drawable/field_item_fgx"
+                android:scaleType="fitXY" />
+
+            <Spinner
+                android:id="@+id/sfywsclssSpin"
+                style="@style/myspinner_style"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:paddingLeft="5dp"
+                android:paddingRight="40dp"
+                android:textColor="#715b4c"
+                android:textSize="16sp" 
+                android:layout_gravity="center"/>
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/field_item_bg"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:padding="3dp"
+                android:text="是否达标排放"
+                android:textColor="#715b4c"
+                android:textSize="18sp" />
+
+            <ImageView
+                android:layout_width="2dp"
+                android:layout_height="fill_parent"
+                android:background="@drawable/field_item_fgx"
+                android:scaleType="fitXY" />
+
+            <Spinner
+                android:id="@+id/sfdbpfSpin"
+                style="@style/myspinner_style"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:paddingLeft="5dp"
+                android:paddingRight="40dp"
+                android:textColor="#715b4c"
+                android:textSize="16sp"
+                android:layout_gravity="center" />
+
+        </LinearLayout>
+       	<LinearLayout 
+             android:layout_width="match_parent"
+             android:layout_height="wrap_content"
+	   		 android:background="@drawable/field_item_bg"
+             android:orientation="horizontal" >
                <TextView
-                   android:layout_width="100dp"
-                   android:layout_height="wrap_content"
-                   android:gravity="center"
-                   android:padding="3dp"
-                   android:text="总磷"
-                   android:textColor="#715b4c"
-                   android:textSize="18sp" />
+                 android:layout_width="100dp"
+                 android:layout_height="match_parent"
+                 android:gravity="center"
+                 android:padding="3dp"
+                 android:text="地理位置"
+                 android:textColor="#715b4c"
+                 android:textSize="18sp" />
 
-               <ImageView
-                   android:layout_width="2dp"
-                   android:layout_height="fill_parent"
-                   android:background="@drawable/field_item_fgx"
-                   android:scaleType="fitXY" />
-
-               <EditText
-                   android:id="@+id/zlEt"
-                   android:layout_width="match_parent"
-                   android:layout_height="wrap_content"
-                   android:layout_weight="1"
-                   android:background="#00000000"
-                   android:paddingLeft="5dp"
-                   android:textColor="#715b4c"
-                   android:textSize="18sp" 
-                   android:inputType="numberDecimal"/>
-           </LinearLayout>
-
-           <LinearLayout
-               android:layout_width="match_parent"
-               android:layout_height="wrap_content"
-               android:background="@drawable/field_item_bg"
-               android:orientation="horizontal" >
-
-               <TextView
-                   android:layout_width="100dp"
-                   android:layout_height="wrap_content"
-                   android:gravity="center"
-                   android:padding="3dp"
-                   android:text="重金属"
-                   android:textColor="#715b4c"
-                   android:textSize="18sp" />
-
-               <ImageView
-                   android:layout_width="2dp"
-                   android:layout_height="fill_parent"
-                   android:background="@drawable/field_item_fgx"
-                   android:scaleType="fitXY" />
-
-               <EditText
-                   android:id="@+id/zjsEt"
-                   android:layout_width="match_parent"
-                   android:layout_height="wrap_content"
-                   android:layout_weight="1"
-                   android:background="#00000000"
-                   android:paddingLeft="5dp"
-                   android:textColor="#715b4c"
-                   android:textSize="18sp"
-                   android:inputType="numberDecimal" />
-           </LinearLayout>
-		    <LinearLayout
-               android:layout_width="match_parent"
-               android:layout_height="wrap_content"
-               android:background="@drawable/field_item_bg"
-               android:orientation="horizontal" >
-
-               <TextView
-                   android:layout_width="100dp"
-                   android:layout_height="match_parent"
-                   android:gravity="center"
-                   android:padding="3dp"
-                   android:text="一类污染物"
-                   android:textColor="#715b4c"
-                   android:textSize="18sp" />
-
-               <ImageView
-                   android:layout_width="2dp"
-                   android:layout_height="fill_parent"
-                   android:background="@drawable/field_item_fgx"
-                   android:scaleType="fitXY" />
-				<LinearLayout 
-				    android:id="@+id/layoutPc1"
-				    android:layout_width="0dp"
-				    android:layout_height="wrap_content"
-				    android:orientation="vertical"
-				    android:layout_weight="1">
-	               	<Button
-	                   android:id="@+id/btnAddPc1"
-	                   android:layout_width="match_parent"
-	                   android:layout_height="wrap_content"                   
-	                   android:background="#00000000"
-	                   android:paddingLeft="5dp"
-	                   android:textColor="#715b4c"
-	                   android:textSize="40sp" 
-	                   android:text="+"/>
-             </LinearLayout>
-           </LinearLayout>
-           		<LinearLayout
-               android:layout_width="match_parent"
-               android:layout_height="wrap_content"
-               android:background="@drawable/field_item_bg"
-               android:orientation="horizontal" >
-
-               <TextView
-                   android:layout_width="100dp"
-                   android:layout_height="match_parent"
-                   android:gravity="center"
-                   android:padding="3dp"
-                   android:text="二类污染物"
-                   android:textColor="#715b4c"
-                   android:textSize="18sp" />
-
-               <ImageView
-                   android:layout_width="2dp"
-                   android:layout_height="fill_parent"
-                   android:background="@drawable/field_item_fgx"
-                   android:scaleType="fitXY" />
-				<LinearLayout 
-				    android:id="@+id/layoutPc2"
-				    android:layout_width="0dp"
-				    android:layout_height="wrap_content"
-				    android:orientation="vertical"
-				    android:layout_weight="1">
-	               	<Button
-	                   android:id="@+id/btnAddPc2"
-	                   android:layout_width="match_parent"
-	                   android:layout_height="wrap_content"                   
-	                   android:background="#00000000"
-	                   android:paddingLeft="5dp"
-	                   android:textColor="#715b4c"
-	                   android:textSize="40sp" 
-	                   android:text="+"/>
-             </LinearLayout>
-           </LinearLayout>
-           <LinearLayout 
-               android:layout_width="match_parent"
-               android:layout_height="wrap_content"
-			   android:background="@drawable/field_item_bg"
-               android:orientation="horizontal" >
-                 <TextView
-                   android:layout_width="100dp"
-                   android:layout_height="match_parent"
-                   android:gravity="center"
-                   android:padding="3dp"
-                   android:text="地理位置"
-                   android:textColor="#715b4c"
-                   android:textSize="18sp" />
-
-               <ImageView
-                   android:layout_width="2dp"
-                   android:layout_height="fill_parent"
-                   android:background="@drawable/field_item_fgx"
-                   android:scaleType="fitXY" />
-               <LinearLayout 
-                   android:layout_width="match_parent"
-               	   android:layout_height="wrap_content"
-                   android:orientation="horizontal">
-              
-               <LinearLayout 
-				    android:layout_width="0dp"
-				    android:layout_height="wrap_content"
-				    android:orientation="vertical"
-				    android:layout_weight="1">
-	               	<TextView 
-	               	    android:id="@+id/xTv"
-	               	    android:layout_width="match_parent"
-	               	    android:layout_height="wrap_content"
-	               	    android:textColor="#715b4c"
-	               	    android:textSize="18sp"
-	               	    android:text="X:"/>
-	               	<TextView 
-	               	    android:id="@+id/yTv"
-	               	    android:layout_width="match_parent"
-	               	    android:layout_height="wrap_content"
-	               	    android:textColor="#715b4c"
-	               	    android:textSize="18sp"
-	               	    android:text="Y:"/>
-	           </LinearLayout>
-	           <Button
-                   android:id="@+id/btnAddLocation"
-                   android:layout_width="40dp"
-                   android:layout_height="40dp"                   
-                   android:background="@drawable/btn_location"
-                   android:paddingLeft="5dp"
-                   android:textColor="#715b4c"
-                   android:layout_marginTop="3dp"
-                   />
+             <ImageView
+                 android:layout_width="2dp"
+                 android:layout_height="fill_parent"
+                 android:background="@drawable/field_item_fgx"
+                 android:scaleType="fitXY" />
+             <LinearLayout 
+                 android:layout_width="match_parent"
+             	   android:layout_height="wrap_content"
+                 android:orientation="horizontal">
+            
+            <LinearLayout 
+		    android:layout_width="0dp"
+		    android:layout_height="wrap_content"
+		    android:orientation="vertical"
+		    android:layout_weight="1">
+              	<TextView 
+              	    android:id="@+id/xTv"
+              	    android:layout_width="match_parent"
+              	    android:layout_height="wrap_content"
+              	    android:textColor="#715b4c"
+              	    android:textSize="18sp"
+              	    android:text="X:"/>
+              	<TextView 
+              	    android:id="@+id/yTv"
+              	    android:layout_width="match_parent"
+              	    android:layout_height="wrap_content"
+              	    android:textColor="#715b4c"
+              	    android:textSize="18sp"
+              	    android:text="Y:"/>
+          </LinearLayout>
+          <Button
+                 android:id="@+id/btnAddLocation"
+                 android:layout_width="40dp"
+                 android:layout_height="40dp"                   
+                 android:background="@drawable/btn_location"
+                 android:paddingLeft="5dp"
+                 android:paddingRight="0dp"
+                 android:textColor="#715b4c"
+                 android:layout_marginTop="3dp"
+                 />
 	            </LinearLayout>
            </LinearLayout>
         <GridView

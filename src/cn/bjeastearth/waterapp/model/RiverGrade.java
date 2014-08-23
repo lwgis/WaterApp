@@ -1,6 +1,12 @@
 package cn.bjeastearth.waterapp.model;
 
-public class RiverGrade {
+import java.io.Serializable;
+
+public class RiverGrade implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -2296573887849199042L;
 	private int ID;
 	private String Name;
 	private int Status;

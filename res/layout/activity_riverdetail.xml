@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" 
+    android:background="#ffffff">
+    <RelativeLayout
+        android:id="@+id/titleLayout"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@drawable/title_bg" >
+
+        <Button
+            android:id="@+id/btnBack"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_alignParentLeft="true"
+            android:background="@drawable/newsbackbtn"
+            android:textSize="15sp" />
+
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:paddingTop="5dp"
+            android:shadowColor="#222222"
+            android:shadowDy="-2"
+            android:shadowRadius="2"
+            android:text="河道信息"
+            android:textColor="#FFFFFF"
+            android:textSize="25sp" />
+    </RelativeLayout>
+ <TabHost android:id="@+id/tabhost" android:layout_width="fill_parent" android:layout_height="0dp" android:layout_weight="1">  
+        <LinearLayout android:orientation="vertical" android:layout_width="fill_parent" android:layout_height="fill_parent">  
+            <!-- TabWidget的id属性必须为 @android:id/tabs-->              
+            <TabWidget android:id="@android:id/tabs" android:orientation="horizontal" android:layout_width="fill_parent"  
+              android:layout_height="35dp" android:background="#33b5e5" />  
+            <!-- FrameLayout的id属性必须为 @android:id/tabcontent-->  
+             <FrameLayout android:id="@android:id/tabcontent" android:layout_width="fill_parent" android:layout_height="fill_parent">  
+             	<cn.bjeastearth.waterapp.myview.WebListView 
+                 android:id="@+id/jbxxLv" 
+                 android:layout_width="fill_parent" 
+                 android:layout_height="fill_parent"
+                 android:divider="@null" />  
+                 <cn.bjeastearth.waterapp.myview.WebListView 
+                 android:id="@+id/wryLv" 
+                 android:layout_width="fill_parent" 
+                 android:layout_height="fill_parent"
+                 android:divider="@null" />
+                 <cn.bjeastearth.waterapp.myview.WebListView 
+                 android:id="@+id/szjlLv" 
+                 android:layout_width="fill_parent" 
+                 android:layout_height="fill_parent"
+                 android:divider="@null" />
+                 <cn.bjeastearth.waterapp.myview.WebListView 
+                 android:id="@+id/zljhLv" 
+                 android:layout_width="fill_parent" 
+                 android:layout_height="fill_parent"
+                 android:divider="@null" />
+             </FrameLayout>  
+         </LinearLayout>  
+    </TabHost> 
+   
+</LinearLayout>

@@ -45,7 +45,7 @@ public class LocationActivity extends Activity {
 				 LocationActivity.this.x=mapPoint.getX();
 				LocationActivity.this.y=mapPoint.getY();
 				Drawable image = LocationActivity.this.getBaseContext()
-						.getResources().getDrawable(R.drawable.map_item);
+						.getResources().getDrawable(R.drawable.map_item_loc);
 				PictureMarkerSymbol symbol = new PictureMarkerSymbol(image);
 				Graphic oneGraphic = new Graphic(mapPoint, symbol);
 				mGraphicsLayer.addGraphic(oneGraphic);
@@ -110,7 +110,7 @@ public class LocationActivity extends Activity {
 	}
 
 	private class LocationBroadcastReceiver extends BroadcastReceiver {
-
+ 
 		@Override
 		public void onReceive(Context context, Intent intent) {
 			if (!intent.getAction().equals(Common.LOCATION_ACTION)) return;
@@ -123,7 +123,7 @@ public class LocationActivity extends Activity {
 					sr4326, mapView.getSpatialReference());
 			mapView.centerAt(ptMap, true);
 			Drawable image = LocationActivity.this.getBaseContext()
-					.getResources().getDrawable(R.drawable.map_item);
+					.getResources().getDrawable(R.drawable.map_item_loc);
 			PictureMarkerSymbol symbol = new PictureMarkerSymbol(image);
 			Graphic oneGraphic = new Graphic(ptMap, symbol);
 			 LocationActivity.this.x=ptMap.getX();

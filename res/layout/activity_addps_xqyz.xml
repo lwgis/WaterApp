@@ -18,14 +18,14 @@
 
    <cn.bjeastearth.waterapp.myview.MyTextButton
         android:id="@+id/btnSendPs"
-        android:paddingTop="8dp"
-        android:layout_width="60dp"
-        android:layout_height="40dp"
-        android:layout_alignParentRight="true"
-        android:background="@null"
-        android:textSize="20sp"
-        android:textColor="#eeeeee"
-        android:text="上传" />
+          android:layout_width="60dp"
+            android:layout_height="40dp"
+            android:layout_alignParentRight="true"
+            android:background="@null"
+            android:paddingTop="8dp"
+            android:text="上传"
+            android:textColor="#eeeeee"
+            android:textSize="20sp"/>
 
    <TextView
        android:layout_width="wrap_content"
@@ -33,6 +33,7 @@
        android:layout_alignBaseline="@+id/btnBack"
        android:layout_alignBottom="@+id/btnBack"
        android:layout_centerHorizontal="true"
+	   android:layout_centerVertical="true"
        android:gravity="center"
        android:paddingTop="3dp"
        android:shadowColor="#222222"
@@ -66,7 +67,7 @@
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:padding="3dp"
-                android:text="单位名称"
+                android:text="企业名称"
                 android:textColor="#715b4c"
                 android:textSize="18sp" />
 
@@ -77,17 +78,19 @@
                 android:scaleType="fitXY" />
 
             <EditText
-                android:id="@+id/dwmcEt"
-                android:layout_width="match_parent"
+                android:id="@+id/qymcEt"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:background="#00000000"
                 android:paddingLeft="5dp"
+                android:paddingRight="0dp"
                 android:textColor="#715b4c"
-                android:textSize="18sp" />
+                android:textSize="18sp" >
+            </EditText>
+            
         </LinearLayout>
-
-        <LinearLayout
+ 		<LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/field_item_bg"
@@ -98,7 +101,7 @@
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:padding="3dp"
-                android:text="畜禽数量"
+                android:text="负责人"
                 android:textColor="#715b4c"
                 android:textSize="18sp" />
 
@@ -109,16 +112,83 @@
                 android:scaleType="fitXY" />
 
             <EditText
-                android:id="@+id/xqslEt"
+                android:id="@+id/fzrEt"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:background="#00000000"
                 android:paddingLeft="5dp"
+                android:paddingRight="0dp"
                 android:textColor="#715b4c"
-				android:inputType="numberDecimal"
                 android:textSize="18sp" />
         </LinearLayout>
+        	<LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/field_item_bg"
+            android:orientation="horizontal" >
 
+            <TextView
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:padding="3dp"
+                android:text="联系方式"
+                android:textColor="#715b4c"
+                android:textSize="18sp" />
+
+            <ImageView
+                android:layout_width="2dp"
+                android:layout_height="fill_parent"
+                android:background="@drawable/field_item_fgx"
+                android:scaleType="fitXY" />
+
+            <EditText
+                android:id="@+id/lxfsEt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="#00000000"
+                android:paddingLeft="5dp"
+                android:paddingRight="0dp"
+                android:textColor="#715b4c"
+                android:textSize="18sp" />
+        </LinearLayout>
+          <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/field_item_bg"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:padding="3dp"
+                android:text="行政区域"
+                android:textColor="#715b4c"
+                android:textSize="18sp" />
+
+            <ImageView
+                android:layout_width="2dp"
+                android:layout_height="fill_parent"
+                android:background="@drawable/field_item_fgx"
+                android:scaleType="fitXY" />
+
+            <Spinner
+                android:id="@+id/regionSpin"
+                style="@style/myspinner_style"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:paddingLeft="5dp"
+                android:paddingRight="50dp"
+                android:textColor="#715b4c"
+                android:textSize="16sp" 
+                android:dropDownSelector="#ff0000"
+                android:layout_gravity="center"
+                />
+        </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -147,11 +217,11 @@
                 android:layout_weight="1"
                 android:background="#00000000"
                 android:paddingLeft="5dp"
+                android:paddingRight="0dp"
 	      		android:inputType="numberDecimal"
                 android:textColor="#715b4c"
                 android:textSize="18sp" />
         </LinearLayout>
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -163,7 +233,7 @@
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:padding="3dp"
-                android:text="负责人"
+                android:text="猪数量"
                 android:textColor="#715b4c"
                 android:textSize="18sp" />
 
@@ -174,16 +244,113 @@
                 android:scaleType="fitXY" />
 
             <EditText
-                android:id="@+id/fzrEt"
+                android:id="@+id/zhuEt"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
                 android:background="#00000000"
                 android:paddingLeft="5dp"
+                android:paddingRight="0dp"
                 android:textColor="#715b4c"
+				android:inputType="numberSigned"
                 android:textSize="18sp" />
         </LinearLayout>
 
+   <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/field_item_bg"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:padding="3dp"
+                android:text="牛数量"
+                android:textColor="#715b4c"
+                android:textSize="18sp" />
+
+            <ImageView
+                android:layout_width="2dp"
+                android:layout_height="fill_parent"
+                android:background="@drawable/field_item_fgx"
+                android:scaleType="fitXY" />
+
+            <EditText
+                android:id="@+id/niuEt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#00000000"
+                android:paddingLeft="5dp"
+                android:paddingRight="0dp"
+                android:textColor="#715b4c"
+				android:inputType="numberSigned"
+                android:textSize="18sp" />
+        </LinearLayout>
+   		<LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/field_item_bg"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:padding="3dp"
+                android:text="羊数量"
+                android:textColor="#715b4c"
+                android:textSize="18sp" />
+
+            <ImageView
+                android:layout_width="2dp"
+                android:layout_height="fill_parent"
+                android:background="@drawable/field_item_fgx"
+                android:scaleType="fitXY" />
+
+            <EditText
+                android:id="@+id/yangEt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#00000000"
+                android:paddingLeft="5dp"
+                android:paddingRight="0dp"
+                android:textColor="#715b4c"
+				android:inputType="numberSigned"
+                android:textSize="18sp" />
+        </LinearLayout>
+   		<LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/field_item_bg"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:padding="3dp"
+                android:text="兔数量"
+                android:textColor="#715b4c"
+                android:textSize="18sp" />
+
+            <ImageView
+                android:layout_width="2dp"
+                android:layout_height="fill_parent"
+                android:background="@drawable/field_item_fgx"
+                android:scaleType="fitXY" />
+
+            <EditText
+                android:id="@+id/tuEt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#00000000"
+                android:paddingLeft="5dp"
+                android:paddingRight="0dp"
+                android:textColor="#715b4c"
+				android:inputType="numberSigned"
+                android:textSize="18sp" />
+        </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -195,7 +362,7 @@
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:padding="3dp"
-                android:text="注册资金"
+                android:text="用水量"
                 android:textColor="#715b4c"
                 android:textSize="18sp" />
 
@@ -206,18 +373,18 @@
                 android:scaleType="fitXY" />
 
             <EditText
-                android:id="@+id/zczjEt"
+                android:id="@+id/yslEt"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                	android:inputType="numberDecimal"
                 android:background="#00000000"
                 android:paddingLeft="5dp"
+                android:paddingRight="0dp"
                 android:textColor="#715b4c"
                 android:textSize="18sp" />
         </LinearLayout>
-
-        <LinearLayout
+		<LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/field_item_bg"
@@ -228,106 +395,7 @@
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:padding="3dp"
-                android:text="行政区域"
-                android:textColor="#715b4c"
-                android:textSize="18sp" />
-
-            <ImageView
-                android:layout_width="2dp"
-                android:layout_height="fill_parent"
-                android:background="@drawable/field_item_fgx"
-                android:scaleType="fitXY" />
-
-            <Spinner
-                android:id="@+id/regionSpin"
-                style="@style/spinner_style"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:paddingLeft="5dp"
-                android:textColor="#715b4c"
-                android:textSize="16sp" 
-                android:dropDownSelector="#ff0000"
-                />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/field_item_bg"
-            android:orientation="horizontal" >
-
-            <TextView
-                android:layout_width="100dp"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:padding="3dp"
-                android:text="环保部门"
-                android:textColor="#715b4c"
-                android:textSize="18sp" />
-
-            <ImageView
-                android:layout_width="2dp"
-                android:layout_height="fill_parent"
-                android:background="@drawable/field_item_fgx"
-                android:scaleType="fitXY" />
-
-          <Spinner
-                android:id="@+id/deptHbSpin"
-                style="@style/spinner_style"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:paddingLeft="5dp"
-                android:textColor="#715b4c"
-                android:textSize="16sp" 
-                android:dropDownSelector="#ff0000"/>
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/field_item_bg"
-            android:orientation="horizontal" >
-
-            <TextView
-                android:layout_width="100dp"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:padding="3dp"
-                android:text="工商部门"
-                android:textColor="#715b4c"
-                android:textSize="18sp" />
-
-            <ImageView
-                android:layout_width="2dp"
-                android:layout_height="fill_parent"
-                android:background="@drawable/field_item_fgx"
-                android:scaleType="fitXY" />
-
-          <Spinner
-                android:id="@+id/deptGsSpin"
-                style="@style/spinner_style"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:paddingLeft="5dp"
-                android:textColor="#715b4c"
-                android:textSize="16sp" 
-                android:dropDownSelector="#ff0000"/>
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/field_item_bg"
-            android:orientation="horizontal" >
-
-            <TextView
-                android:layout_width="100dp"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:padding="3dp"
-                android:text="BOD"
+                android:text="污水排放量"
                 android:textColor="#715b4c"
                 android:textSize="18sp" />
 
@@ -338,20 +406,17 @@
                 android:scaleType="fitXY" />
 
             <EditText
-                android:id="@+id/bodEt"
+                android:id="@+id/fspflEt"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+               	android:inputType="numberDecimal"
                 android:background="#00000000"
                 android:paddingLeft="5dp"
-              	android:inputType="numberDecimal"
+                android:paddingRight="0dp"
                 android:textColor="#715b4c"
-                android:textSize="18sp" >
-
-                <requestFocus />
-            </EditText>
+                android:textSize="18sp" />
         </LinearLayout>
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -379,6 +444,7 @@
                 android:layout_height="wrap_content"
                 android:background="#00000000"
                 android:paddingLeft="5dp"
+                android:paddingRight="0dp"
                 android:textColor="#715b4c"
                 android:textSize="18sp"
               	android:inputType="numberDecimal"
@@ -412,6 +478,7 @@
                 android:layout_height="wrap_content"
                 android:background="#00000000"
                 android:paddingLeft="5dp"
+                android:paddingRight="0dp"
                 android:textColor="#715b4c"
                	android:inputType="numberDecimal"
                 android:textSize="18sp" >
@@ -429,7 +496,7 @@
                    android:layout_height="wrap_content"
                    android:gravity="center"
                    android:padding="3dp"
-                   android:text="总磷"
+                   android:text="TP"
                    android:textColor="#715b4c"
                    android:textSize="18sp" />
 
@@ -440,53 +507,52 @@
                    android:scaleType="fitXY" />
 
                <EditText
-                   android:id="@+id/zlEt"
+                   android:id="@+id/tpEt"
                    android:layout_width="match_parent"
                    android:layout_height="wrap_content"
                    android:layout_weight="1"
                    android:background="#00000000"
                    android:paddingLeft="5dp"
+                   android:paddingRight="0dp"
                    android:textColor="#715b4c"
                    android:textSize="18sp" 
                    android:inputType="numberDecimal"/>
            </LinearLayout>
-           	<LinearLayout
-               android:layout_width="match_parent"
-               android:layout_height="wrap_content"
-               android:background="@drawable/field_item_bg"
-               android:orientation="horizontal" >
+           <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/field_item_bg"
+            android:orientation="horizontal" >
 
-               <TextView
-                   android:layout_width="100dp"
-                   android:layout_height="match_parent"
-                   android:gravity="center"
-                   android:padding="3dp"
-                   android:text="二类污染物"
-                   android:textColor="#715b4c"
-                   android:textSize="18sp" />
+            <TextView
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:padding="3dp"
+                android:text="TN"
+                android:textColor="#715b4c"
+                android:textSize="18sp" />
 
-               <ImageView
-                   android:layout_width="2dp"
-                   android:layout_height="fill_parent"
-                   android:background="@drawable/field_item_fgx"
-                   android:scaleType="fitXY" />
-				<LinearLayout 
-				    android:id="@+id/layoutPc2"
-				    android:layout_width="0dp"
-				    android:layout_height="wrap_content"
-				    android:orientation="vertical"
-				    android:layout_weight="1">
-	               	<Button
-	                   android:id="@+id/btnAddPc2"
-	                   android:layout_width="match_parent"
-	                   android:layout_height="wrap_content"                   
-	                   android:background="#00000000"
-	                   android:paddingLeft="5dp"
-	                   android:textColor="#715b4c"
-	                   android:textSize="40sp" 
-	                   android:text="+"/>
-             </LinearLayout>
-           </LinearLayout>
+            <ImageView
+                android:layout_width="2dp"
+                android:layout_height="fill_parent"
+                android:background="@drawable/field_item_fgx"
+                android:scaleType="fitXY" />
+
+            <EditText
+                android:id="@+id/tnEt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="#00000000"
+                android:paddingLeft="5dp"
+                android:paddingRight="0dp"
+              	android:inputType="numberDecimal"
+                android:textColor="#715b4c"
+                android:textSize="18sp" >
+            </EditText>
+        </LinearLayout>
+           
            <LinearLayout 
                android:layout_width="match_parent"
                android:layout_height="wrap_content"
@@ -537,6 +603,7 @@
                    android:layout_height="40dp"                   
                    android:background="@drawable/btn_location"
                    android:paddingLeft="5dp"
+                   android:paddingRight="0dp"
                    android:textColor="#715b4c"
                    android:layout_marginTop="3dp"
                    />
