@@ -1,6 +1,12 @@
 package cn.bjeastearth.waterapp.model;
 
-public class Department {
+import java.io.Serializable;
+
+public class Department implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -4733309836867019469L;
 	private String Address;
 	private int ID;
 	private String Name;

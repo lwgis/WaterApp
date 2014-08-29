@@ -12,8 +12,7 @@ import org.apache.http.client.params.HttpClientParams;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
 
-import cn.bjeastearth.waterapp.model.PsIndustry;
-
+import cn.bjeastearth.waterapp.model.River;
 
 public class HttpUtil {
 	public static String executeHttpGet(String urlStirng) {
@@ -34,7 +33,7 @@ public class HttpUtil {
 			result = strBuffer.toString();
 		} catch (Exception e) {
 			e.printStackTrace();
-			result="";
+			result = "";
 		} finally {
 			if (connection != null) {
 				connection.disconnect();
@@ -50,64 +49,98 @@ public class HttpUtil {
 		}
 		return result;
 	}
-public static void postRequest(String serviceUrl,String informjson) throws Throwable {
-		
+
+	public static void postRequest(String serviceUrl, String informjson)
+			throws Throwable {
+
 		StringEntity entity = new StringEntity(informjson, "UTF-8");
 		entity.setContentType("application/json;charset=UTF-8");
 		entity.setContentEncoding("UTF-8");
-		
+
 		HttpPost post = new HttpPost(serviceUrl);
 		post.setEntity(entity);
 		post.setHeader("Content-Type", "application/json;charset=UTF-8");
-		
+
 		HttpClientParams.setRedirecting(post.getParams(), false);
-		DefaultHttpClient client=new DefaultHttpClient();
-		HttpResponse response = client.execute(post);		
+		DefaultHttpClient client = new DefaultHttpClient();
+		HttpResponse response = client.execute(post);
 		System.out.println(response.getStatusLine().getStatusCode());
 		if (response.getStatusLine().getStatusCode() == 201) {
-			
+
 			return;
-		}
-		else {
+		} else {
 			throw new Exception("错误");
 		}
 	}
-public static String getAllNewsString() {
-	String jsonString=HttpUtil.executeHttpGet("http://159.226.110.64:8001/WaterService/News.svc/All");
-	return jsonString;
-}
-	
-public static String getHotProjectString() {
-	String jsonString=HttpUtil.executeHttpGet("http://159.226.110.64:8001/WaterService/GProject.svc/All");
-	return jsonString;
-}
-public static void uploadReport(Inform inform) throws Throwable {
-	String jsonString = JsonUtil.convertObjectToJson(inform);
-	HttpUtil.postRequest("http://159.226.110.64:8001/WaterService/Inform.svc/IInform/Add",jsonString);
 
-}
-public static void uploadPollutionSource(Object object,String typeString) throws Throwable{
-	String jsonString = JsonUtil.convertObjectToJson(object);
-	HttpUtil.postRequest("http://159.226.110.64:8001/WaterService/WrSource.svc/"+typeString+"/Add", jsonString);
-}
-public static String getAllRootProjectString() {
-	String jsonString=HttpUtil.executeHttpGet("http://159.226.110.64:8001/WaterService/OverAll.svc/All");
-	return jsonString;
-}
-public static String getAllSewageFactoryString() {
-	String jsonString=HttpUtil.executeHttpGet("http://159.226.110.64:8001/WaterService/WsWorks.svc/All");
-	return jsonString;
-}
-public static String getAllPollutionString(String typeString) {
-	String jsonString=HttpUtil.executeHttpGet("http://159.226.110.64:8001/WaterService/WrSource.svc/"+typeString);
-	return jsonString;
-}
-public static String getDectionaryString(String typeString) {
-	String jsonString=HttpUtil.executeHttpGet("http://159.226.110.64:8001/WaterService/Dictionary.svc/"+typeString);
-	return jsonString;
-}
-public static String getAllRiverString() {
-	String jsonString=HttpUtil.executeHttpGet("http://159.226.110.64:8001/WaterService/HdqlService.svc/All");
-	return jsonString;
-}
+	public static String getAllNewsString() {
+		String jsonString = HttpUtil
+				.executeHttpGet("http://159.226.110.64:8001/WaterService/News.svc/All");
+		return jsonString;
+	}
+
+	public static String getHotProjectString() {
+		String jsonString = HttpUtil
+				.executeHttpGet("http://159.226.110.64:8001/WaterService/GProject.svc/All");
+		return jsonString;
+	}
+
+	public static void uploadReport(Inform inform) throws Throwable {
+		String jsonString = JsonUtil.convertObjectToJson(inform);
+		HttpUtil.postRequest(
+				"http://159.226.110.64:8001/WaterService/Inform.svc/IInform/Add",
+				jsonString);
+
+	}
+
+	public static void uploadPollutionSource(Object object, String typeString)
+			throws Throwable {
+		String jsonString = JsonUtil.convertObjectToJson(object);
+		HttpUtil.postRequest(
+				"http://159.226.110.64:8001/WaterService/WrSource.svc/"
+						+ typeString + "/Add", jsonString);
+	}
+
+	public static void uploadRiver(River river) throws Throwable {
+		String jsonString=JsonUtil.convertObjectToJson(river,"yyyy-MM-dd");
+		HttpUtil.postRequest("http://159.226.110.64:8001/WaterService/HdqlService.svc/hdql/edit", jsonString);
+	}
+
+	public static String getAllRootProjectString() {
+		String jsonString = HttpUtil
+				.executeHttpGet("http://159.226.110.64:8001/WaterService/OverAll.svc/All");
+		return jsonString;
+	}
+
+	public static String getAllSewageFactoryString() {
+		String jsonString = HttpUtil
+				.executeHttpGet("http://159.226.110.64:8001/WaterService/WsWorks.svc/All");
+		return jsonString;
+	}
+
+	public static String getAllPollutionString(String typeString) {
+		String jsonString = HttpUtil
+				.executeHttpGet("http://159.226.110.64:8001/WaterService/WrSource.svc/"
+						+ typeString);
+		return jsonString;
+	}
+
+	public static String getDectionaryString(String typeString) {
+		String jsonString = HttpUtil
+				.executeHttpGet("http://159.226.110.64:8001/WaterService/Dictionary.svc/"
+						+ typeString);
+		return jsonString;
+	}
+
+	public static String getAllRiverString() {
+		String jsonString = HttpUtil
+				.executeHttpGet("http://159.226.110.64:8001/WaterService/HdqlService.svc/All");
+		return jsonString;
+	}
+
+	public static String getAllRiverProjectTypeString() {
+		String jsonString = HttpUtil
+				.executeHttpGet("http://159.226.110.64:8001/WaterService/Dictionary.svc/Hdzlxm");
+		return jsonString;
+	}
 }

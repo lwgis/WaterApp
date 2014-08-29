@@ -1,6 +1,12 @@
 package cn.bjeastearth.waterapp.model;
 
-public class RiverCategory {
+import java.io.Serializable;
+
+public class RiverCategory implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 6135531694164831241L;
 	private int ID;
 	private String Name;
 	private int Status;

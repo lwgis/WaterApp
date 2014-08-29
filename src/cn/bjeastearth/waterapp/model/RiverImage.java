@@ -1,8 +1,13 @@
 package cn.bjeastearth.waterapp.model;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class RiverImage {
+public class RiverImage implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -5144575699641642478L;
 	private int ID;
 	private String Name;
 	private Date StartTime;

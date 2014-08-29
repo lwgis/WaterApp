@@ -1,12 +1,17 @@
 package cn.bjeastearth.waterapp.model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 import cn.bjeastearth.waterapp.R;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 
-public class PsZz  implements PollutionSource {
+public class PsZz  implements PollutionSource,Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 6000031680546659990L;
 	private PsZzLevel Cd;
 	private double Cod;
 	private String CTime;

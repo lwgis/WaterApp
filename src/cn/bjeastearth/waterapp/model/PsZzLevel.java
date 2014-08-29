@@ -1,6 +1,12 @@
 package cn.bjeastearth.waterapp.model;
 
-public class PsZzLevel {
+import java.io.Serializable;
+
+public class PsZzLevel implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -2277140005095580024L;
 	private int ID;
 	private int Status;
 	private String Name;

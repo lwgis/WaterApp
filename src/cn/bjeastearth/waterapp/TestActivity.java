@@ -16,7 +16,7 @@ public class TestActivity extends  Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
-		super.setContentView(R.layout.activity_addps_xqyz);
+		super.setContentView(R.layout.test);
 	}
 	
 

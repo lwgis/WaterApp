@@ -29,6 +29,16 @@
             android:text="河道信息"
             android:textColor="#FFFFFF"
             android:textSize="25sp" />
+        <cn.bjeastearth.waterapp.myview.MyTextButton
+            android:id="@+id/btnEdit"
+            android:layout_width="60dp"
+            android:layout_height="40dp"
+            android:layout_alignParentRight="true"
+            android:background="@null"
+            android:paddingTop="8dp"
+            android:text="编辑"
+            android:textColor="#eeeeee"
+            android:textSize="20sp" />
     </RelativeLayout>
  <TabHost android:id="@+id/tabhost" android:layout_width="fill_parent" android:layout_height="0dp" android:layout_weight="1">  
         <LinearLayout android:orientation="vertical" android:layout_width="fill_parent" android:layout_height="fill_parent">  

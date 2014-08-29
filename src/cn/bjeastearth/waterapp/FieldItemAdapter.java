@@ -3,27 +3,18 @@ package cn.bjeastearth.waterapp;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.esri.core.internal.tasks.ags.r;
 import com.nostra13.universalimageloader.core.ImageLoader;
-import com.nostra13.universalimageloader.core.assist.FailReason;
-import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
 
 import cn.bjeastearth.http.ImageOptions;
 import cn.bjeastearth.waterapp.model.FieldItem;
 import cn.bjeastearth.waterapp.model.FieldItemType;
-import cn.bjeastearth.waterapp.myview.GalleryImageView;
-import cn.bjeastearth.waterapp.myview.LvHeightUtil;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
-import android.view.ViewGroup.LayoutParams;
 import android.view.animation.AnimationUtils;
-import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.BaseAdapter;
@@ -32,8 +23,6 @@ import android.widget.Gallery;
 import android.widget.ImageSwitcher;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ListView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.ViewSwitcher;
 

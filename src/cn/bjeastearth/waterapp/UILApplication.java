@@ -19,6 +19,8 @@ import android.annotation.TargetApi;
 import android.app.Application;
 import android.content.Context;
 import android.os.Build;
+
+import com.esri.android.runtime.ArcGISRuntime;
 import com.nostra13.universalimageloader.cache.disc.naming.Md5FileNameGenerator;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
@@ -40,6 +42,7 @@ public class UILApplication extends Application {
 		super.onCreate();
 
 		initImageLoader(getApplicationContext());
+		ArcGISRuntime.setClientId("SZCLVTfF6WhMaS4f");
 	}
 
 	public static void initImageLoader(Context context) {
@@ -51,7 +54,7 @@ public class UILApplication extends Application {
 				.threadPriority(Thread.NORM_PRIORITY - 2)
 				.denyCacheImageMultipleSizesInMemory()
 				.diskCacheFileNameGenerator(new Md5FileNameGenerator())
-				.diskCacheSize(50 * 1024 * 1024) // 50 Mb
+				.diskCacheSize(200 * 1024 * 1024) // 200 Mb
 				.tasksProcessingOrder(QueueProcessingType.LIFO)
 				.writeDebugLogs() // Remove for release app
 				.build();

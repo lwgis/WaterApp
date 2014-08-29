@@ -1,10 +1,14 @@
 package cn.bjeastearth.waterapp.model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-import com.esri.core.internal.tasks.ags.s;
 
-public class RiverWaterQuality implements FieldItemable {
+public class RiverWaterQuality implements FieldItemable,Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -9153649822128758131L;
 	private int ID;
 	private int Status;
 	private double Bod;

@@ -473,10 +473,11 @@ public class RiverActivity extends Activity implements OnClickListener {
 	private void showRiverDetail(River onerRiver) {
 		Intent intent = new Intent(RiverActivity.this,
 				RiverDetailActivity.class);
-		intent.putExtra("jbxx", onerRiver.getJbxxFieldItems());
-		intent.putExtra("wry", onerRiver.getWryFieldItems());
-		intent.putExtra("szjl", onerRiver.getSzjlFieldItems());
-		intent.putExtra("zljh", onerRiver.getZljhFieldItems());
+//		intent.putExtra("jbxx", onerRiver.getJbxxFieldItems());
+//		intent.putExtra("wry", onerRiver.getWryFieldItems());
+//		intent.putExtra("szjl", onerRiver.getSzjlFieldItems());
+//		intent.putExtra("zljh", onerRiver.getZljhFieldItems());
+		intent.putExtra("river", onerRiver);
 		startActivity(intent);
 	}
 

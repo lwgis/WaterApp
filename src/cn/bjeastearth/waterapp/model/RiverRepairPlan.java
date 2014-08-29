@@ -1,12 +1,17 @@
 package cn.bjeastearth.waterapp.model;
 
+import java.io.Serializable;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Locale;
 
-public class RiverRepairPlan implements FieldItemable{
+public class RiverRepairPlan implements FieldItemable,Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 2422417521411554155L;
 	private Date ETime;
 	private int ID;
 	private String Fzr;
@@ -69,16 +74,16 @@ public class RiverRepairPlan implements FieldItemable{
 	public ArrayList<FieldItem> getFieldItems() {
 		if (mFieldItems==null) {
 			mFieldItems=new ArrayList<FieldItem>();
-			mFieldItems.add(new FieldItem("", getXm().getName()));
-			mFieldItems.add(new FieldItem("计划任务", getContent()));
-			mFieldItems.add(new FieldItem("单位", getXm().getUnit()));
-			DateFormat df = new SimpleDateFormat("yyyy-MM-dd",Locale.CHINA);
-			mFieldItems.add(new FieldItem("完成时间", df.format(getETime())));
-			mFieldItems.add(new FieldItem("完成进度", String.valueOf(getWcjd())));
-			mFieldItems.add(new FieldItem("责任单位", getZrdept().getName()));
-			mFieldItems.add(new FieldItem("责任人", getFzr()));
-
 		}
+		mFieldItems.clear();
+		mFieldItems.add(new FieldItem("", getXm().getName()));
+		mFieldItems.add(new FieldItem("计划任务", getContent()));
+		mFieldItems.add(new FieldItem("单位", getXm().getUnit()));
+		DateFormat df = new SimpleDateFormat("yyyy-MM-dd",Locale.CHINA);
+		mFieldItems.add(new FieldItem("完成时间", df.format(getETime())));
+		mFieldItems.add(new FieldItem("完成进度", String.valueOf(getWcjd())));
+		mFieldItems.add(new FieldItem("责任单位", getZrdept().getName()));
+		mFieldItems.add(new FieldItem("责任人", getFzr()));
 		return mFieldItems;
 	}
 	public void fillFieldItem(ArrayList<FieldItem> fieldItems) {

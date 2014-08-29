@@ -47,5 +47,14 @@ public class JsonUtil {
 		return jsString;
 		
 	}
-
+	public static String convertObjectToJson(Object object,String formart){
+		
+		Gson gson = new GsonBuilder().setDateFormat(formart)
+				.create();
+		
+		String jsString = gson.toJson(object);
+		
+		return jsString;
+		
+	}
 }

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <Button
+        android:id="@+id/btnSzjl"
+        android:layout_width="130dp"
+        android:layout_height="50dp"
+        android:background="@drawable/menu_item_bg"
+        android:shadowColor="#222222"
+        android:shadowDy="-2"
+        android:shadowRadius="2"
+        android:text="添加水质记录"
+        android:textColor="#ffffff"
+        android:textSize="20sp" />
+
+    <Button
+        android:id="@+id/btnZljh"
+        android:layout_width="130dp"
+        android:layout_height="50dp"
+        android:background="@drawable/menu_item_bg"
+        android:shadowColor="#222222"
+        android:shadowDy="-2"
+        android:shadowRadius="2"
+        android:text="添加整治计划"
+        android:textColor="#ffffff"
+        android:textSize="20sp" />
+
+    <Button
+        android:id="@+id/btnEditZljh"
+        android:layout_width="130dp"
+        android:layout_height="50dp"
+        android:background="@drawable/menu_item_bg"
+        android:shadowColor="#222222"
+        android:shadowDy="-2"
+        android:shadowRadius="2"
+        android:text="修改整治计划"
+        android:textColor="#ffffff"
+        android:textSize="20sp" />
+
+</LinearLayout>
