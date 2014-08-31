@@ -2,6 +2,10 @@ package cn.bjeastearth.waterapp;
 
 import java.util.ArrayList;
 
+import com.nostra13.universalimageloader.core.ImageLoader;
+
+import cn.bjeastearth.http.ImageOptions;
+import cn.bjeastearth.waterapp.model.ProjectImage;
 import cn.bjeastearth.waterapp.myview.GridImageView;
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -11,30 +15,30 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 
 public class AddImageAdapter extends BaseAdapter {
-	private ArrayList<String> images;
-	public ArrayList<String> getImages() {
-		return images;
+	private ArrayList<ProjectImage> projectImages;
+	public ArrayList<ProjectImage> getImages() {
+		return projectImages;
 	}
-	public void setImages(ArrayList<String> images) {
-		this.images = images;
+	public void setImages(ArrayList<ProjectImage> projectImages) {
+		this.projectImages = projectImages;
 	}
 
 	private Context mContext;
-	public  AddImageAdapter(Context context,ArrayList<String> list) {
+	public  AddImageAdapter(Context context,ArrayList<ProjectImage> list) {
 		this.mContext=context;
-		images=list;
+		projectImages=list;
 	}
 	@Override
 	public int getCount() {
 		// TODO Auto-generated method stub
-		return images.size()+1;
+		return projectImages.size()+1;
 	}
 
 	@Override
 	public Object getItem(int position) {
 		// TODO Auto-generated method stub
-		if (position<images.size()) {
-			return images.get(position);
+		if (position<projectImages.size()) {
+			return projectImages.get(position);
 		}
 		return null;
 	}
@@ -52,10 +56,16 @@ public class AddImageAdapter extends BaseAdapter {
 					R.layout.gridview_item, null);
 //		}
 		GridImageView img =(GridImageView)convertView.findViewById(R.id.gridViewItem);
-		if (position<images.size()) {
+		if (position<projectImages.size()) {
 				// 定义图片视图
-			img.setImageFilePath(images.get(position)); 	// 给ImageView设置资源
-			img.setScaleType(ImageView.ScaleType.CENTER_CROP);
+			if (projectImages.get(position).getType()==ProjectImage.LOCAL) {
+				img.setImageFilePath(projectImages.get(position).getName()); 	
+				img.setScaleType(ImageView.ScaleType.CENTER_CROP);
+			}
+			else {
+				ImageLoader.getInstance().displayImage(mContext.getString(R.string.NewTileImgAddr)+projectImages.get(position).getName(), img, ImageOptions.options);
+			}
+
 		}
 		else {
 //			LayoutParams lParams=new LayoutParams(DpTransform.px2dip(mContext, 80), DpTransform.px2dip(mContext, 80));

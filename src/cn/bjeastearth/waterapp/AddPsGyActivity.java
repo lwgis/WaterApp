@@ -5,21 +5,10 @@ import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
-
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
-
 import cn.bjeastearth.http.HttpUtil;
 import cn.bjeastearth.http.ImageOptions;
 import cn.bjeastearth.http.UploadImageUtil;
-import cn.bjeastearth.waterapp.AllNewsActivity.httpThread;
-import cn.bjeastearth.waterapp.R.id;
-import cn.bjeastearth.waterapp.model.Department;
-import cn.bjeastearth.waterapp.model.Pollution1;
-import cn.bjeastearth.waterapp.model.Pollution2;
-import cn.bjeastearth.waterapp.model.PollutionClass1;
-import cn.bjeastearth.waterapp.model.PollutionClass2;
-import cn.bjeastearth.waterapp.model.PollutionType;
+import cn.bjeastearth.http.WaterDectionary;
 import cn.bjeastearth.waterapp.model.ProjectImage;
 import cn.bjeastearth.waterapp.model.PsIndustry;
 import cn.bjeastearth.waterapp.model.Region;
@@ -45,7 +34,6 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.GridView;
-import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -78,7 +66,7 @@ public class AddPsGyActivity extends Activity {
 	private Button btnLocation;
 	private GridView imageGridView;
 	private AddImageAdapter imageAdapter;
-	private ArrayList<String> allImageStrings;
+	private ArrayList<ProjectImage> projectImages;
 	private TextView xTv;
 	private TextView yTv;
 	private double x = 0.0;
@@ -86,24 +74,11 @@ public class AddPsGyActivity extends Activity {
 	private PopupWindow mPopupWindow;
 	private View popView;
 	private File currentfile;
+	private PsIndustry mPsIndustry ;
 	private Handler mHandler = new Handler() {
 		@Override
 		public void handleMessage(Message msg) {
 			super.handleMessage(msg);
-			Gson gson = new Gson();
-			if (msg.what == 1) {
-				listRegions = gson.fromJson(msg.obj.toString(),
-						new TypeToken<List<Region>>() {
-						}.getType());
-				ArrayList<String> arrayList = new ArrayList<String>();
-				for (Region region : listRegions) {
-					arrayList.add(region.getName());
-				}
-				ArrayAdapter<String> adapter = new ArrayAdapter<String>(
-						AddPsGyActivity.this, R.layout.simple_spinner_item,
-						arrayList);
-				AddPsGyActivity.this.mRegionSpinner.setAdapter(adapter);
-			}
 			if (msg.what == sendPs) {
 				Toast.makeText(AddPsGyActivity.this, msg.obj.toString(),
 						Toast.LENGTH_SHORT).show();
@@ -173,13 +148,20 @@ public class AddPsGyActivity extends Activity {
 			}
 		});
 
+		listRegions = WaterDectionary.getRegions();
+		ArrayList<String> arrayList = new ArrayList<String>();
+		for (Region region : listRegions) {
+			arrayList.add(region.getName());
+		}
+		ArrayAdapter<String> adapter = new ArrayAdapter<String>(
+				AddPsGyActivity.this, R.layout.simple_spinner_item, arrayList);
+		 AddPsGyActivity.this.mRegionSpinner.setAdapter(adapter);
+
 		// 图片
 		this.imageGridView = (GridView) findViewById(R.id.imageGridView);
-		this.allImageStrings = new ArrayList<String>();
-		this.imageAdapter = new AddImageAdapter(this, allImageStrings);
+		this.projectImages = new ArrayList<ProjectImage>();
+		this.imageAdapter = new AddImageAdapter(this, projectImages);
 		this.imageGridView.setAdapter(imageAdapter);
-		popView = LayoutInflater.from(AddPsGyActivity.this).inflate(
-				R.layout.popupwindow_camera, null);
 		this.imageGridView.setOnItemClickListener(new OnItemClickListener() {
 
 			@Override
@@ -202,6 +184,8 @@ public class AddPsGyActivity extends Activity {
 
 			}
 		});
+		popView = LayoutInflater.from(AddPsGyActivity.this).inflate(
+				R.layout.popupwindow_camera, null);
 		// 相机按钮
 		Button btnCamera = (Button) popView.findViewById(R.id.btnCamera);
 		btnCamera.setOnClickListener(new OnClickListener() {
@@ -238,8 +222,61 @@ public class AddPsGyActivity extends Activity {
 			}
 		});
 		setTextWatcher();
-		new Thread(new HttpThread("Xzq")).start();
+		setContent();
 	}
+	/**
+	 * 填充修改内容
+	 */
+	private void setContent() {
+		Intent it=getIntent();
+		mPsIndustry=(PsIndustry)it.getSerializableExtra("PsIndustry");
+		if (mPsIndustry!=null) {
+			TextView titleTextView=(TextView)findViewById(R.id.titleTv);
+			titleTextView.setText("修改工业污染源");
+			qymcEditText.setText(mPsIndustry.getQymc());
+			fzrEditText.setText(mPsIndustry.getFzr());
+			lxfsEditText.setText(mPsIndustry.getContact());
+			mRegionSpinner.setSelection(WaterDectionary.findRegionIndex(mPsIndustry.getSsxz().getID()));
+			nczEditText.setText(String.valueOf(mPsIndustry.getNcz()));
+			gyyslEditText.setText(String.valueOf(mPsIndustry.getGyysl()));
+			gyfspflzpEditText.setText(String.valueOf(mPsIndustry.getGyfspfl_z()));
+			gyfspflclEditText.setText(String.valueOf(mPsIndustry.getGyfspfl_c()));
+			codpflzpEditText.setText(String.valueOf(mPsIndustry.getCod_z()));
+			codpflclEditText.setText(String.valueOf(mPsIndustry.getCod_c()));
+			adpflzpEditText.setText(String.valueOf(mPsIndustry.getNH3N_z()));
+			adpflclEditText.setText(String.valueOf(mPsIndustry.getNH3N_c()));
+			tpzpEditText.setText(String.valueOf(mPsIndustry.getPSum_z()));
+			tpclEditText.setText(String.valueOf(mPsIndustry.getPSum_c()));
+			tnzpEditText.setText(String.valueOf(mPsIndustry.getTN_z()));
+			tnclEditText.setText(String.valueOf(mPsIndustry.getCod_c()));
+			sfywsssSpinner.setSelection(mPsIndustry.getFsclss().equals("是")?0:1);
+			sfdbpfSpinner.setSelection(mPsIndustry.getSfdb().equals("是")?0:1);
+			if (mPsIndustry.getImages()!=null&&mPsIndustry.getImages().size()>0) {
+				for (ProjectImage projectImage : mPsIndustry.getImages()) {
+					projectImage.setType(ProjectImage.INTERNET);
+					projectImages.add(projectImage);
+				}
+				this.imageAdapter.setImages(projectImages);
+				this.imageAdapter.notifyDataSetChanged();
+				LayoutParams lParams = this.imageGridView.getLayoutParams();
+				int height = (this.projectImages.size() / 4 + 1);
+				lParams.height = DpTransform.dip2px(this, 80 * height);
+				this.imageGridView.setLayoutParams(lParams);
+			}
+			x = mPsIndustry.getX();
+			y = mPsIndustry.getY();
+			DecimalFormat df = new DecimalFormat("0.00000");
+			xTv.setText("X: " + df.format(x));
+			yTv.setText("Y: " + df.format(y));
+			if (checkTextView()) {
+				btnSendPs.setEnabled(true);
+			}
+			else {
+				btnSendPs.setEnabled(false);
+			}
+		}
+	}
+
 
 	protected void uploadPsIndustry() {
 		// TODO Auto-generated method stub
@@ -247,13 +284,14 @@ public class AddPsGyActivity extends Activity {
 
 			@Override
 			public void run() {
-				PsIndustry psIndustry = createPollution();
+				PsIndustry mPsIndustry = createPollution();
 				Message msg = new Message();
 				msg.what = sendPs;
 				try {
-					HttpUtil.uploadPollutionSource(psIndustry, "Gywry");
+					HttpUtil.uploadPollutionSource(mPsIndustry, "Gywry");
 					msg.obj = "上传成功";
 					mHandler.sendMessage(msg);
+					setResult(1000);
 					AddPsGyActivity.this.finish();
 				} catch (Throwable e) {
 					msg.obj = "上传失败";
@@ -267,58 +305,56 @@ public class AddPsGyActivity extends Activity {
 
 	protected PsIndustry createPollution() {
 		// TODO Auto-generated method stub
-		PsIndustry psIndustry = new PsIndustry();
-		psIndustry.setQymc(this.qymcEditText.getText().toString());
-		psIndustry.setFzr(this.fzrEditText.getText().toString());
-		psIndustry.setContact(this.lxfsEditText.getText().toString());
-		psIndustry.setSsxz(creatRegion(this.mRegionSpinner.getSelectedItem()
+		if (mPsIndustry==null) {
+			mPsIndustry=new  PsIndustry();
+		}
+		mPsIndustry.setQymc(this.qymcEditText.getText().toString());
+		mPsIndustry.setFzr(this.fzrEditText.getText().toString());
+		mPsIndustry.setContact(this.lxfsEditText.getText().toString());
+		mPsIndustry.setSsxz(creatRegion(this.mRegionSpinner.getSelectedItem()
 				.toString()));
-		psIndustry.setNcz(Double.parseDouble(this.nczEditText.getText()
+		mPsIndustry.setNcz(Double.parseDouble(this.nczEditText.getText()
 				.toString()));
-		psIndustry.setGyysl(Double.parseDouble(this.gyyslEditText.getText()
+		mPsIndustry.setGyysl(Double.parseDouble(this.gyyslEditText.getText()
 				.toString()));
-		psIndustry.setGyfspfl_z(Double.parseDouble(this.gyfspflzpEditText
+		mPsIndustry.setGyfspfl_z(Double.parseDouble(this.gyfspflzpEditText
 				.getText().toString()));
-		psIndustry.setGyfspfl_c(Double.parseDouble(this.gyfspflclEditText
+		mPsIndustry.setGyfspfl_c(Double.parseDouble(this.gyfspflclEditText
 				.getText().toString()));
-		psIndustry.setCod_z(Double.parseDouble(this.codpflzpEditText.getText()
+		mPsIndustry.setCod_z(Double.parseDouble(this.codpflzpEditText.getText()
 				.toString()));
-		psIndustry.setCod_c(Double.parseDouble(this.codpflclEditText.getText()
+		mPsIndustry.setCod_c(Double.parseDouble(this.codpflclEditText.getText()
 				.toString()));
-		psIndustry.setNH3N_z(Double.parseDouble(this.adpflzpEditText.getText()
+		mPsIndustry.setNH3N_z(Double.parseDouble(this.adpflzpEditText.getText()
 				.toString()));
-		psIndustry.setNH3N_c(Double.parseDouble(this.adpflclEditText.getText()
+		mPsIndustry.setNH3N_c(Double.parseDouble(this.adpflclEditText.getText()
 				.toString()));
-		psIndustry.setPSum_z(Double.parseDouble(this.tpzpEditText.getText()
+		mPsIndustry.setPSum_z(Double.parseDouble(this.tpzpEditText.getText()
 				.toString()));
-		psIndustry.setPSum_c(Double.parseDouble(this.tpclEditText.getText()
+		mPsIndustry.setPSum_c(Double.parseDouble(this.tpclEditText.getText()
 				.toString()));
-		psIndustry.setTN_z(Double.parseDouble(this.tnzpEditText.getText()
+		mPsIndustry.setTN_z(Double.parseDouble(this.tnzpEditText.getText()
 				.toString()));
-		psIndustry.setTN_c(Double.parseDouble(this.tnclEditText.getText()
+		mPsIndustry.setTN_c(Double.parseDouble(this.tnclEditText.getText()
 				.toString()));
-		psIndustry.setFsclss(this.sfywsssSpinner.getSelectedItem().toString());
-		psIndustry.setSfdb(this.sfdbpfSpinner.getSelectedItem().toString());
-		psIndustry.setX(x);
-		psIndustry.setY(y);
-		psIndustry.setImages(getImages());
-		return psIndustry;
+		mPsIndustry.setFsclss(this.sfywsssSpinner.getSelectedItem().toString());
+		mPsIndustry.setSfdb(this.sfdbpfSpinner.getSelectedItem().toString());
+		mPsIndustry.setX(x);
+		mPsIndustry.setY(y);
+		mPsIndustry.setImages(getImages());
+		return mPsIndustry;
 	}
 
 	private List<ProjectImage> getImages() {
-		ArrayList<ProjectImage> images = new ArrayList<ProjectImage>();
-		for (String imageString : allImageStrings) {
-			ProjectImage projectImage = new ProjectImage();
-			projectImage
-					.setName(UploadImageUtil
-							.uploadImage(imageString,
-									"http://159.226.110.64:8001/WaterService/Files.svc/upload"));
-			images.add(projectImage);
+		for (ProjectImage projectImage : projectImages) {
+			if (projectImage.getType()==ProjectImage.LOCAL) {
+				projectImage
+				.setName(UploadImageUtil
+						.uploadImage(projectImage.getName(),
+								"http://159.226.110.64:8001/WaterService/Files.svc/upload"));
+			}			
 		}
-		if (images.size() > 0) {
-			return images;
-		}
-		return null;
+		return projectImages;
 	}
 
 	private Region creatRegion(String rName) {
@@ -344,6 +380,9 @@ public class AddPsGyActivity extends Activity {
 			if (checkTextView()) {
 				btnSendPs.setEnabled(true);
 			}
+			else {
+				btnSendPs.setEnabled(false);
+			}
 		}
 		if (resultCode == Activity.RESULT_OK) {
 			if (requestCode == 2) {
@@ -352,21 +391,27 @@ public class AddPsGyActivity extends Activity {
 						.query(uri, null, null, null, null);
 				cursor.moveToFirst();
 				String imgPath = cursor.getString(1);
-				allImageStrings.add(imgPath);
-				this.imageAdapter.setImages(allImageStrings);
+				ProjectImage projectImage=new ProjectImage();
+				projectImage.setName(imgPath);
+				projectImage.setType(ProjectImage.LOCAL);
+				projectImages.add(projectImage);
+				this.imageAdapter.setImages(projectImages);
 				this.imageAdapter.notifyDataSetChanged();
 				LayoutParams lParams = this.imageGridView.getLayoutParams();
-				int height = (this.allImageStrings.size() / 4 + 1);
+				int height = (this.projectImages.size() / 4 + 1);
 				lParams.height = DpTransform.dip2px(this, 80 * height);
 				this.imageGridView.setLayoutParams(lParams);
 				cursor.close();
 			}
 			if (requestCode == 3) {
-				allImageStrings.add(currentfile.getPath());
-				this.imageAdapter.setImages(allImageStrings);
+				ProjectImage projectImage=new ProjectImage();
+				projectImage.setName(currentfile.getPath());
+				projectImage.setType(ProjectImage.LOCAL);
+				projectImages.add(projectImage);
+				this.imageAdapter.setImages(projectImages);
 				this.imageAdapter.notifyDataSetChanged();
 				LayoutParams lParams = this.imageGridView.getLayoutParams();
-				int height = (this.allImageStrings.size() / 4 + 1);
+				int height = (this.projectImages.size() / 4 + 1);
 				lParams.height = DpTransform.dip2px(this, 80 * height);
 				this.imageGridView.setLayoutParams(lParams);
 			}
@@ -422,39 +467,7 @@ public class AddPsGyActivity extends Activity {
 		return super.dispatchTouchEvent(ev);
 	}
 
-	class HttpThread implements Runnable {
-		private String typeString;
 
-		@Override
-		public void run() {
-			String jsonString = HttpUtil.getDectionaryString(typeString);
-			Message msg = new Message();
-			if (!jsonString.equals("")) {
-				msg.obj = jsonString;
-				if (typeString.equals("Xzq")) {
-					msg.what = 1;
-				}
-				if (typeString.equals("Dept")) {
-					msg.what = 2;
-				}
-				if (typeString.equals("GywrType")) {
-					msg.what = 3;
-				}
-				if (typeString.equals("WrwClass1")) {
-					msg.what = 4;
-				}
-				if (typeString.equals("WrwClass2")) {
-					msg.what = 5;
-				}
-				mHandler.sendMessage(msg);
-			}
-		}
-
-		public HttpThread(String typeString) {
-			super();
-			this.typeString = typeString;
-		}
-	}
 
 	class TextWatcherimpl implements TextWatcher {
 

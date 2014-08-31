@@ -28,6 +28,7 @@
             android:textSize="20sp"/>
 
    <TextView
+       android:id="@+id/titleTv"
        android:layout_width="wrap_content"
        android:layout_height="wrap_content"
        android:layout_alignBaseline="@+id/btnBack"
@@ -114,14 +115,15 @@
             <Spinner
                 android:id="@+id/wrcdSpin"
                 style="@style/myspinner_style"
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:paddingLeft="5dp"
-                android:paddingRight="0dp"
+                android:paddingRight="50dp"
                 android:textColor="#715b4c"
                 android:textSize="16sp" 
                 android:dropDownSelector="#ff0000"
+                android:layout_gravity="center"
                 />
         </LinearLayout>
         <LinearLayout

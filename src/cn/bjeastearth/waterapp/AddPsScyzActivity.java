@@ -9,10 +9,12 @@ import java.util.UUID;
 import cn.bjeastearth.http.HttpUtil;
 import cn.bjeastearth.http.ImageOptions;
 import cn.bjeastearth.http.UploadImageUtil;
+import cn.bjeastearth.http.WaterDectionary;
 import cn.bjeastearth.waterapp.model.Department;
 import cn.bjeastearth.waterapp.model.ProjectImage;
 import cn.bjeastearth.waterapp.model.PsScyz;
 import cn.bjeastearth.waterapp.model.PsScyzType;
+import cn.bjeastearth.waterapp.model.PsXqyz;
 import cn.bjeastearth.waterapp.model.Region;
 import cn.bjeastearth.waterapp.myview.DpTransform;
 import cn.bjeastearth.waterapp.myview.MyTextButton;
@@ -71,7 +73,7 @@ public class AddPsScyzActivity extends Activity {
 	private Button btnLocation;
 	private GridView imageGridView;
 	private AddImageAdapter imageAdapter;
-	private ArrayList<String> allImageStrings;
+	private ArrayList<ProjectImage> projectImages;
 	private TextView xTv;
 	private TextView yTv;
 	private double x=0.0;
@@ -79,24 +81,11 @@ public class AddPsScyzActivity extends Activity {
 	private PopupWindow mPopupWindow;
 	private View popView;
 	private File currentfile;
+	private PsScyz mPsScyz;
 	private Handler  mHandler=new Handler(){
 		@Override
 		public void handleMessage(Message msg) {
 			super.handleMessage(msg);
-			Gson gson = new Gson();
-			if (msg.what==1) {
-				listRegions = gson.fromJson(msg.obj.toString(),
-						new TypeToken<List<Region>>() {
-						}.getType());
-				ArrayList<String> arrayList = new ArrayList<String>();
-				for (Region region : listRegions) {
-					arrayList.add(region.getName());
-				}
-				ArrayAdapter<String> adapter = new ArrayAdapter<String>(
-						AddPsScyzActivity.this,R.layout.simple_spinner_item,
-						arrayList);
-				AddPsScyzActivity.this.mRegionSpinner.setAdapter(adapter);
-			}
 			if (msg.what==sendPs) {
 				Toast.makeText(AddPsScyzActivity.this, msg.obj.toString(), Toast.LENGTH_SHORT).show();
 			    AddPsScyzActivity.this.btnSendPs.setEnabled(true);
@@ -156,8 +145,8 @@ public class AddPsScyzActivity extends Activity {
 		 
 		 //图片
 		 this.imageGridView=(GridView)findViewById(R.id.imageGridView);
-		 this.allImageStrings=new ArrayList<String>();
-		 this.imageAdapter=new AddImageAdapter(this,allImageStrings);
+		 this.projectImages=new ArrayList<ProjectImage>();
+		 this.imageAdapter=new AddImageAdapter(this,projectImages);
 		 this.imageGridView.setAdapter(imageAdapter);
 		 popView = LayoutInflater.from(AddPsScyzActivity.this)
 					.inflate(R.layout.popupwindow_camera, null);
@@ -213,7 +202,65 @@ public class AddPsScyzActivity extends Activity {
 			}
 		});
 		 setTextWatcher();
-		new Thread(new HttpThread("Xzq")).start();
+		 listRegions = WaterDectionary.getRegions();
+			ArrayList<String> arrayList = new ArrayList<String>();
+			for (Region region : listRegions) {
+				arrayList.add(region.getName());
+			}
+			ArrayAdapter<String> adapter = new ArrayAdapter<String>(
+					AddPsScyzActivity.this, R.layout.simple_spinner_item, arrayList);
+			AddPsScyzActivity.this.mRegionSpinner.setAdapter(adapter);
+			setContent();
+	}
+
+
+
+	private void setContent() {
+		Intent it = getIntent();
+		mPsScyz = (PsScyz) it.getSerializableExtra("PsScyz");
+		if (mPsScyz != null) {
+			TextView titleTextView = (TextView) findViewById(R.id.titleTv);
+			titleTextView.setText("修改水产养殖污染源");
+			fzrEditText.setText(mPsScyz.getFzr());
+			lxfsEditText.setText(mPsScyz.getContact());
+			mRegionSpinner.setSelection(WaterDectionary.findRegionIndex(mPsScyz
+					.getSsxz().getID()));
+			nczEditText.setText(String.valueOf(mPsScyz.getNcz()));
+			ylclEditText.setText(String.valueOf(mPsScyz.getYu()));
+			xlclEditText.setText(String.valueOf(mPsScyz.getXia()));
+			blclEditText.setText(String.valueOf(mPsScyz.getBei()));
+			qtclEditText.setText(String.valueOf(mPsScyz.getQita()));
+			ylmjEditText.setText(String.valueOf(mPsScyz.getAYu()));
+			xlmjEditText.setText(String.valueOf(mPsScyz.getAXia()));
+			blmjEditText.setText(String.valueOf(mPsScyz.getABei()));
+			qtmjEditText.setText(String.valueOf(mPsScyz.getAQita()));
+			codEditText.setText(String.valueOf(mPsScyz.getCod()));
+			adEditText.setText(String.valueOf(mPsScyz.getNh3N()));
+			tpEditText.setText(String.valueOf(mPsScyz.getPSum()));
+			tnEditText.setText(String.valueOf(mPsScyz.getNSum()));
+			if (mPsScyz.getImages() != null && mPsScyz.getImages().size() > 0) {
+				for (ProjectImage projectImage : mPsScyz.getImages()) {
+					projectImage.setType(ProjectImage.INTERNET);
+					projectImages.add(projectImage);
+				}
+				this.imageAdapter.setImages(projectImages);
+				this.imageAdapter.notifyDataSetChanged();
+				LayoutParams lParams = this.imageGridView.getLayoutParams();
+				int height = (this.projectImages.size() / 4 + 1);
+				lParams.height = DpTransform.dip2px(this, 80 * height);
+				this.imageGridView.setLayoutParams(lParams);
+			}
+			x = mPsScyz.getX();
+			y = mPsScyz.getY();
+			DecimalFormat df = new DecimalFormat("0.00000");
+			xTv.setText("X: " + df.format(x));
+			yTv.setText("Y: " + df.format(y));
+			if (checkTextView()) {
+				btnSendPs.setEnabled(true);
+			} else {
+				btnSendPs.setEnabled(false);
+			}
+		}		
 	}
 
 
@@ -231,6 +278,7 @@ public class AddPsScyzActivity extends Activity {
 					HttpUtil.uploadPollutionSource(psScyz,"Scyzwry");
 					msg.obj="上传成功";
 					mHandler.sendMessage(msg);
+					setResult(1000);
 					AddPsScyzActivity.this.finish();
 				} catch (Throwable e) {
 					msg.obj="上传失败";
@@ -244,40 +292,41 @@ public class AddPsScyzActivity extends Activity {
 
 	protected PsScyz createPollution() {
 		// TODO Auto-generated method stub
-		PsScyz psScyz=new PsScyz();
-		psScyz.setFzr(this.fzrEditText.getText().toString());
-		psScyz.setContact(this.lxfsEditText.getText().toString());
-		psScyz.setSsxz(creatRegion(this.mRegionSpinner.getSelectedItem().toString()));
-		psScyz.setNcz(Double.parseDouble(this.nczEditText.getText().toString()));
-		psScyz.setYu(Double.parseDouble(this.ylclEditText.getText().toString()));
-		psScyz.setXia(Double.parseDouble(this.xlclEditText.getText().toString()));
-		psScyz.setBei(Double.parseDouble(this.blclEditText.getText().toString()));
-		psScyz.setQita(Double.parseDouble(this.qtclEditText.getText().toString()));
-		psScyz.setAYu(Double.parseDouble(this.ylmjEditText.getText().toString()));
-		psScyz.setAXia(Double.parseDouble(this.xlmjEditText.getText().toString()));
-		psScyz.setABei(Double.parseDouble(this.blmjEditText.getText().toString()));
-		psScyz.setAQita(Double.parseDouble(this.qtmjEditText.getText().toString()));
-		psScyz.setCod(Double.parseDouble(this.codEditText.getText().toString()));
-		psScyz.setNh3N(Double.parseDouble(this.adEditText.getText().toString()));
-		psScyz.setPSum(Double.parseDouble(this.tpEditText.getText().toString()));
-		psScyz.setNSum(Double.parseDouble(this.tnEditText.getText().toString()));
-		psScyz.setX(x);
-		psScyz.setY(y);
-		psScyz.setImages(getImages());
-		return psScyz;
+		if (mPsScyz==null) {
+			mPsScyz=new PsScyz();
+		}
+		mPsScyz.setFzr(this.fzrEditText.getText().toString());
+		mPsScyz.setContact(this.lxfsEditText.getText().toString());
+		mPsScyz.setSsxz(creatRegion(this.mRegionSpinner.getSelectedItem().toString()));
+		mPsScyz.setNcz(Double.parseDouble(this.nczEditText.getText().toString()));
+		mPsScyz.setYu(Double.parseDouble(this.ylclEditText.getText().toString()));
+		mPsScyz.setXia(Double.parseDouble(this.xlclEditText.getText().toString()));
+		mPsScyz.setBei(Double.parseDouble(this.blclEditText.getText().toString()));
+		mPsScyz.setQita(Double.parseDouble(this.qtclEditText.getText().toString()));
+		mPsScyz.setAYu(Double.parseDouble(this.ylmjEditText.getText().toString()));
+		mPsScyz.setAXia(Double.parseDouble(this.xlmjEditText.getText().toString()));
+		mPsScyz.setABei(Double.parseDouble(this.blmjEditText.getText().toString()));
+		mPsScyz.setAQita(Double.parseDouble(this.qtmjEditText.getText().toString()));
+		mPsScyz.setCod(Double.parseDouble(this.codEditText.getText().toString()));
+		mPsScyz.setNh3N(Double.parseDouble(this.adEditText.getText().toString()));
+		mPsScyz.setPSum(Double.parseDouble(this.tpEditText.getText().toString()));
+		mPsScyz.setNSum(Double.parseDouble(this.tnEditText.getText().toString()));
+		mPsScyz.setX(x);
+		mPsScyz.setY(y);
+		mPsScyz.setImages(getImages());
+		return mPsScyz;
 	}
 
 	private List<ProjectImage> getImages() {
-		ArrayList<ProjectImage> images=new ArrayList<ProjectImage>();
-		for (String imageString : allImageStrings) {
-			ProjectImage projectImage=new ProjectImage();
-			projectImage.setName(UploadImageUtil.uploadImage(imageString, "http://159.226.110.64:8001/WaterService/Files.svc/upload"));
-			images.add(projectImage);
+		for (ProjectImage projectImage : projectImages) {
+			if (projectImage.getType() == ProjectImage.LOCAL) {
+				projectImage
+						.setName(UploadImageUtil.uploadImage(
+								projectImage.getName(),
+								"http://159.226.110.64:8001/WaterService/Files.svc/upload"));
+			}
 		}
-		if (images.size()>0) {
-			return images;
-		}
-		return null;
+		return projectImages;
 	}
 
 	@Override
@@ -316,28 +365,34 @@ public class AddPsScyzActivity extends Activity {
 			}
 		}
 		if (resultCode == Activity.RESULT_OK) {
-			if (requestCode==2) {
-				Uri uri = data.getData(); 
-				Cursor cursor = AddPsScyzActivity.this.getContentResolver().query(uri, null, 
-				null, null, null); 
-				cursor.moveToFirst(); 
-				String imgPath = cursor.getString(1); 
-				allImageStrings.add(imgPath);
-				this.imageAdapter.setImages(allImageStrings); 
+			if (requestCode == 2) {
+				Uri uri = data.getData();
+				Cursor cursor = AddPsScyzActivity.this.getContentResolver()
+						.query(uri, null, null, null, null);
+				cursor.moveToFirst();
+				String imgPath = cursor.getString(1);
+				ProjectImage projectImage = new ProjectImage();
+				projectImage.setName(imgPath);
+				projectImage.setType(ProjectImage.LOCAL);
+				projectImages.add(projectImage);
+				this.imageAdapter.setImages(projectImages);
 				this.imageAdapter.notifyDataSetChanged();
-				LayoutParams lParams=this.imageGridView.getLayoutParams();
-				int height=(this.allImageStrings.size()/4+1);
-				lParams.height=DpTransform.dip2px(this, 80*height);
+				LayoutParams lParams = this.imageGridView.getLayoutParams();
+				int height = (this.projectImages.size() / 4 + 1);
+				lParams.height = DpTransform.dip2px(this, 80 * height);
 				this.imageGridView.setLayoutParams(lParams);
-				cursor.close(); 
+				cursor.close();
 			}
-			if (requestCode==3) {
-				allImageStrings.add(currentfile.getPath());
-				this.imageAdapter.setImages(allImageStrings);
+			if (requestCode == 3) {
+				ProjectImage projectImage = new ProjectImage();
+				projectImage.setName(currentfile.getPath());
+				projectImage.setType(ProjectImage.LOCAL);
+				projectImages.add(projectImage);
+				this.imageAdapter.setImages(projectImages);
 				this.imageAdapter.notifyDataSetChanged();
-				LayoutParams lParams=this.imageGridView.getLayoutParams();
-				int height=(this.allImageStrings.size()/4+1);
-				lParams.height=DpTransform.dip2px(this, 80*height);
+				LayoutParams lParams = this.imageGridView.getLayoutParams();
+				int height = (this.projectImages.size() / 4 + 1);
+				lParams.height = DpTransform.dip2px(this, 80 * height);
 				this.imageGridView.setLayoutParams(lParams);
 			}
 		}
@@ -381,40 +436,7 @@ public class AddPsScyzActivity extends Activity {
 		tpEditText.addTextChangedListener(textWatcherimpl);
 		tnEditText.addTextChangedListener(textWatcherimpl);
 	}
-	class HttpThread implements Runnable{
-		private String typeString;
-		@Override
-		public void run() {
-			String jsonString = HttpUtil.getDectionaryString(typeString);
-			Message msg = new Message();
-			if (!jsonString.equals("")) {
-				msg.obj=jsonString;
-				if (typeString.equals("Xzq")) {
-					msg.what=1;
-				}
-				if (typeString.equals("Dept")) {
-					msg.what=2;
-				}
-				if (typeString.equals("GywrType")) {
-					msg.what=3;
-				}
-				if (typeString.equals("WrwClass1")) {
-					msg.what=4;
-				}
-				if (typeString.equals("WrwClass2")) {
-					msg.what=5;
-				}
-				if (typeString.equals("ScType")) {
-					msg.what=6;
-				}
-				mHandler.sendMessage(msg);
-			}
-		}
-		public HttpThread(String typeString) {
-			super();
-			this.typeString = typeString;
-			}
-	}
+	
 	class TextWatcherimpl implements TextWatcher{
 
 		@Override

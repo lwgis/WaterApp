@@ -29,6 +29,7 @@ import cn.bjeastearth.http.Inform;
 import cn.bjeastearth.http.InformAttachement;
 import cn.bjeastearth.http.UploadImageUtil;
 import cn.bjeastearth.waterapp.model.Department;
+import cn.bjeastearth.waterapp.model.ProjectImage;
 import cn.bjeastearth.waterapp.myview.DpTransform;
 import cn.bjeastearth.waterapp.myview.MyEditText;
 import cn.bjeastearth.waterapp.myview.MyTextButton;
@@ -66,7 +67,7 @@ public class ReportActivity extends Activity {
 	private MyEditText reportEditText;
 	private GridView imageGridView;
 	private AddImageAdapter reportAdapter;
-	private ArrayList<String> allImageStrings;
+	private ArrayList<ProjectImage> projectImages;
 	private PopupWindow mPopupWindow;
 	private View popView;
 	private File currentfile;
@@ -121,8 +122,8 @@ public class ReportActivity extends Activity {
 		 this.reportMailEditText.addTextChangedListener(textWatcherimpl);
 		 this.reportEditText.addTextChangedListener(textWatcherimpl);
 		 this.imageGridView=(GridView)findViewById(R.id.imageGridView);
-		 this.allImageStrings=new ArrayList<String>();
-		 this.reportAdapter=new AddImageAdapter(this,allImageStrings);
+		 this.projectImages=new ArrayList<ProjectImage>();
+		 this.reportAdapter=new AddImageAdapter(this,projectImages);
 		 this.imageGridView.setAdapter(reportAdapter);
 		 popView = LayoutInflater.from(ReportActivity.this)
 					.inflate(R.layout.popupwindow_camera, null);
@@ -193,31 +194,34 @@ public class ReportActivity extends Activity {
 		// TODO Auto-generated method stub
 		super.onActivityResult(requestCode, resultCode, data);
 		if (resultCode == Activity.RESULT_OK) {
-			if (requestCode==2) {
-				Uri uri = data.getData(); 
-				Cursor cursor = ReportActivity.this.getContentResolver().query(uri, null, 
-				null, null, null); 
-				cursor.moveToFirst(); 
-//				String imgNo = cursor.getString(0); // 锟斤拷鍓э拷锟界紓锟斤拷锟斤拷 
-				String imgPath = cursor.getString(1); // 锟斤拷鍓э拷锟斤拷锟斤拷娴犳儼鐭惧锟?
-//				String imgSize = cursor.getString(2); // 锟斤拷鍓э拷锟芥径褍锟斤拷 
-//				String imgname = cursor.getString(3); // 锟斤拷鍓э拷锟斤拷锟斤拷娴犺泛锟斤拷 
-				allImageStrings.add(imgPath);
-				this.reportAdapter.setImages(allImageStrings);
+			if (requestCode == 2) {
+				Uri uri = data.getData();
+				Cursor cursor = ReportActivity.this.getContentResolver()
+						.query(uri, null, null, null, null);
+				cursor.moveToFirst();
+				String imgPath = cursor.getString(1);
+				ProjectImage projectImage = new ProjectImage();
+				projectImage.setName(imgPath);
+				projectImage.setType(ProjectImage.LOCAL);
+				projectImages.add(projectImage);
+				this.reportAdapter.setImages(projectImages);
 				this.reportAdapter.notifyDataSetChanged();
-				LayoutParams lParams=this.imageGridView.getLayoutParams();
-				int height=(this.allImageStrings.size()/4+1);
-				lParams.height=DpTransform.dip2px(this, 80*height);
+				LayoutParams lParams = this.imageGridView.getLayoutParams();
+				int height = (this.projectImages.size() / 4 + 1);
+				lParams.height = DpTransform.dip2px(this, 80 * height);
 				this.imageGridView.setLayoutParams(lParams);
-				cursor.close(); 
+				cursor.close();
 			}
-			if (requestCode==3) {
-				allImageStrings.add(currentfile.getPath());
-				this.reportAdapter.setImages(allImageStrings);
+			if (requestCode == 3) {
+				ProjectImage projectImage = new ProjectImage();
+				projectImage.setName(currentfile.getPath());
+				projectImage.setType(ProjectImage.LOCAL);
+				projectImages.add(projectImage);
+				this.reportAdapter.setImages(projectImages);
 				this.reportAdapter.notifyDataSetChanged();
-				LayoutParams lParams=this.imageGridView.getLayoutParams();
-				int height=(this.allImageStrings.size()/4+1);
-				lParams.height=DpTransform.dip2px(this, 80*height);
+				LayoutParams lParams = this.imageGridView.getLayoutParams();
+				int height = (this.projectImages.size() / 4 + 1);
+				lParams.height = DpTransform.dip2px(this, 80 * height);
 				this.imageGridView.setLayoutParams(lParams);
 			}
 		}
@@ -278,9 +282,9 @@ public void uploadInform(){
 					
 					attachmentType.setId(1);
 					List<InformAttachement> imgs = new ArrayList<InformAttachement>();
-					for (String filepath : allImageStrings) {
+					for (ProjectImage projectImage : projectImages) {
 						
-						String imgname = UploadImageUtil.uploadImage(filepath,"http://159.226.110.64:8001/WaterService/Inform.svc/file/upload");
+						String imgname = UploadImageUtil.uploadImage(projectImage.getName(),"http://159.226.110.64:8001/WaterService/Inform.svc/file/upload");
 						
 						//举报信息附件对象，（注意新增的对象不要给id赋值）					
 						InformAttachement img1 = new InformAttachement();

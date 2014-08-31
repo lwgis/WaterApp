@@ -5,6 +5,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import cn.bjeastearth.http.HttpUtil;
+import cn.bjeastearth.http.WaterDectionary;
+import cn.bjeastearth.waterapp.model.ProjectImage;
+import cn.bjeastearth.waterapp.model.PsXqyz;
 import cn.bjeastearth.waterapp.model.PsZz;
 import cn.bjeastearth.waterapp.model.PsZzLevel;
 import cn.bjeastearth.waterapp.model.Region;
@@ -53,37 +56,11 @@ public class AddPsZzActivity extends Activity {
 	private TextView yTv;
 	private double x=0.0;
 	private double y=0.0;
+	private PsZz mPsZz;
 	private Handler  mHandler=new Handler(){
 		@Override
 		public void handleMessage(Message msg) {
 			super.handleMessage(msg);
-			Gson gson = new Gson();
-			if (msg.what==1) {
-				listRegions = gson.fromJson(msg.obj.toString(),
-						new TypeToken<List<Region>>() {
-						}.getType());
-				ArrayList<String> arrayList = new ArrayList<String>();
-				for (Region region : listRegions) {
-					arrayList.add(region.getName());
-				}
-				ArrayAdapter<String> adapter = new ArrayAdapter<String>(
-						AddPsZzActivity.this,R.layout.simple_spinner_item,
-						arrayList);
-				AddPsZzActivity.this.mRegionSpinner.setAdapter(adapter);
-			}
-			if (msg.what==2) {
-				psZzLevels = gson.fromJson(msg.obj.toString(),
-						new TypeToken<List<PsZzLevel>>() {
-						}.getType());
-				ArrayList<String> arrayList = new ArrayList<String>();
-				for (PsZzLevel psZzLevel : psZzLevels) {
-					arrayList.add(psZzLevel.getName());
-				}
-				ArrayAdapter<String> adapter = new ArrayAdapter<String>(
-						AddPsZzActivity.this,R.layout.simple_spinner_item,
-						arrayList);
-				AddPsZzActivity.this.mWrcdSpinner.setAdapter(adapter);
-			}
 			if (msg.what==sendPs) {
 				Toast.makeText(AddPsZzActivity.this, msg.obj.toString(), Toast.LENGTH_SHORT).show();
 			    AddPsZzActivity.this.btnSendPs.setEnabled(true);
@@ -138,8 +115,59 @@ public class AddPsZzActivity extends Activity {
 			}
 		});
 		 setTextWatcher();
-		new Thread(new HttpThread("Xzq")).start();
-		new Thread(new HttpThread("Wrcd")).start();
+		 listRegions = WaterDectionary.getRegions();
+			ArrayList<String> arrayList = new ArrayList<String>();
+			for (Region region : listRegions) {
+				arrayList.add(region.getName());
+			}
+			ArrayAdapter<String> adapter = new ArrayAdapter<String>(
+					AddPsZzActivity.this, R.layout.simple_spinner_item, arrayList);
+			AddPsZzActivity.this.mRegionSpinner.setAdapter(adapter);
+			psZzLevels = WaterDectionary.getPsZzLevels();
+			ArrayList<String> arrayListLevels = new ArrayList<String>();
+			for (PsZzLevel psZzLevel : psZzLevels) {
+				arrayListLevels.add(psZzLevel.getName());
+			}
+			ArrayAdapter<String> adapterLevel = new ArrayAdapter<String>(
+					AddPsZzActivity.this,R.layout.simple_spinner_item,
+					arrayListLevels);
+			AddPsZzActivity.this.mWrcdSpinner.setAdapter(adapterLevel);
+			setContent();
+	}
+
+
+
+	private void setContent() {
+		Intent it = getIntent();
+		mPsZz = (PsZz) it.getSerializableExtra("PsZz");
+		if (mPsZz != null) {
+			TextView titleTextView = (TextView) findViewById(R.id.titleTv);
+			titleTextView.setText("修改种植污染源");
+			mRegionSpinner.setSelection(WaterDectionary.findRegionIndex(mPsZz
+					.getSsxz().getID()));
+			mWrcdSpinner.setSelection(WaterDectionary.findWrcdIndex(mPsZz.getCd().getID()));
+			stmjEditText.setText(String.valueOf(mPsZz.getStmj()));
+			hdmjEditText.setText(String.valueOf(mPsZz.getHdmj()));
+			symjEditText.setText(String.valueOf(mPsZz.getSymj()));
+			gymjEditText.setText(String.valueOf(mPsZz.getGymj()));
+			nyylEditText.setText(String.valueOf(mPsZz.getNyyl()));
+			nfylEditText.setText(String.valueOf(mPsZz.getNfyl()));
+			nyccEditText.setText(String.valueOf(mPsZz.getNycc()));
+			codEditText.setText(String.valueOf(mPsZz.getCod()));
+			adEditText.setText(String.valueOf(mPsZz.getNh3N()));
+			tpEditText.setText(String.valueOf(mPsZz.getPsum()));
+			tnEditText.setText(String.valueOf(mPsZz.getNsum()));
+			x = mPsZz.getX();
+			y = mPsZz.getY();
+			DecimalFormat df = new DecimalFormat("0.00000");
+			xTv.setText("X: " + df.format(x));
+			yTv.setText("Y: " + df.format(y));
+			if (checkTextView()) {
+				btnSendPs.setEnabled(true);
+			} else {
+				btnSendPs.setEnabled(false);
+			}
+		}		
 	}
 
 
@@ -157,6 +185,7 @@ public class AddPsZzActivity extends Activity {
 					HttpUtil.uploadPollutionSource(psZz,"Zzwry");
 					msg.obj="上传成功";
 					mHandler.sendMessage(msg);
+					setResult(1000);
 					AddPsZzActivity.this.finish();
 				} catch (Throwable e) {
 					msg.obj="上传失败";
@@ -169,24 +198,25 @@ public class AddPsZzActivity extends Activity {
 	}
 
 	protected PsZz createPollution() {
-		// TODO Auto-generated method stub
-		PsZz psZz=new PsZz();
-		psZz.setXzq(creatRegion(this.mRegionSpinner.getSelectedItem().toString()));
-		psZz.setStmj(Double.parseDouble(this.stmjEditText.getText().toString()));
-		psZz.setHdmj(Double.parseDouble(this.hdmjEditText.getText().toString()));
-		psZz.setSymj(Double.parseDouble(this.symjEditText.getText().toString()));
-		psZz.setGymj(Double.parseDouble(this.gymjEditText.getText().toString()));
-		psZz.setNyyl(Double.parseDouble(this.nyylEditText.getText().toString()));
-		psZz.setNfyl(Double.parseDouble(this.nfylEditText.getText().toString()));
-		psZz.setNycc(Double.parseDouble(this.nyccEditText.getText().toString()));
-		psZz.setCd(creatPsZzlevel(this.mWrcdSpinner.getSelectedItem().toString()));
-		psZz.setCod(Double.parseDouble(this.codEditText.getText().toString()));
-		psZz.setNh3N(Double.parseDouble(this.adEditText.getText().toString()));
-		psZz.setPsum(Double.parseDouble(this.tpEditText.getText().toString()));
-		psZz.setNsum(Double.parseDouble(this.tnEditText.getText().toString()));
-		psZz.setX(x);
-		psZz.setY(y);
-		return psZz;
+		if (mPsZz==null) {
+			mPsZz=new PsZz();
+		}
+		mPsZz.setXzq(creatRegion(this.mRegionSpinner.getSelectedItem().toString()));
+		mPsZz.setStmj(Double.parseDouble(this.stmjEditText.getText().toString()));
+		mPsZz.setHdmj(Double.parseDouble(this.hdmjEditText.getText().toString()));
+		mPsZz.setSymj(Double.parseDouble(this.symjEditText.getText().toString()));
+		mPsZz.setGymj(Double.parseDouble(this.gymjEditText.getText().toString()));
+		mPsZz.setNyyl(Double.parseDouble(this.nyylEditText.getText().toString()));
+		mPsZz.setNfyl(Double.parseDouble(this.nfylEditText.getText().toString()));
+		mPsZz.setNycc(Double.parseDouble(this.nyccEditText.getText().toString()));
+		mPsZz.setCd(creatPsZzlevel(this.mWrcdSpinner.getSelectedItem().toString()));
+		mPsZz.setCod(Double.parseDouble(this.codEditText.getText().toString()));
+		mPsZz.setNh3N(Double.parseDouble(this.adEditText.getText().toString()));
+		mPsZz.setPsum(Double.parseDouble(this.tpEditText.getText().toString()));
+		mPsZz.setNsum(Double.parseDouble(this.tnEditText.getText().toString()));
+		mPsZz.setX(x);
+		mPsZz.setY(y);
+		return mPsZz;
 	}
 
 	private PsZzLevel creatPsZzlevel(String typeName) {
@@ -255,28 +285,6 @@ public class AddPsZzActivity extends Activity {
 		adEditText.addTextChangedListener(textWatcherimpl);
 		tpEditText.addTextChangedListener(textWatcherimpl);
 		tnEditText.addTextChangedListener(textWatcherimpl);
-	}
-	class HttpThread implements Runnable{
-		private String typeString;
-		@Override
-		public void run() {
-			String jsonString = HttpUtil.getDectionaryString(typeString);
-			Message msg = new Message();
-			if (!jsonString.equals("")) {
-				msg.obj=jsonString;
-				if (typeString.equals("Xzq")) {
-					msg.what=1;
-				}
-				if (typeString.equals("Wrcd")) {
-					msg.what=2;
-				}
-				mHandler.sendMessage(msg);
-			}
-		}
-		public HttpThread(String typeString) {
-			super();
-			this.typeString = typeString;
-			}
 	}
 	class TextWatcherimpl implements TextWatcher{
 

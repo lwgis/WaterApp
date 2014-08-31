@@ -1,11 +1,12 @@
 package cn.bjeastearth.waterapp.model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 
-public interface PollutionSource {
+public interface PollutionSource extends Serializable {
 		String getPID();
 		String getShowTitle();
 		String getShowDescribing();

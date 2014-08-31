@@ -35,8 +35,13 @@ public class LocationActivity extends Activity {
 	private MapView mapView = null;
 	private 	ArcGISTiledMapServiceLayer tiledMapServiceLayer = null;
 	private GraphicsLayer mGraphicsLayer;
-	private	OnSingleTapListener mSingleTapListener=new OnSingleTapListener() {
+	private OnSingleTapListener mSingleTapListener=new OnSingleTapListener() {
 		
+		/**
+		 * 
+		 */
+		private static final long serialVersionUID = -2827060711321208484L;
+
 		@Override
 		public void onSingleTap(float x, float y) {
 				mGraphicsLayer.removeAll();

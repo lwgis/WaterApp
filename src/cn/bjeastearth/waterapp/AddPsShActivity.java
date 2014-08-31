@@ -5,8 +5,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import cn.bjeastearth.http.HttpUtil;
+import cn.bjeastearth.http.WaterDectionary;
+import cn.bjeastearth.waterapp.model.ProjectImage;
 import cn.bjeastearth.waterapp.model.PsLive;
 import cn.bjeastearth.waterapp.model.PsLiveType;
+import cn.bjeastearth.waterapp.model.PsXqyz;
 import cn.bjeastearth.waterapp.model.Region;
 import cn.bjeastearth.waterapp.myview.MyTextButton;
 
@@ -30,7 +33,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 public class AddPsShActivity extends Activity {
-	private final int sendPs=100;
+	private final int sendPs = 100;
 	private Button btnBack;
 	private EditText gslEditText;
 	private EditText czhjfnyrkEditText;
@@ -51,130 +54,175 @@ public class AddPsShActivity extends Activity {
 	private Button btnLocation;
 	private TextView xTv;
 	private TextView yTv;
-	private double x=0.0;
-	private double y=0.0;
-	private Handler  mHandler=new Handler(){
+	private double x = 0.0;
+	private double y = 0.0;
+	private PsLive mPsLive;
+	private Handler mHandler = new Handler() {
 		@Override
 		public void handleMessage(Message msg) {
 			super.handleMessage(msg);
-			Gson gson = new Gson();
-			if (msg.what==1) {
-				listRegions = gson.fromJson(msg.obj.toString(),
-						new TypeToken<List<Region>>() {
-						}.getType());
-				ArrayList<String> arrayList = new ArrayList<String>();
-				for (Region region : listRegions) {
-					arrayList.add(region.getName());
-				}
-				ArrayAdapter<String> adapter = new ArrayAdapter<String>(
-						AddPsShActivity.this,R.layout.simple_spinner_item,
-						arrayList);
-				AddPsShActivity.this.mRegionSpinner.setAdapter(adapter);
-			}
-			if (msg.what==sendPs) {
-				Toast.makeText(AddPsShActivity.this, msg.obj.toString(), Toast.LENGTH_SHORT).show();
-			    AddPsShActivity.this.btnSendPs.setEnabled(true);
+			if (msg.what == sendPs) {
+				Toast.makeText(AddPsShActivity.this, msg.obj.toString(),
+						Toast.LENGTH_SHORT).show();
+				AddPsShActivity.this.btnSendPs.setEnabled(true);
 			}
 		}
 	};
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		super.setContentView(R.layout.activity_addps_sh);
-		btnBack=(Button)findViewById(R.id.btnBack);
+		btnBack = (Button) findViewById(R.id.btnBack);
 		btnBack.setOnClickListener(new OnClickListener() {
-			
+
 			@Override
 			public void onClick(View v) {
 				AddPsShActivity.this.finish();
 			}
 		});
-		this.btnSendPs=(MyTextButton)findViewById(R.id.btnSendPs);
-		 this.btnSendPs.setEnabled(false);
-		 this.btnSendPs.setOnClickListener(new OnClickListener() {
-			
+		this.btnSendPs = (MyTextButton) findViewById(R.id.btnSendPs);
+		this.btnSendPs.setEnabled(false);
+		this.btnSendPs.setOnClickListener(new OnClickListener() {
+
 			@Override
 			public void onClick(View v) {
 				AddPsShActivity.this.btnSendPs.setEnabled(false);
-			    AddPsShActivity.this.uploadPsIndustry();
+				AddPsShActivity.this.uploadPsIndustry();
 			}
 		});
-		gslEditText=(EditText)findViewById(R.id.gslEt);
-		czhjfnyrkEditText=(EditText)findViewById(R.id.czhjfnyrkEt);
-		nchjnyrkEditText=(EditText)findViewById(R.id.nchjnyrkEt);
-		czzzrkEditText=(EditText)findViewById(R.id.czzzrkEt);
-		nczzrkEditText=(EditText)findViewById(R.id.nczzrkEt);
-		rkEditText=(EditText)findViewById(R.id.rkEt);
-		wszlEditText=(EditText)findViewById(R.id.wszlEt);
-		wscllEditText=(EditText)findViewById(R.id.wscllEt);
-		wsgdjglEditText=(EditText)findViewById(R.id.wsgdjglEt);
-		codEditText=(EditText)findViewById(R.id.codEt);
-		adEditText=(EditText)findViewById(R.id.adEt);
-		tpEditText=(EditText)findViewById(R.id.tpEt);
-		tnEditText=(EditText)findViewById(R.id.tnEt);
-		mRegionSpinner=(Spinner)findViewById(R.id.regionSpin);	
-		 this.xTv=(TextView)findViewById(R.id.xTv);
-		 this.yTv=(TextView)findViewById(R.id.yTv);
-		 this.btnLocation=(Button)findViewById(R.id.btnAddLocation);
-		 this.btnLocation.setOnClickListener(new OnClickListener() {
-			
+		gslEditText = (EditText) findViewById(R.id.gslEt);
+		czhjfnyrkEditText = (EditText) findViewById(R.id.czhjfnyrkEt);
+		nchjnyrkEditText = (EditText) findViewById(R.id.nchjnyrkEt);
+		czzzrkEditText = (EditText) findViewById(R.id.czzzrkEt);
+		nczzrkEditText = (EditText) findViewById(R.id.nczzrkEt);
+		rkEditText = (EditText) findViewById(R.id.rkEt);
+		wszlEditText = (EditText) findViewById(R.id.wszlEt);
+		wscllEditText = (EditText) findViewById(R.id.wscllEt);
+		wsgdjglEditText = (EditText) findViewById(R.id.wsgdjglEt);
+		codEditText = (EditText) findViewById(R.id.codEt);
+		adEditText = (EditText) findViewById(R.id.adEt);
+		tpEditText = (EditText) findViewById(R.id.tpEt);
+		tnEditText = (EditText) findViewById(R.id.tnEt);
+		mRegionSpinner = (Spinner) findViewById(R.id.regionSpin);
+		this.xTv = (TextView) findViewById(R.id.xTv);
+		this.yTv = (TextView) findViewById(R.id.yTv);
+		this.btnLocation = (Button) findViewById(R.id.btnAddLocation);
+		this.btnLocation.setOnClickListener(new OnClickListener() {
+
 			@Override
 			public void onClick(View v) {
-					Intent it=new Intent(AddPsShActivity.this,LocationActivity.class);
-					AddPsShActivity.this.startActivityForResult(it, 2);
+				Intent it = new Intent(AddPsShActivity.this,
+						LocationActivity.class);
+				AddPsShActivity.this.startActivityForResult(it, 2);
 			}
 		});
-		 setTextWatcher();
-		new Thread(new HttpThread("Xzq")).start();
+		setTextWatcher();
+		listRegions = WaterDectionary.getRegions();
+		ArrayList<String> arrayList = new ArrayList<String>();
+		for (Region region : listRegions) {
+			arrayList.add(region.getName());
+		}
+		ArrayAdapter<String> adapter = new ArrayAdapter<String>(
+				AddPsShActivity.this, R.layout.simple_spinner_item, arrayList);
+		AddPsShActivity.this.mRegionSpinner.setAdapter(adapter);
+		setContent();
 	}
 
-
+	private void setContent() {
+		Intent it = getIntent();
+		mPsLive = (PsLive) it.getSerializableExtra("PsLive");
+		if (mPsLive != null) {
+			TextView titleTextView = (TextView) findViewById(R.id.titleTv);
+			titleTextView.setText("修改生活污染源");
+			mRegionSpinner.setSelection(WaterDectionary.findRegionIndex(mPsLive
+					.getSsxz().getID()));
+			gslEditText.setText(String.valueOf(mPsLive.getGsl()));
+			czhjfnyrkEditText.setText(String.valueOf(mPsLive.getCzhjfnrk()));
+			nchjnyrkEditText.setText(String.valueOf(mPsLive.getNchjnyrk()));
+			czzzrkEditText.setText(String.valueOf(mPsLive.getCzzzrk()));
+			nczzrkEditText.setText(String.valueOf(mPsLive.getNchjzzrk()));
+			rkEditText.setText(String.valueOf(mPsLive.getRk()));
+			wszlEditText.setText(String.valueOf(mPsLive.getWszl()));
+			wscllEditText.setText(String.valueOf(mPsLive.getWscll()));
+			wsgdjglEditText.setText(String.valueOf(mPsLive.getWsgdjgl()));
+			codEditText.setText(String.valueOf(mPsLive.getCod()));
+			adEditText.setText(String.valueOf(mPsLive.getNh3N()));
+			tpEditText.setText(String.valueOf(mPsLive.getPsum()));
+			tnEditText.setText(String.valueOf(mPsLive.getNsum()));
+			x = mPsLive.getX();
+			y = mPsLive.getY();
+			DecimalFormat df = new DecimalFormat("0.00000");
+			xTv.setText("X: " + df.format(x));
+			yTv.setText("Y: " + df.format(y));
+			if (checkTextView()) {
+				btnSendPs.setEnabled(true);
+			} else {
+				btnSendPs.setEnabled(false);
+			}
+		}
+	}
 
 	protected void uploadPsIndustry() {
 		// TODO Auto-generated method stub
 		new Thread(new Runnable() {
-			
+
 			@Override
 			public void run() {
-				PsLive psLive= createPollution();
-				Message msg=new Message();
-				msg.what=sendPs;
+				PsLive psLive = createPollution();
+				Message msg = new Message();
+				msg.what = sendPs;
 				try {
-					HttpUtil.uploadPollutionSource(psLive,"Shws");
-					msg.obj="上传成功";
+					HttpUtil.uploadPollutionSource(psLive, "Shws");
+					msg.obj = "上传成功";
 					mHandler.sendMessage(msg);
+					setResult(1000);
 					AddPsShActivity.this.finish();
 				} catch (Throwable e) {
-					msg.obj="上传失败";
+					msg.obj = "上传失败";
 					mHandler.sendMessage(msg);
 					e.printStackTrace();
 				}
-				
+
 			}
 		}).start();
 	}
 
 	protected PsLive createPollution() {
-		// TODO Auto-generated method stub
-		PsLive psLive=new PsLive();
-		psLive.setXzq(creatRegion(this.mRegionSpinner.getSelectedItem().toString()));
-		psLive.setGsl(Double.parseDouble(this.gslEditText.getText().toString()));
-		psLive.setCzhjfnrk(Double.parseDouble(this.czhjfnyrkEditText.getText().toString()));
-		psLive.setNchjnyrk(Double.parseDouble(this.nchjnyrkEditText.getText().toString()));
-		psLive.setCzzzrk(Double.parseDouble(this.czzzrkEditText.getText().toString()));
-		psLive.setNchjzzrk(Double.parseDouble(this.nczzrkEditText.getText().toString()));
-		psLive.setRk(Double.parseDouble(this.rkEditText.getText().toString()));
-		psLive.setWsgdjgl(Double.parseDouble(this.wsgdjglEditText.getText().toString()));
-		psLive.setWszl(Double.parseDouble(this.wszlEditText.getText().toString()));
-		psLive.setWscll(Double.parseDouble(this.wscllEditText.getText().toString()));
-		psLive.setCod(Double.parseDouble(this.codEditText.getText().toString()));
-		psLive.setNh3N(Double.parseDouble(this.adEditText.getText().toString()));
-		psLive.setPsum(Double.parseDouble(this.tpEditText.getText().toString()));
-		psLive.setNsum(Double.parseDouble(this.tnEditText.getText().toString()));
-		psLive.setX(x);
-		psLive.setY(y);
-		return psLive;
+		if (mPsLive == null) {
+			mPsLive = new PsLive();
+		}
+		mPsLive.setXzq(creatRegion(this.mRegionSpinner.getSelectedItem()
+				.toString()));
+		mPsLive.setGsl(Double
+				.parseDouble(this.gslEditText.getText().toString()));
+		mPsLive.setCzhjfnrk(Double.parseDouble(this.czhjfnyrkEditText.getText()
+				.toString()));
+		mPsLive.setNchjnyrk(Double.parseDouble(this.nchjnyrkEditText.getText()
+				.toString()));
+		mPsLive.setCzzzrk(Double.parseDouble(this.czzzrkEditText.getText()
+				.toString()));
+		mPsLive.setNchjzzrk(Double.parseDouble(this.nczzrkEditText.getText()
+				.toString()));
+		mPsLive.setRk(Double.parseDouble(this.rkEditText.getText().toString()));
+		mPsLive.setWsgdjgl(Double.parseDouble(this.wsgdjglEditText.getText()
+				.toString()));
+		mPsLive.setWszl(Double.parseDouble(this.wszlEditText.getText()
+				.toString()));
+		mPsLive.setWscll(Double.parseDouble(this.wscllEditText.getText()
+				.toString()));
+		mPsLive.setCod(Double
+				.parseDouble(this.codEditText.getText().toString()));
+		mPsLive.setNh3N(Double
+				.parseDouble(this.adEditText.getText().toString()));
+		mPsLive.setPsum(Double
+				.parseDouble(this.tpEditText.getText().toString()));
+		mPsLive.setNsum(Double
+				.parseDouble(this.tnEditText.getText().toString()));
+		mPsLive.setX(x);
+		mPsLive.setY(y);
+		return mPsLive;
 	}
 
 	private Region creatRegion(String rName) {
@@ -191,18 +239,19 @@ public class AddPsShActivity extends Activity {
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		// TODO Auto-generated method stub
 		super.onActivityResult(requestCode, resultCode, data);
-		if (resultCode==2) {
-			x=data.getExtras().getDouble("X");
-			y=data.getExtras().getDouble("Y");
-			DecimalFormat df = new DecimalFormat("0.00000");   
-			xTv.setText("X: "+df.format(x));
-			yTv.setText("Y: "+df.format(y));
+		if (resultCode == 2) {
+			x = data.getExtras().getDouble("X");
+			y = data.getExtras().getDouble("Y");
+			DecimalFormat df = new DecimalFormat("0.00000");
+			xTv.setText("X: " + df.format(x));
+			yTv.setText("Y: " + df.format(y));
 			if (checkTextView()) {
 				btnSendPs.setEnabled(true);
 			}
 		}
 
 	}
+
 	private boolean checkTextView() {
 		return gslEditText.getText().length() > 0
 				&& czhjfnyrkEditText.getText().length() > 0
@@ -216,12 +265,11 @@ public class AddPsShActivity extends Activity {
 				&& codEditText.getText().length() > 0
 				&& adEditText.getText().length() > 0
 				&& tpEditText.getText().length() > 0
-				&& tnEditText.getText().length() > 0
-				&& x!=0.0&& y!=0;
+				&& tnEditText.getText().length() > 0 && x != 0.0 && y != 0;
 	}
 
 	private void setTextWatcher() {
-		TextWatcherimpl textWatcherimpl=new TextWatcherimpl();
+		TextWatcherimpl textWatcherimpl = new TextWatcherimpl();
 		gslEditText.addTextChangedListener(textWatcherimpl);
 		czhjfnyrkEditText.addTextChangedListener(textWatcherimpl);
 		nchjnyrkEditText.addTextChangedListener(textWatcherimpl);
@@ -236,35 +284,14 @@ public class AddPsShActivity extends Activity {
 		tpEditText.addTextChangedListener(textWatcherimpl);
 		tnEditText.addTextChangedListener(textWatcherimpl);
 	}
-	class HttpThread implements Runnable{
-		private String typeString;
-		@Override
-		public void run() {
-			String jsonString = HttpUtil.getDectionaryString(typeString);
-			Message msg = new Message();
-			if (!jsonString.equals("")) {
-				msg.obj=jsonString;
-				if (typeString.equals("Xzq")) {
-					msg.what=1;
-				}
-				if (typeString.equals("ShwsType")) {
-					msg.what=2;
-				}
-				mHandler.sendMessage(msg);
-			}
-		}
-		public HttpThread(String typeString) {
-			super();
-			this.typeString = typeString;
-			}
-	}
-	class TextWatcherimpl implements TextWatcher{
+
+	class TextWatcherimpl implements TextWatcher {
 
 		@Override
 		public void beforeTextChanged(CharSequence s, int start, int count,
 				int after) {
 			// TODO Auto-generated method stub
-			
+
 		}
 
 		@Override
@@ -272,17 +299,15 @@ public class AddPsShActivity extends Activity {
 				int count) {
 			if (checkTextView()) {
 				btnSendPs.setEnabled(true);
-			}
-			else {
+			} else {
 				btnSendPs.setEnabled(false);
 			}
 		}
-		@Override 
+
+		@Override
 		public void afterTextChanged(Editable s) {
-			
+
 		}
-		
+
 	}
 }
-
-

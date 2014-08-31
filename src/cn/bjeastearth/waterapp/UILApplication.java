@@ -19,6 +19,7 @@ import android.annotation.TargetApi;
 import android.app.Application;
 import android.content.Context;
 import android.os.Build;
+import cn.bjeastearth.http.WaterDectionary;
 
 import com.esri.android.runtime.ArcGISRuntime;
 import com.nostra13.universalimageloader.cache.disc.naming.Md5FileNameGenerator;
@@ -43,6 +44,7 @@ public class UILApplication extends Application {
 
 		initImageLoader(getApplicationContext());
 		ArcGISRuntime.setClientId("SZCLVTfF6WhMaS4f");
+		WaterDectionary.config();
 	}
 
 	public static void initImageLoader(Context context) {
