@@ -7,6 +7,7 @@ import java.util.Map;
 
 import cn.bjeastearth.http.HttpUtil;
 import cn.bjeastearth.http.ImageOptions;
+import cn.bjeastearth.http.MapUtil;
 import cn.bjeastearth.http.WaterDectionary;
 import cn.bjeastearth.waterapp.model.PollutionSource;
 import cn.bjeastearth.waterapp.model.PsFarmingManager;
@@ -54,6 +55,7 @@ import android.widget.RelativeLayout;
 import android.widget.TabHost;
 import android.widget.TextView;
 import android.widget.TextView.OnEditorActionListener;
+import android.widget.Toast;
 
 public class PollutionActivity extends Activity implements OnClickListener {
 	private MapView mapView = null;
@@ -81,7 +83,7 @@ public class PollutionActivity extends Activity implements OnClickListener {
 	private Button btnSearch;
 	private PsType mPsType;
 	private PopupWindow mAddPopupWindow;
-	private Button btnAddPs;
+	private Button btnMenu;
 	private Handler mHandler = new Handler() {
 
 		@Override
@@ -183,13 +185,19 @@ public class PollutionActivity extends Activity implements OnClickListener {
 				.setContent(R.id.mapLayout));
 		tabHost.addTab(tabHost.newTabSpec("listView").setIndicator(tabListView)
 				.setContent(R.id.listViewLayout));
-		String mapURL = "http://cache1.arcgisonline.cn/ArcGIS/rest/services/ChinaOnlineStreetColor/MapServer";
+		String mapURL = getString(R.string.mapBg);
 		mapView = (MapView) findViewById(R.id.mapView);
 		tiledMapServiceLayer = new ArcGISTiledMapServiceLayer(mapURL);
 		mapView.addLayer(tiledMapServiceLayer);
-		Envelope initextext = new Envelope(12899459.4956466, 4815363.65520802,
-				13004178.2243971, 4882704.67712717);
+		Envelope initextext = new Envelope(
+				Double.parseDouble(getString(R.string.mapMinX)),
+				Double.parseDouble(getString(R.string.mapMinY)),
+				Double.parseDouble(getString(R.string.mapMaxX)),
+				Double.parseDouble(getString(R.string.mapMaxY)));
 		mapView.setExtent(initextext);
+//		MapUtil.addMapLayerByUrl(mapView, getString(R.string.mapWsgwngl));
+//		MapUtil.addMapLayerByUrl(mapView, getString(R.string.mapNcwscll));
+		MapUtil.addMapLayerByUrl(mapView, getString(R.string.mapJiaXing));
 		// new Thread(new httpThread()).start();
 		mapInfoLayout = (RelativeLayout) findViewById(R.id.mapInfoLayout);
 		mapInfoLayout.setVisibility(View.GONE);
@@ -217,6 +225,12 @@ public class PollutionActivity extends Activity implements OnClickListener {
 			}
 		});
 		List<Region> listRegions = WaterDectionary.getRegions();
+		if (listRegions==null) {
+			Toast.makeText(this, "连接服务器失败,请稍候再试!", Toast.LENGTH_SHORT).show();
+			WaterDectionary.config();
+			this.finish();
+			return;
+		}
 		ArrayList<String> arrayList = new ArrayList<String>();
 		for (Region region : listRegions) {
 			arrayList.add(region.getName());
@@ -290,18 +304,18 @@ public class PollutionActivity extends Activity implements OnClickListener {
 
 	// 初始化新建按钮
 	private void initAddPsBtn() {
-		btnAddPs = (Button) findViewById(R.id.btnAddPs);
+		btnMenu = (Button) findViewById(R.id.btnMenu);
 		final View popView = LayoutInflater.from(PollutionActivity.this)
 				.inflate(R.layout.popupwindow_addps, null);
-		btnAddPs.setOnClickListener(new OnClickListener() {
+		btnMenu.setOnClickListener(new OnClickListener() {
 			@SuppressLint("InflateParams")
 			@Override
 			public void onClick(View v) {
 
 				if (mAddPopupWindow == null) {
 					mAddPopupWindow = new PopupWindow(popView, DpTransform
-							.dip2px(PollutionActivity.this, 100), DpTransform
-							.dip2px(PollutionActivity.this, 250));
+							.dip2px(PollutionActivity.this, 120), DpTransform
+							.dip2px(PollutionActivity.this, 240));
 					// mAddPopupWindow.setBackgroundDrawable(new
 					// BitmapDrawable());
 					// mAddPopupWindow.setOutsideTouchable(true);
@@ -309,8 +323,8 @@ public class PollutionActivity extends Activity implements OnClickListener {
 				if (mAddPopupWindow.isShowing()) {
 					mAddPopupWindow.dismiss();
 				} else {
-					mAddPopupWindow.showAsDropDown(btnAddPs,
-							-DpTransform.dip2px(PollutionActivity.this, 45),
+					mAddPopupWindow.showAsDropDown(btnMenu,
+							-DpTransform.dip2px(PollutionActivity.this, 90),
 							DpTransform.dip2px(PollutionActivity.this, 4));
 				}
 			}
@@ -370,6 +384,16 @@ public class PollutionActivity extends Activity implements OnClickListener {
 				// TODO Auto-generated method stub
 				Intent it = new Intent(PollutionActivity.this,
 						AddPsShActivity.class);
+				PollutionActivity.this.startActivity(it);
+				mAddPopupWindow.dismiss();
+			}
+		});
+		Button btnCount=(Button)popView.findViewById(R.id.btnCount);
+		btnCount.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				Intent it=new Intent(PollutionActivity.this, CountPsActivity.class);
 				PollutionActivity.this.startActivity(it);
 				mAddPopupWindow.dismiss();
 			}

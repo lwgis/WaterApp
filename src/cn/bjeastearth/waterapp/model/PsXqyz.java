@@ -37,6 +37,8 @@ public class PsXqyz  implements PollutionSource,Serializable{
 	private int YangCount;
 	private double Ysl;
 	private int ZhuCount;
+	private int EditEnable;
+
 	private ArrayList<FieldItem> mFieldItems;
 
 	public double getCod() {
@@ -250,6 +252,12 @@ public class PsXqyz  implements PollutionSource,Serializable{
 	public Region getXzq() {
 		// TODO Auto-generated method stub
 		return Ssxz;
+	}
+	public int getEditEnable() {
+		return EditEnable;
+	}
+	public void setEditEnable(int editEnable) {
+		EditEnable = editEnable;
 	}
 
 }

@@ -7,117 +7,15 @@
     <string name="NewTileImgAddr">http://159.226.110.64:8001/WaterAdmin/file/img/</string>
     <string name="allNewsLabelTitle">治水新闻</string>
     <string name="reportTitle">举报</string>
-	<string name="json">{
-    "Bod": 4,
-    "CTime": "2014-06-03",
-    "Class1jls": [
-        {
-            "Jlvalue": 1,
-            "Status": 0,
-            "Wrw": {
-                "Bznd": 0.5,
-                "ID": 5,
-                "Status": 0,
-                "Wrw": "六价铬"
-            }
-        },
-        {
-            "Jlvalue": 2,
-            "Status": 0,
-            "Wrw": {
-                "Bznd": 0.1,
-                "ID": 3,
-                "Status": 0,
-                "Wrw": "总镉"
-            }
-        }
-    ],
-    "Class2jls": [
-        {
-            "Jlvalue": "500",
-            "Status": 0,
-            "Wrw": {
-                "Bz1": "100",
-                "Bz2": "300",
-                "Bz3": "-",
-                "ID": 4,
-                "Status": 0,
-                "Syfw": "采矿、选矿、选煤工业",
-                "Type": {
-                    "ID": 3,
-                    "Name": "悬浮物",
-                    "Status": 0
-                },
-                "TypeName": "悬浮物"
-            }
-        },
-        {
-            "Jlvalue": "50",
-            "Status": 0,
-            "Wrw": {
-                "Bz1": "20",
-                "Bz2": "30",
-                "Bz3": "-",
-                "ID": 6,
-                "Status": 0,
-                "Syfw": "城镇二级污水处理厂",
-                "Type": {
-                    "ID": 4,
-                    "Name": "五日生化需氧量",
-                    "Status": 0
-                },
-                "TypeName": "五日生化需氧量"
-            }
-        }
-    ],
-    "Cod": 5,
-    "Cylx": "fghjf",
-    "Fzr": "sdfgsdfg",
-    "GsDept": {
-        "Address": "阿斯顿发大水",
-        "ID": 3,
-        "Name": "工商局",
-        "Parentid": 0,
-        "Status": 0
-    },
-    "HbDept": {
-        "Address": "知春路甲12号",
-        "ID": 1,
-        "Name": "环保局",
-        "Parentid": 0,
-        "Status": 0
-    },
-    "Images": [
-        {
-            "Name": "0e0b3143e70e4523b985ce1d602e8140.jpg",
-            "Status": 0,
-            "Type": null
-        },
-        {
-            "Name": "e539d0186e6b4191a6bc3ae763927456.jpg",
-            "Status": 0,
-            "Type": null
-        }
-    ],
-    "NH3N": 6,
-    "Ncz": 555,
-    "PSum": 8,
-    "Qymc": "asdfa",
-    "Status": 0,
-    "Wrwlx": {
-        "ID": 1,
-        "Name": "喷水织机",
-        "Status": 0
-    },
-    "X": 12923374.38606765,
-    "Xzq": {
-        "ID": 2,
-        "Name": "朝阳区",
-        "Parentid": 1,
-        "Status": 0
-    },
-    "Y": 4878641.184736681,
-    "Zczj": 34,
-    "Zjs": 9
-}</string>
+    <string name="mapBg">http://services.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer</string>
+    <string name="mapNcwscll">http://159.226.110.64:8001/ags/rest/services/wscll/MapServer</string>
+    <string name="mapRiverFeature">http://159.226.110.64:8001/ags/rest/services/sanhe/MapServer/0</string>
+    <string name="mapRiver">http://159.226.110.64:8001/ags/rest/services/sanhe/MapServer</string>
+    <string name="mapJiaXing">http://159.226.110.64:8001/ags/rest/services/jiaxing/MapServer</string>
+    <string name="mapWsgwngl">http://159.226.110.64:8001/ags/rest/services/wsngl/MapServer</string>
+    <string name="mapMinX">13408279.5389522617</string>
+    <string name="mapMinY">3572484.427110451</string>
+    <string name="mapMaxX">13462652.998022813</string>
+    <string name="mapMaxY">3636146.685438888</string>
+
 </resources>

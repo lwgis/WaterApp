@@ -31,6 +31,8 @@ public class PsLive implements PollutionSource,Serializable {
 	private Region Xzq;
 	private double X;
 	private double Y;
+	private int EditEnable;
+
 	private ArrayList<FieldItem>mFieldItems;
 
 	public double getCod() {
@@ -201,5 +203,11 @@ public class PsLive implements PollutionSource,Serializable {
 	public Region getSsxz() {
 		// TODO Auto-generated method stub
 		return Xzq;
+	}
+	public int getEditEnable() {
+		return EditEnable;
+	}
+	public void setEditEnable(int editEnable) {
+		EditEnable = editEnable;
 	}
 }

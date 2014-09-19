@@ -12,20 +12,24 @@
         <Button
             android:id="@+id/btnSave"
             android:layout_width="100dp"
-            android:layout_height="wrap_content"
+            android:layout_height="40dp"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="10dp"
             android:layout_weight="1"
-            android:text="确定" />
+            android:background="@drawable/dialog_btn_style"
+            android:text="确定"
+            android:textSize="18sp" />
 
         <Button
             android:id="@+id/btnCancel"
             android:layout_width="100dp"
-            android:layout_height="wrap_content"
+            android:layout_height="40dp"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="20dp"
             android:layout_weight="1"
-            android:text="取消" />
+            android:background="@drawable/dialog_btn_style"
+            android:text="取消"
+            android:textSize="18sp" />
     </LinearLayout>
 
     <ScrollView
@@ -141,15 +145,13 @@
                     android:textSize="18sp" />
             </LinearLayout>
 
-
-
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/field_item_bg"
-                android:orientation="horizontal" 
-                  android:focusable="false"
-                android:focusableInTouchMode="false">
+                android:focusable="false"
+                android:focusableInTouchMode="false"
+                android:orientation="horizontal" >
 
                 <TextView
                     android:layout_width="100dp"
@@ -206,12 +208,12 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:focusable="false"
+                    android:focusableInTouchMode="false"
                     android:paddingLeft="5dp"
                     android:paddingRight="40dp"
                     android:textColor="#715b4c"
-                    android:textSize="16sp" 
-                      android:focusable="false"
-                android:focusableInTouchMode="false"/>
+                    android:textSize="16sp" />
             </LinearLayout>
 
             <LinearLayout
@@ -241,19 +243,20 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:background="#00000000"
+                    android:imeOptions="actionDone"
                     android:paddingLeft="5dp"
                     android:paddingRight="0dp"
                     android:textColor="#715b4c"
-                    android:textSize="18sp" 
-                    android:imeOptions="actionDone"/>
+                    android:textSize="18sp" />
             </LinearLayout>
-			<LinearLayout
+
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/field_item_bg"
-                android:orientation="vertical"
-                  android:focusable="false"
-                android:focusableInTouchMode="false" >
+                android:focusable="false"
+                android:focusableInTouchMode="false"
+                android:orientation="vertical" >
 
                 <TextView
                     android:layout_width="match_parent"
@@ -263,6 +266,7 @@
                     android:text="完成时间"
                     android:textColor="#715b4c"
                     android:textSize="18sp" />
+
                 <DatePicker
                     android:id="@+id/wcsjDp"
                     android:layout_width="match_parent"

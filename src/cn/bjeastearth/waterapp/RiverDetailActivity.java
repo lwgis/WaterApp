@@ -45,6 +45,8 @@ public class RiverDetailActivity extends Activity implements ViewFactory {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		super.setContentView(R.layout.activity_riverdetail);
+		Intent it = getIntent();
+		currentRiver = (River) it.getSerializableExtra("river");
 		initEditMenu();
 		Button backButton = (Button) findViewById(R.id.btnBack);
 		backButton.setOnClickListener(new OnClickListener() {
@@ -65,8 +67,6 @@ public class RiverDetailActivity extends Activity implements ViewFactory {
 		wryListView = (ListView) findViewById(R.id.wryLv);
 		szjlListView = (ListView) findViewById(R.id.szjlLv);
 		zljhListView = (ListView) findViewById(R.id.zljhLv);
-		Intent it = getIntent();
-		currentRiver = (River) it.getSerializableExtra("river");
 		refreshUi(currentRiver);
 	}
 	/**
@@ -92,6 +92,10 @@ public class RiverDetailActivity extends Activity implements ViewFactory {
 		final View popView = LayoutInflater.from(this).inflate(
 				R.layout.popupwindow_editriver, null);
 		btnEdit = (Button) findViewById(R.id.btnEdit);
+		if (currentRiver.getEditEnable()==0) {
+			btnEdit.setVisibility(View.INVISIBLE);
+			return;
+		}
 		btnEdit.setOnClickListener(new OnClickListener() {
 
 			@Override

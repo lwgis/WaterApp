@@ -57,7 +57,7 @@ public class RiverAdapter extends BaseAdapter {
 		Button btnLocation=(Button)convertView.findViewById(R.id.btnLocation);
 		btnLocation.setTag(getItem(position));
 		btnLocation.setOnClickListener(mlocatiOnClickListener);
-		if (mRivers.get(position).getImages()!=null) {
+		if (mRivers.get(position).getImages()!=null&&mRivers.get(position).getImages().size()>0) {
 			String url=mContext.getString(R.string.NewTileImgAddr)+mRivers.get(position).getImages().get(0).getName();
 			ImageLoader.getInstance().displayImage(url, iView,ImageOptions.options);
 		}

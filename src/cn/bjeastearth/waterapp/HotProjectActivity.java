@@ -6,6 +6,7 @@ import java.util.Map;
 
 import cn.bjeastearth.http.HttpUtil;
 import cn.bjeastearth.http.ImageOptions;
+import cn.bjeastearth.http.MapUtil;
 import cn.bjeastearth.waterapp.model.HotProject;
 import cn.bjeastearth.waterapp.model.ProjectImage;
 import cn.bjeastearth.waterapp.myview.WebListView;
@@ -40,17 +41,18 @@ import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TabHost;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class HotProjectActivity extends Activity {
 	MapView mapView = null;
 	WebListView mListView = null;
-	List<HotProject> allProjects=null;
+	List<HotProject> allProjects = null;
 	ArcGISTiledMapServiceLayer tiledMapServiceLayer = null;
 	GraphicsLayer mGraphicsLayer;
-	RelativeLayout mapInfoLayout=null;
-	TextView tvHpName=null;
-	TextView tvHpJd=null;
-	ImageView imHp=null;
+	RelativeLayout mapInfoLayout = null;
+	TextView tvHpName = null;
+	TextView tvHpJd = null;
+	ImageView imHp = null;
 	HotProjectAdapter mAdapter;
 	HotProject currentHotProject;
 	@SuppressLint("HandlerLeak")
@@ -61,36 +63,50 @@ public class HotProjectActivity extends Activity {
 			// TODO Auto-generated method stub
 			super.handleMessage(msg);
 			Gson gson = new Gson();
-			allProjects = gson.fromJson(msg.obj.toString(),
-					new TypeToken<List<HotProject>>() {
-					}.getType());
-			 mAdapter = new HotProjectAdapter(
-					HotProjectActivity.this, allProjects);
-			HotProjectActivity.this.mListView.setAdapter(mAdapter);
-			if (mGraphicsLayer == null) {
-				mGraphicsLayer = new GraphicsLayer();
-				mapView.addLayer(mGraphicsLayer);
-			}
-			for (HotProject hotProject : allProjects) {
-				Point onePoint = new Point(hotProject.getX(), hotProject.getY());
-				Map<String, Object> map = new HashMap<String, Object>();
-				map.put("id", String.valueOf(hotProject.getID()));
-				Drawable image = HotProjectActivity.this.getBaseContext()
-						.getResources().getDrawable(R.drawable.map_item_gy);
-				PictureMarkerSymbol symbol = new PictureMarkerSymbol(image);
-				
-				Graphic oneGraphic = new Graphic(onePoint, symbol, map);
-				mGraphicsLayer.addGraphic(oneGraphic);
-			}
+			if (msg.obj != null) {
 
+				allProjects = gson.fromJson(msg.obj.toString(),
+						new TypeToken<List<HotProject>>() {
+						}.getType());
+				mAdapter = new HotProjectAdapter(HotProjectActivity.this,
+						allProjects);
+				HotProjectActivity.this.mListView.setAdapter(mAdapter);
+				if (mGraphicsLayer == null) {
+					mGraphicsLayer = new GraphicsLayer();
+					mapView.addLayer(mGraphicsLayer);
+				}
+				for (HotProject hotProject : allProjects) {
+					Point onePoint = new Point(hotProject.getX(),
+							hotProject.getY());
+					Map<String, Object> map = new HashMap<String, Object>();
+					map.put("id", String.valueOf(hotProject.getID()));
+					Drawable image = HotProjectActivity.this.getBaseContext()
+							.getResources()
+							.getDrawable(R.drawable.map_item_hotproject);
+					PictureMarkerSymbol symbol = new PictureMarkerSymbol(image);
+
+					Graphic oneGraphic = new Graphic(onePoint, symbol, map);
+					mGraphicsLayer.addGraphic(oneGraphic);
+				}
+			} else {
+				Toast.makeText(HotProjectActivity.this, "连接服务器失败,请稍候再试!",
+						Toast.LENGTH_SHORT).show();
+				HotProjectActivity.this.finish();
+			}
 		}
 
 	};
-	private	OnSingleTapListener mSingleTapListener=new OnSingleTapListener() {
-		
+	private OnSingleTapListener mSingleTapListener = new OnSingleTapListener() {
+
+		/**
+		 * 
+		 */
+		private static final long serialVersionUID = -7148750396345079812L;
+
 		@Override
 		public void onSingleTap(float x, float y) {
-			if (mGraphicsLayer != null && mGraphicsLayer.isInitialized() && mGraphicsLayer.isVisible()) {
+			if (mGraphicsLayer != null && mGraphicsLayer.isInitialized()
+					&& mGraphicsLayer.isVisible()) {
 				Graphic result = null;
 				// 检索当前 光标点（手指按压位置）的附近的 graphic对象
 				result = GetGraphicsFromLayer(x, y, mGraphicsLayer);
@@ -100,28 +116,31 @@ public class HotProjectActivity extends Activity {
 							.getAttributeValue("id")));
 
 					showMapInfo(hotProjectID);
-				}// end if
+				} else {
+					mapInfoLayout.setVisibility(View.GONE);
+				}
 			}// end if
-			
+
 		}
 	};
-	private OnItemClickListener mOnItemClickListener= new OnItemClickListener() {
+	private OnItemClickListener mOnItemClickListener = new OnItemClickListener() {
 
 		@Override
 		public void onItemClick(AdapterView<?> parent, View view, int position,
 				long id) {
-			HotProject oneHotProject=(HotProject)mAdapter.getItem(position);
-			showDetailActivity(oneHotProject);			
+			HotProject oneHotProject = (HotProject) mAdapter.getItem(position);
+			showDetailActivity(oneHotProject);
 		}
 	};
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		super.setContentView(R.layout.activity_hotproject);
-		Button backButton=(Button)findViewById(R.id.btnBack);
+		Button backButton = (Button) findViewById(R.id.btnBack);
 		backButton.setOnClickListener(new OnClickListener() {
-			
+
 			@Override
 			public void onClick(View v) {
 				HotProjectActivity.this.finish();
@@ -150,25 +169,31 @@ public class HotProjectActivity extends Activity {
 				.setContent(R.id.mapLayout));
 		tabHost.addTab(tabHost.newTabSpec("listView").setIndicator(tabListView)
 				.setContent(R.id.hotprojectListView));
-		
-		String mapURL = "http://cache1.arcgisonline.cn/ArcGIS/rest/services/ChinaOnlineStreetColor/MapServer";
+
+		String mapURL = getString(R.string.mapBg);
 		mapView = (MapView) findViewById(R.id.mapViewHotProject);
 		tiledMapServiceLayer = new ArcGISTiledMapServiceLayer(mapURL);
 		mapView.addLayer(tiledMapServiceLayer);
-		Envelope initextext = new Envelope(12899459.4956466, 4815363.65520802,
-				13004178.2243971, 4882704.67712717);
+		Envelope initextext = new Envelope(
+				Double.parseDouble(getString(R.string.mapMinX)),
+				Double.parseDouble(getString(R.string.mapMinY)),
+				Double.parseDouble(getString(R.string.mapMaxX)),
+				Double.parseDouble(getString(R.string.mapMaxY)));
 		mapView.setExtent(initextext);
+//		MapUtil.addMapLayerByUrl(mapView, getString(R.string.mapWsgwngl));
+//		MapUtil.addMapLayerByUrl(mapView, getString(R.string.mapNcwscll));
+		MapUtil.addMapLayerByUrl(mapView, getString(R.string.mapJiaXing));
 		new Thread(new httpThread()).start();
-		mapInfoLayout=(RelativeLayout)findViewById(R.id.mapInfoLayout);
+		mapInfoLayout = (RelativeLayout) findViewById(R.id.mapInfoLayout);
 		mapInfoLayout.setVisibility(View.GONE);
 		mapView.setOnSingleTapListener(mSingleTapListener);
-		//地图信息栏
-		tvHpName=(TextView)findViewById(R.id.hpNameTextView);
-		tvHpJd=(TextView)findViewById(R.id.hpGcjdTextView);
-		imHp=(ImageView)findViewById(R.id.hpImageView);
-		Button btn=(Button)findViewById(R.id.hpShowDetailBtn);
+		// 地图信息栏
+		tvHpName = (TextView) findViewById(R.id.hpNameTextView);
+		tvHpJd = (TextView) findViewById(R.id.hpGcjdTextView);
+		imHp = (ImageView) findViewById(R.id.hpImageView);
+		Button btn = (Button) findViewById(R.id.hpShowDetailBtn);
 		btn.setOnClickListener(new OnClickListener() {
-			
+
 			@Override
 			public void onClick(View v) {
 				HotProjectActivity.this.showDetailActivity(currentHotProject);
@@ -177,29 +202,32 @@ public class HotProjectActivity extends Activity {
 	}
 
 	protected void showDetailActivity(HotProject oneHotProject) {
-		Intent intent = new Intent(this, FieldItemActivity.class);  
+		Intent intent = new Intent(this, FieldItemActivity.class);
 		intent.putExtra("Title", "重大项目信息");
-		intent.putExtra("FieldItems", oneHotProject.getFieldItems());  
-		startActivity(intent); 
+		intent.putExtra("FieldItems", oneHotProject.getFieldItems());
+		startActivity(intent);
 	}
 
 	protected void showMapInfo(int hotProjectID) {
 		mapInfoLayout.setVisibility(View.VISIBLE);
-		HotProject oneHotProject=findHotProjectByid(hotProjectID);
-		currentHotProject=oneHotProject;
+		HotProject oneHotProject = findHotProjectByid(hotProjectID);
+		currentHotProject = oneHotProject;
 		tvHpName.setText(oneHotProject.getName());
-		tvHpJd.setText("工程进度:"+oneHotProject.getGcjd()+"%");
-		if (oneHotProject.getImages()!=null&&oneHotProject.getImages().size()>0) {
-			ProjectImage projectImage=oneHotProject.getImages().get(0);
-			String url=this.getString(R.string.NewTileImgAddr)+projectImage.getName();
-			ImageLoader.getInstance().displayImage(url, imHp,ImageOptions.options);
+		tvHpJd.setText("工程进度:" + oneHotProject.getGcjd() + "%");
+		if (oneHotProject.getImages() != null
+				&& oneHotProject.getImages().size() > 0) {
+			ProjectImage projectImage = oneHotProject.getImages().get(0);
+			String url = this.getString(R.string.NewTileImgAddr)
+					+ projectImage.getName();
+			ImageLoader.getInstance().displayImage(url, imHp,
+					ImageOptions.options);
 		}
-	
+
 	}
 
 	private HotProject findHotProjectByid(int hotProjectID) {
 		for (HotProject pHotProject : allProjects) {
-			if (hotProjectID==pHotProject.getID()) {
+			if (hotProjectID == pHotProject.getID()) {
 				return pHotProject;
 			}
 		}
@@ -220,6 +248,7 @@ public class HotProjectActivity extends Activity {
 		}
 
 	}
+
 	/*
 	 * 从一个图层里里 查找获得 Graphics对象. x,y是屏幕坐标,layer
 	 * 是GraphicsLayer目标图层（要查找的）。相差的距离是50像素。

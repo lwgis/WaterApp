@@ -50,9 +50,9 @@ public class SewageFactoryAdapter extends BaseAdapter {
 						R.layout.sewagefactory_item, null);
 			}
 			TextView tvtitle=(TextView)convertView.findViewById(R.id.firstTv);
-			tvtitle.setText(mAllSewageFactorys.get(position).getName());
+			tvtitle.setText(mAllSewageFactorys.get(position).getTitle());
 			TextView tvDaTe=(TextView)convertView.findViewById(R.id.secondTv);
-			tvDaTe.setText("类型:"+mAllSewageFactorys.get(position).getType().getName());
+			tvDaTe.setText(mAllSewageFactorys.get(position).getXzqName());
 			ImageView iView=(ImageView)convertView.findViewById(R.id.imageView);
 			List<ProjectImage> images=mAllSewageFactorys.get(position).getImages();
 			if (images!=null&&images.size()>0) {

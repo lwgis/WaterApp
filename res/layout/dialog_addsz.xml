@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-	android:layout_width="match_parent"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:background="#f5f2eb" >
+    android:background="#f5f2eb"
+    android:orientation="vertical" >
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -12,21 +12,24 @@
         <Button
             android:id="@+id/btnSave"
             android:layout_width="100dp"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="10dp" 
+            android:layout_height="40dp"
             android:layout_marginLeft="20dp"
+            android:layout_marginRight="10dp"
             android:layout_weight="1"
-            android:text="确定" />
+            android:background="@drawable/dialog_btn_style"
+            android:text="确定"
+            android:textSize="18sp" />
 
         <Button
             android:id="@+id/btnCancel"
             android:layout_width="100dp"
-            android:layout_weight="1"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="20dp" 
+            android:layout_height="40dp"
             android:layout_marginLeft="10dp"
-            android:text="取消" />
-        
+            android:layout_marginRight="20dp"
+            android:layout_weight="1"
+            android:background="@drawable/dialog_btn_style"
+            android:text="取消"
+            android:textSize="18sp" />
     </LinearLayout>
 
     <ScrollView
@@ -38,326 +41,346 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical" >
+
             <LinearLayout
-	            android:layout_width="match_parent"
-	            android:layout_height="wrap_content"
-	            android:background="@drawable/field_item_bg"
-	            android:orientation="horizontal" >
-	            <TextView
-	                android:layout_width="100dp"
-	                android:layout_height="wrap_content"
-	                android:gravity="center"
-	                android:padding="3dp"
-	                android:text="Bod "
-	                android:textColor="#715b4c"
-	                android:textSize="18sp" />
-	
-	            <ImageView
-	                android:layout_width="2dp"
-	                android:layout_height="fill_parent"
-	                android:background="@drawable/field_item_fgx"
-	                android:scaleType="fitXY" />
-	
-	            <EditText
-	                android:id="@+id/bodEt"
-	                android:layout_width="match_parent"
-	                android:layout_height="wrap_content"
-	                android:layout_weight="1"
-	                android:background="#00000000"
-	                android:paddingLeft="5dp"
-	                android:paddingRight="0dp"                
-	                android:textColor="#715b4c"
-	   				android:inputType="numberDecimal"
-	                android:textSize="18sp" />
-        	</LinearLayout>
-        	<LinearLayout
-	            android:layout_width="match_parent"
-	            android:layout_height="wrap_content"
-	            android:background="@drawable/field_item_bg"
-	            android:orientation="horizontal" >
-	            <TextView
-	                android:layout_width="100dp"
-	                android:layout_height="wrap_content"
-	                android:gravity="center"
-	                android:padding="3dp"
-	                android:text="Cod "
-	                android:textColor="#715b4c"
-	                android:textSize="18sp" />
-	
-	            <ImageView
-	                android:layout_width="2dp"
-	                android:layout_height="fill_parent"
-	                android:background="@drawable/field_item_fgx"
-	                android:scaleType="fitXY" />
-	
-	            <EditText
-	                android:id="@+id/codEt"
-	                android:layout_width="match_parent"
-	                android:layout_height="wrap_content"
-	                android:layout_weight="1"
-	                android:background="#00000000"
-	                android:paddingLeft="5dp"
-	                android:paddingRight="0dp"                
-	                android:textColor="#715b4c"
-	   				android:inputType="numberDecimal"
-	                android:textSize="18sp" />
-        	</LinearLayout>
-        	<LinearLayout
-	            android:layout_width="match_parent"
-	            android:layout_height="wrap_content"
-	            android:background="@drawable/field_item_bg"
-	            android:orientation="horizontal" >
-	            <TextView
-	                android:layout_width="100dp"
-	                android:layout_height="wrap_content"
-	                android:gravity="center"
-	                android:padding="3dp"
-	                android:text="Do"
-	                android:textColor="#715b4c"
-	                android:textSize="18sp" />
-	
-	            <ImageView
-	                android:layout_width="2dp"
-	                android:layout_height="fill_parent"
-	                android:background="@drawable/field_item_fgx"
-	                android:scaleType="fitXY" />
-	
-	            <EditText
-	                android:id="@+id/doEt"
-	                android:layout_width="match_parent"
-	                android:layout_height="wrap_content"
-	                android:layout_weight="1"
-	                android:background="#00000000"
-	                android:paddingLeft="5dp"
-	                android:paddingRight="0dp"                
-	                android:textColor="#715b4c"
-	   				android:inputType="numberDecimal"
-	                android:textSize="18sp" />
-        	</LinearLayout>
-        	<LinearLayout
-	            android:layout_width="match_parent"
-	            android:layout_height="wrap_content"
-	            android:background="@drawable/field_item_bg"
-	            android:orientation="horizontal" >
-	            <TextView
-	                android:layout_width="100dp"
-	                android:layout_height="wrap_content"
-	                android:gravity="center"
-	                android:padding="3dp"
-	                android:text="氨氮 "
-	                android:textColor="#715b4c"
-	                android:textSize="18sp" />
-	
-	            <ImageView
-	                android:layout_width="2dp"
-	                android:layout_height="fill_parent"
-	                android:background="@drawable/field_item_fgx"
-	                android:scaleType="fitXY" />
-	
-	            <EditText
-	                android:id="@+id/adEt"
-	                android:layout_width="match_parent"
-	                android:layout_height="wrap_content"
-	                android:layout_weight="1"
-	                android:background="#00000000"
-	                android:paddingLeft="5dp"
-	                android:paddingRight="0dp"                
-	                android:textColor="#715b4c"
-	   				android:inputType="numberDecimal"
-	                android:textSize="18sp" />
-        	</LinearLayout>
-        	<LinearLayout
-	            android:layout_width="match_parent"
-	            android:layout_height="wrap_content"
-	            android:background="@drawable/field_item_bg"
-	            android:orientation="horizontal" >
-	            <TextView
-	                android:layout_width="100dp"
-	                android:layout_height="wrap_content"
-	                android:gravity="center"
-	                android:padding="3dp"
-	                android:text="硝氮 "
-	                android:textColor="#715b4c"
-	                android:textSize="18sp" />
-	
-	            <ImageView
-	                android:layout_width="2dp"
-	                android:layout_height="fill_parent"
-	                android:background="@drawable/field_item_fgx"
-	                android:scaleType="fitXY" />
-	
-	            <EditText
-	                android:id="@+id/xdEt"
-	                android:layout_width="match_parent"
-	                android:layout_height="wrap_content"
-	                android:layout_weight="1"
-	                android:background="#00000000"
-	                android:paddingLeft="5dp"
-	                android:paddingRight="0dp"                
-	                android:textColor="#715b4c"
-	   				android:inputType="numberDecimal"
-	                android:textSize="18sp" />
-        	</LinearLayout>
-        	<LinearLayout
-	            android:layout_width="match_parent"
-	            android:layout_height="wrap_content"
-	            android:background="@drawable/field_item_bg"
-	            android:orientation="horizontal" >
-	            <TextView
-	                android:layout_width="100dp"
-	                android:layout_height="wrap_content"
-	                android:gravity="center"
-	                android:padding="3dp"
-	                android:text="TP "
-	                android:textColor="#715b4c"
-	                android:textSize="18sp" />
-	
-	            <ImageView
-	                android:layout_width="2dp"
-	                android:layout_height="fill_parent"
-	                android:background="@drawable/field_item_fgx"
-	                android:scaleType="fitXY" />
-	
-	            <EditText
-	                android:id="@+id/tpEt"
-	                android:layout_width="match_parent"
-	                android:layout_height="wrap_content"
-	                android:layout_weight="1"
-	                android:background="#00000000"
-	                android:paddingLeft="5dp"
-	                android:paddingRight="0dp"                
-	                android:textColor="#715b4c"
-	   				android:inputType="numberDecimal"
-	                android:textSize="18sp" />
-        	</LinearLayout>
-        	<LinearLayout
-	            android:layout_width="match_parent"
-	            android:layout_height="wrap_content"
-	            android:background="@drawable/field_item_bg"
-	            android:orientation="horizontal" >
-	            <TextView
-	                android:layout_width="100dp"
-	                android:layout_height="wrap_content"
-	                android:gravity="center"
-	                android:padding="3dp"
-	                android:text="TN "
-	                android:textColor="#715b4c"
-	                android:textSize="18sp" />
-	
-	            <ImageView
-	                android:layout_width="2dp"
-	                android:layout_height="fill_parent"
-	                android:background="@drawable/field_item_fgx"
-	                android:scaleType="fitXY" />
-	
-	            <EditText
-	                android:id="@+id/tnEt"
-	                android:layout_width="match_parent"
-	                android:layout_height="wrap_content"
-	                android:layout_weight="1"
-	                android:background="#00000000"
-	                android:paddingLeft="5dp"
-	                android:paddingRight="0dp"                
-	                android:textColor="#715b4c"
-	   				android:inputType="numberDecimal"
-	                android:textSize="18sp" />
-        	</LinearLayout>
-        	<LinearLayout
-	            android:layout_width="match_parent"
-	            android:layout_height="wrap_content"
-	            android:background="@drawable/field_item_bg"
-	            android:orientation="horizontal" >
-	            <TextView
-	                android:layout_width="100dp"
-	                android:layout_height="wrap_content"
-	                android:gravity="center"
-	                android:padding="3dp"
-	                android:text="色度 "
-	                android:textColor="#715b4c"
-	                android:textSize="18sp" />
-	
-	            <ImageView
-	                android:layout_width="2dp"
-	                android:layout_height="fill_parent"
-	                android:background="@drawable/field_item_fgx"
-	                android:scaleType="fitXY" />
-	
-	            <EditText
-	                android:id="@+id/sdEt"
-	                android:layout_width="match_parent"
-	                android:layout_height="wrap_content"
-	                android:layout_weight="1"
-	                android:background="#00000000"
-	                android:paddingLeft="5dp"
-	                android:paddingRight="0dp"                
-	                android:textColor="#715b4c"
-	   				android:inputType="numberDecimal"
-	                android:textSize="18sp" />
-        	</LinearLayout>
-        	<LinearLayout
-	            android:layout_width="match_parent"
-	            android:layout_height="wrap_content"
-	            android:background="@drawable/field_item_bg"
-	            android:orientation="horizontal" >
-	            <TextView
-	                android:layout_width="100dp"
-	                android:layout_height="wrap_content"
-	                android:gravity="center"
-	                android:padding="3dp"
-	                android:text="温度 "
-	                android:textColor="#715b4c"
-	                android:textSize="18sp" />
-	
-	            <ImageView
-	                android:layout_width="2dp"
-	                android:layout_height="fill_parent"
-	                android:background="@drawable/field_item_fgx"
-	                android:scaleType="fitXY" />
-	
-	            <EditText
-	                android:id="@+id/wdEt"
-	                android:layout_width="match_parent"
-	                android:layout_height="wrap_content"
-	                android:layout_weight="1"
-	                android:background="#00000000"
-	                android:paddingLeft="5dp"
-	                android:paddingRight="0dp"                
-	                android:textColor="#715b4c"
-	   				android:inputType="numberDecimal"
-	                android:textSize="18sp" />
-        	</LinearLayout>
-        	<LinearLayout
-	            android:layout_width="match_parent"
-	            android:layout_height="wrap_content"
-	            android:background="@drawable/field_item_bg"
-	            android:orientation="horizontal" >
-	            <TextView
-	                android:layout_width="100dp"
-	                android:layout_height="wrap_content"
-	                android:gravity="center"
-	                android:padding="3dp"
-	                android:text="浊度 "
-	                android:textColor="#715b4c"
-	                android:textSize="18sp" />
-	
-	            <ImageView
-	                android:layout_width="2dp"
-	                android:layout_height="fill_parent"
-	                android:background="@drawable/field_item_fgx"
-	                android:scaleType="fitXY" />
-	
-	            <EditText
-	                android:id="@+id/zdEt"
-	                android:layout_width="match_parent"
-	                android:layout_height="wrap_content"
-	                android:layout_weight="1"
-	                android:background="#00000000"
-	                android:paddingLeft="5dp"
-	                android:paddingRight="0dp"                
-	                android:textColor="#715b4c"
-	   				android:inputType="numberDecimal"
-	                android:textSize="18sp" />
-        	</LinearLayout>
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/field_item_bg"
+                android:orientation="horizontal" >
+
+                <TextView
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:padding="3dp"
+                    android:text="Bod "
+                    android:textColor="#715b4c"
+                    android:textSize="18sp" />
+
+                <ImageView
+                    android:layout_width="2dp"
+                    android:layout_height="fill_parent"
+                    android:background="@drawable/field_item_fgx"
+                    android:scaleType="fitXY" />
+
+                <EditText
+                    android:id="@+id/bodEt"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="#00000000"
+                    android:inputType="numberDecimal"
+                    android:paddingLeft="5dp"
+                    android:paddingRight="0dp"
+                    android:textColor="#715b4c"
+                    android:textSize="18sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/field_item_bg"
+                android:orientation="horizontal" >
+
+                <TextView
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:padding="3dp"
+                    android:text="Cod "
+                    android:textColor="#715b4c"
+                    android:textSize="18sp" />
+
+                <ImageView
+                    android:layout_width="2dp"
+                    android:layout_height="fill_parent"
+                    android:background="@drawable/field_item_fgx"
+                    android:scaleType="fitXY" />
+
+                <EditText
+                    android:id="@+id/codEt"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="#00000000"
+                    android:inputType="numberDecimal"
+                    android:paddingLeft="5dp"
+                    android:paddingRight="0dp"
+                    android:textColor="#715b4c"
+                    android:textSize="18sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/field_item_bg"
+                android:orientation="horizontal" >
+
+                <TextView
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:padding="3dp"
+                    android:text="Do"
+                    android:textColor="#715b4c"
+                    android:textSize="18sp" />
+
+                <ImageView
+                    android:layout_width="2dp"
+                    android:layout_height="fill_parent"
+                    android:background="@drawable/field_item_fgx"
+                    android:scaleType="fitXY" />
+
+                <EditText
+                    android:id="@+id/doEt"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="#00000000"
+                    android:inputType="numberDecimal"
+                    android:paddingLeft="5dp"
+                    android:paddingRight="0dp"
+                    android:textColor="#715b4c"
+                    android:textSize="18sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/field_item_bg"
+                android:orientation="horizontal" >
+
+                <TextView
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:padding="3dp"
+                    android:text="氨氮 "
+                    android:textColor="#715b4c"
+                    android:textSize="18sp" />
+
+                <ImageView
+                    android:layout_width="2dp"
+                    android:layout_height="fill_parent"
+                    android:background="@drawable/field_item_fgx"
+                    android:scaleType="fitXY" />
+
+                <EditText
+                    android:id="@+id/adEt"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="#00000000"
+                    android:inputType="numberDecimal"
+                    android:paddingLeft="5dp"
+                    android:paddingRight="0dp"
+                    android:textColor="#715b4c"
+                    android:textSize="18sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/field_item_bg"
+                android:orientation="horizontal" >
+
+                <TextView
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:padding="3dp"
+                    android:text="硝氮 "
+                    android:textColor="#715b4c"
+                    android:textSize="18sp" />
+
+                <ImageView
+                    android:layout_width="2dp"
+                    android:layout_height="fill_parent"
+                    android:background="@drawable/field_item_fgx"
+                    android:scaleType="fitXY" />
+
+                <EditText
+                    android:id="@+id/xdEt"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="#00000000"
+                    android:inputType="numberDecimal"
+                    android:paddingLeft="5dp"
+                    android:paddingRight="0dp"
+                    android:textColor="#715b4c"
+                    android:textSize="18sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/field_item_bg"
+                android:orientation="horizontal" >
+
+                <TextView
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:padding="3dp"
+                    android:text="TP "
+                    android:textColor="#715b4c"
+                    android:textSize="18sp" />
+
+                <ImageView
+                    android:layout_width="2dp"
+                    android:layout_height="fill_parent"
+                    android:background="@drawable/field_item_fgx"
+                    android:scaleType="fitXY" />
+
+                <EditText
+                    android:id="@+id/tpEt"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="#00000000"
+                    android:inputType="numberDecimal"
+                    android:paddingLeft="5dp"
+                    android:paddingRight="0dp"
+                    android:textColor="#715b4c"
+                    android:textSize="18sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/field_item_bg"
+                android:orientation="horizontal" >
+
+                <TextView
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:padding="3dp"
+                    android:text="TN "
+                    android:textColor="#715b4c"
+                    android:textSize="18sp" />
+
+                <ImageView
+                    android:layout_width="2dp"
+                    android:layout_height="fill_parent"
+                    android:background="@drawable/field_item_fgx"
+                    android:scaleType="fitXY" />
+
+                <EditText
+                    android:id="@+id/tnEt"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="#00000000"
+                    android:inputType="numberDecimal"
+                    android:paddingLeft="5dp"
+                    android:paddingRight="0dp"
+                    android:textColor="#715b4c"
+                    android:textSize="18sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/field_item_bg"
+                android:orientation="horizontal" >
+
+                <TextView
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:padding="3dp"
+                    android:text="色度 "
+                    android:textColor="#715b4c"
+                    android:textSize="18sp" />
+
+                <ImageView
+                    android:layout_width="2dp"
+                    android:layout_height="fill_parent"
+                    android:background="@drawable/field_item_fgx"
+                    android:scaleType="fitXY" />
+
+                <EditText
+                    android:id="@+id/sdEt"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="#00000000"
+                    android:inputType="numberDecimal"
+                    android:paddingLeft="5dp"
+                    android:paddingRight="0dp"
+                    android:textColor="#715b4c"
+                    android:textSize="18sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/field_item_bg"
+                android:orientation="horizontal" >
+
+                <TextView
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:padding="3dp"
+                    android:text="温度 "
+                    android:textColor="#715b4c"
+                    android:textSize="18sp" />
+
+                <ImageView
+                    android:layout_width="2dp"
+                    android:layout_height="fill_parent"
+                    android:background="@drawable/field_item_fgx"
+                    android:scaleType="fitXY" />
+
+                <EditText
+                    android:id="@+id/wdEt"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="#00000000"
+                    android:inputType="numberDecimal"
+                    android:paddingLeft="5dp"
+                    android:paddingRight="0dp"
+                    android:textColor="#715b4c"
+                    android:textSize="18sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/field_item_bg"
+                android:orientation="horizontal" >
+
+                <TextView
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:padding="3dp"
+                    android:text="浊度 "
+                    android:textColor="#715b4c"
+                    android:textSize="18sp" />
+
+                <ImageView
+                    android:layout_width="2dp"
+                    android:layout_height="fill_parent"
+                    android:background="@drawable/field_item_fgx"
+                    android:scaleType="fitXY" />
+
+                <EditText
+                    android:id="@+id/zdEt"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="#00000000"
+                    android:inputType="numberDecimal"
+                    android:paddingLeft="5dp"
+                    android:paddingRight="0dp"
+                    android:textColor="#715b4c"
+                    android:textSize="18sp" />
+            </LinearLayout>
         </LinearLayout>
     </ScrollView>
 

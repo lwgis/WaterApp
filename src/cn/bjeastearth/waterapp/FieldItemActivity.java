@@ -51,7 +51,7 @@ public class FieldItemActivity extends Activity implements ViewFactory {
 		myListView.setAdapter(adapter);
 		final PollutionSource pollutionSource=(PollutionSource)oneIntent.getSerializableExtra("PollutionSource");
 		Button btnEidt=(Button)findViewById(R.id.btnEdit);
-		if (pollutionSource!=null) {
+		if (pollutionSource!=null&&pollutionSource.getEditEnable()==1) {
 			btnEidt.setOnClickListener(new OnClickListener() {
 				@Override
 				public void onClick(View v) {

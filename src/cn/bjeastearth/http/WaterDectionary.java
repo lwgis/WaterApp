@@ -32,6 +32,20 @@ public class WaterDectionary {
 		}
 		return 0;
 	}
+	/**
+	 * 通过名称找到RegioID
+	 * @param id
+	 * @return
+	 */
+	public static int findRegionIndex(String name) {
+		for (int i = 0; i < getRegions().size(); i++) {
+			Region region=getRegions().get(i);
+			if (region.getName().equals(name)) {
+				return region.getID();
+			}
+		}
+		return 0;
+	}
 	public static void config() {
 		new Thread(new Runnable() {
 			

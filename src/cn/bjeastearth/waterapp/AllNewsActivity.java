@@ -26,79 +26,84 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
+import android.widget.Toast;
 
 public class AllNewsActivity extends Activity {
-	private WebListView mListView=null;
+	private WebListView mListView = null;
 	private Button btnBack;
 
-	private Handler myHandle=new Handler(){
+	private Handler myHandle = new Handler() {
+
+		@Override
+		public void handleMessage(Message msg) {
+			// TODO Auto-generated method stub
+			super.handleMessage(msg);
+			Gson gson = new Gson();
+			if (msg.obj != null) {
+				List<WaterNew> news = gson.fromJson(msg.obj.toString(),
+						new TypeToken<List<WaterNew>>() {
+						}.getType());
+				AllNewsActivity.this.mListView.setAdapter(new AllNewsAdapter(
+						AllNewsActivity.this, news));
+				AllNewsActivity.this.mListView
+						.setOnItemClickListener(new OnItemClickListener() {
+
+							@Override
+							public void onItemClick(AdapterView<?> parent,
+									View view, int position, long id) {
+								WaterNew aNew = (WaterNew) view.getTag();
+								Intent it = new Intent(AllNewsActivity.this,
+										NewsDetailActivity.class);
+								it.putExtra("title", aNew.getTitle());
+								it.putExtra("content", aNew.getContent());
+								AllNewsActivity.this.startActivity(it);
+							}
+						});
+			} else {
+				Toast.makeText(AllNewsActivity.this, "连接服务器失败,请稍候再试!",
+						Toast.LENGTH_SHORT).show();
+				AllNewsActivity.this.finish();
+			}
+		}
+
+	};
 
 	@Override
-	public void handleMessage(Message msg) {
-		// TODO Auto-generated method stub
-		super.handleMessage(msg);
-		 Gson gson=new Gson();
-		 List<WaterNew> news=gson.fromJson(msg.obj.toString(),new TypeToken<List<WaterNew>>(){}.getType());
-		 AllNewsActivity.this.mListView.setAdapter(new AllNewsAdapter(AllNewsActivity.this, news));
-	      AllNewsActivity.this.mListView.setOnItemClickListener(new OnItemClickListener() {
+	protected void onCreate(Bundle savedInstanceState) {
 
-	  		@Override
-	  		public void onItemClick(AdapterView<?> parent, View view, int position,
-	  				long id) {
-	  			WaterNew aNew=(WaterNew)view.getTag();
-	  			Intent it=new Intent(AllNewsActivity.this,NewsDetailActivity.class);
-	  			it.putExtra("title", aNew.getTitle());
-	  			it.putExtra("content", aNew.getContent());
-	  			AllNewsActivity.this.startActivity(it);
-	  		}
-	  	});
-	}
-	
-};
-
-
-
-	@Override
-    protected void onCreate(Bundle savedInstanceState) {
-
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_all_news); 
-		btnBack=(Button)findViewById(R.id.btnNewsBack);
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.activity_all_news);
+		btnBack = (Button) findViewById(R.id.btnNewsBack);
 		btnBack.setOnClickListener(new OnClickListener() {
-			
+
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
 				AllNewsActivity.this.finish();
 			}
 		});
-        this.mListView=(WebListView)findViewById(R.id.allNewsListView);
-        this.mListView.showLoading();
-       new Thread(new httpThread(),"httpthread").start();
-    }
-    
-
-
-class httpThread  implements  Runnable{
-
-	@Override
-	public void run() {
-		// TODO Auto-generated method stub
-		 String jsonString= HttpUtil.getAllNewsString();
-		 if (jsonString!="") {
-			 Message msg=new Message();
-			 msg.obj=jsonString;
-			 myHandle.sendMessage(msg);
-		}
+		this.mListView = (WebListView) findViewById(R.id.allNewsListView);
+		this.mListView.showLoading();
+		new Thread(new httpThread(), "httpthread").start();
 	}
-	
-}
 
-    
+	class httpThread implements Runnable {
 
+		@Override
+		public void run() {
+			// TODO Auto-generated method stub
+			String jsonString = HttpUtil.getAllNewsString();
+			if (jsonString != "") {
+				Message msg = new Message();
+				msg.obj = jsonString;
+				myHandle.sendMessage(msg);
+			}
+		}
 
-    /**
-     * A placeholder fragment containing a simple view.
-     */
-  
+	}
+
+	/**
+	 * A placeholder fragment containing a simple view.
+	 */
+
 }

@@ -40,13 +40,15 @@ public class River implements FieldItemable, Serializable {
 	private ArrayList<FieldItem> wryFieldItems;
 	private ArrayList<FieldItem> szjlFieldItems;
 	private ArrayList<FieldItem> zljhFieldItems;
+	private int EditEnable;
 
 	public ArrayList<FieldItem> getJbxxFieldItems() {
 		if (jbxxFieldItems == null) {
 			jbxxFieldItems = new ArrayList<FieldItem>();
 			jbxxFieldItems.add(new FieldItem("河道名", getName()));
 			jbxxFieldItems.add(new FieldItem("河道类别", getCategory().getName()));
-			jbxxFieldItems.add(new FieldItem("河道级别", getGrade().getName()));
+			if (getGrade() != null)
+				jbxxFieldItems.add(new FieldItem("河道级别", getGrade().getName()));
 			jbxxFieldItems.add(new FieldItem("河道编码", getCode()));
 			jbxxFieldItems.add(new FieldItem("行政区域", getXzq().getName()));
 			jbxxFieldItems.add(new FieldItem("开工时间", getStartTime()));
@@ -420,13 +422,15 @@ public class River implements FieldItemable, Serializable {
 	public void setHdzljls(List<RiverRepairPlan> hdzljls) {
 		Hdzljls = hdzljls;
 	}
+
 	/**
 	 * 添加水质记录
 	 */
-	public void addSzjl(RiverWaterQuality riverWaterQuality){
-		ArrayList<RiverWaterQuality> temp=new ArrayList<RiverWaterQuality>(Szjls);
-		if (Szjls==null) {
-			Szjls=new ArrayList<RiverWaterQuality>();
+	public void addSzjl(RiverWaterQuality riverWaterQuality) {
+		ArrayList<RiverWaterQuality> temp = new ArrayList<RiverWaterQuality>(
+				Szjls);
+		if (Szjls == null) {
+			Szjls = new ArrayList<RiverWaterQuality>();
 		}
 		Szjls.clear();
 		Szjls.add(riverWaterQuality);
@@ -434,15 +438,25 @@ public class River implements FieldItemable, Serializable {
 			Szjls.add(rq);
 		}
 	}
-	public void addZljh(RiverRepairPlan riverRepairPlan){
-		ArrayList<RiverRepairPlan> temp=new ArrayList<RiverRepairPlan>(Hdzljls);
-		if (Hdzljls==null) {
-			Hdzljls=new ArrayList<RiverRepairPlan>();
+
+	public void addZljh(RiverRepairPlan riverRepairPlan) {
+		ArrayList<RiverRepairPlan> temp = new ArrayList<RiverRepairPlan>(
+				Hdzljls);
+		if (Hdzljls == null) {
+			Hdzljls = new ArrayList<RiverRepairPlan>();
 		}
 		Hdzljls.clear();
 		Hdzljls.add(riverRepairPlan);
 		for (RiverRepairPlan rp : temp) {
 			Hdzljls.add(rp);
 		}
+	}
+
+	public int getEditEnable() {
+		return EditEnable;
+	}
+
+	public void setEditEnable(int editEnable) {
+		EditEnable = editEnable;
 	}
 }

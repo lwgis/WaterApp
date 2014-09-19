@@ -71,14 +71,17 @@ public class LocationActivity extends Activity {
 				LocationActivity.this.finish();
 			}
 		});
-		String mapURL = "http://cache1.arcgisonline.cn/ArcGIS/rest/services/ChinaOnlineStreetColor/MapServer";
+		String mapURL = getString(R.string.mapBg);
 		mapView = (MapView) findViewById(R.id.mapView);
 		tiledMapServiceLayer = new ArcGISTiledMapServiceLayer(mapURL);
 		mapView.addLayer(tiledMapServiceLayer);
 		mGraphicsLayer=new GraphicsLayer();
 		mapView.addLayer(mGraphicsLayer);
-		Envelope initextext = new Envelope(12899459.4956466, 4815363.65520802,
-				13004178.2243971, 4882704.67712717);
+		Envelope initextext = new Envelope(
+				Double.parseDouble(getString(R.string.mapMinX)),
+				Double.parseDouble(getString(R.string.mapMinY)),
+				Double.parseDouble(getString(R.string.mapMaxX)),
+				Double.parseDouble(getString(R.string.mapMaxY)));
 		mapView.setExtent(initextext);
 		mapView.setOnSingleTapListener(mSingleTapListener);
 		this.btnFinish=(Button)findViewById(R.id.btnFinish);

@@ -2,11 +2,15 @@ package cn.bjeastearth.http;
 
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.nio.charset.Charset;
 
 import org.apache.http.HttpResponse;
+import org.apache.http.client.ClientProtocolException;
+import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.params.HttpClientParams;
 import org.apache.http.entity.StringEntity;
@@ -16,38 +20,39 @@ import cn.bjeastearth.waterapp.model.River;
 
 public class HttpUtil {
 	public static String executeHttpGet(String urlStirng) {
-		String result = null;
-		URL url = null;
-		HttpURLConnection connection = null;
-		InputStreamReader in = null;
-		try {
-			url = new URL(urlStirng);
-			connection = (HttpURLConnection) url.openConnection();
-			in = new InputStreamReader(connection.getInputStream());
-			BufferedReader bufferedReader = new BufferedReader(in);
-			StringBuffer strBuffer = new StringBuffer();
-			String line = null;
-			while ((line = bufferedReader.readLine()) != null) {
-				strBuffer.append(line);
-			}
-			result = strBuffer.toString();
-		} catch (Exception e) {
-			e.printStackTrace();
-			result = "";
-		} finally {
-			if (connection != null) {
-				connection.disconnect();
-			}
-			if (in != null) {
-				try {
-					in.close();
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
-			}
+		StringBuffer sb = new StringBuffer();
+		DefaultHttpClient client= new DefaultHttpClient();
+		HttpGet get = new HttpGet(urlStirng);
+		get.addHeader("accept", "application/json;charset=UTF-8");
+		get.addHeader("Accept-Charset", "utf-8");
+		get.addHeader("userid","1");
 
+		try {
+			HttpResponse response = client.execute(get);
+
+			int statusCode = response.getStatusLine().getStatusCode();
+			if (statusCode == 200) {
+				InputStream inputStream = response.getEntity().getContent();
+				BufferedReader buffer = new BufferedReader(
+						new InputStreamReader(inputStream,
+								Charset.forName("utf-8")));
+				String line = null;
+				while ((line = buffer.readLine()) != null) {
+					sb.append(line);
+				}
+				inputStream.close();
+				return sb.toString();
+			} else {
+				// TODO 返回错误信息
+			}
+		} catch (ClientProtocolException e) {
+			e.printStackTrace();
+			// TODO 返回协议错误信息
+		} catch (IOException e) {
+			e.printStackTrace();
+			// TODO 返回网络错误
 		}
-		return result;
+		return null;
 	}
 
 	public static void postRequest(String serviceUrl, String informjson)
@@ -60,7 +65,7 @@ public class HttpUtil {
 		HttpPost post = new HttpPost(serviceUrl);
 		post.setEntity(entity);
 		post.setHeader("Content-Type", "application/json;charset=UTF-8");
-
+		post.addHeader("userid","1");
 		HttpClientParams.setRedirecting(post.getParams(), false);
 		DefaultHttpClient client = new DefaultHttpClient();
 		HttpResponse response = client.execute(post);
@@ -141,6 +146,11 @@ public class HttpUtil {
 	public static String getAllRiverProjectTypeString() {
 		String jsonString = HttpUtil
 				.executeHttpGet("http://159.226.110.64:8001/WaterService/Dictionary.svc/Hdzlxm");
+		return jsonString;
+	}
+	public static String getCountPsString(String tpye) {
+		String jsonString = HttpUtil
+				.executeHttpGet("http://159.226.110.64:8001/WaterService/WrSource.svc/"+tpye);
 		return jsonString;
 	}
 }

@@ -30,6 +30,8 @@ public class PsZz  implements PollutionSource,Serializable {
 	private int ID;
 	private double X;
 	private double Y;
+	private int EditEnable;
+
 	private ArrayList<FieldItem> mFieldItems;
 	
 	public PsZzLevel getCd() {
@@ -192,5 +194,11 @@ public class PsZz  implements PollutionSource,Serializable {
 	public Region getSsxz() {
 		// TODO Auto-generated method stub
 		return Xzq;
+	}
+	public int getEditEnable() {
+		return EditEnable;
+	}
+	public void setEditEnable(int editEnable) {
+		EditEnable = editEnable;
 	}
 }

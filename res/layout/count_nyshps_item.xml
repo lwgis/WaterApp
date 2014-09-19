@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="20dp"
+    android:background="@drawable/field_item_bg"
+    android:orientation="horizontal" >
+
+    <TextView
+        android:id="@+id/nameTv"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:padding="3dp"
+        android:text="名称"
+        android:textColor="#715b4c"
+        android:textSize="14sp" />
+
+    <ImageView
+        android:layout_width="2dp"
+        android:layout_height="match_parent"
+        android:background="@drawable/field_item_fgx"
+        android:scaleType="fitXY" />
+
+    <TextView
+        android:id="@+id/fspflTv"
+        android:layout_width="90dp"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:text="废水排放量"
+        android:textColor="#715b4c"
+        android:textSize="14sp" />
+
+ 
+
+    <ImageView
+        android:layout_width="2dp"
+        android:layout_height="match_parent"
+        android:background="@drawable/field_item_fgx"
+        android:scaleType="fitXY" />
+
+    <TextView
+        android:id="@+id/codsumTv"
+        android:layout_width="90dp"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:text="COD"
+        android:textColor="#715b4c"
+        android:textSize="14sp" />
+
+   
+
+    <ImageView
+        android:layout_width="2dp"
+        android:layout_height="match_parent"
+        android:background="@drawable/field_item_fgx"
+        android:scaleType="fitXY" />
+
+    <TextView
+        android:id="@+id/adsumTv"
+        android:layout_width="90dp"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:text="氨氮"
+        android:textColor="#715b4c"
+        android:textSize="14sp" />
+       <ImageView
+        android:layout_width="2dp"
+        android:layout_height="match_parent"
+        android:background="@drawable/field_item_fgx"
+        android:scaleType="fitXY" />
+
+    <TextView
+        android:id="@+id/tnsumTv"
+        android:layout_width="90dp"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:text="TN"
+        android:textColor="#715b4c"
+        android:textSize="14sp" />
+
+    <ImageView
+        android:layout_width="2dp"
+        android:layout_height="match_parent"
+        android:background="@drawable/field_item_fgx"
+        android:scaleType="fitXY" />
+
+    <TextView
+        android:id="@+id/tpsumTv"
+        android:layout_width="90dp"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:text="TP"
+        android:textColor="#715b4c"
+        android:textSize="14sp" />
+</LinearLayout>

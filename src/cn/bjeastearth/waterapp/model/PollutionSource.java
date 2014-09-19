@@ -17,4 +17,5 @@ public interface PollutionSource extends Serializable {
 		Drawable getMapDrawable(Context context);
 		PsType getPsType();
 		Region getXzq();
+		int getEditEnable();
 }

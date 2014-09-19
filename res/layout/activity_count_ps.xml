@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#f5f2eb"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@drawable/title_bg" >
+
+        <Button
+            android:id="@+id/btnBack"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:background="@drawable/newsbackbtn"
+            android:textSize="15sp" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            android:layout_toRightOf="@+id/btnBack" >
+
+            <Spinner
+                android:id="@+id/regionSpin"
+                style="@style/myspinner_style"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_margin="5dp"
+                android:layout_weight="1"
+                android:dropDownVerticalOffset="2dp"
+                android:paddingLeft="5dp"
+                android:paddingRight="40dp"
+                android:spinnerMode="dropdown"
+                android:textColor="#715b4c"
+                android:textSize="16sp" />
+
+            <Spinner
+                android:id="@+id/psSpin"
+                style="@style/myspinner_style"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_margin="5dp"
+                android:layout_weight="1"
+                android:dropDownVerticalOffset="2dp"
+                android:paddingLeft="5dp"
+                android:paddingRight="40dp"
+                android:spinnerMode="dropdown"
+                android:textColor="#715b4c"
+                android:textSize="16sp" />
+
+            <Spinner
+                android:id="@+id/yearSpin"
+                style="@style/myspinner_style"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_margin="5dp"
+                android:dropDownVerticalOffset="2dp"
+                android:paddingLeft="5dp"
+                android:paddingRight="40dp"
+                android:spinnerMode="dropdown"
+                android:textColor="#715b4c"
+                android:textSize="16sp" />
+
+            <cn.bjeastearth.waterapp.myview.MyTextButton
+                android:id="@+id/btnCount"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:background="@null"
+                android:paddingTop="8dp"
+                android:text="统计"
+                android:textColor="#eeeeee"
+                android:textSize="20sp" />
+
+        </LinearLayout>
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/headView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical" >
+    </LinearLayout>
+
+    <ListView
+        android:id="@+id/listView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:divider="@null" >
+    </ListView>
+
+</LinearLayout>
