@@ -11,4 +11,5 @@ public interface SewageFactory {
     ArrayList<FieldItem> getFieldItems();
     double getX();
     double getY();
+    double getFgbj();
 }

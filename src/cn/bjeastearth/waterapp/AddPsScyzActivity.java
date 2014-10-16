@@ -205,7 +205,18 @@ public class AddPsScyzActivity extends Activity {
 		 listRegions = WaterDectionary.getRegions();
 			ArrayList<String> arrayList = new ArrayList<String>();
 			for (Region region : listRegions) {
-				arrayList.add(region.getName());
+				if (region.getName().lastIndexOf("镇")==region.getName().length()-1||region.getName().contains("街道")) {
+					arrayList.add("  "+region.getName());
+				}
+				else {
+					if (region.getName().contains("村")) {
+						arrayList.add("      "+region.getName());
+					}
+					else {
+						arrayList.add(region.getName());
+
+					}
+				}
 			}
 			ArrayAdapter<String> adapter = new ArrayAdapter<String>(
 					AddPsScyzActivity.this, R.layout.simple_spinner_item, arrayList);
@@ -297,7 +308,7 @@ public class AddPsScyzActivity extends Activity {
 		}
 		mPsScyz.setFzr(this.fzrEditText.getText().toString());
 		mPsScyz.setContact(this.lxfsEditText.getText().toString());
-		mPsScyz.setSsxz(creatRegion(this.mRegionSpinner.getSelectedItem().toString()));
+		mPsScyz.setSsxz(creatRegion(this.mRegionSpinner.getSelectedItem().toString().trim()));
 		mPsScyz.setNcz(Double.parseDouble(this.nczEditText.getText().toString()));
 		mPsScyz.setYu(Double.parseDouble(this.ylclEditText.getText().toString()));
 		mPsScyz.setXia(Double.parseDouble(this.xlclEditText.getText().toString()));

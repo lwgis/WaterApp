@@ -24,6 +24,7 @@ public class FactorySzws implements FieldItemable,SewageFactory {
 	private double X;
 	private double Y;
 	private Region Xzq;
+	private double Fgbj;
 	private ArrayList<FieldItem> mFieldItems;
 	public String getCTime() {
 		return CTime;
@@ -182,6 +183,12 @@ public class FactorySzws implements FieldItemable,SewageFactory {
 	public String getFID() {
 		// TODO Auto-generated method stub
 		return "Szws"+ID;
+	}
+	public double getFgbj() {
+		return Fgbj;
+	}
+	public void setFgbj(double fgbj) {
+		Fgbj = fgbj;
 	}
 
 }

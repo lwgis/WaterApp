@@ -153,4 +153,10 @@ public class HttpUtil {
 				.executeHttpGet("http://159.226.110.64:8001/WaterService/WrSource.svc/"+tpye);
 		return jsonString;
 	}
+
+	public static String getCountRiver() {
+		String jsonString = HttpUtil
+				.executeHttpGet("http://159.226.110.64:8001/WaterService/HdqlService.svc/StaHdql");
+		return jsonString;
+	}
 }

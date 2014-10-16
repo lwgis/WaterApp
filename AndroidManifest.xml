@@ -120,6 +120,10 @@
              android:name="cn.bjeastearth.waterapp.CountPsActivity"
              android:screenOrientation="sensorLandscape">
          </activity>
+         <activity
+             android:name="cn.bjeastearth.waterapp.CountRiverActivity"
+             android:screenOrientation="sensorLandscape">
+         </activity>
          <service android:name="cn.bjeastearth.waterapp.location.LocationSvc" />
          
     </application>

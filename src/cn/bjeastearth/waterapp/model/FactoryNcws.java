@@ -19,6 +19,7 @@ public class FactoryNcws implements FieldItemable,SewageFactory {
 	private Region Xzq;
 	private double X;
 	private double Y;
+	private double  Fgbj;
 	private ArrayList<FieldItem> mFieldItems;
 	public int getID() {
 		return ID;
@@ -140,6 +141,12 @@ public class FactoryNcws implements FieldItemable,SewageFactory {
 	public String getFID() {
 		// TODO Auto-generated method stub
 		return "Ncws"+ID;
+	}
+	public double getFgbj() {
+		return Fgbj;
+	}
+	public void setFgbj(double fgbj) {
+		Fgbj = fgbj;
 	}
 
 

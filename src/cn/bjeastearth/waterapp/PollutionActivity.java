@@ -420,8 +420,8 @@ public class PollutionActivity extends Activity implements OnClickListener {
 					}
 				} else {
 					if (pollutionSource.getPsType().equals(this.mPsType)
-							&& pollutionSource.getXzq().getName()
-									.equals(filter)) {
+							&&( pollutionSource.getXzq().getName()
+									.equals(filter)||pollutionSource.getHDName().contains(filter))) {
 						sources.add(pollutionSource);
 					}
 				}

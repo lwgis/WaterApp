@@ -18,4 +18,5 @@ public interface PollutionSource extends Serializable {
 		PsType getPsType();
 		Region getXzq();
 		int getEditEnable();
+		String getHDName();
 }

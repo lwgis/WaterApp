@@ -122,7 +122,18 @@ public class AddPsShActivity extends Activity {
 		listRegions = WaterDectionary.getRegions();
 		ArrayList<String> arrayList = new ArrayList<String>();
 		for (Region region : listRegions) {
-			arrayList.add(region.getName());
+			if (region.getName().lastIndexOf("镇")==region.getName().length()-1||region.getName().contains("街道")) {
+				arrayList.add("  "+region.getName());
+			}
+			else {
+				if (region.getName().contains("村")) {
+					arrayList.add("      "+region.getName());
+				}
+				else {
+					arrayList.add(region.getName());
+
+				}
+			}
 		}
 		ArrayAdapter<String> adapter = new ArrayAdapter<String>(
 				AddPsShActivity.this, R.layout.simple_spinner_item, arrayList);
@@ -194,7 +205,7 @@ public class AddPsShActivity extends Activity {
 			mPsLive = new PsLive();
 		}
 		mPsLive.setXzq(creatRegion(this.mRegionSpinner.getSelectedItem()
-				.toString()));
+				.toString().trim()));
 		mPsLive.setGsl(Double
 				.parseDouble(this.gslEditText.getText().toString()));
 		mPsLive.setCzhjfnrk(Double.parseDouble(this.czhjfnyrkEditText.getText()

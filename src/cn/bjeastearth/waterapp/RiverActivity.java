@@ -152,6 +152,17 @@ public class RiverActivity extends Activity implements OnClickListener {
 				RiverActivity.this.finish();
 			}
 		});
+		//统计
+		Button btnCount=(Button)findViewById(R.id.btnRiverCount);
+		btnCount.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				Intent it=new Intent();
+				it.setClass(RiverActivity.this, CountRiverActivity.class);
+				RiverActivity.this.startActivity(it);
+			}
+		});
 		// 列表
 		this.mListView = (WebListView) findViewById(R.id.listView);
 		this.mListView.showLoading();

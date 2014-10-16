@@ -18,6 +18,7 @@ public class FactoryGywn implements FieldItemable,SewageFactory {
 	private double X;
 	private double Y;
 	private Region Xzq;
+	private double  Fgbj;
 	private ArrayList<FieldItem> mFieldItems;
 	public int getID() {
 		return ID;
@@ -134,6 +135,12 @@ public class FactoryGywn implements FieldItemable,SewageFactory {
 	public String getFID() {
 		// TODO Auto-generated method stub
 		return "Gywn"+ID;
+	}
+	public double getFgbj() {
+		return Fgbj;
+	}
+	public void setFgbj(double fgbj) {
+		Fgbj = fgbj;
 	}
 
 }

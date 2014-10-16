@@ -32,6 +32,7 @@ public class PsLive implements PollutionSource,Serializable {
 	private double X;
 	private double Y;
 	private int EditEnable;
+	private String HDName;
 
 	private ArrayList<FieldItem>mFieldItems;
 
@@ -209,5 +210,11 @@ public class PsLive implements PollutionSource,Serializable {
 	}
 	public void setEditEnable(int editEnable) {
 		EditEnable = editEnable;
+	}
+	public String getHDName() {
+		return HDName;
+	}
+	public void setHDName(String hDName) {
+		HDName = hDName;
 	}
 }

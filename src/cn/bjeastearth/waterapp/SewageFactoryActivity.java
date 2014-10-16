@@ -21,8 +21,11 @@ import com.esri.android.map.ags.ArcGISTiledMapServiceLayer;
 import com.esri.android.map.event.OnSingleTapListener;
 import com.esri.core.geometry.Envelope;
 import com.esri.core.geometry.Point;
+import com.esri.core.geometry.Polygon;
 import com.esri.core.map.Graphic;
+import com.esri.core.symbol.FillSymbol;
 import com.esri.core.symbol.PictureMarkerSymbol;
+import com.esri.core.symbol.SimpleFillSymbol;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -52,6 +55,7 @@ public class SewageFactoryActivity extends Activity {
 	WebListView mListView = null;
 	List<SewageFactory> sewageFactorys = null;
 	ArcGISTiledMapServiceLayer tiledMapServiceLayer = null;
+	GraphicsLayer drawCircleLayer = null;
 	GraphicsLayer mGraphicsLayer;
 	RelativeLayout mapInfoLayout = null;
 	TextView firstTv = null;
@@ -79,6 +83,10 @@ public class SewageFactoryActivity extends Activity {
 			mAdapter = new SewageFactoryAdapter(SewageFactoryActivity.this,
 					SewageFactoryActivity.this.sewageFactorys);
 			SewageFactoryActivity.this.mListView.setAdapter(mAdapter);
+			if (drawCircleLayer == null) {
+				drawCircleLayer = new GraphicsLayer();
+				mapView.addLayer(drawCircleLayer);
+			}
 			if (mGraphicsLayer == null) {
 				mGraphicsLayer = new GraphicsLayer();
 				mapView.addLayer(mGraphicsLayer);
@@ -93,6 +101,7 @@ public class SewageFactoryActivity extends Activity {
 
 				Graphic oneGraphic = new Graphic(onePoint, symbol, map);
 				mGraphicsLayer.addGraphic(oneGraphic);
+				DrawCircle(onePoint, factory.getFgbj(), 150, 0X11FF0000);
 			}
 			SewageFactoryActivity.this.mListView
 					.setOnItemClickListener(mOnItemClickListener);
@@ -184,8 +193,8 @@ public class SewageFactoryActivity extends Activity {
 				Double.parseDouble(getString(R.string.mapMaxX)),
 				Double.parseDouble(getString(R.string.mapMaxY)));
 		mapView.setExtent(initextext);
-//		MapUtil.addMapLayerByUrl(mapView, getString(R.string.mapWsgwngl));
-//		MapUtil.addMapLayerByUrl(mapView, getString(R.string.mapNcwscll));
+		// MapUtil.addMapLayerByUrl(mapView, getString(R.string.mapWsgwngl));
+		// MapUtil.addMapLayerByUrl(mapView, getString(R.string.mapNcwscll));
 		MapUtil.addMapLayerByUrl(mapView, getString(R.string.mapJiaXing));
 		new Thread(new httpThread()).start();
 		mapInfoLayout = (RelativeLayout) findViewById(R.id.mapInfoLayout);
@@ -260,6 +269,40 @@ public class SewageFactoryActivity extends Activity {
 			return null;
 		}
 		return result;
+	}
+
+	public void DrawCircle(Point center, double radius, int alpha, int fillColor) {
+		Polygon polygon = new Polygon();
+		getCircle(center, radius, polygon);
+		FillSymbol symbol = new SimpleFillSymbol(fillColor);
+		symbol.setAlpha(alpha);
+
+		Graphic g = new Graphic(polygon, symbol);
+		drawCircleLayer.addGraphic(g);
+	}
+
+	private void getCircle(Point center, double radius, Polygon circle) {
+		circle.setEmpty();
+		Point[] points = getPoints(center, radius);
+		circle.startPath(points[0]);
+		for (int i = 1; i < points.length; i++)
+			circle.lineTo(points[i]);
+	}
+
+	private Point[] getPoints(Point center, double radius) {
+		Point[] points = new Point[50];
+		double sin;
+		double cos;
+		double x;
+		double y;
+		for (double i = 0; i < 50; i++) {
+			sin = Math.sin(Math.PI * 2 * i / 50);
+			cos = Math.cos(Math.PI * 2 * i / 50);
+			x = center.getX() + radius * sin;
+			y = center.getY() + radius * cos;
+			points[(int) i] = new Point(x, y);
+		}
+		return points;
 	}
 
 	protected void showMapInfo(String swId) {
