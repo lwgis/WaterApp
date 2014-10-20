@@ -105,7 +105,18 @@ public class CountPsActivity extends Activity {
 		ArrayList<String> arrayList = new ArrayList<String>();
 		arrayList.add("全部区域");
 		for (Region region : listRegions) {
-			arrayList.add(region.getName());
+			if (region.getStatus()==1) {
+				arrayList.add("  "+region.getName());
+			}
+			else {
+				if (region.getStatus()==0) {
+					arrayList.add("      "+region.getName());
+				}
+				else {
+					arrayList.add(region.getName());
+
+				}
+			}
 		}
 		ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
 				R.layout.simple_spinner_item, arrayList);
@@ -221,7 +232,7 @@ public class CountPsActivity extends Activity {
 						nameTextView.setText("年份");
 						for (CountPsGyYear countPsGyYear : countPsGy
 								.getCountPsGyYearsByZhen(countPsActivity.mRegionSpinner
-										.getSelectedItem().toString())) {
+										.getSelectedItem().toString().trim())) {
 							countPsGyYears.add(countPsGyYear);
 						}
 					}
@@ -254,7 +265,7 @@ public class CountPsActivity extends Activity {
 						nameTextView.setText("年份");
 						for (CountNyShYear countNyShYear : countPsNySh
 								.getCountNyShYearsByZhen(countPsActivity.mRegionSpinner
-										.getSelectedItem().toString())) {
+										.getSelectedItem().toString().trim())) {
 							countNyShYears.add(countNyShYear);
 						}
 					}

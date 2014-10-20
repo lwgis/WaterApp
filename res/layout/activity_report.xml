@@ -63,6 +63,7 @@
                 android:layout_width="60dp"
                 android:layout_height="wrap_content"
                 android:text="标题:" 
+                android:textColor="#715b4c"
                 android:layout_weight="0"/>
 
             <EditText
@@ -78,7 +79,8 @@
                 android:paddingLeft="3dp"
                 android:paddingRight="3dp"
                 android:paddingTop="3dp"
-                android:textSize="18sp" >
+                android:textSize="18sp" 
+                android:textColor="#715b4c">
             </EditText>
         </LinearLayout>
 
@@ -91,7 +93,8 @@
                 style="@style/textviewstyle"
                 android:layout_width="60dp"
                 android:layout_height="wrap_content"
-                android:text="地址" />
+                android:text="地址" 
+                android:textColor="#715b4c"/>
 
             <EditText
                 android:id="@+id/reportAddrEditText"
@@ -105,7 +108,8 @@
                 android:hint="请输入举报的地址"
                 android:paddingLeft="3dp"
                 android:paddingRight="3dp"
-                android:textSize="18sp" />
+                android:textSize="18sp" 
+                android:textColor="#715b4c"/>
 
         </LinearLayout>
 
@@ -118,7 +122,8 @@
                 style="@style/textviewstyle"
                 android:layout_width="60dp"
                 android:layout_height="wrap_content"
-                android:text="电话:" />
+                android:text="电话:" 
+                android:textColor="#715b4c"/>
 
             <EditText
                 android:id="@+id/reportTelEditText"
@@ -134,7 +139,8 @@
                 android:paddingLeft="3dp"
                 android:paddingRight="3dp"
                 android:paddingTop="3dp"
-                android:textSize="18sp" />
+                android:textSize="18sp" 
+                android:textColor="#715b4c"/>
 
         </LinearLayout>
 
@@ -147,7 +153,8 @@
                 style="@style/textviewstyle"
                 android:layout_width="60dp"
                 android:layout_height="wrap_content"
-                android:text="邮箱:" />
+                android:text="邮箱:" 
+                android:textColor="#715b4c"/>
 
             <EditText
                 android:id="@+id/reportMailEditText"
@@ -164,6 +171,7 @@
                 android:paddingTop="3dp"
                 android:textSize="18sp"
                 android:inputType="textEmailAddress"
+                android:textColor="#715b4c"
                  />
 
         </LinearLayout>
@@ -174,7 +182,8 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:text="举报内容"
-        android:gravity="center"/>
+        android:gravity="center"
+        android:textColor="#715b4c"/>
      <cn.bjeastearth.waterapp.myview.MyEditText
         android:id="@+id/reportEditText"
         android:layout_width="fill_parent"
@@ -182,7 +191,8 @@
         android:gravity="top"
         android:padding="3dp"
         android:background="@drawable/edittext_bg" 
-        android:hint="请输入举报的内容"/>
+        android:hint="请输入举报的内容"
+        android:textColor="#715b4c"/>
 
     <GridView
         android:id="@+id/imageGridView"

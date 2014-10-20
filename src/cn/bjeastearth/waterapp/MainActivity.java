@@ -1,5 +1,6 @@
 package cn.bjeastearth.waterapp;
 
+import cn.bjeastearth.http.WaterDectionary;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
@@ -19,11 +20,14 @@ private Button btnSituation=null;
 private Button btnSewageFactory=null;
 private Button btnPollution=null;
 private Button btnSanhe=null;
+private Button btnLogin=null;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		super.setContentView(R.layout.activity_main);
+		WaterDectionary.context=this;
+		WaterDectionary.config();
 		  this.btnAllNews=(Button)findViewById(R.id.btnAllNews);
 		  this.btnAllNews.setOnClickListener(this);
 		  this.btnReport=(Button)findViewById(R.id.btnReport);
@@ -38,6 +42,8 @@ private Button btnSanhe=null;
 		  this.btnPollution.setOnClickListener(this);
 		  this.btnSanhe=(Button)findViewById(R.id.btnSanhe);
 		  this.btnSanhe.setOnClickListener(this);
+		  this.btnLogin=(Button)findViewById(R.id.btnLogin);
+		  this.btnLogin.setOnClickListener(this);
 	}
 
 	@Override
@@ -74,6 +80,15 @@ private Button btnSanhe=null;
 			break;
 		case R.id.btnSanhe:
 			it.setClass(this, RiverActivity.class);
+			break;
+		case  R.id.btnLogin:
+			if (WaterDectionary.getUserId()==-1) {
+				it.setClass(this, LoginActivity.class);
+			}
+			else {
+				it.setClass(this, UserInfoActivity.class);
+			}
+			break;
 		default:
 			break;
 		}

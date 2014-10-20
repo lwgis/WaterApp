@@ -44,7 +44,6 @@ public class UILApplication extends Application {
 
 		initImageLoader(getApplicationContext());
 		ArcGISRuntime.setClientId("SZCLVTfF6WhMaS4f");
-		WaterDectionary.config();
 	}
 
 	public static void initImageLoader(Context context) {

@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#ffffff"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@drawable/title_bg" >
+
+        <Button
+            android:id="@+id/btnBack"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_alignParentLeft="true"
+            android:background="@drawable/newsbackbtn"
+            android:textSize="15sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:gravity="center"
+            android:paddingTop="3dp"
+            android:shadowColor="#222222"
+            android:shadowDy="-2"
+            android:shadowRadius="2"
+            android:text="用户登录"
+            android:textColor="#FFFFFF"
+            android:textSize="25sp" />
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/field_item_bg"
+        android:orientation="vertical" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:id="@+id/reportTilteTextView"
+                style="@style/textviewstyle"
+                android:layout_width="80dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0"
+                android:text="用户名:"
+                android:textColor="#715b4c" />
+
+            <EditText
+                android:id="@+id/userNameEt"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="5dp"
+                android:layout_weight="1"
+                android:background="@drawable/edittext_bg"
+                android:ems="10"
+                android:gravity="top"
+                android:hint="请输入用户名邮箱地址"
+                android:paddingLeft="3dp"
+                android:paddingRight="3dp"
+                android:paddingTop="3dp"
+                android:textColor="#715b4c"
+                android:textSize="18sp" >
+            </EditText>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+
+            <TextView
+                android:id="@+id/reportAddrTextView"
+                style="@style/textviewstyle"
+                android:layout_width="80dp"
+                android:layout_height="wrap_content"
+                android:text="密码:"
+                android:textColor="#715b4c" />
+
+            <EditText
+                android:id="@+id/passwordEt"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="5dp"
+                android:layout_weight="1"
+                android:background="@drawable/edittext_bg"
+                android:ems="10"
+                android:gravity="top"
+                android:hint="请输入密码"
+                android:inputType="textPassword"
+                android:paddingLeft="3dp"
+                android:paddingRight="3dp"
+                android:textColor="#715b4c"
+                android:textSize="18sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_marginTop="10dp" >
+
+            <Button
+                android:id="@+id/btnLogin"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="5dp"
+                android:layout_weight="1"
+                android:background="@drawable/bs_btn"
+                android:text="登录"
+                android:textColor="#ffffff"
+                android:textSize="22dp" />
+
+            <Button
+                android:id="@+id/btnRegister"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="10dp"
+                android:layout_weight="1"
+                android:background="@drawable/bs_btn"
+                android:text="申请注册"
+                android:textColor="#ffffff"
+                android:textSize="22dp" />
+        </LinearLayout>
+    </LinearLayout>
+
+</LinearLayout>

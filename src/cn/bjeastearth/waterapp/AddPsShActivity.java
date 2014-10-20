@@ -122,11 +122,11 @@ public class AddPsShActivity extends Activity {
 		listRegions = WaterDectionary.getRegions();
 		ArrayList<String> arrayList = new ArrayList<String>();
 		for (Region region : listRegions) {
-			if (region.getName().lastIndexOf("镇")==region.getName().length()-1||region.getName().contains("街道")) {
+			if (region.getStatus()==1) {
 				arrayList.add("  "+region.getName());
 			}
 			else {
-				if (region.getName().contains("村")) {
+				if (region.getStatus()==0) {
 					arrayList.add("      "+region.getName());
 				}
 				else {

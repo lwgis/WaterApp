@@ -28,5 +28,5 @@
         android:layout_toRightOf="@id/newsItemImageView"
         android:layout_alignParentBottom="true"
        	android:textColor="#444444"
-       	android:paddingBottom="15dp"/>
+       	android:paddingBottom="10dp"/>
 </RelativeLayout>
