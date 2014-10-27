@@ -20,6 +20,7 @@ public class River implements FieldItemable, Serializable {
 	private String EndPoint;
 	private String EndTime;
 	private RiverGrade Grade;
+	private RiverGrade Hdsz;
 	private List<PsIndustry> Gywrys;
 	private int ID;
 	private List<RiverImage> Images;
@@ -49,6 +50,9 @@ public class River implements FieldItemable, Serializable {
 			jbxxFieldItems.add(new FieldItem("河道类别", getCategory().getName()));
 			if (getGrade() != null)
 				jbxxFieldItems.add(new FieldItem("河道级别", getGrade().getName()));
+			if (getHdsz()!=null) {
+				jbxxFieldItems.add(new FieldItem("河道水质", getHdsz().getName()));
+			}
 			jbxxFieldItems.add(new FieldItem("河道编码", getCode()));
 			jbxxFieldItems.add(new FieldItem("行政区域", getXzq().getName()));
 			jbxxFieldItems.add(new FieldItem("开工时间", getStartTime()));
@@ -458,5 +462,13 @@ public class River implements FieldItemable, Serializable {
 
 	public void setEditEnable(int editEnable) {
 		EditEnable = editEnable;
+	}
+
+	public RiverGrade getHdsz() {
+		return Hdsz;
+	}
+
+	public void setHdsz(RiverGrade hdsz) {
+		Hdsz = hdsz;
 	}
 }

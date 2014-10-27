@@ -193,8 +193,8 @@ public class SewageFactoryActivity extends Activity {
 				Double.parseDouble(getString(R.string.mapMaxX)),
 				Double.parseDouble(getString(R.string.mapMaxY)));
 		mapView.setExtent(initextext);
-		// MapUtil.addMapLayerByUrl(mapView, getString(R.string.mapWsgwngl));
-		// MapUtil.addMapLayerByUrl(mapView, getString(R.string.mapNcwscll));
+//		MapUtil.addMapLayerByUrl(mapView, getString(R.string.mapNcwscll));
+		MapUtil.addMapLayerByUrl(mapView, getString(R.string.mapWsgwngl));
 		MapUtil.addMapLayerByUrl(mapView, getString(R.string.mapJiaXing));
 		new Thread(new httpThread()).start();
 		mapInfoLayout = (RelativeLayout) findViewById(R.id.mapInfoLayout);

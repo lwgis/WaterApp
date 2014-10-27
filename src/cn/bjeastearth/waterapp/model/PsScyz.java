@@ -13,6 +13,7 @@ public class PsScyz implements PollutionSource,Serializable{
 	 * 
 	 */
 	private static final long serialVersionUID = -6576139426014740698L;
+	private String Qymc;
 	private double ABei;
 	private double AQita;
 	private double AXia;
@@ -175,7 +176,7 @@ public class PsScyz implements PollutionSource,Serializable{
 	@Override
 	public String getShowTitle() {
 		// TODO Auto-generated method stub
-		return getFzr();
+		return getQymc();
 	}
 	@Override
 	public String getShowDescribing() {
@@ -186,6 +187,12 @@ public class PsScyz implements PollutionSource,Serializable{
 	public ArrayList<FieldItem> getFieldItems() {
 		if (mFieldItems==null) {
 			mFieldItems=new ArrayList<FieldItem>();
+			if (getQymc()==null) {
+				mFieldItems.add(new FieldItem("企业名称",""));
+			}
+			else {
+				mFieldItems.add(new FieldItem("企业名称",getQymc()));
+			}
 			mFieldItems.add(new FieldItem("负责人",getFzr()));
 			mFieldItems.add(new FieldItem("联系方式", getContact()));
 			mFieldItems.add(new FieldItem("所属乡镇", getSsxz().getName()));
@@ -251,5 +258,11 @@ public class PsScyz implements PollutionSource,Serializable{
 	}
 	public void setHDName(String hDName) {
 		HDName = hDName;
+	}
+	public String getQymc() {
+		return Qymc;
+	}
+	public void setQymc(String qymc) {
+		Qymc = qymc;
 	}
 }

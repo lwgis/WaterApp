@@ -96,10 +96,6 @@ public class ReportActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		super.setContentView(R.layout.activity_report);
 		 this.reportBack=(Button)findViewById(R.id.btnReportBack);
-		 this.reportBack.setFocusable(true);
-		 this.reportBack.setFocusableInTouchMode(true);
-		 this.reportBack.requestFocus();
-		 this.reportBack.requestFocusFromTouch();
 		 this.reportBack.setOnClickListener(new OnClickListener() {
 			
 			@Override

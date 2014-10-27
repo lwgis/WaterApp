@@ -52,6 +52,7 @@ import android.widget.AdapterView.OnItemClickListener;
 public class AddPsScyzActivity extends Activity {
 	private final int sendPs=100;
 	private Button btnBack;
+	private EditText qymcEditText;
 	private EditText fzrEditText;
 	private EditText lxfsEditText;
 	private Spinner mRegionSpinner;
@@ -115,6 +116,7 @@ public class AddPsScyzActivity extends Activity {
 			    AddPsScyzActivity.this.uploadPsIndustry();
 			}
 		});
+		 qymcEditText=(EditText)findViewById(R.id.qymcEt);
 		fzrEditText=(EditText)findViewById(R.id.fzrEt);
 		lxfsEditText=(EditText)findViewById(R.id.lxfsEt);
 		mRegionSpinner=(Spinner)findViewById(R.id.regionSpin);
@@ -232,6 +234,12 @@ public class AddPsScyzActivity extends Activity {
 		if (mPsScyz != null) {
 			TextView titleTextView = (TextView) findViewById(R.id.titleTv);
 			titleTextView.setText("修改水产养殖污染源");
+			if (mPsScyz.getQymc()==null) {
+				qymcEditText.setText("");
+			}
+			else {
+				qymcEditText.setText(mPsScyz.getQymc());
+			}
 			fzrEditText.setText(mPsScyz.getFzr());
 			lxfsEditText.setText(mPsScyz.getContact());
 			mRegionSpinner.setSelection(WaterDectionary.findRegionIndex(mPsScyz
@@ -306,6 +314,7 @@ public class AddPsScyzActivity extends Activity {
 		if (mPsScyz==null) {
 			mPsScyz=new PsScyz();
 		}
+		mPsScyz.setQymc(this.qymcEditText.getText().toString());
 		mPsScyz.setFzr(this.fzrEditText.getText().toString());
 		mPsScyz.setContact(this.lxfsEditText.getText().toString());
 		mPsScyz.setSsxz(creatRegion(this.mRegionSpinner.getSelectedItem().toString().trim()));
@@ -412,7 +421,8 @@ public class AddPsScyzActivity extends Activity {
 
 
 	private boolean checkTextView() {
-		return fzrEditText.getText().length() > 0
+		return qymcEditText.getText().length()>0
+				&&fzrEditText.getText().length() > 0
 				&& lxfsEditText.getText().length() > 0
 				&& nczEditText.getText().length() > 0
 				&& ylclEditText.getText().length() > 0
@@ -431,6 +441,7 @@ public class AddPsScyzActivity extends Activity {
 	}
 	private void setTextWatcher() {
 		TextWatcherimpl textWatcherimpl=new TextWatcherimpl();
+		qymcEditText.addTextChangedListener(textWatcherimpl);
 		fzrEditText.addTextChangedListener(textWatcherimpl);
 		lxfsEditText.addTextChangedListener(textWatcherimpl);
 		nczEditText.addTextChangedListener(textWatcherimpl);

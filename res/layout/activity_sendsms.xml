@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#ffffff"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@drawable/title_bg" >
+
+        <Button
+            android:id="@+id/btnBack"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_alignParentLeft="true"
+            android:background="@drawable/newsbackbtn"
+            android:textSize="15sp" />
+
+        <TextView
+            android:id="@+id/tilteTv"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:paddingTop="5dp"
+            android:shadowColor="#222222"
+            android:shadowDy="-2"
+            android:shadowRadius="2"
+            android:text="群发短信通知"
+            android:textColor="#FFFFFF"
+            android:textSize="25sp" />
+
+        <cn.bjeastearth.waterapp.myview.MyTextButton
+            android:id="@+id/btnSendSms"
+            android:layout_width="60dp"
+            android:layout_height="40dp"
+            android:layout_alignParentRight="true"
+            android:background="@null"
+            android:paddingTop="8dp"
+            android:text="发送"
+            android:textColor="#ffffff"
+            android:textSize="20sp" />
+
+    </RelativeLayout>
+
+    <cn.bjeastearth.waterapp.myview.MyEditText
+        android:id="@+id/smsEt"
+        android:layout_width="fill_parent"
+        android:layout_height="160dp"
+        android:background="@drawable/edittext_bg"
+        android:gravity="top"
+        android:hint="请输入通知内容"
+        android:padding="3dp"
+        android:textColor="#715b4c" />
+
+    <cn.bjeastearth.waterapp.myview.WebListView
+        android:id="@+id/listView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" >
+    </cn.bjeastearth.waterapp.myview.WebListView>
+
+</LinearLayout>

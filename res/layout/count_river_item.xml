@@ -24,7 +24,7 @@
 
     <TextView
         android:id="@+id/heiheTv"
-        android:layout_width="100dp"
+        android:layout_width="70dp"
         android:layout_height="match_parent"
         android:gravity="center"
         android:text="黑河"
@@ -39,7 +39,7 @@
 
     <TextView
         android:id="@+id/chouheTv"
-        android:layout_width="100dp"
+        android:layout_width="70dp"
         android:layout_height="match_parent"
         android:gravity="center"
         android:text="臭河"
@@ -54,11 +54,66 @@
 
     <TextView
         android:id="@+id/lajiheTv"
-        android:layout_width="100dp"
+        android:layout_width="70dp"
         android:layout_height="match_parent"
         android:gravity="center"
         android:text="垃圾河"
         android:textColor="#715b4c"
         android:textSize="14sp" />
-        
+        <ImageView
+        android:layout_width="2dp"
+        android:layout_height="match_parent"
+        android:background="@drawable/field_item_fgx"
+        android:scaleType="fitXY" />
+
+    <TextView
+        android:id="@+id/sanTv"
+        android:layout_width="70dp"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:text="III水体"
+        android:textColor="#715b4c"
+        android:textSize="14sp" />
+    <ImageView
+        android:layout_width="2dp"
+        android:layout_height="match_parent"
+        android:background="@drawable/field_item_fgx"
+        android:scaleType="fitXY" />
+
+    <TextView
+        android:id="@+id/siTv"
+        android:layout_width="70dp"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:text="IV水体"
+        android:textColor="#715b4c"
+        android:textSize="14sp" />
+    <ImageView
+        android:layout_width="2dp"
+        android:layout_height="match_parent"
+        android:background="@drawable/field_item_fgx"
+        android:scaleType="fitXY" />
+
+    <TextView
+        android:id="@+id/wuTv"
+        android:layout_width="70dp"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:text="V水体"
+        android:textColor="#715b4c"
+        android:textSize="14sp" />
+    <ImageView
+        android:layout_width="2dp"
+        android:layout_height="match_parent"
+        android:background="@drawable/field_item_fgx"
+        android:scaleType="fitXY" />
+
+    <TextView
+        android:id="@+id/liuTv"
+        android:layout_width="70dp"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:text="劣V类水体"
+        android:textColor="#715b4c"
+        android:textSize="14sp" />
 </LinearLayout>

@@ -58,7 +58,39 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:paddingBottom="30dp" >
+<LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/field_item_bg"
+                android:orientation="horizontal" >
 
+                <TextView
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:padding="3dp"
+                    android:text="企业名称"
+                    android:textColor="#715b4c"
+                    android:textSize="18sp" />
+
+                <ImageView
+                    android:layout_width="2dp"
+                    android:layout_height="fill_parent"
+                    android:background="@drawable/field_item_fgx"
+                    android:scaleType="fitXY" />
+
+                <EditText
+                    android:id="@+id/qymcEt"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="#00000000"
+                    android:paddingLeft="5dp"
+                    android:paddingRight="0dp"
+                    android:textColor="#715b4c"
+                    android:textSize="18sp" />
+            </LinearLayout>
+            
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

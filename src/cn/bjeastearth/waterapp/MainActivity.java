@@ -21,6 +21,8 @@ private Button btnSewageFactory=null;
 private Button btnPollution=null;
 private Button btnSanhe=null;
 private Button btnLogin=null;
+private  Button btnWsgw=null;
+private Button btnMessage=null;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
@@ -44,6 +46,10 @@ private Button btnLogin=null;
 		  this.btnSanhe.setOnClickListener(this);
 		  this.btnLogin=(Button)findViewById(R.id.btnLogin);
 		  this.btnLogin.setOnClickListener(this);
+		  this.btnWsgw=(Button)findViewById(R.id.btnWsgw);
+		  this.btnWsgw.setOnClickListener(this);
+		  this.btnMessage=(Button)findViewById(R.id.btnMeassage);
+		  this.btnMessage.setOnClickListener(this);
 	}
 
 	@Override
@@ -89,6 +95,12 @@ private Button btnLogin=null;
 				it.setClass(this, UserInfoActivity.class);
 			}
 			break;
+			case R.id.btnWsgw:
+				it.setClass(this, WsgwActivity.class);
+				break;
+			case R.id.btnMeassage: 
+				it.setClass(this, SendSmsActivity.class);
+				break;
 		default:
 			break;
 		}

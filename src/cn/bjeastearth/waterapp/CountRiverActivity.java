@@ -267,6 +267,14 @@ public class CountRiverActivity extends Activity {
 			TextView nameTextView = (TextView) convertView
 					.findViewById(R.id.nameTv);
 			nameTextView.setText(year.getName());
+			TextView sanTextView=(TextView)convertView.findViewById(R.id.sanTv);
+			sanTextView.setText(String.valueOf(year.getSanCount()));
+			TextView siTextView=(TextView)convertView.findViewById(R.id.siTv);
+			siTextView.setText(String.valueOf(year.getSiCount()));
+			TextView wuTextView=(TextView)convertView.findViewById(R.id.wuTv);
+			wuTextView.setText(String.valueOf(year.getWuCount()));
+			TextView liuTextView=(TextView)convertView.findViewById(R.id.liuTv);
+			liuTextView.setText(String.valueOf(year.getLiuCount()));
 			return convertView;
 		}
 

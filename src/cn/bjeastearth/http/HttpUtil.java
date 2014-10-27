@@ -187,8 +187,14 @@ public class HttpUtil {
 
 	public static void register(User user) throws Throwable {
 		String jsonString = JsonUtil.convertObjectToJson(user);
-		String result = HttpUtil.postRequest(
+		HttpUtil.postRequest(
 				"http://159.226.110.64:8001/WaterService/Account.svc/Regist",
 				jsonString);
+	}
+
+	public static String getMyUsers() {
+		String jsonString = HttpUtil
+				.executeHttpGet("http://159.226.110.64:8001/WaterService/Account.svc/All");
+		return jsonString;		
 	}
 }

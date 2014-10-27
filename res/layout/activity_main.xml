@@ -204,7 +204,7 @@
                         android:layout_marginLeft="0dp"
                         android:layout_marginRight="0dp"
                         android:layout_weight="1"
-                        android:background="@drawable/btn_wsgw"
+                        android:background="@drawable/bs_wsgw"
                         android:paddingTop="72dp"
                         android:shadowColor="#626262"
                         android:shadowDy="-2"
