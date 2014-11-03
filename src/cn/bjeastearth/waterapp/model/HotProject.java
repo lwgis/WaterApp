@@ -122,6 +122,7 @@ public class HotProject implements FieldItemable {
 		if (mFieldItems==null) {
 			mFieldItems=new ArrayList<FieldItem>();
 			mFieldItems.add(new FieldItem("工程名称", getName()));
+			mFieldItems.add(new FieldItem("行政区域", getXzq().getName()));
 			mFieldItems.add(new FieldItem("工程进度", getGcjd()+"%"));
 			mFieldItems.add(new FieldItem("工程类型", getGclb().getName()));
 			mFieldItems.add(new FieldItem("投资单位", getTzdw()));

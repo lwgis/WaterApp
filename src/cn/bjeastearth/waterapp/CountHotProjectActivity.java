@@ -5,14 +5,15 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
+import cn.bjeastearth.http.HttpUtil;
+import cn.bjeastearth.http.WaterDectionary;
+import cn.bjeastearth.waterapp.model.CountHProject;
+import cn.bjeastearth.waterapp.model.CountHProjectYear;
+import cn.bjeastearth.waterapp.model.Region;
+
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
-import cn.bjeastearth.http.HttpUtil;
-import cn.bjeastearth.http.WaterDectionary;
-import cn.bjeastearth.waterapp.model.CountRiver;
-import cn.bjeastearth.waterapp.model.CountRiverYear;
-import cn.bjeastearth.waterapp.model.Region;
 import android.app.Activity;
 import android.os.Bundle;
 import android.os.Handler;
@@ -30,7 +31,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.AdapterView.OnItemSelectedListener;
 
-public class CountRiverActivity extends Activity {
+public class CountHotProjectActivity extends Activity {
 	private ListView mListView;
 	private Spinner mRegionSpinner;
 	private Spinner mYearSpinner;
@@ -39,19 +40,19 @@ public class CountRiverActivity extends Activity {
 	private LinearLayout mHeadView;
 	private ArrayList<String> years;
 	private Button btnCount;
-	private List<CountRiver> countRivers;
+	private List<CountHProject> countHProjects;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
-		super.setContentView(R.layout.activity_count_river);
+		super.setContentView(R.layout.activity_count_hotproject);
 		Button btnBack = (Button) findViewById(R.id.btnBack);
 		btnBack.setOnClickListener(new OnClickListener() {
 
 			@Override
 			public void onClick(View v) {
-				CountRiverActivity.this.finish();
+				CountHotProjectActivity.this.finish();
 			}
 		});
 		btnCount = (Button) findViewById(R.id.btnCount);
@@ -60,7 +61,7 @@ public class CountRiverActivity extends Activity {
 			@Override
 			public void onClick(View v) {
 				mHeadView.removeAllViews();
-				CountRiverActivity.this.count();
+				CountHotProjectActivity.this.count();
 
 			}
 		});
@@ -77,35 +78,34 @@ public class CountRiverActivity extends Activity {
 
 	protected void count() {
 		mListView.setAdapter(null);
-		View view = getLayoutInflater()
-				.inflate(R.layout.count_river_item, null);
+		View view = getLayoutInflater().inflate(R.layout.count_hotproject_item,
+				null);
 		TextView nameTextView = (TextView) view.findViewById(R.id.nameTv);
 		mHeadView.removeAllViews();
 		mHeadView.addView(view);
-		ArrayList<CountRiverYear> countRiverYears = new ArrayList<CountRiverYear>();
+		ArrayList<CountHProjectYear> countHProjectYears = new ArrayList<CountHProjectYear>();
 		if (mRegionSpinner.getSelectedItemPosition() == 0) {
 			nameTextView.setText("行政区");
-			for (CountRiver countRiver : this.countRivers) {
-				for (CountRiverYear countRiverYear : countRiver
-						.getCountRiverYearsByYear(mYearSpinner
+			for (CountHProject countHProject : this.countHProjects) {
+				for (CountHProjectYear countHProjectYear : countHProject
+						.getCountHProjectYearsByYear(mYearSpinner
 								.getSelectedItem().toString())) {
-					countRiverYears.add(countRiverYear);
+					countHProjectYears.add(countHProjectYear);
 				}
 			}
-		}
-		else {
+		} else {
 			nameTextView.setText("年份");
-			for (CountRiver countRiver : this.countRivers) {
-				for (CountRiverYear countRiverYear : countRiver
-						.getCountRiverYearsByZhen(mRegionSpinner
+			for (CountHProject countHProject : this.countHProjects) {
+				for (CountHProjectYear countHProjectYear : countHProject
+						.getCountHProjectYearsByZhen(mRegionSpinner
 								.getSelectedItem().toString().trim())) {
-					countRiverYears.add(countRiverYear);
+					countHProjectYears.add(countHProjectYear);
 				}
 			}
 		}
-		CountRiverAdepter countRiverAdepter = new CountRiverAdepter(this,
-				countRiverYears);
-		mListView.setAdapter(countRiverAdepter);
+		CountHotProjectAdapter countHProjectAdepter = new CountHotProjectAdapter(
+				this, countHProjectYears);
+		mListView.setAdapter(countHProjectAdepter);
 	}
 
 	private void setYearSpinner(boolean isAllYears) {
@@ -128,14 +128,12 @@ public class CountRiverActivity extends Activity {
 		ArrayList<String> arrayList = new ArrayList<String>();
 		arrayList.add("全部区域");
 		for (Region region : listRegions) {
-			if (region.getStatus()==1) {
-				arrayList.add("  "+region.getName());
-			}
-			else {
-				if (region.getStatus()==0) {
-					arrayList.add("      "+region.getName());
-				}
-				else {
+			if (region.getStatus() == 1) {
+				arrayList.add("  " + region.getName());
+			} else {
+				if (region.getStatus() == 0) {
+					arrayList.add("      " + region.getName());
+				} else {
 					arrayList.add(region.getName());
 
 				}
@@ -167,7 +165,7 @@ public class CountRiverActivity extends Activity {
 	class HttpThread implements Runnable {
 		@Override
 		public void run() {
-			String jsonString = HttpUtil.getCountRiver();
+			String jsonString = HttpUtil.getCountHProject();
 			Message msg = mHandle.obtainMessage();
 			msg.obj = jsonString;
 			msg.sendToTarget();
@@ -175,39 +173,39 @@ public class CountRiverActivity extends Activity {
 	}
 
 	static class MyHandle extends Handler {
-		WeakReference<CountRiverActivity> reference;
+		WeakReference<CountHotProjectActivity> reference;
 
-		public MyHandle(CountRiverActivity countRiverActivity) {
-			reference = new WeakReference<CountRiverActivity>(
-					countRiverActivity);
+		public MyHandle(CountHotProjectActivity countHProjectActivity) {
+			reference = new WeakReference<CountHotProjectActivity>(
+					countHProjectActivity);
 		}
 
 		@Override
 		public void handleMessage(Message msg) {
-			CountRiverActivity countRiverActivity = reference.get();
+			CountHotProjectActivity countHProjectActivity = reference.get();
 			super.handleMessage(msg);
 			Gson gson = new Gson();
-			countRiverActivity.countRivers = gson.fromJson(msg.obj.toString(),
-					new TypeToken<List<CountRiver>>() {
+			countHProjectActivity.countHProjects = gson.fromJson(
+					msg.obj.toString(), new TypeToken<List<CountHProject>>() {
 					}.getType());
-			countRiverActivity.btnCount.setEnabled(true);
+			countHProjectActivity.btnCount.setEnabled(true);
 		}
 	}
 
-	public static class CountRiverAdepter extends BaseAdapter {
-		private ArrayList<CountRiverYear> countRiverYears;
-		private CountRiverActivity mActivity;
+	public static class CountHotProjectAdapter extends BaseAdapter {
+		private ArrayList<CountHProjectYear> countHProjectYears;
+		private CountHotProjectActivity mActivity;
 
-		public CountRiverAdepter(CountRiverActivity countActivity,
-				ArrayList<CountRiverYear> arrayList) {
-			countRiverYears = arrayList;
+		public CountHotProjectAdapter(CountHotProjectActivity countActivity,
+				ArrayList<CountHProjectYear> arrayList) {
+			countHProjectYears = arrayList;
 			mActivity = countActivity;
 		}
 
 		@Override
 		public int getCount() {
 			// TODO Auto-generated method stub
-			return countRiverYears.size();
+			return countHProjectYears.size();
 		}
 
 		@Override
@@ -226,29 +224,22 @@ public class CountRiverActivity extends Activity {
 		public View getView(int position, View convertView, ViewGroup parent) {
 			if (convertView == null) {
 				convertView = mActivity.getLayoutInflater().inflate(
-						R.layout.count_river_item, null);
+						R.layout.count_hotproject_item, null);
 			}
-			CountRiverYear year = countRiverYears.get(position);
-			TextView heiheTextView = (TextView) convertView
-					.findViewById(R.id.heiheTv);
-			heiheTextView.setText(String.valueOf(year.getHhCount()));
-			TextView chouheTextView = (TextView) convertView
-					.findViewById(R.id.chouheTv);
-			chouheTextView.setText(String.valueOf(year.getChCount()));
-			TextView lajiheTextView = (TextView) convertView
-					.findViewById(R.id.lajiheTv);
-			lajiheTextView.setText(String.valueOf(year.getLjhCount()));
+			CountHProjectYear year = countHProjectYears.get(position);
+			TextView kgxmTextView = (TextView) convertView
+					.findViewById(R.id.kgxmTv);
+			kgxmTextView.setText(String.valueOf(year.getStartProCount()));
+			TextView jgxmTextView = (TextView) convertView
+					.findViewById(R.id.jgxmTv);
+			jgxmTextView.setText(String.valueOf(year.getEndProCount()));
+			TextView tzjeTextView = (TextView) convertView
+					.findViewById(R.id.tzjeTv);
+			tzjeTextView.setText(String.valueOf(year.getTzjeSum()));
 			TextView nameTextView = (TextView) convertView
 					.findViewById(R.id.nameTv);
 			nameTextView.setText(year.getName());
-			TextView sanTextView=(TextView)convertView.findViewById(R.id.sanTv);
-			sanTextView.setText(String.valueOf(year.getSanCount()));
-			TextView siTextView=(TextView)convertView.findViewById(R.id.siTv);
-			siTextView.setText(String.valueOf(year.getSiCount()));
-			TextView wuTextView=(TextView)convertView.findViewById(R.id.wuTv);
-			wuTextView.setText(String.valueOf(year.getWuCount()));
-			TextView liuTextView=(TextView)convertView.findViewById(R.id.liuTv);
-			liuTextView.setText(String.valueOf(year.getLiuCount()));
+
 			return convertView;
 		}
 

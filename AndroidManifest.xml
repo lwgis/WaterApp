@@ -132,6 +132,10 @@
             android:name="cn.bjeastearth.waterapp.CountRiverActivity"
             android:screenOrientation="sensorLandscape" >
         </activity>
+           <activity
+            android:name="cn.bjeastearth.waterapp.CountHotProjectActivity"
+            android:screenOrientation="sensorLandscape" >
+        </activity>
         <activity
             android:name="cn.bjeastearth.waterapp.LoginActivity"
             android:screenOrientation="portrait" >

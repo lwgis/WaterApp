@@ -1,5 +1,6 @@
 package cn.bjeastearth.waterapp;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -25,6 +26,7 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
@@ -33,11 +35,12 @@ import android.os.Message;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TabHost;
 import android.widget.TextView;
@@ -55,6 +58,8 @@ public class HotProjectActivity extends Activity {
 	ImageView imHp = null;
 	HotProjectAdapter mAdapter;
 	HotProject currentHotProject;
+	Button btnSearch;
+	AutoCompleteTextView mSearchEditView;
 	@SuppressLint("HandlerLeak")
 	private Handler myHandle = new Handler() {
 
@@ -68,26 +73,24 @@ public class HotProjectActivity extends Activity {
 				allProjects = gson.fromJson(msg.obj.toString(),
 						new TypeToken<List<HotProject>>() {
 						}.getType());
-				mAdapter = new HotProjectAdapter(HotProjectActivity.this,
-						allProjects);
 				HotProjectActivity.this.mListView.setAdapter(mAdapter);
 				if (mGraphicsLayer == null) {
 					mGraphicsLayer = new GraphicsLayer();
 					mapView.addLayer(mGraphicsLayer);
 				}
-				for (HotProject hotProject : allProjects) {
-					Point onePoint = new Point(hotProject.getX(),
-							hotProject.getY());
-					Map<String, Object> map = new HashMap<String, Object>();
-					map.put("id", String.valueOf(hotProject.getID()));
-					Drawable image = HotProjectActivity.this.getBaseContext()
-							.getResources()
-							.getDrawable(R.drawable.map_item_hotproject);
-					PictureMarkerSymbol symbol = new PictureMarkerSymbol(image);
-
-					Graphic oneGraphic = new Graphic(onePoint, symbol, map);
-					mGraphicsLayer.addGraphic(oneGraphic);
-				}
+				update("");
+				HotProjectActivity.this.btnSearch.setOnClickListener(new OnClickListener() {
+					
+					@Override
+					public void onClick(View v) {
+						InputMethodManager im = (InputMethodManager) HotProjectActivity.this
+								.getSystemService(Context.INPUT_METHOD_SERVICE);
+						im.hideSoftInputFromWindow(
+								HotProjectActivity.this.mSearchEditView.getWindowToken(),
+								InputMethodManager.HIDE_NOT_ALWAYS);
+						HotProjectActivity.this.update(HotProjectActivity.this.mSearchEditView.getText().toString());
+					}
+				});
 			} else {
 				Toast.makeText(HotProjectActivity.this, "连接服务器失败,请稍候再试!",
 						Toast.LENGTH_SHORT).show();
@@ -146,6 +149,17 @@ public class HotProjectActivity extends Activity {
 				HotProjectActivity.this.finish();
 			}
 		});
+		Button btnCount=(Button)findViewById(R.id.btnCount);
+		btnCount.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				Intent it=new Intent(HotProjectActivity.this, CountHotProjectActivity.class);
+				HotProjectActivity.this.startActivity(it);
+			}
+		});
+		btnSearch = (Button) findViewById(R.id.btnSearch);
+		mSearchEditView = (AutoCompleteTextView) findViewById(R.id.SearchEditText);
 		// 列表
 		this.mListView = (WebListView) findViewById(R.id.hotprojectListView);
 		this.mListView.showLoading();
@@ -180,8 +194,8 @@ public class HotProjectActivity extends Activity {
 				Double.parseDouble(getString(R.string.mapMaxX)),
 				Double.parseDouble(getString(R.string.mapMaxY)));
 		mapView.setExtent(initextext);
-//		MapUtil.addMapLayerByUrl(mapView, getString(R.string.mapWsgwngl));
-//		MapUtil.addMapLayerByUrl(mapView, getString(R.string.mapNcwscll));
+		// MapUtil.addMapLayerByUrl(mapView, getString(R.string.mapWsgwngl));
+		// MapUtil.addMapLayerByUrl(mapView, getString(R.string.mapNcwscll));
 		MapUtil.addMapLayerByUrl(mapView, getString(R.string.mapJiaXing));
 		new Thread(new httpThread()).start();
 		mapInfoLayout = (RelativeLayout) findViewById(R.id.mapInfoLayout);
@@ -277,5 +291,35 @@ public class HotProjectActivity extends Activity {
 			return null;
 		}
 		return result;
+	}
+
+	private void update(String filter) {
+		mGraphicsLayer.removeAll();
+		ArrayList<HotProject> hotProjects = new ArrayList<HotProject>();
+		if (mSearchEditView.getText().toString().equals("")) {
+			hotProjects = (ArrayList<HotProject>) allProjects;
+		} else {
+			for (HotProject hotProject : allProjects) {
+				if (hotProject.getName().contains(filter)
+						|| hotProject.getXzq().getName().contains(filter)
+						|| hotProject.getStartTime().contains(filter)
+						|| hotProject.getEndTime().contains(filter)) {
+					hotProjects.add(hotProject);
+				}
+			}
+		}
+		mAdapter = new HotProjectAdapter(HotProjectActivity.this, hotProjects);
+		HotProjectActivity.this.mListView.setAdapter(mAdapter);
+		for (HotProject hotProject : hotProjects) {
+			Point onePoint = new Point(hotProject.getX(), hotProject.getY());
+			Map<String, Object> map = new HashMap<String, Object>();
+			map.put("id", String.valueOf(hotProject.getID()));
+			Drawable image = HotProjectActivity.this.getBaseContext()
+					.getResources().getDrawable(R.drawable.map_item_hotproject);
+			PictureMarkerSymbol symbol = new PictureMarkerSymbol(image);
+
+			Graphic oneGraphic = new Graphic(onePoint, symbol, map);
+			mGraphicsLayer.addGraphic(oneGraphic);
+		}
 	}
 }

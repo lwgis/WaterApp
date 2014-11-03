@@ -99,7 +99,12 @@ private Button btnMessage=null;
 				it.setClass(this, WsgwActivity.class);
 				break;
 			case R.id.btnMeassage: 
-				it.setClass(this, SendSmsActivity.class);
+				if (WaterDectionary.getUserId()==-1) {
+					it.setClass(this, LoginActivity.class);
+				}
+				else {
+					it.setClass(this, SendSmsActivity.class);
+				}
 				break;
 		default:
 			break;

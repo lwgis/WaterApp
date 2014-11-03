@@ -26,7 +26,48 @@
         android:text="重大项目"
         android:textColor="#FFFFFF"
         android:textSize="25sp" />
+    <cn.bjeastearth.waterapp.myview.MyTextButton
+        android:id="@+id/btnCount"
+        android:paddingTop="8dp"
+        android:layout_width="60dp"
+        android:layout_height="40dp"
+        android:layout_alignParentRight="true"
+        android:background="@null"
+        android:textSize="20sp"
+        android:textColor="#ffffff"
+        android:text="统计" />
     </RelativeLayout>
+         <LinearLayout 
+    	android:layout_width="fill_parent"
+                	android:layout_height="44dp"
+                	android:background="#aae0f4"
+                	android:orientation="horizontal"
+                	android:descendantFocusability="beforeDescendants">
+                <AutoCompleteTextView
+                   android:id="@+id/SearchEditText"
+                   android:layout_width="300dp"
+                   android:layout_height="40dp"
+                   android:drawableLeft="@drawable/search_left"
+                   android:background="@drawable/search_editview"
+                   android:imeOptions="actionSearch" 
+                   android:inputType="text"
+                   android:paddingLeft="10dp"
+                   android:paddingRight="10dp"
+   				   android:layout_margin="2dp"
+   				   android:layout_weight="1"
+   				   android:completionThreshold="1"
+   				   android:hint="输入名称,行政区,完成时间"
+   				   android:dropDownSelector="#47a7f8"
+   				/>
+                <Button 
+                    android:id="@+id/btnSearch"
+                    android:layout_width="60dp"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/button"
+                    android:layout_margin="2dp"
+                    android:layout_weight="0"
+                    android:text="搜索"/>
+                     </LinearLayout>
     <TabHost android:id="@+id/tabhost" android:layout_width="fill_parent" android:layout_height="fill_parent">  
         <LinearLayout android:orientation="vertical" android:layout_width="fill_parent" android:layout_height="fill_parent">  
             <!-- TabWidget的id属性必须为 @android:id/tabs-->              

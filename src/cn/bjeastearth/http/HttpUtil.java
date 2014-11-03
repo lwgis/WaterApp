@@ -177,6 +177,11 @@ public class HttpUtil {
 		return jsonString;
 	}
 
+	public static String getCountHProject() {
+		String jsonString = HttpUtil
+				.executeHttpGet("http://159.226.110.64:8001/WaterService/GProject.svc/StaGProject");
+		return jsonString;
+	}
 	public static String login(User user) throws Throwable {
 		String jsonString = JsonUtil.convertObjectToJson(user);
 		String result = HttpUtil.postRequest(
