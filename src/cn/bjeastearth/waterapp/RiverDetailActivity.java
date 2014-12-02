@@ -2,6 +2,7 @@ package cn.bjeastearth.waterapp;
 
 import java.util.ArrayList;
 
+import cn.bjeastearth.http.WaterDectionary;
 import cn.bjeastearth.waterapp.model.FieldItem;
 import cn.bjeastearth.waterapp.model.River;
 import cn.bjeastearth.waterapp.myview.AddSzDialog;
@@ -92,7 +93,7 @@ public class RiverDetailActivity extends Activity implements ViewFactory {
 		final View popView = LayoutInflater.from(this).inflate(
 				R.layout.popupwindow_editriver, null);
 		btnEdit = (Button) findViewById(R.id.btnEdit);
-		if (currentRiver.getEditEnable()==0) {
+		if (currentRiver.getEditEnable()==0||WaterDectionary.getUserId()==-1) {
 			btnEdit.setVisibility(View.INVISIBLE);
 			return;
 		}

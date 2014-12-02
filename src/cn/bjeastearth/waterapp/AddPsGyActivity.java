@@ -260,8 +260,18 @@ public class AddPsGyActivity extends Activity {
 			tpclEditText.setText(String.valueOf(mPsIndustry.getPSum_c()));
 			tnzpEditText.setText(String.valueOf(mPsIndustry.getTN_z()));
 			tnclEditText.setText(String.valueOf(mPsIndustry.getCod_c()));
-			sfywsssSpinner.setSelection(mPsIndustry.getFsclss().equals("是")?0:1);
-			sfdbpfSpinner.setSelection(mPsIndustry.getSfdb().equals("是")?0:1);
+			if (mPsIndustry.getFsclss()!=null) {
+				sfywsssSpinner.setSelection(mPsIndustry.getFsclss().equals("是")?0:1);
+			}
+			else {
+				sfywsssSpinner.setSelection(1);
+			}
+			if (mPsIndustry.getSfdb()!=null) {
+				sfdbpfSpinner.setSelection(mPsIndustry.getSfdb().equals("是")?0:1);
+			}
+			else {
+				sfdbpfSpinner.setSelection(1);
+			}
 			if (mPsIndustry.getImages()!=null&&mPsIndustry.getImages().size()>0) {
 				for (ProjectImage projectImage : mPsIndustry.getImages()) {
 					projectImage.setType(ProjectImage.INTERNET);

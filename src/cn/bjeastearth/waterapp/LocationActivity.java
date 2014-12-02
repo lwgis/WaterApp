@@ -2,6 +2,7 @@ package cn.bjeastearth.waterapp;
 
 
 
+import cn.bjeastearth.http.MapUtil;
 import cn.bjeastearth.waterapp.location.Common;
 import cn.bjeastearth.waterapp.location.LocationSvc;
 
@@ -77,6 +78,7 @@ public class LocationActivity extends Activity {
 		mapView.addLayer(tiledMapServiceLayer);
 		mGraphicsLayer=new GraphicsLayer();
 		mapView.addLayer(mGraphicsLayer);
+		MapUtil.addMapLayerByUrl(mapView, getString(R.string.mapJiaXing));
 		Envelope initextext = new Envelope(
 				Double.parseDouble(getString(R.string.mapMinX)),
 				Double.parseDouble(getString(R.string.mapMinY)),

@@ -388,6 +388,13 @@ public class PollutionActivity extends Activity implements OnClickListener {
 				mAddPopupWindow.dismiss();
 			}
 		});
+		if (WaterDectionary.getUserId()==-1) {
+			btnAddGyPs.setVisibility(View.GONE);
+			btnAddScyzPs.setVisibility(View.GONE);
+			btnAddShPs.setVisibility(View.GONE);
+			btnAddXqyzPs.setVisibility(View.GONE);
+			btnAddZzPs.setVisibility(View.GONE);
+		}
 		Button btnCount=(Button)popView.findViewById(R.id.btnCount);
 		btnCount.setOnClickListener(new OnClickListener() {
 			

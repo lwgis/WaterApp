@@ -55,11 +55,14 @@ import android.view.View.OnClickListener;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemSelectedListener;
+import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
+import android.widget.Spinner;
 import android.widget.TabHost;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -70,6 +73,9 @@ public class RiverActivity extends Activity implements OnClickListener {
 	private final int MSG_XZQ = -1;
 	private final int MSG_ALLRIVER = 1;
 	private final int MSG_AllPs = 2;
+	private final String riverUrlhdlx = "http://159.226.110.64:8001/ags/rest/services/sanhe/MapServer";
+	private final String riverUrlhddj = "http://159.226.110.64:8001/ags/rest/services/grade/MapServer";
+	private final String riverUrlhdsz = "http://159.226.110.64:8001/ags/rest/services/hdsz/MapServer";
 	private MapView mapView = null;
 	private WebListView mListView = null;
 	private ArcGISTiledMapServiceLayer tiledMapServiceLayer = null;
@@ -94,11 +100,9 @@ public class RiverActivity extends Activity implements OnClickListener {
 	private TextView secondTv = null;
 	private ImageView itemImageView = null;
 	private AutoCompleteTextView mSearchEditView = null;
+	private Spinner mapSpinner = null;
 	private Button btnSearch;
 	private PsType mPsType;
-	private PopupWindow mAddPopupWindow;
-	private boolean popWindowIsShow;
-	private Button btnAddPs;
 	private PollutionSource currentPs;
 	private MyHandler mHandler;
 	private Envelope initextext;
@@ -152,13 +156,51 @@ public class RiverActivity extends Activity implements OnClickListener {
 				RiverActivity.this.finish();
 			}
 		});
-		//统计
-		Button btnCount=(Button)findViewById(R.id.btnRiverCount);
+		mapSpinner = (Spinner) findViewById(R.id.mapSpin);
+		ArrayList<String> maptypes = new ArrayList<String>();
+		maptypes.add("按河道类型");
+		maptypes.add("按河道等级");
+		maptypes.add("按河道水质");
+		ArrayAdapter<String> mapAdapter = new ArrayAdapter<String>(this,
+				R.layout.simple_spinner_item, maptypes);
+		mapSpinner.setAdapter(mapAdapter);
+		mapSpinner.setOnItemSelectedListener(new OnItemSelectedListener() {
+
+			@Override
+			public void onItemSelected(AdapterView<?> parent, View view,
+					int position, long id) {
+				if (riverLayer != null) {
+					RiverActivity.this.mapView.removeLayer(riverLayer);
+				}
+				switch (position) {
+				case 0:
+					riverLayer = new ArcGISDynamicMapServiceLayer(riverUrlhdlx);
+					break;
+				case 1:
+					riverLayer = new ArcGISDynamicMapServiceLayer(riverUrlhddj);
+					break;
+				case 2:
+					riverLayer = new ArcGISDynamicMapServiceLayer(riverUrlhdsz);
+					break;
+				default:
+				 break;
+				}
+				RiverActivity.this.mapView.addLayer(riverLayer);
+			}
+
+			@Override
+			public void onNothingSelected(AdapterView<?> parent) {
+				// TODO Auto-generated method stub
+
+			}
+		});
+		// 统计
+		Button btnCount = (Button) findViewById(R.id.btnRiverCount);
 		btnCount.setOnClickListener(new OnClickListener() {
-			
+
 			@Override
 			public void onClick(View v) {
-				Intent it=new Intent();
+				Intent it = new Intent();
 				it.setClass(RiverActivity.this, CountRiverActivity.class);
 				RiverActivity.this.startActivity(it);
 			}
@@ -169,7 +211,7 @@ public class RiverActivity extends Activity implements OnClickListener {
 		this.mSearchEditView = (AutoCompleteTextView) findViewById(R.id.SearchEditText);
 		// new Thread(new HttpThread("xzq")).start();
 		List<Region> listRegions = WaterDectionary.getRegions();
-		if (listRegions==null) {
+		if (listRegions == null) {
 			Toast.makeText(this, "连接服务器失败,请稍候再试!", Toast.LENGTH_SHORT).show();
 			WaterDectionary.config();
 			this.finish();
@@ -179,8 +221,8 @@ public class RiverActivity extends Activity implements OnClickListener {
 		for (Region region : listRegions) {
 			arrayList.add(region.getName());
 		}
-		SearchAdapter<String> adapter = new SearchAdapter<String>(
-				this, R.layout.autotext_item, arrayList);
+		SearchAdapter<String> adapter = new SearchAdapter<String>(this,
+				R.layout.autotext_item, arrayList);
 		this.mSearchEditView.setAdapter(adapter);
 		this.btnSearch = (Button) findViewById(R.id.btnSearch);
 		// 地图
@@ -205,15 +247,14 @@ public class RiverActivity extends Activity implements OnClickListener {
 		mapView = (MapView) findViewById(R.id.mapView);
 		tiledMapServiceLayer = new ArcGISTiledMapServiceLayer(mapURL);
 		mapView.addLayer(tiledMapServiceLayer);
-		String riverUrl = "http://159.226.110.64:8001/ags/rest/services/sanhe/MapServer";
-		riverLayer = new ArcGISDynamicMapServiceLayer(riverUrl);
-		mapView.addLayer(riverLayer);
+//		riverLayer = new ArcGISDynamicMapServiceLayer(riverUrlhdsz);
+//		mapView.addLayer(riverLayer);
 		riverFeatureLayer = new ArcGISFeatureLayer(
 				"http://159.226.110.64:8001/ags/rest/services/sanhe/MapServer/0",
 				MODE.SELECTION);
 		mapView.addLayer(riverFeatureLayer);
-//		MapUtil.addMapLayerByUrl(mapView, getString(R.string.mapWsgwngl));
-//		MapUtil.addMapLayerByUrl(mapView, getString(R.string.mapNcwscll));
+		// MapUtil.addMapLayerByUrl(mapView, getString(R.string.mapWsgwngl));
+		// MapUtil.addMapLayerByUrl(mapView, getString(R.string.mapNcwscll));
 		MapUtil.addMapLayerByUrl(mapView, getString(R.string.mapJiaXing));
 		Envelope initextext = new Envelope(
 				Double.parseDouble(getString(R.string.mapMinX)),
@@ -347,8 +388,6 @@ public class RiverActivity extends Activity implements OnClickListener {
 
 	}
 
-
-
 	private PollutionSource findHotProjectByid(String psID) {
 		for (PollutionSource pollutionSource : mPollutionSources) {
 			if (psID.equals(pollutionSource.getPID())) {
@@ -452,7 +491,9 @@ public class RiverActivity extends Activity implements OnClickListener {
 		}
 		List<River> rivers = new ArrayList<River>();
 		for (River river : mRivers) {
-			if (river.getName().contains(filter)||(river.getXzq()!=null&&river.getXzq().getName().equals(filter))) {
+			if (river.getName().contains(filter)
+					|| (river.getXzq() != null && river.getXzq().getName()
+							.equals(filter))) {
 				rivers.add(river);
 			}
 		}
@@ -563,15 +604,15 @@ public class RiverActivity extends Activity implements OnClickListener {
 				String jsonString = HttpUtil.getDectionaryString("Xzq");
 				Message msg = RiverActivity.this.mHandler.obtainMessage();
 				msg.what = MSG_XZQ;
-					msg.obj = jsonString;
-					msg.sendToTarget();
+				msg.obj = jsonString;
+				msg.sendToTarget();
 			}
 			if (tpyeString == MSG_ALLRIVER) {
 				String jsonString = HttpUtil.getAllRiverString();
-					Message msg = RiverActivity.this.mHandler.obtainMessage();
-					msg.what = MSG_ALLRIVER;
-					msg.obj = jsonString;
-					msg.sendToTarget();
+				Message msg = RiverActivity.this.mHandler.obtainMessage();
+				msg.what = MSG_ALLRIVER;
+				msg.obj = jsonString;
+				msg.sendToTarget();
 			}
 			if (tpyeString == MSG_AllPs) {
 				String jsonString = HttpUtil.getAllPollutionString("all");
@@ -593,10 +634,10 @@ public class RiverActivity extends Activity implements OnClickListener {
 		@Override
 		public void handleMessage(Message msg) {
 			final RiverActivity activity = activityReference.get();
-			if (msg.obj==null) {
-						Toast.makeText(activity, "连接服务器失败,请稍候再试!",
-								Toast.LENGTH_SHORT).show();
-						return;
+			if (msg.obj == null) {
+				Toast.makeText(activity, "连接服务器失败,请稍候再试!", Toast.LENGTH_SHORT)
+						.show();
+				return;
 			}
 			if (msg.what == activity.MSG_ALLRIVER) {
 				Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd")
@@ -621,8 +662,8 @@ public class RiverActivity extends Activity implements OnClickListener {
 								InputMethodManager.HIDE_NOT_ALWAYS);
 						activity.tabHost.setCurrentTab(1);
 						activity.mAdapter.refresh(activity
-								.findRivers(activity.mSearchEditView
-										.getText().toString()));
+								.findRivers(activity.mSearchEditView.getText()
+										.toString()));
 						activity.tabHost.setCurrentTab(1);
 					}
 				});
