@@ -1,14 +1,10 @@
 package cn.bjeastearth.http;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
-import android.widget.ArrayAdapter;
-import cn.bjeastearth.waterapp.AddPsZzActivity;
-import cn.bjeastearth.waterapp.R;
 import cn.bjeastearth.waterapp.model.Department;
 import cn.bjeastearth.waterapp.model.PsZzLevel;
 import cn.bjeastearth.waterapp.model.Region;
